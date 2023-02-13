@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ResettingPassFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="vm"
+            type="com.example.moqayda.ui.resetting_pass.ResettingPassViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".ResettingPassFragment"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:background="@drawable/background"
+        >
+        <com.google.android.material.internal.BaselineLayout
+            android:id="@+id/baseline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="210dp"
+            app:layout_constraintTop_toBottomOf="@id/reset_pass_tv"
+            />
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/reset_pass_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_password"
+            style="@style/title_tv_style"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/bomb_gw"
+
+            />
+
+        <TextView
+            android:id="@+id/registered_mail_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_registered_mail"
+            app:layout_constraintStart_toStartOf="@id/reset_pass_tv"
+            app:layout_constraintEnd_toEndOf="@id/reset_pass_tv"
+            app:layout_constraintTop_toBottomOf="@id/baseline"
+            style="@style/sub_title_tv_style"
+            android:fontFamily="@font/bomb_gw"
+            />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registered_mail_tv"
+            android:layout_marginTop="40dp"
+            app:startIconDrawable="@drawable/ic_baseline_person_24"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            layout_error = "@{vm.emailError}"
+            >
+            <EditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:hint="@string/email"
+                android:text="@={vm.email}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/reset_pass_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/email_tv"
+            android:text="@string/reset_password"
+            android:onClick="@{()->vm.resetPassword()}"
+            android:paddingEnd="40dp"
+            android:paddingStart="40dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rounded_btn"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
