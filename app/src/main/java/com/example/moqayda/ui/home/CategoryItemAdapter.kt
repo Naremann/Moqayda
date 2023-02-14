@@ -11,7 +11,7 @@ import com.example.moqayda.databinding.CategoryLeftItemBinding
 import com.example.moqayda.databinding.CategoryRightItemBinding
 import com.example.moqayda.models.CategoryItem
 
-class CategoryItemAdapter(var categoryList: List<CategoryItem>) :
+class CategoryItemAdapter(var categoryList: List<CategoryItem>, private val clickListener: CategoryListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val leftItemCode = 0
@@ -52,11 +52,11 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem>) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val categoryItem = categoryList[position]
         holder.itemView.setOnClickListener {
-            onItemClick.onItemClick(categoryItem, position)
+
         }
 
         if (getItemViewType(position) == rightItemCode) {
-            (holder as CategoryRightItemViewHolder).bind(categoryItem)
+            (holder as CategoryRightItemViewHolder).bind(categoryItem,clickListener)
             holder.rightItemBinding.materialCardView.setCardBackgroundColor(
                 getColor(
                     holder.itemView.context,
@@ -68,7 +68,7 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem>) :
             )
 
         } else {
-            (holder as CategoryLeftItemViewHolder).bind(categoryItem)
+            (holder as CategoryLeftItemViewHolder).bind(categoryItem,clickListener)
             holder.leftItemBinding.materialCardView.setCardBackgroundColor(
                 getColor(
                     holder.itemView.context,
@@ -83,16 +83,13 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem>) :
 
     }
 
-    lateinit var onItemClick: OnCategoryItemClickListener
 
-    interface OnCategoryItemClickListener {
-        fun onItemClick(categoryItem: CategoryItem, position: Int)
-    }
 
 
     class CategoryLeftItemViewHolder(val leftItemBinding: CategoryLeftItemBinding) :
         RecyclerView.ViewHolder(leftItemBinding.root) {
-        fun bind(categoryItem: CategoryItem) {
+        fun bind(categoryItem: CategoryItem, clickListener: CategoryListener) {
+            leftItemBinding.clickListener = clickListener
             leftItemBinding.item = categoryItem
             leftItemBinding.invalidateAll()
         }
@@ -100,10 +97,16 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem>) :
 
     class CategoryRightItemViewHolder(val rightItemBinding: CategoryRightItemBinding) :
         RecyclerView.ViewHolder(rightItemBinding.root) {
-        fun bind(categoryItem: CategoryItem) {
+        fun bind(categoryItem: CategoryItem, clickListener: CategoryListener) {
+            rightItemBinding.clickListener = clickListener
             rightItemBinding.item = categoryItem
             rightItemBinding.invalidateAll()
 
         }
     }
+}
+
+class CategoryListener(val clickListener: (categoryName: String) -> Unit) {
+    fun onClick(categoryItem: CategoryItem) = clickListener(categoryItem.name)
+
 }
