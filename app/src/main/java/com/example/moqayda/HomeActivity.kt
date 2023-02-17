@@ -2,6 +2,8 @@ package com.example.moqayda
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.example.moqayda.databinding.ActivityHomeBinding
 
@@ -11,7 +13,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
 
             when(item.itemId){
@@ -41,5 +42,36 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
+
     }
+    override fun onBackPressed() {
+        findNavController(R.id.home_nav_host_fragment).popBackStack()
+        Log.e("onBackPressed", findNavController(R.id.home_nav_host_fragment).currentDestination?.id.toString())
+        when (findNavController(R.id.home_nav_host_fragment).currentDestination?.id) {
+            R.id.homeFragment -> {
+                binding.bottomNavigationView.selectedItemId = R.id.home
+                binding.fabButton.show()
+                super.onBackPressed()
+            }
+            R.id.favoriteFragment -> {
+                binding.bottomNavigationView.selectedItemId = R.id.favorite
+                binding.fabButton.hide()
+                super.onBackPressed()
+            }
+            R.id.chatFragment -> {
+                binding.bottomNavigationView.selectedItemId = R.id.chat
+                binding.fabButton.hide()
+                super.onBackPressed()
+            }
+            R.id.profileFragment -> {
+                binding.bottomNavigationView.selectedItemId = R.id.profile
+                binding.fabButton.hide()
+                super.onBackPressed()
+            }
+            else -> {
+                super.onBackPressed()
+            }
+        }
+    }
+
 }

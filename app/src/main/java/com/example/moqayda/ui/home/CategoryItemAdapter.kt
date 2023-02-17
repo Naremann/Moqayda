@@ -106,7 +106,7 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem>, private val clic
     }
 }
 
-class CategoryListener(val clickListener: (categoryName: String) -> Unit) {
-    fun onClick(categoryItem: CategoryItem) = clickListener(categoryItem.name)
+class CategoryListener(val clickListener: (categoryItem: CategoryItem) -> Unit) {
+    fun onClick(categoryItem: CategoryItem) = clickListener(categoryItem)
 
 }

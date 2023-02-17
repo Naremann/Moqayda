@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.HomeActivity
@@ -35,12 +36,24 @@ class HomeFragment : Fragment() {
         binding.categoryRecycler.layoutManager = layoutManager
 
         viewModel.categoryList.observe(viewLifecycleOwner, Observer { data ->
-            adapter = CategoryItemAdapter(data, CategoryListener { categoryName ->
-                Toast.makeText(this.context,categoryName,Toast.LENGTH_LONG).show()
-                Log.e("HomeFragment",categoryName)
+            adapter = CategoryItemAdapter(data, CategoryListener { categoryItem ->
+                Toast.makeText(this.context,categoryItem.name,Toast.LENGTH_LONG).show()
+                Log.e("HomeFragment",categoryItem.name)
+                viewModel.onCategorySelected(categoryItem)
+
             })
 
+
+
             binding.categoryRecycler.adapter = adapter
+        })
+
+
+        viewModel.navigateToProductListFragment.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductsListFragment(it))
+            }
+            viewModel.onProductListNavigated()
         })
 
 

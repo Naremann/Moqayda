@@ -14,6 +14,10 @@ class HomViewModel : ViewModel() {
     val categoryList: LiveData<List<CategoryItem>>
         get() = _categoryList
 
+    private val _navigateToProductListFragment = MutableLiveData<CategoryItem?>()
+    val navigateToProductListFragment: LiveData<CategoryItem?>
+        get() = _navigateToProductListFragment
+
 
     private val data = listOf(
         CategoryItem(
@@ -36,6 +40,14 @@ class HomViewModel : ViewModel() {
             null,
             null,
             true,
+            "Books",
+            R.drawable.img_books,
+            R.color.category_books_color
+        ),
+        CategoryItem(
+            null,
+            null,
+            true,
             "Fashion",
             R.drawable.img_fashion,
             R.color.category_fashion_color
@@ -48,14 +60,7 @@ class HomViewModel : ViewModel() {
             R.drawable.img_pets,
             R.color.category_pets_color
         ),
-        CategoryItem(
-            null,
-            null,
-            true,
-            "Books",
-            R.drawable.img_books,
-            R.color.category_books_color
-        ),
+
         CategoryItem(
             null,
             null,
@@ -65,6 +70,14 @@ class HomViewModel : ViewModel() {
             R.color.category_other_color
         )
     )
+
+    fun onCategorySelected(categoryItem: CategoryItem) {
+        _navigateToProductListFragment.postValue(categoryItem)
+    }
+
+    fun onProductListNavigated() {
+        _navigateToProductListFragment.postValue(null)
+    }
 
     init {
 
