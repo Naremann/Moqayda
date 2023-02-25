@@ -4,11 +4,12 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class CategoryItem(
-    val id: Int?,
+data class Product(
+    val id: Int,
     val name: String,
+    val descriptions: String,
+    val pathImage: String,
+    val availableSince: String,
     val isActive: Boolean,
-    val pathImage: String?,
-    val categoryBackgroundColor: Int,
-    val categoryProductViewModels: List<Product>?
+    val categoryId: Int
 ) : Parcelable

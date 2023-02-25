@@ -3,7 +3,6 @@ package com.example.moqayda
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.example.moqayda.databinding.ActivityHomeBinding
 
@@ -42,7 +41,6 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
-
     }
     override fun onBackPressed() {
         findNavController(R.id.home_nav_host_fragment).popBackStack()
@@ -73,5 +71,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
 }

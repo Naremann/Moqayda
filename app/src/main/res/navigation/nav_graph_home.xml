@@ -10,10 +10,10 @@
         android:name="com.example.moqayda.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
+
         <action
             android:id="@+id/action_homeFragment_to_productsListFragment"
-            app:destination="@id/productsListFragment"
-            app:popUpToInclusive="false" />
+            app:destination="@id/productsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -35,11 +35,10 @@
         android:name="com.example.moqayda.ui.products.ProductsListFragment"
         android:label="ProductsListFragment"
         tools:layout="@layout/fragment_list_products">
+
+
         <argument
-            android:name="selectedCategory"
+            android:name="SelectedCategory"
             app:argType="com.example.moqayda.models.CategoryItem" />
-        <action
-            android:id="@+id/action_productsListFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

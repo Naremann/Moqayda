@@ -22,7 +22,6 @@ class ProductsListFragment: Fragment() {
         binding = FragmentListProductsBinding.inflate(layoutInflater)
 
         category = ProductsListFragmentArgs.fromBundle(requireArguments()).selectedCategory
-
         binding.categoryName.text = category.name
 
 

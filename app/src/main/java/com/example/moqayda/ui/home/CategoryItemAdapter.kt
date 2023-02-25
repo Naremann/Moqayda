@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
+import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.CategoryLeftItemBinding
 import com.example.moqayda.databinding.CategoryRightItemBinding
 import com.example.moqayda.models.CategoryItem
@@ -60,24 +61,26 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem>, private val clic
             holder.rightItemBinding.materialCardView.setCardBackgroundColor(
                 getColor(
                     holder.itemView.context,
-                    categoryItem.categoryColor
+                    categoryItem.categoryBackgroundColor
                 )
             )
-            holder.rightItemBinding.categoryImg.setImageResource(
-                categoryItem.image
-            )
+//            holder.rightItemBinding.categoryImg.setImageResource(
+//                categoryItem.image
+//            )
+            bindImage(holder.rightItemBinding.categoryImg,categoryItem.pathImage)
 
         } else {
             (holder as CategoryLeftItemViewHolder).bind(categoryItem,clickListener)
             holder.leftItemBinding.materialCardView.setCardBackgroundColor(
                 getColor(
                     holder.itemView.context,
-                    categoryItem.categoryColor
+                    categoryItem.categoryBackgroundColor
                 )
             )
-            holder.leftItemBinding.categoryImg.setImageResource(
-                categoryItem.image
-            )
+//            holder.leftItemBinding.categoryImg.setImageResource(
+//                categoryItem.image
+//            )
+            bindImage(holder.leftItemBinding.categoryImg,categoryItem.pathImage)
         }
 
 

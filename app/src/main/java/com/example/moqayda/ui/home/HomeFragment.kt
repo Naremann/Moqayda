@@ -37,8 +37,7 @@ class HomeFragment : Fragment() {
 
         viewModel.categoryList.observe(viewLifecycleOwner, Observer { data ->
             adapter = CategoryItemAdapter(data, CategoryListener { categoryItem ->
-                Toast.makeText(this.context,categoryItem.name,Toast.LENGTH_LONG).show()
-                Log.e("HomeFragment",categoryItem.name)
+
                 viewModel.onCategorySelected(categoryItem)
 
             })
@@ -51,9 +50,11 @@ class HomeFragment : Fragment() {
 
         viewModel.navigateToProductListFragment.observe(viewLifecycleOwner, Observer {
             it?.let {
-                this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductsListFragment(it))
+                this.findNavController()
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToProductsListFragment(it))
+                viewModel.onProductListNavigated()
             }
-            viewModel.onProductListNavigated()
+
         })
 
 
