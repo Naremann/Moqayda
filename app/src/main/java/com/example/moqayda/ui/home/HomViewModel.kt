@@ -47,19 +47,20 @@
 
 package com.example.moqayda.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.R
 import com.example.moqayda.api.RetrofitBuilder
+import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.CategoryItem
-import com.example.moqayda.models.CategoryResponse
 import kotlinx.coroutines.launch
 
-class HomViewModel : ViewModel() {
+class HomViewModel : BaseViewModel<Navigator>() {
 
-
+    var progressBarVisible = MutableLiveData<Boolean>()
+    var navigator : Navigator?=null
     private val _categoryList = MutableLiveData<List<CategoryItem>>()
     val categoryList: LiveData<List<CategoryItem>>
         get() = _categoryList
@@ -122,18 +123,27 @@ class HomViewModel : ViewModel() {
     )
 
     private fun fetchCategoryList() {
+        progressBarVisible.value=true
 
         viewModelScope.launch {
+
             val response = RetrofitBuilder.retrofitService.getAllCategories()
-            if (response.isSuccessful) {
-                _categoryList.postValue(response.body())
+            progressBarVisible.value=false
+            try {
+                if (response.isSuccessful) {
+                    _categoryList.postValue(response.body())
+
+                }
+            }catch (ex:Exception){
+                Log.e("ex","error"+ex.localizedMessage)
             }
         }
 
     }
 
     fun onCategorySelected(categoryItem: CategoryItem) {
-        _navigateToProductListFragment.postValue(categoryItem)
+        navigator?.navigateToProductListFragment(categoryItem)
+        //_navigateToProductListFragment.postValue(categoryItem)
     }
 
     fun onProductListNavigated() {
