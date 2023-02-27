@@ -1,0 +1,34 @@
+package com.example.moqayda.database
+
+import android.content.Context
+import android.util.Log
+import androidx.room.*
+import com.example.moqayda.ProductTypeConvert
+import com.example.moqayda.models.CategoryItem
+
+@Database(entities = [CategoryItem::class], version = 1, exportSchema = false)
+@TypeConverters(ProductTypeConvert::class)
+abstract class MyDatabase:RoomDatabase(){
+
+    abstract fun categoryDao(): CategoryDao
+    companion object{
+        private const val DATABASE_NAME = "database"
+        var database : MyDatabase? = null
+        fun init(context:Context) {
+            if(database == null){
+                database = Room.databaseBuilder(
+                    context,
+                    MyDatabase::class.java,
+                    DATABASE_NAME
+                ).fallbackToDestructiveMigration()
+                    .build()
+            }
+            Log.e("init", "database:$database")
+
+        }
+        fun getInstance() : MyDatabase?{
+            return database
+        }
+
+    }
+}

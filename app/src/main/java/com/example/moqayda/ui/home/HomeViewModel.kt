@@ -57,10 +57,10 @@ import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.CategoryItem
 import kotlinx.coroutines.launch
 
-class HomViewModel : BaseViewModel<Navigator>() {
+class HomeViewModel : BaseViewModel<Navigator>() {
 
     var progressBarVisible = MutableLiveData<Boolean>()
-    var navigator : Navigator?=null
+
     private val _categoryList = MutableLiveData<List<CategoryItem>>()
     val categoryList: LiveData<List<CategoryItem>>
         get() = _categoryList
@@ -142,8 +142,7 @@ class HomViewModel : BaseViewModel<Navigator>() {
     }
 
     fun onCategorySelected(categoryItem: CategoryItem) {
-        navigator?.navigateToProductListFragment(categoryItem)
-        //_navigateToProductListFragment.postValue(categoryItem)
+        _navigateToProductListFragment.postValue(categoryItem)
     }
 
     fun onProductListNavigated() {

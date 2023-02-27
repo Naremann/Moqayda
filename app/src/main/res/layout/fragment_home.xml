@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.moqayda.ui.home.HomViewModel" />
+            type="com.example.moqayda.ui.home.HomeViewModel" />
 
     </data>
 
