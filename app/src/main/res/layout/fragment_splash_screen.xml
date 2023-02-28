@@ -58,7 +58,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="270dp"
-                android:text="Moqayda"
+                android:text="Barter"
                 android:textSize="40sp"
                 android:textColor="@color/blue"
                 android:textStyle="bold"
