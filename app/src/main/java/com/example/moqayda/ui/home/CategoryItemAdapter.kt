@@ -12,7 +12,7 @@ import com.example.moqayda.databinding.CategoryLeftItemBinding
 import com.example.moqayda.databinding.CategoryRightItemBinding
 import com.example.moqayda.models.CategoryItem
 
-class CategoryItemAdapter(var categoryList: List<CategoryItem>, private val clickListener: CategoryListener) :
+class CategoryItemAdapter(var categoryList: List<CategoryItem?>, private val clickListener: CategoryListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val leftItemCode = 0
@@ -57,11 +57,11 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem>, private val clic
         }
 
         if (getItemViewType(position) == rightItemCode) {
-            (holder as CategoryRightItemViewHolder).bind(categoryItem,clickListener)
+            (holder as CategoryRightItemViewHolder).bind(categoryItem!!,clickListener)
             holder.rightItemBinding.materialCardView.setCardBackgroundColor(
                 getColor(
                     holder.itemView.context,
-                    categoryItem.categoryBackgroundColor
+                    categoryItem.categoryBackgroundColor!!
                 )
             )
 //            holder.rightItemBinding.categoryImg.setImageResource(
@@ -70,11 +70,11 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem>, private val clic
             bindImage(holder.rightItemBinding.categoryImg,categoryItem.pathImage)
 
         } else {
-            (holder as CategoryLeftItemViewHolder).bind(categoryItem,clickListener)
+            (holder as CategoryLeftItemViewHolder).bind(categoryItem!!,clickListener)
             holder.leftItemBinding.materialCardView.setCardBackgroundColor(
                 getColor(
                     holder.itemView.context,
-                    categoryItem.categoryBackgroundColor
+                    categoryItem.categoryBackgroundColor!!
                 )
             )
 //            holder.leftItemBinding.categoryImg.setImageResource(

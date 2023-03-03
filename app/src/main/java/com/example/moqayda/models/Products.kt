@@ -1,16 +1,26 @@
 package com.example.moqayda.models
 
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-data class Product(
+@Parcelize
+data class Products(
+	val id: Int,
+	val name: String,
+	val descriptions: String,
+	val pathImage: String,
+	val availableSince: String,
+	val isActive: Boolean,
+	val categoryId: Int
+) : Parcelable
+/*data class Products(
 
 	@field:SerializedName("Products")
-	val products: List<ProductItem?>? = null
+	val products: List<ProductsItem?>? = null
 )
 
-data class ProductItem(
+data class ProductsItem(
 
 	@field:SerializedName("pathImage")
 	val pathImage: String? = null,
@@ -35,14 +45,4 @@ data class ProductItem(
 
 	@field:SerializedName("productBackgroundColor")
 	val productBackgroundColor: Int? = null
-)
-/*@Parcelize
-data class Product(
-    val id: Int,
-    val name: String,
-    val descriptions: String,
-    val pathImage: String,
-    val availableSince: String,
-    val isActive: Boolean,
-    val categoryId: Int
-) : Parcelable*/
+)*/

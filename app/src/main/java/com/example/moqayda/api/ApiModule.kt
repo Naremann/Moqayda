@@ -14,16 +14,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
-class ApiModule {
+object ApiModule {
 
-    @Provides
+    /*@Provides
     fun provideInterceptor():Interceptor{
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    }
-    @Provides
+    }*/
+   /* @Provides
     fun provideOkHttpClient(interceptor: Interceptor):OkHttpClient{
         return OkHttpClient.Builder().addInterceptor(interceptor).build()
-    }
+    }*/
 
     @Provides
     fun provideGsonFactory():GsonConverterFactory{
@@ -31,9 +31,10 @@ class ApiModule {
     }
 
     @Provides
-    fun provideRetrofit(gsonFactory: GsonConverterFactory, client: OkHttpClient):Retrofit{
-        return Retrofit.Builder().baseUrl(Constants.BASE_URL).addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .client(client)
+    fun provideRetrofit(gsonFactory: GsonConverterFactory):Retrofit{
+        return Retrofit.Builder().baseUrl(Constants.BASE_URL)
+            //.addCallAdapterFactory(CoroutineCallAdapterFactory())
+            //.client(client)
             .addConverterFactory(gsonFactory)
             .build()
     }

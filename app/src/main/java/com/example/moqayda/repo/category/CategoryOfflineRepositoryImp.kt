@@ -1,16 +1,21 @@
 package com.example.moqayda.repo.category
 
+import android.util.Log
 import com.example.moqayda.database.MyDatabase
 import com.example.moqayda.models.CategoryItem
-import com.example.moqayda.models.CategoryResponse
-import retrofit2.Response
 
-class CategoryOfflineRepositoryImp(val database: MyDatabase?):CategoryOfflineRepository {
+class CategoryOfflineRepositoryImp(val database: MyDatabase):CategoryOfflineRepository {
     override suspend fun updateCategory(categoryItems: List<CategoryItem?>?) {
-       database?.categoryDao()?.updateCategory(categoryItems)
+       database.categoryDao().updateCategory(categoryItems)
     }
 
     override suspend fun getCategories(): List<CategoryItem?>? {
-        return database?.categoryDao()!!.getCategories()
+        try {
+            return database.categoryDao().getCategories()
+
+        }catch (ex:Exception){
+            Log.e("","error${ex.localizedMessage}")
+            throw ex
+        }
     }
 }

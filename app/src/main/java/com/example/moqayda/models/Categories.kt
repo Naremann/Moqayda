@@ -3,7 +3,7 @@ package com.example.moqayda.models
 import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
-@Entity
+/*@Entity
 data class Categories(
 
 	@field:SerializedName("Categories")
@@ -30,3 +30,4 @@ data class CategoriesItem(
 	@field:SerializedName("isActive")
 	val isActive: Boolean? = null
 )
+*/
