@@ -6,19 +6,19 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.*
 
-class ProductTypeConvert{
+object ProductTypeConvert{
 @TypeConverter
-fun storedStringToMyObjects(data: String?): List<Product?>? {
+fun storedStringToMyObjects(data: String?): Product? {
     val gson = Gson()
     if (data == null) {
-        return Collections.emptyList()
+        return Product()
     }
     val listType = object : TypeToken<List<Product?>?>() {}.type
-    return gson.fromJson<List<Product?>>(data, listType)
+    return gson.fromJson<Product?>(data, listType)
 }
 
 @TypeConverter
-fun myObjectsToStoredString(myObjects: List<Product?>?): String? {
+fun myObjectsToStoredString(myObjects: Product?): String? {
     val gson = Gson()
     return gson.toJson(myObjects)
 }

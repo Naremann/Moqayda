@@ -21,9 +21,10 @@ abstract class MyDatabase:RoomDatabase(){
                     MyDatabase::class.java,
                     DATABASE_NAME
                 ).fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build()
             }
-            Log.e("init", "database:$database")
+            //Log.e("init", "database:$database")
 
         }
         fun getInstance() : MyDatabase?{

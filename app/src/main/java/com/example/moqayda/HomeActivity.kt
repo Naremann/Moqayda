@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.navigation.findNavController
 import com.example.moqayda.databinding.ActivityHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentHomeBinding
-import com.example.moqayda.models.CategoryItem
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
     private lateinit var adapter: CategoryItemAdapter
 
@@ -20,6 +20,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.vm=viewModel
         initRecyclerView()
+        subscribeToLiveData()
         observeToLiveData()
 
     }
@@ -40,9 +41,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
 
         }
         viewModel.categoryList.observe(viewLifecycleOwner) { data ->
-            adapter = CategoryItemAdapter(data, CategoryListener { categoryItem ->
-                viewModel.onCategorySelected(categoryItem)
-            })
+            adapter = data?.let {
+                CategoryItemAdapter(it, CategoryListener { categoryItem ->
+                    viewModel.onCategorySelected(categoryItem)
+                })
+            }!!
 
 
 
