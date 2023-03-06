@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/productsListFragment"
-        android:name="com.example.moqayda.ui.products.ProductsListFragment"
+        android:name="com.example.moqayda.ui.product.ProductsListFragment"
         android:label="ProductsListFragment"
         tools:layout="@layout/fragment_list_products">
 
