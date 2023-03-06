@@ -66,10 +66,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel  @Inject constructor(val categoryRepository: CategoryRepository) : BaseViewModel<Navigator>() {
-   // lateinit var categoryOfflineRepository: CategoryOfflineRepository
+    lateinit var categoryOnlineRepository: CategoryOnlineRepository
+    // lateinit var categoryOfflineRepository: CategoryOfflineRepository
     /*lateinit var categoryRepository: CategoryRepository
 
-    lateinit var categoryOnlineRepository: CategoryOnlineRepository
+
     lateinit var networkHandler: NetworkHandler*/
 
     var progressBarVisible = MutableLiveData<Boolean>()
@@ -90,7 +91,7 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
             isActive = true,
             pathImage = null,
             categoryBackgroundColor = R.color.electronics_category_color,
-            categoryProductViewModels =  null
+            //categoryProductViewModels =  null
         ),
         CategoryItem(
             id = null,
@@ -98,7 +99,7 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
             isActive = true,
             pathImage =  null,
             categoryBackgroundColor = R.color.category_furniture_color,
-            categoryProductViewModels = null
+            //categoryProductViewModels = null
         ),
         CategoryItem(
              id = null,
@@ -106,7 +107,7 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
             isActive = true,
             pathImage = null,
             categoryBackgroundColor = R.color.category_fashion_color,
-            categoryProductViewModels = null
+            //categoryProductViewModels = null
         ),
         CategoryItem(
             id = null,
@@ -114,7 +115,7 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
             isActive = true,
             pathImage = null,
             categoryBackgroundColor = R.color.category_books_color,
-            categoryProductViewModels = null
+           // categoryProductViewModels = null
         ),
         CategoryItem(
             id = null,
@@ -122,7 +123,7 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
             isActive = true,
             pathImage = null,
             categoryBackgroundColor = R.color.category_pets_color,
-            categoryProductViewModels = null
+            //categoryProductViewModels = null
         ),
 
         CategoryItem(
@@ -131,7 +132,7 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
             isActive = true,
             pathImage = null,
             categoryBackgroundColor = R.color.category_other_color,
-            categoryProductViewModels = null
+            //categoryProductViewModels = null
         )
     )
 
@@ -139,6 +140,7 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
         progressBarVisible.value=true
 
         viewModelScope.launch {
+            //val result = categoryRepository.getCategories()
             val result = categoryRepository.getCategories()
             progressBarVisible.value=false
             try {
@@ -163,9 +165,10 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
     }
 
     init {
+        categoryOnlineRepository=CategoryOnlineRepositoryImp(RetrofitBuilder.retrofitService)
        // categoryOfflineRepository=CategoryOfflineRepositoryImp(MyDatabase.getInstance()!!)
        /* networkHandler=NetworkHandlerImp()
-        categoryOnlineRepository=CategoryOnlineRepositoryImp(RetrofitBuilder.retrofitService)
+
 
         categoryRepository=CategoryRepositoryImp(networkHandler,categoryOnlineRepository,categoryOfflineRepository)
         */

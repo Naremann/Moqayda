@@ -11,8 +11,8 @@ import kotlinx.parcelize.RawValue
 
 data class Category(
 
-    @field:SerializedName("Categories")
-    val category: List<CategoryItem?>? = null
+    @field:SerializedName("Category")
+    val category: List<CategoryItem>? = null
 )
 
 @Entity
@@ -36,9 +36,9 @@ data class CategoryItem(
     @field:SerializedName("id")
     val id: Int? = null,
 
-    @ColumnInfo
+   @ColumnInfo
     @field:SerializedName("categoryProductViewModels")
-    val categoryProductViewModels: @RawValue Product? = null,
+    val categoryProductViewModels:@RawValue Product? = null,
 
     @field:SerializedName("isActive")
     val isActive: Boolean? = null

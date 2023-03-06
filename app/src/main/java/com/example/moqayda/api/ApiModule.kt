@@ -1,12 +1,11 @@
 package com.example.moqayda.api
 
+import android.util.Log
 import com.example.moqayda.Constants
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,14 +15,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 object ApiModule {
 
-    /*@Provides
-    fun provideInterceptor():Interceptor{
-        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    }*/
-   /* @Provides
-    fun provideOkHttpClient(interceptor: Interceptor):OkHttpClient{
+    @Provides
+    fun provideInterceptor():HttpLoggingInterceptor{
+        val logginInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+                Log.e("api",message)
+            }
+            
+        })
+        logginInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        return logginInterceptor
+    }
+    @Provides
+    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor):OkHttpClient{
         return OkHttpClient.Builder().addInterceptor(interceptor).build()
-    }*/
+    }
 
     @Provides
     fun provideGsonFactory():GsonConverterFactory{
@@ -31,10 +37,10 @@ object ApiModule {
     }
 
     @Provides
-    fun provideRetrofit(gsonFactory: GsonConverterFactory):Retrofit{
+    fun provideRetrofit(gsonFactory: GsonConverterFactory,client: OkHttpClient):Retrofit{
         return Retrofit.Builder().baseUrl(Constants.BASE_URL)
             //.addCallAdapterFactory(CoroutineCallAdapterFactory())
-            //.client(client)
+            .client(client)
             .addConverterFactory(gsonFactory)
             .build()
     }

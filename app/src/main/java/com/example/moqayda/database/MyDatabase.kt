@@ -6,7 +6,7 @@ import androidx.room.*
 import com.example.moqayda.ProductTypeConvert
 import com.example.moqayda.models.CategoryItem
 
-@Database(entities = [CategoryItem::class], version = 1, exportSchema = false)
+@Database(entities = [CategoryItem::class], version = 3, exportSchema = false)
 @TypeConverters(ProductTypeConvert::class)
 abstract class MyDatabase:RoomDatabase(){
 
