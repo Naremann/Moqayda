@@ -73,4 +73,8 @@
     <style name="LeftCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/CategoryLeftItemStyle</item>
     </style>
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">53%</item>
+    </style>
 </resources>
