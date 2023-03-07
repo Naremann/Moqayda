@@ -41,4 +41,9 @@
             android:name="SelectedCategory"
             app:argType="com.example.moqayda.models.CategoryItem" />
     </fragment>
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="com.example.moqayda.ui.addProduct.AddProductFragment"
+        android:label="AddProductFragment"
+        tools:layout="@layout/fragment_add_product" />
 </navigation>
