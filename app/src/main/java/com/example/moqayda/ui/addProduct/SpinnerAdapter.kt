@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import com.example.moqayda.databinding.CategoryListItemNameBinding
+import com.example.moqayda.databinding.CategoryListItemBinding
 import com.example.moqayda.models.CategoryItem
 
 class SpinnerAdapter(context: Context, categoryList: List<CategoryItem>) : ArrayAdapter<CategoryItem>(
@@ -26,7 +26,7 @@ class SpinnerAdapter(context: Context, categoryList: List<CategoryItem>) : Array
 
         val currency = getItem(position)
 
-        val binding = CategoryListItemNameBinding.inflate(
+        val binding = CategoryListItemBinding.inflate(
             (LayoutInflater.from(parent.context)),
             parent, false
         )

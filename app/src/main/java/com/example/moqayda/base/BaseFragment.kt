@@ -86,4 +86,5 @@ abstract class BaseFragment<DB: ViewDataBinding,VM: BaseViewModel<*>> : Fragment
         }
 
     }
+
 }

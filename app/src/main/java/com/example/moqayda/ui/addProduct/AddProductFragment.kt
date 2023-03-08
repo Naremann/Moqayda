@@ -9,13 +9,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
-import android.widget.AdapterView
+import android.view.View.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import com.example.moqayda.*
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentAddProductBinding
@@ -24,13 +27,14 @@ import com.google.android.material.snackbar.Snackbar
 import java.io.File
 
 
-class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductViewModel>() {
+class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductViewModel>(),
+    Navigator {
     private lateinit var permReqLauncher: ActivityResultLauncher<Array<String>>
     private var selectedFile: Uri? = null
     private lateinit var categoryList: List<CategoryItem>
     private lateinit var selectedCategory: CategoryItem
 
-    private var permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+    private var permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,30 +42,33 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
         viewDataBinding.lifecycleOwner = this
         observeToLiveData()
         initPermReqLauncher()
+        viewModel.navigator = this
 
-        viewDataBinding.categoriesSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    selectedCategory = categoryList[position]
-                }
+        selectedCategory = AddProductFragmentArgs.fromBundle(requireArguments()).selectedCategory
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
-                }
-            }
-
+        viewDataBinding.category = selectedCategory
+        bindImage(viewDataBinding.categoryItemImg, selectedCategory.pathImage)
+        viewDataBinding.categoryItemImg.setBackgroundColor(
+            getColor(requireContext(), selectedCategory.categoryBackgroundColor!!)
+        )
 
         viewDataBinding.pickButton.setOnClickListener {
             pick()
+
         }
         viewDataBinding.uploadButton.setOnClickListener {
             upload()
+//            viewModel.navigateToHome()
         }
+        viewDataBinding.deleteImage.setOnClickListener {
+            viewDataBinding.productImage.visibility = GONE
+            viewDataBinding.deleteImage.visibility = GONE
+            viewDataBinding.pickButton.visibility = VISIBLE
+        }
+        viewDataBinding.categoryItemImg.setOnClickListener {
+            viewModel.navigateToSelectCategory()
+        }
+
     }
 
     private fun initPermReqLauncher() {
@@ -103,7 +110,6 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
         })
         viewModel.categoryList.observe(viewLifecycleOwner, Observer {
             categoryList = it
-            initSpinner(categoryList)
         })
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
@@ -137,8 +143,11 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
             if (result.resultCode == RESULT_OK) {
+                viewDataBinding.pickButton.visibility = GONE
+                viewDataBinding.productImage.visibility = VISIBLE
+                viewDataBinding.deleteImage.visibility = VISIBLE
+                viewDataBinding.productImage.setImageURI(result.data!!.data)
                 selectedFile = result.data!!.data!!
-                viewDataBinding.pathImage.text = selectedFile!!.path.toString()
             }
 
         }
@@ -174,10 +183,6 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
         permissions.all {
             ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
         }
-
-    private fun initSpinner(categoryList: List<CategoryItem>) {
-        viewDataBinding.categoriesSpinner.adapter = SpinnerAdapter(requireContext(), categoryList)
-    }
 
 
     private fun permissionApproved(): Boolean {
@@ -222,5 +227,13 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
             selectImage()
         }
 
+    }
+
+    override fun onNavigateToHomeFragment() {
+        findNavController(viewDataBinding.addProductLayout).navigate(R.id.homeFragment)
+    }
+
+    override fun onNavigateToSelectCategoryFragment() {
+        findNavController(viewDataBinding.addProductLayout).navigate(R.id.selectCategoryFragment)
     }
 }

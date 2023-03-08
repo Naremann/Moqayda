@@ -19,4 +19,12 @@
     <string name="pick_photo">Pick File</string>
     <string name="permission_denied_explanation">You must grant storage permmision</string>
     <string name="settings">settings</string>
+    <string name="what_are_you_offering">What are you offering?</string>
+    <string name="pick_your_category_of_interest">Pick your category of interest</string>
+    <string name="add_image"> Add Image</string>
+    <string name="delete_image"><u>Delete image</u></string>
+    <string name="category_label">Category*</string>
+    <string name="usage_alert">After pressing the confirmation button,\n your ad will be published on\n the application, and all users will be able to\n send you barter offers</string>
+    <string name="owner_location">Your location</string>
+    <string name="a_product_you_want_to_exchange">A product you want to exchange</string>
 </resources>

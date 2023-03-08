@@ -15,6 +15,8 @@ import kotlinx.coroutines.launch
 
 class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
+    lateinit var navigator: Navigator
+
     private val addProductRepository = AddProductRepository(ctx)
 
     val productName = ObservableField<String>()
@@ -52,6 +54,13 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         addProductRepository.restAddProductVariables()
     }
 
+
+    fun navigateToHome(){
+        navigator.onNavigateToHomeFragment()
+    }
+    fun navigateToSelectCategory(){
+        navigator.onNavigateToSelectCategoryFragment()
+    }
 
     fun upload(
 

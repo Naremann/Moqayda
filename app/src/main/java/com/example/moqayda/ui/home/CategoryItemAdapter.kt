@@ -64,9 +64,7 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem?>, private val cli
                     categoryItem.categoryBackgroundColor!!
                 )
             )
-//            holder.rightItemBinding.categoryImg.setImageResource(
-//                categoryItem.image
-//            )
+
             bindImage(holder.rightItemBinding.categoryImg,categoryItem.pathImage)
 
         } else {
@@ -77,9 +75,7 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem?>, private val cli
                     categoryItem.categoryBackgroundColor!!
                 )
             )
-//            holder.leftItemBinding.categoryImg.setImageResource(
-//                categoryItem.image
-//            )
+
             bindImage(holder.leftItemBinding.categoryImg,categoryItem.pathImage)
         }
 
