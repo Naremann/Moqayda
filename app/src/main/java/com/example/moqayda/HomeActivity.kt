@@ -44,6 +44,11 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
+        binding.fabButton.setOnClickListener {
+            findNavController(R.id.home_nav_host_fragment).navigate(R.id.selectCategoryFragment)
+            binding.fabButton.hide()
+        }
+
     }
     override fun onBackPressed() {
         findNavController(R.id.home_nav_host_fragment).popBackStack()

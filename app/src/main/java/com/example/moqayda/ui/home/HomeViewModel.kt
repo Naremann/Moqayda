@@ -51,13 +51,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moqayda.NetworkHandler
-import com.example.moqayda.NetworkHandlerImp
 import com.example.moqayda.R
-import com.example.moqayda.api.ApiInterface
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.database.MyDatabase
 import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.repo.category.*
 import dagger.hilt.android.lifecycle.HiltViewModel
