@@ -80,58 +80,6 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
         get() = _navigateToProductListFragment
 
 
-    private val data = listOf(
-        CategoryItem(
-            id = null,
-            name = "Electronics",
-            isActive = true,
-            pathImage = null,
-            categoryBackgroundColor = R.color.electronics_category_color,
-            //categoryProductViewModels =  null
-        ),
-        CategoryItem(
-            id = null,
-            name = "Furniture",
-            isActive = true,
-            pathImage =  null,
-            categoryBackgroundColor = R.color.category_furniture_color,
-            //categoryProductViewModels = null
-        ),
-        CategoryItem(
-             id = null,
-            name = "Fashion",
-            isActive = true,
-            pathImage = null,
-            categoryBackgroundColor = R.color.category_fashion_color,
-            //categoryProductViewModels = null
-        ),
-        CategoryItem(
-            id = null,
-            name = "Books",
-            isActive = true,
-            pathImage = null,
-            categoryBackgroundColor = R.color.category_books_color,
-           // categoryProductViewModels = null
-        ),
-        CategoryItem(
-            id = null,
-            name = "Pets",
-            isActive = true,
-            pathImage = null,
-            categoryBackgroundColor = R.color.category_pets_color,
-            //categoryProductViewModels = null
-        ),
-
-        CategoryItem(
-            id = null,
-            name = "Other",
-            isActive = true,
-            pathImage = null,
-            categoryBackgroundColor = R.color.category_other_color,
-            //categoryProductViewModels = null
-        )
-    )
-
     private fun fetchCategoryList() {
         progressBarVisible.value=true
 

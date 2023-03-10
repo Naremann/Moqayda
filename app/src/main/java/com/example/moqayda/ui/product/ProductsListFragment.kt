@@ -1,6 +1,7 @@
 package com.example.moqayda.ui.product
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -18,18 +19,32 @@ class ProductsListFragment: BaseFragment<FragmentListProductsBinding,ProductView
         super.onViewCreated(view, savedInstanceState)
         category = ProductsListFragmentArgs.fromBundle(requireArguments()).selectedCategory
         viewDataBinding.vm=viewModel
-        viewModel.categoryId= category.id!!
+//        viewModel.categoryId= category.id!!
+
+        category.id?.let {
+            Log.e("ProductsListFragment",it.toString())
+            viewModel.getProductsById(it)
+        }
+
         observeToLiveData()
     }
 
     private fun observeToLiveData() {
-        viewModel.productList.observe(viewLifecycleOwner) { data ->
-            adapter = data?.let {productList->
-                ProductAdapter(productList)
-            }!!
+//        viewModel.productList.observe(viewLifecycleOwner) { data ->
+//            adapter = data?.let {productList->
+//                ProductAdapter(productList)
+//            }!!
+//            viewDataBinding.recyclerView.adapter = adapter
+//        }
+//
+//        viewModel.isVisibleProgress.observe(viewLifecycleOwner) { isVisibleProgress ->
+//            viewDataBinding.progressBar.isVisible = isVisibleProgress
+//        }
+        viewModel.categoryItem.observe(viewLifecycleOwner) { item ->
+            Log.e("ProductsListFragment", item.toString())
+            adapter = ProductAdapter(item.categoryProductViewModels)
             viewDataBinding.recyclerView.adapter = adapter
         }
-
         viewModel.isVisibleProgress.observe(viewLifecycleOwner) { isVisibleProgress ->
             viewDataBinding.progressBar.isVisible = isVisibleProgress
         }

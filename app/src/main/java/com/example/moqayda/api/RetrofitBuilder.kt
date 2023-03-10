@@ -28,7 +28,7 @@ object RetrofitBuilder {
             .client(okHttpClient)
             .addConverterFactory(
                 GsonConverterFactory.create(gson)
-            )
+            ).addConverterFactory(MoshiConverterFactory.create(moshi))
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 

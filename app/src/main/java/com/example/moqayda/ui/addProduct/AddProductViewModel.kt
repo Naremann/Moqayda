@@ -66,10 +66,10 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
         selectedCategory: CategoryItem,
         imageUri: Uri,
-        fileRealPath:String
+        fileRealPath: String
     ) {
         if (productName.get().isNullOrBlank() || productDescription.get().isNullOrBlank()) {
-            _toastMessage.postValue("Please fill all information")
+            _toastMessage.postValue("Please fill all fields")
         } else {
             if (productDescription.get()?.length!! < 100){
                 _descriptionHelperText.postValue("This field requires at least 100 characters")

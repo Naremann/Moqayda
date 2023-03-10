@@ -36,7 +36,7 @@ data class CategoryItem(
     @field:SerializedName("id")
     val id: Int? = null,
 
-   @ColumnInfo
+    @ColumnInfo
     @field:SerializedName("categoryProductViewModels")
     val categoryProductViewModels:@RawValue Product? = null,
 

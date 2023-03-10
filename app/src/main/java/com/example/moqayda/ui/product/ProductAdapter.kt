@@ -12,11 +12,12 @@ import com.example.moqayda.R
 import com.example.moqayda.databinding.ProductItemBinding
 import com.example.moqayda.models.Product
 import com.example.moqayda.models.ProductItem
+import com.example.moqayda.models.test.CategoryProductViewModel
 
-class ProductAdapter(var productList: List<ProductItem?>?): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(var productList: List<CategoryProductViewModel?>?): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     class ProductViewHolder(val viewBinding:ProductItemBinding): RecyclerView.ViewHolder(viewBinding.root) {
-        fun bind(product:ProductItem){
+        fun bind(product:CategoryProductViewModel){
             viewBinding.product=product
             viewBinding.invalidateAll()
         }
