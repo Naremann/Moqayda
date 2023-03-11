@@ -2,7 +2,7 @@ package com.example.moqayda.repo.category
 
 import android.util.Log
 import com.example.moqayda.NetworkHandler
-import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.test.CategoryItem
 
 class CategoryRepositoryImp(
     private val networkHandler: NetworkHandler,

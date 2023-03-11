@@ -15,21 +15,27 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Moqayda/app/src/main/res/layout/fragment_registeration.xml" value="0.18" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Moqayda/app/src/main/res/layout/fragment_resetting_pass.xml" value="0.22" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Moqayda/app/src/main/res/layout/fragment_splash_screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/btn_gmail.xml" value="0.173" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/product_background.xml" value="0.14" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/rounded_btn.xml" value="0.173" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/rounded_image.xml" value="0.1035" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/rounded_text.xml" value="0.103" />
-        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/activity_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/activity_home.xml" value="0.15" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/category_left_item.xml" value="0.1" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/category_list_item.xml" value="0.10572916666666667" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/category_right_item.xml" value="0.13489583333333333" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_add_product.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_chat.xml" value="0.13055555555555556" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_favorite.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_list_products.xml" value="0.25" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_password_change.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_product_details.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_registeration.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_resetting_pass.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_splash_screen.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/product_item.xml" value="0.33" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/product_item.xml" value="0.3" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/test.xml" value="0.1824074074074074" />
       </map>
     </option>

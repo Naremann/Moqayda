@@ -3,7 +3,7 @@ package com.example.moqayda.ui.selectCategory
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.test.CategoryItem
 import com.example.moqayda.repo.category.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -38,7 +38,13 @@ class SelectCategoryViewModel @Inject constructor(private val categoryRepository
     }
 
     fun navigateToAddProduct(categoryItem: CategoryItem){
-        navigator.onNavigateToAddProductFragment(categoryItem)
+        categoryItem.id?.let { categoryItem.pathImage?.let { it1 ->
+            categoryItem.categoryBackgroundColor?.let { it2 ->
+                navigator.onNavigateToAddProductFragment(it,
+                    it1, it2
+                )
+            }
+        } }
     }
 
     init {

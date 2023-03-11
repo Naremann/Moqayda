@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.CategoryListItemBinding
-import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.test.CategoryItem
 
 class SelectCategoryAdapter(
     var categoryList: List<CategoryItem?>,

@@ -10,7 +10,7 @@ import com.example.moqayda.R
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.CategoryLeftItemBinding
 import com.example.moqayda.databinding.CategoryRightItemBinding
-import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.test.CategoryItem
 
 class CategoryItemAdapter(var categoryList: List<CategoryItem?>, private val clickListener: CategoryListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

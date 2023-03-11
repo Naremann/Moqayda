@@ -1,7 +1,7 @@
 package com.example.moqayda.api
 
 import com.example.moqayda.models.*
-import com.example.moqayda.models.test.CategoryItemTest
+import com.example.moqayda.models.test.CategoryItem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -23,7 +23,7 @@ interface ApiInterface {
     ): Response<ResponseBody>
 
     @GET("/api/Category/{id}")
-    suspend fun getProductsByCategoryId(@Path("id") categoryId:Int?):Response<CategoryItemTest>
+    suspend fun getProductsByCategoryId(@Path("id") categoryId:Int?):Response<CategoryItem>
 
 //    @GET("/api/Category/3")
 //    suspend fun getProductsByCategoryId(): Response<CategoryItemTest>

@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.test.CategoryItem
 import com.example.moqayda.repo.product.AddProductRepository
 import kotlinx.coroutines.launch
 
@@ -64,7 +64,7 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
     fun upload(
 
-        selectedCategory: CategoryItem,
+        selectedCategory: String,
         imageUri: Uri,
         fileRealPath: String
     ) {
@@ -80,14 +80,14 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                     addProductRepository.uploadProduct(
                         productName.get()!!,
                         productDescription.get()!!,
-                        selectedCategory.id.toString(),
+                        selectedCategory,
                         imageUri,
                         fileRealPath
                     )
                 }
                 Log.e("AddProductViewModel", productName.get().toString())
                 Log.e("AddProductViewModel", productDescription.get().toString())
-                Log.e("AddProductViewModel", selectedCategory.id.toString())
+                Log.e("AddProductViewModel", selectedCategory)
             }
         }
     }

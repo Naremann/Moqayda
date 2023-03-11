@@ -1,10 +1,15 @@
 package com.example.moqayda.models.test
 
-data class CategoryItemTest(
-    val categoryBackgroundColor: Int,
-    val categoryProductViewModels: List<CategoryProductViewModel>,
-    val id: Int,
-    val isActive: Boolean,
-    val name: String,
-    val pathImage: String
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class CategoryItem(
+    val categoryBackgroundColor: Int?=null,
+    val categoryProductViewModels: List<CategoryProductViewModel>?=null,
+    @PrimaryKey
+    val id: Int?=null,
+    val isActive: Boolean?=null,
+    val name: String?=null,
+    val pathImage: String?=null
 )

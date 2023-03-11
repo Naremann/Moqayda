@@ -22,7 +22,7 @@ import androidx.navigation.Navigation.findNavController
 import com.example.moqayda.*
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentAddProductBinding
-import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.test.CategoryItem
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -34,7 +34,10 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
     private lateinit var permReqLauncher: ActivityResultLauncher<Array<String>>
     private var selectedFile: Uri? = null
     private lateinit var categoryList: List<CategoryItem>
-    private lateinit var selectedCategory: CategoryItem
+    //private lateinit var selectedCategory: CategoryItem
+    private lateinit var pathImage : String
+    private var backgroundColor :Int=0
+    private var categoryId:Int=0
 
     private var permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
 
@@ -56,12 +59,15 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
 
 
 
-        selectedCategory = AddProductFragmentArgs.fromBundle(requireArguments()).selectedCategory
+        pathImage=AddProductFragmentArgs.fromBundle(requireArguments()).pathImage
+        backgroundColor=AddProductFragmentArgs.fromBundle(requireArguments()).backgroundColor
+        categoryId=AddProductFragmentArgs.fromBundle(requireArguments()).id
+        //selectedCategory = CategoryItem()
 
-        viewDataBinding.category = selectedCategory
-        bindImage(viewDataBinding.categoryItemImg, selectedCategory.pathImage)
+        //viewDataBinding.category = selectedCategory
+        bindImage(viewDataBinding.categoryItemImg, pathImage)
         viewDataBinding.categoryItemImg.setBackgroundColor(
-            getColor(requireContext(), selectedCategory.categoryBackgroundColor!!)
+            getColor(requireContext(), backgroundColor)
         )
 
         viewDataBinding.pickButton.setOnClickListener {
@@ -205,7 +211,7 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
 
                 if (selectedImageName != null) {
                     viewModel.upload(
-                        selectedCategory,
+                        categoryId.toString(),
                         selectedFile!!,
                         getFilePathFromUri(requireContext(), selectedFile!!, viewModel,selectedImageName)
                     )

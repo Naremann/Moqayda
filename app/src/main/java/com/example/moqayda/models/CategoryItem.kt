@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.example.moqayda.models.test.CategoryItem
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
@@ -15,7 +16,7 @@ data class Category(
     val category: List<CategoryItem>? = null
 )
 
-@Entity
+/*@Entity
 @Parcelize
 data class CategoryItem(
 
@@ -46,7 +47,7 @@ data class CategoryItem(
     @Ignore
     constructor() : this("") {
     }
-}
+}*/
 
 /*@Parcelize
 @Entity

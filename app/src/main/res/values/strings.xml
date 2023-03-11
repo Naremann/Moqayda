@@ -33,5 +33,9 @@
     <string name="product_uploaded">File uploaded</string>
     <string name="no_enough_space">"No enough space"</string>
     <string name="choose_image">"Please Choose image"</string>
+    <string name="details_text">Product Details</string>
+    <string name="swap_text">Swap</string>
+    <string name="swap_with_text">Swap With</string>
+    <string name="description_text">Description :</string>
 
 </resources>

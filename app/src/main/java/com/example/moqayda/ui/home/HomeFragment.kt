@@ -46,7 +46,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         viewModel.navigateToProductListFragment.observe(viewLifecycleOwner) {
             it?.let {
                 this.findNavController()
-                    .navigate(HomeFragmentDirections.actionHomeFragmentToProductsListFragment(it))
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToProductsListFragment(it.id!!))
                 viewModel.onProductListNavigated()
             }
 

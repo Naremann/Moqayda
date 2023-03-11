@@ -54,7 +54,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.moqayda.R
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.test.CategoryItem
 import com.example.moqayda.repo.category.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

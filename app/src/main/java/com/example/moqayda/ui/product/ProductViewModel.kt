@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.test.CategoryItemTest
+import com.example.moqayda.models.test.CategoryItem
 import kotlinx.coroutines.launch
 
 class ProductViewModel: BaseViewModel<Navigator>() {
@@ -20,8 +20,8 @@ class ProductViewModel: BaseViewModel<Navigator>() {
         categoryId.postValue(id)
         fetchProductsData(id)
     }
-    private val _categoryItem = MutableLiveData<CategoryItemTest>()
-    val categoryItem: LiveData<CategoryItemTest>
+    private val _categoryItem = MutableLiveData<CategoryItem>()
+    val categoryItem: LiveData<CategoryItem>
         get() = _categoryItem
 
     init {
