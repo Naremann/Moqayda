@@ -13,19 +13,27 @@ import java.io.*
 import java.util.*
 
 
-internal fun getFilePathFromUri(context: Context, uri: Uri,addProductViewModel: AddProductViewModel): String =
+internal fun getFilePathFromUri(
+    context: Context,
+    uri: Uri,
+    addProductViewModel: AddProductViewModel,
+    selectedImageName: String
+): String =
     if (uri.path?.contains("file://") == true) {
         uri.path!!
     } else {
-        getFileFromContentUri(context, uri,addProductViewModel).path
+        getFileFromContentUri(context, uri,addProductViewModel,selectedImageName).path
     }
 
 @SuppressLint("SuspiciousIndentation")
-private fun getFileFromContentUri(context: Context, contentUri: Uri, addProductViewModel: AddProductViewModel): File {
+private fun getFileFromContentUri(
+    context: Context,
+    contentUri: Uri,
+    addProductViewModel: AddProductViewModel,
+    selectedImageName: String
+): File {
 
-    val fileExtension = getFileExtension(context, contentUri) ?: ""
-    val fileName = "temp_file.$fileExtension"
-    val tempFile = File(context.cacheDir, fileName)
+    val tempFile = File(context.cacheDir, selectedImageName)
     tempFile.createNewFile()
     var oStream: FileOutputStream? = null
     var inputStream: InputStream? = null
@@ -44,7 +52,7 @@ private fun getFileFromContentUri(context: Context, contentUri: Uri, addProductV
         inputStream?.close()
         oStream?.close()
     }
-    addProductViewModel.setFileName(fileName)
+    addProductViewModel.setFileName(selectedImageName)
     return tempFile
 }
 

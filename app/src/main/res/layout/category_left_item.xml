@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.moqayda.models.CategoryItem" />
+            type="com.example.moqayda.models.test.CategoryItem" />
         <variable
             name="clickListener"
             type="com.example.moqayda.ui.home.CategoryListener" />

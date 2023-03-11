@@ -34,7 +34,7 @@ class AddProductRepository constructor(private val ctx:Context) {
         productDescription: String,
         categoryId: String,
         imageUri: Uri,
-        fileRealPath: String
+        fileRealPath: String,
     ) {
         val fileToSend = prepareFilePart("image", fileRealPath, imageUri)
         val productNameRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),productName)
@@ -53,14 +53,19 @@ class AddProductRepository constructor(private val ctx:Context) {
             if(response.body() != null && response.isSuccessful) {
                 try {
                     if (response.code() == 201) {
-                        serverResponse.postValue("uploaded")
+                        Log.e("AddProductRepository",response.message())
+                        serverResponse.postValue("File uploaded")
+
                     } else {
-                        connectionError.postValue(response.errorBody().toString())
+                        connectionError.postValue("Failed to upload " + response.message().toString())
                         Log.e("AddProductRepository",response.message())
                     }
                 } catch (e: Exception) {
                     connectionError.postValue(e.message.toString())
+                    Log.e("AddProductRepository",response.message())
                 }
+            }else{
+                connectionError.postValue("Failed to upload ")
             }
 
         }
@@ -69,7 +74,11 @@ class AddProductRepository constructor(private val ctx:Context) {
 
 
 
-    private fun prepareFilePart(partName: String,fileRealPath: String,fileUri: Uri): MultipartBody.Part {
+    private fun prepareFilePart(
+        partName: String,
+        fileRealPath: String,
+        fileUri: Uri,
+    ): MultipartBody.Part {
         val file = File(fileRealPath)
         val requestFile: RequestBody = RequestBody.create(
             ctx.contentResolver.getType(fileUri)!!.toMediaTypeOrNull(), file)

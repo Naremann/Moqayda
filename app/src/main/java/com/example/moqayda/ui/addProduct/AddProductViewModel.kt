@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.test.CategoryItem
 import com.example.moqayda.repo.product.AddProductRepository
 import kotlinx.coroutines.launch
 
@@ -64,12 +64,12 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
     fun upload(
 
-        selectedCategory: CategoryItem,
+        selectedCategory: String,
         imageUri: Uri,
-        fileRealPath:String
+        fileRealPath: String
     ) {
         if (productName.get().isNullOrBlank() || productDescription.get().isNullOrBlank()) {
-            _toastMessage.postValue("Please fill all information")
+            _toastMessage.postValue("Please fill all fields")
         } else {
             if (productDescription.get()?.length!! < 100){
                 _descriptionHelperText.postValue("This field requires at least 100 characters")
@@ -80,14 +80,14 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                     addProductRepository.uploadProduct(
                         productName.get()!!,
                         productDescription.get()!!,
-                        selectedCategory.id.toString(),
+                        selectedCategory,
                         imageUri,
                         fileRealPath
                     )
                 }
                 Log.e("AddProductViewModel", productName.get().toString())
                 Log.e("AddProductViewModel", productDescription.get().toString())
-                Log.e("AddProductViewModel", selectedCategory.id.toString())
+                Log.e("AddProductViewModel", selectedCategory)
             }
         }
     }

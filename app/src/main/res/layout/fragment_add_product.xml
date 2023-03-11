@@ -7,13 +7,16 @@
 
         <variable
             name="category"
-            type="com.example.moqayda.models.CategoryItem" />
+            type="com.example.moqayda.models.test.CategoryItem" />
 
         <variable
             name="viewModel"
             type="com.example.moqayda.ui.addProduct.AddProductViewModel" />
 
     </data>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/addProductLayout"
@@ -29,7 +32,7 @@
             android:id="@+id/pickButton"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
-            android:layout_margin="@dimen/_8sdp"
+            android:layout_margin="@dimen/_16sdp"
             android:background="@drawable/layout_add_img_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -100,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginEnd="16dp"
             android:enabled="true"
             android:hint="@string/product_name"
@@ -193,13 +196,11 @@
             android:fontFamily="@font/baloo_tamma_2"
             android:text="@{category.name}"
             android:textAlignment="textStart"
-            android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@+id/category_Item_img"
             app:layout_constraintStart_toEndOf="@+id/category_Item_img"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
             tools:text="Furniture" />
-
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -219,15 +220,15 @@
             app:layout_constraintTop_toBottomOf="@+id/category_Item_img"
             app:shapeAppearance="?attr/shapeAppearanceSmallComponent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ownerLocationEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:enabled="true"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ownerLocationEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="true"
 
-            app:boxStrokeWidth="4dp"
-            app:boxStrokeWidthFocused="2dp"
-            app:shapeAppearance="?attr/shapeAppearanceSmallComponent" />
+                app:boxStrokeWidth="4dp"
+                app:boxStrokeWidthFocused="2dp"
+                app:shapeAppearance="?attr/shapeAppearanceSmallComponent" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -266,11 +267,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/confirm"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
-            android:layout_marginBottom="?attr/actionBarSize"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputProductToBarterWith" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
 </layout>

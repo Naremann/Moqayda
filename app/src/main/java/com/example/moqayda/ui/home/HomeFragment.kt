@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentHomeBinding
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +21,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val activityBottomAppBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val activityBottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val activityFabButton = activity?.findViewById<FloatingActionButton>(R.id.fabButton)
+        activityBottomAppBar?.visibility = View.VISIBLE
+        activityBottomNavigationView?.visibility = View.VISIBLE
+        activityFabButton?.show()
+
         viewDataBinding.vm=viewModel
         initRecyclerView()
         subscribeToLiveData()
@@ -35,7 +46,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         viewModel.navigateToProductListFragment.observe(viewLifecycleOwner) {
             it?.let {
                 this.findNavController()
-                    .navigate(HomeFragmentDirections.actionHomeFragmentToProductsListFragment(it))
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToProductsListFragment(it.id!!))
                 viewModel.onProductListNavigated()
             }
 

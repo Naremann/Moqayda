@@ -42,7 +42,7 @@
 
         <argument
             android:name="SelectedCategory"
-            app:argType="com.example.moqayda.models.CategoryItem" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/addProductFragment"
@@ -50,8 +50,14 @@
         android:label="AddProductFragment"
         tools:layout="@layout/fragment_add_product" >
         <argument
-            android:name="selectedCategory"
-            app:argType="com.example.moqayda.models.CategoryItem" />
+            android:name="pathImage"
+            app:argType="string" />
+        <argument
+            android:name="backgroundColor"
+            app:argType="integer" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/selectCategoryFragment"

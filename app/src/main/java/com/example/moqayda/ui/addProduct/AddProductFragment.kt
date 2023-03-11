@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
 import android.view.View.*
@@ -18,11 +19,12 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import com.example.moqayda.*
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentAddProductBinding
-import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.test.CategoryItem
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
 
@@ -32,24 +34,40 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
     private lateinit var permReqLauncher: ActivityResultLauncher<Array<String>>
     private var selectedFile: Uri? = null
     private lateinit var categoryList: List<CategoryItem>
-    private lateinit var selectedCategory: CategoryItem
+    //private lateinit var selectedCategory: CategoryItem
+    private lateinit var pathImage : String
+    private var backgroundColor :Int=0
+    private var categoryId:Int=0
 
     private var permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val activityBottomAppBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val activityBottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+
+        activityBottomAppBar?.visibility = GONE
+        activityBottomNavigationView?.visibility = GONE
+
         viewDataBinding.viewModel = viewModel
         viewDataBinding.lifecycleOwner = this
         observeToLiveData()
         initPermReqLauncher()
         viewModel.navigator = this
 
-        selectedCategory = AddProductFragmentArgs.fromBundle(requireArguments()).selectedCategory
 
-        viewDataBinding.category = selectedCategory
-        bindImage(viewDataBinding.categoryItemImg, selectedCategory.pathImage)
+
+        pathImage=AddProductFragmentArgs.fromBundle(requireArguments()).pathImage
+        backgroundColor=AddProductFragmentArgs.fromBundle(requireArguments()).backgroundColor
+        categoryId=AddProductFragmentArgs.fromBundle(requireArguments()).id
+        //selectedCategory = CategoryItem()
+
+        //viewDataBinding.category = selectedCategory
+        bindImage(viewDataBinding.categoryItemImg, pathImage)
         viewDataBinding.categoryItemImg.setBackgroundColor(
-            getColor(requireContext(), selectedCategory.categoryBackgroundColor!!)
+            getColor(requireContext(), backgroundColor)
         )
 
         viewDataBinding.pickButton.setOnClickListener {
@@ -58,12 +76,12 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
         }
         viewDataBinding.uploadButton.setOnClickListener {
             upload()
-//            viewModel.navigateToHome()
         }
         viewDataBinding.deleteImage.setOnClickListener {
             viewDataBinding.productImage.visibility = GONE
             viewDataBinding.deleteImage.visibility = GONE
             viewDataBinding.pickButton.visibility = VISIBLE
+            selectedFile = null
         }
         viewDataBinding.categoryItemImg.setOnClickListener {
             viewModel.navigateToSelectCategory()
@@ -95,10 +113,18 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
     }
 
     private fun observeToLiveData() {
-        viewModel.response.observe(viewLifecycleOwner, Observer {
-            if (it.isNotEmpty()) {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-                File(requireContext().cacheDir, viewModel.fileName.value.toString()).delete()
+        viewModel.response.observe(viewLifecycleOwner, Observer { response ->
+            if (response.isNotEmpty()) {
+                if (response == resources.getString(R.string.product_uploaded)) {
+                    Toast.makeText(requireContext(), R.string.product_uploaded, Toast.LENGTH_LONG)
+                        .show()
+                    File(requireContext().cacheDir, viewModel.fileName.value.toString()).delete()
+                    viewModel.navigateToHome()
+                } else {
+                    Toast.makeText(requireContext(), R.string.upload_failed, Toast.LENGTH_LONG)
+                        .show()
+                }
+
                 viewModel.reset()
             }
         })
@@ -161,19 +187,43 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
     }
 
     private fun upload() {
+        if (selectedFile != null) {
+            if (getFileSize(requireContext(), selectedFile!!) < getAvailableInternalMemorySize()) {
 
-        if (getFileSize(requireContext(), selectedFile!!) < getAvailableInternalMemorySize()) {
-            if (selectedFile != null) {
-                viewModel.upload(
-                    selectedCategory,
+                val cursor = requireContext().applicationContext.contentResolver.query(
                     selectedFile!!,
-                    getFilePathFromUri(requireContext(), selectedFile!!, viewModel)
+                    null,
+                    null,
+                    null,
+                    null
                 )
+                cursor?.moveToFirst()
+
+                // Check if the DISPLAY_NAME column is present in the Cursor
+                val displayNameIndex = cursor?.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME)
+                val selectedImageName = if (displayNameIndex != null && displayNameIndex >= 0) {
+                    cursor.getString(displayNameIndex)
+                } else {
+                    // Set the file name to a default value or display an error message
+                    "Unknown file name"
+                }
+                cursor?.close()
+
+                if (selectedImageName != null) {
+                    viewModel.upload(
+                        categoryId.toString(),
+                        selectedFile!!,
+                        getFilePathFromUri(requireContext(), selectedFile!!, viewModel,selectedImageName)
+                    )
+                }else{
+                    Toast.makeText(requireContext(),"No image Selected",Toast.LENGTH_LONG).show()
+                }
+
             } else {
-                Toast.makeText(requireContext(), "Please Choose a photo", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.no_enough_space, Toast.LENGTH_LONG).show()
             }
         } else {
-            Toast.makeText(requireContext(), "No enough space", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), R.string.choose_image, Toast.LENGTH_LONG).show()
         }
 
 
@@ -185,21 +235,14 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
         }
 
 
-    private fun permissionApproved(): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
     private fun requestLocationPermission() {
-        if (permissionApproved()) {
+        if (hasPermissions(requireContext(), permissions)) {
             selectImage()
 
         }
         ActivityCompat.requestPermissions(
             requireActivity(),
-            arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+            permissions,
             1
         )
     }
@@ -210,7 +253,7 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (grantResults.isNotEmpty() || grantResults[0] == PackageManager.PERMISSION_DENIED){
+        if (grantResults.isNotEmpty() || grantResults[0] == PackageManager.PERMISSION_DENIED) {
             Snackbar.make(
                 viewDataBinding.addProductLayout,
                 R.string.permission_denied_explanation,
@@ -223,7 +266,7 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     })
                 }.show()
-        }else{
+        } else {
             selectImage()
         }
 
