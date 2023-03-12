@@ -11,8 +11,6 @@ import kotlinx.coroutines.launch
 
 class ProductViewModel: BaseViewModel<Navigator>() {
     var isVisibleProgress = MutableLiveData<Boolean>()
-//    var categoryId: Int = 0
-//    var productList = MutableLiveData<List<ProductItem?>?>()
 
     private val categoryId = MutableLiveData<Int>()
     fun getProductsById(id: Int){
@@ -20,9 +18,7 @@ class ProductViewModel: BaseViewModel<Navigator>() {
         categoryId.postValue(id)
         fetchProductsData(id)
     }
-    private val _categoryItem = MutableLiveData<CategoryItem>()
-    val categoryItem: LiveData<CategoryItem>
-        get() = _categoryItem
+     var categoryItem = MutableLiveData<CategoryItem>()
 
     init {
 
@@ -32,13 +28,11 @@ class ProductViewModel: BaseViewModel<Navigator>() {
 
         viewModelScope.launch {
             isVisibleProgress.value = true
-//            val result = RetrofitBuilder.retrofitService.getProductsByCategoryId(categoryId)
             Log.e("ProductViewModelTest", "fetchProductsData: $id")
             val result = RetrofitBuilder.retrofitService.getProductsByCategoryId(id)
             isVisibleProgress.value = false
             try {
-//                productList.postValue(result.body())
-                _categoryItem.postValue(result.body())
+                categoryItem.postValue(result.body())
                 Log.e("success","response$result")
             }catch (ex:Exception){
                 messageLiveData.value=ex.localizedMessage

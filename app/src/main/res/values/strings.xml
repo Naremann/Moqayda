@@ -37,5 +37,6 @@
     <string name="swap_text">Swap</string>
     <string name="swap_with_text">Swap With</string>
     <string name="description_text">Description :</string>
+    <string name="swap_now_text">Swap Now</string>
 
 </resources>

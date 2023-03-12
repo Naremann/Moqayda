@@ -2,21 +2,17 @@ package com.example.moqayda.ui.product
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.databinding.ProductItemBinding
-import com.example.moqayda.models.Product
-import com.example.moqayda.models.ProductItem
 import com.example.moqayda.models.test.CategoryProductViewModel
 
-class ProductAdapter(var productList: List<CategoryProductViewModel?>?): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(private var productList: List<CategoryProductViewModel?>?): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    class ProductViewHolder(val viewBinding:ProductItemBinding): RecyclerView.ViewHolder(viewBinding.root) {
+    lateinit var onItemClickListener:OnItemClickListener
+    class ProductViewHolder(private val viewBinding:ProductItemBinding): RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(product:CategoryProductViewModel){
             viewBinding.product=product
             viewBinding.invalidateAll()
@@ -32,11 +28,18 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>?): Recycle
         val product = productList?.get(position)
         Log.e("product","$product")
             holder.bind(product!!)
+        holder.itemView.setOnClickListener {
+            onItemClickListener.onItemClick(product)
+        }
 
     }
 
     override fun getItemCount(): Int {
         return productList?.size ?: 0
+    }
+
+    interface OnItemClickListener{
+        fun onItemClick(productItem:CategoryProductViewModel?)
     }
 
 
