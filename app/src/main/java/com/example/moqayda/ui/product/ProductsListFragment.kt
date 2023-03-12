@@ -5,48 +5,58 @@ import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentListProductsBinding
+import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.test.CategoryProductViewModel
 
 class ProductsListFragment: BaseFragment<FragmentListProductsBinding,ProductViewModel>() {
 
     private  var categoryId:Int = 0
-    lateinit var adapter : ProductAdapter
+    private lateinit var adapter : ProductAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //category = ProductsListFragmentArgs.fromBundle(requireArguments()).selectedCategory
-        categoryId=ProductsListFragmentArgs.fromBundle(requireArguments()).selectedCategory
+        categoryId=ProductsListFragmentArgs.fromBundle(requireArguments()).categoryId
         viewDataBinding.vm=viewModel
-//        viewModel.categoryId= category.id!!
 
-        categoryId?.let {
-            Log.e("ProductsListFragment",it.toString())
-            viewModel.getProductsById(it)
-        }
-
+        getProductsById()
         observeToLiveData()
     }
 
+    private fun getProductsById() {
+        categoryId.let {id->
+            Log.e("ProductsListFragment",id.toString())
+            viewModel.getProductsById(id)
+        }
+    }
+
+    private fun navigateToProductDetails(productItem: CategoryProductViewModel) {
+            findNavController().
+        navigate(ProductsListFragmentDirections.
+        actionProductsListFragmentToProductDetailsFragment(
+            productItem.name,productItem.productToSwap,productItem.descriptions))
+    }
+
     private fun observeToLiveData() {
-//        viewModel.productList.observe(viewLifecycleOwner) { data ->
-//            adapter = data?.let {productList->
-//                ProductAdapter(productList)
-//            }!!
-//            viewDataBinding.recyclerView.adapter = adapter
-//        }
-//
-//        viewModel.isVisibleProgress.observe(viewLifecycleOwner) { isVisibleProgress ->
-//            viewDataBinding.progressBar.isVisible = isVisibleProgress
-//        }
         viewModel.categoryItem.observe(viewLifecycleOwner) { item ->
             Log.e("ProductsListFragment", item.toString())
-            adapter = ProductAdapter(item.categoryProductViewModels)
-            viewDataBinding.recyclerView.adapter = adapter
+            initAdapter(item)
         }
         viewModel.isVisibleProgress.observe(viewLifecycleOwner) { isVisibleProgress ->
             viewDataBinding.progressBar.isVisible = isVisibleProgress
+        }
+    }
+
+    private fun initAdapter(item:CategoryItem) {
+        adapter = ProductAdapter(item.categoryProductViewModels)
+        viewDataBinding.recyclerView.adapter = adapter
+        adapter.onItemClickListener=object : ProductAdapter.OnItemClickListener{
+            override fun onItemClick(productItem: CategoryProductViewModel?) {
+                productItem?.let { navigateToProductDetails(it) }
+            }
         }
     }
 
