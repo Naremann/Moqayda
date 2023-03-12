@@ -1,7 +1,7 @@
 package com.example.moqayda.api
 
 import com.example.moqayda.models.*
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody

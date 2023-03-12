@@ -7,7 +7,7 @@
 
         <variable
             name="category"
-            type="com.example.moqayda.models.test.CategoryItem" />
+            type="com.example.moqayda.models.CategoryItem" />
 
         <variable
             name="viewModel"

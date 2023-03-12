@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductDetailsBinding
-import com.example.moqayda.models.ProductItem
+import com.example.moqayda.models.CategoryProductViewModel
 
 class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,ProductDetailsViewModel>() {
-    lateinit var product:ProductItem
+    lateinit var product: CategoryProductViewModel
     lateinit var description:String
     lateinit var name:String
     lateinit var productToSwapWithName:String

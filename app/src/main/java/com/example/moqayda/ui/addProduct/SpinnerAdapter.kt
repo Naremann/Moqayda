@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.example.moqayda.databinding.CategoryListItemBinding
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 
 class SpinnerAdapter(context: Context, categoryList: List<CategoryItem>) : ArrayAdapter<CategoryItem>(
     context, 0, categoryList

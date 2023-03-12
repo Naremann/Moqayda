@@ -9,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentListProductsBinding
-import com.example.moqayda.models.test.CategoryItem
-import com.example.moqayda.models.test.CategoryProductViewModel
+import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.CategoryProductViewModel
 
 class ProductsListFragment: BaseFragment<FragmentListProductsBinding,ProductViewModel>() {
 
@@ -50,7 +50,7 @@ class ProductsListFragment: BaseFragment<FragmentListProductsBinding,ProductView
         }
     }
 
-    private fun initAdapter(item:CategoryItem) {
+    private fun initAdapter(item: CategoryItem) {
         adapter = ProductAdapter(item.categoryProductViewModels)
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onItemClickListener=object : ProductAdapter.OnItemClickListener{

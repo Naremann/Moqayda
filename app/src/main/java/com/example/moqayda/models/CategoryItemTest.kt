@@ -1,7 +1,8 @@
-package com.example.moqayda.models.test
+package com.example.moqayda.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+
 
 @Entity
 data class CategoryItem(

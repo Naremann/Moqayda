@@ -1,7 +1,7 @@
 package com.example.moqayda.database
 
 import androidx.room.*
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 
 @Dao
 interface CategoryDao {

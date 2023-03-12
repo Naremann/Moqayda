@@ -1,6 +1,6 @@
 package com.example.moqayda.repo.category
 
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 
 
 interface CategoryRepository {
