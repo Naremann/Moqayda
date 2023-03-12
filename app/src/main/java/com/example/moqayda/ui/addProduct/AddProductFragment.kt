@@ -22,7 +22,7 @@ import androidx.navigation.Navigation.findNavController
 import com.example.moqayda.*
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentAddProductBinding
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar

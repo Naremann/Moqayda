@@ -1,4 +1,4 @@
-package com.example.moqayda.models.test
+package com.example.moqayda.models
 
 data class CategoryProductViewModel(
     val availableSince: String,

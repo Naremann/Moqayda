@@ -3,7 +3,7 @@ package com.example.moqayda.database
 import android.content.Context
 import androidx.room.*
 import com.example.moqayda.ProductTypeConvert
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 
 @Database(entities = [CategoryItem::class], version = 5, exportSchema = false)
 @TypeConverters(ProductTypeConvert::class)

@@ -7,13 +7,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.databinding.ProductItemBinding
-import com.example.moqayda.models.test.CategoryProductViewModel
+import com.example.moqayda.models.CategoryProductViewModel
 
 class ProductAdapter(private var productList: List<CategoryProductViewModel?>?): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     lateinit var onItemClickListener:OnItemClickListener
     class ProductViewHolder(private val viewBinding:ProductItemBinding): RecyclerView.ViewHolder(viewBinding.root) {
-        fun bind(product:CategoryProductViewModel){
+        fun bind(product: CategoryProductViewModel){
             viewBinding.product=product
             viewBinding.invalidateAll()
         }
@@ -39,7 +39,7 @@ class ProductAdapter(private var productList: List<CategoryProductViewModel?>?):
     }
 
     interface OnItemClickListener{
-        fun onItemClick(productItem:CategoryProductViewModel?)
+        fun onItemClick(productItem: CategoryProductViewModel?)
     }
 
 

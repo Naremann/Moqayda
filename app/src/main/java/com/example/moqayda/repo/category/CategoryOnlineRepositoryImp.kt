@@ -2,7 +2,7 @@ package com.example.moqayda.repo.category
 
 import android.util.Log
 import com.example.moqayda.api.ApiInterface
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 
 class CategoryOnlineRepositoryImp(val webServices: ApiInterface):CategoryOnlineRepository {
     override suspend fun getCategories(): List<CategoryItem?>? {

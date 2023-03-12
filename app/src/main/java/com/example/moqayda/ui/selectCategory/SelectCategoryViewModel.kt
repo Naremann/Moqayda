@@ -3,7 +3,7 @@ package com.example.moqayda.ui.selectCategory
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.repo.category.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

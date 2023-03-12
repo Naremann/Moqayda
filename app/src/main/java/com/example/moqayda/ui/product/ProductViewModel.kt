@@ -1,12 +1,11 @@
 package com.example.moqayda.ui.product
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 import kotlinx.coroutines.launch
 
 class ProductViewModel: BaseViewModel<Navigator>() {

@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.test.CategoryItem
+import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.repo.product.AddProductRepository
 import kotlinx.coroutines.launch
 
