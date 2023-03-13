@@ -38,15 +38,8 @@ class SelectCategoryViewModel @Inject constructor(private val categoryRepository
     }
 
     fun navigateToAddProduct(categoryItem: CategoryItem){
-        categoryItem.id?.let { categoryItem.pathImage?.let { it1 ->
-            categoryItem.categoryBackgroundColor?.let { it2 ->
-                navigator.onNavigateToAddProductFragment(it,
-                    it1, it2
-                )
-            }
-        } }
+        navigator.onNavigateToAddProductFragment(categoryItem)
     }
-
     init {
 
         fetchCategoryList()

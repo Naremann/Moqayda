@@ -15,12 +15,15 @@ import kotlinx.coroutines.launch
 
 class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
+
     lateinit var navigator: Navigator
 
     private val addProductRepository = AddProductRepository(ctx)
 
     val productName = ObservableField<String>()
     val productDescription = ObservableField<String>()
+    val userLocation = ObservableField<String>()
+    val productToSwap = ObservableField<String>()
 
     private val _fileName = MutableLiveData("")
     val fileName: LiveData<String>
@@ -46,10 +49,19 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     val response: LiveData<String>
         get() = addProductRepository.serverResponse
 
+    private val _imageUri = MutableLiveData<Uri>(null)
+    val imageUri: LiveData<Uri>
+        get() = _imageUri
 
-    fun setFileName(name:String) {
+    fun setImageUri(uri: Uri) {
+        _imageUri.postValue(uri)
+    }
+
+
+    fun setFileName(name: String) {
         _fileName.value = name
     }
+
     fun reset() {
         addProductRepository.restAddProductVariables()
     }
@@ -68,12 +80,17 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         imageUri: Uri,
         fileRealPath: String
     ) {
-        if (productName.get().isNullOrBlank() || productDescription.get().isNullOrBlank()) {
+        if (
+            productName.get().isNullOrBlank() ||
+            productDescription.get().isNullOrBlank() ||
+            userLocation.get().isNullOrBlank() ||
+            productToSwap.get().isNullOrBlank()
+        ) {
             _toastMessage.postValue("Please fill all fields")
         } else {
-            if (productDescription.get()?.length!! < 100){
+            if (productDescription.get()?.length!! < 100) {
                 _descriptionHelperText.postValue("This field requires at least 100 characters")
-            }else{
+            } else {
                 _descriptionHelperText.postValue("")
 
                 viewModelScope.launch {
@@ -85,9 +102,7 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                         fileRealPath
                     )
                 }
-                Log.e("AddProductViewModel", productName.get().toString())
-                Log.e("AddProductViewModel", productDescription.get().toString())
-                Log.e("AddProductViewModel", selectedCategory)
+
             }
         }
     }

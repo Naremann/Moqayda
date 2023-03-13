@@ -25,7 +25,9 @@ import com.example.moqayda.databinding.FragmentAddProductBinding
 import com.example.moqayda.models.CategoryItem
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import de.hdodenhof.circleimageview.BuildConfig
 import java.io.File
 
 
@@ -34,40 +36,29 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
     private lateinit var permReqLauncher: ActivityResultLauncher<Array<String>>
     private var selectedFile: Uri? = null
     private lateinit var categoryList: List<CategoryItem>
-    //private lateinit var selectedCategory: CategoryItem
-    private lateinit var pathImage : String
-    private var backgroundColor :Int=0
-    private var categoryId:Int=0
-
+    private lateinit var selectedCategory: CategoryItem
     private var permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-
+    private var imageUri:Uri? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val activityBottomAppBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val activityBottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)?.visibility = GONE
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility = GONE
+        activity?.findViewById<FloatingActionButton>(R.id.fabButton)?.hide()
 
-
-        activityBottomAppBar?.visibility = GONE
-        activityBottomNavigationView?.visibility = GONE
+        selectedCategory = AddProductFragmentArgs.fromBundle(requireArguments()).selectedCategory
 
         viewDataBinding.viewModel = viewModel
         viewDataBinding.lifecycleOwner = this
+
         observeToLiveData()
         initPermReqLauncher()
         viewModel.navigator = this
 
-
-
-        pathImage=AddProductFragmentArgs.fromBundle(requireArguments()).pathImage
-        backgroundColor=AddProductFragmentArgs.fromBundle(requireArguments()).backgroundColor
-        categoryId=AddProductFragmentArgs.fromBundle(requireArguments()).id
-        //selectedCategory = CategoryItem()
-
-        //viewDataBinding.category = selectedCategory
-        bindImage(viewDataBinding.categoryItemImg, pathImage)
+        viewDataBinding.category = selectedCategory
+        bindImage(viewDataBinding.categoryItemImg, selectedCategory.pathImage)
         viewDataBinding.categoryItemImg.setBackgroundColor(
-            getColor(requireContext(), backgroundColor)
+            getColor(requireContext(), selectedCategory.categoryBackgroundColor!!)
         )
 
         viewDataBinding.pickButton.setOnClickListener {
@@ -78,10 +69,7 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
             upload()
         }
         viewDataBinding.deleteImage.setOnClickListener {
-            viewDataBinding.productImage.visibility = GONE
-            viewDataBinding.deleteImage.visibility = GONE
-            viewDataBinding.pickButton.visibility = VISIBLE
-            selectedFile = null
+            deleteImage()
         }
         viewDataBinding.categoryItemImg.setOnClickListener {
             viewModel.navigateToSelectCategory()
@@ -89,6 +77,12 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
 
     }
 
+    private fun deleteImage() {
+        viewDataBinding.productImage.visibility = GONE
+        viewDataBinding.deleteImage.visibility = GONE
+        viewDataBinding.pickButton.visibility = VISIBLE
+        selectedFile = null
+    }
     private fun initPermReqLauncher() {
         permReqLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -143,6 +137,17 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
         viewModel.descriptionHelperText.observe(viewLifecycleOwner, Observer {
             viewDataBinding.textInputProductDescription.helperText = it
         })
+        viewModel.imageUri.observe(viewLifecycleOwner){ imageUri ->
+            if (imageUri != null){
+                viewDataBinding.pickButton.visibility = GONE
+                viewDataBinding.productImage.visibility = VISIBLE
+                viewDataBinding.deleteImage.visibility = VISIBLE
+            }else{
+                viewDataBinding.pickButton.visibility = VISIBLE
+                viewDataBinding.productImage.visibility = GONE
+                viewDataBinding.deleteImage.visibility = GONE
+            }
+        }
     }
 
     override fun getViews(): View {
@@ -172,7 +177,7 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
                 viewDataBinding.pickButton.visibility = GONE
                 viewDataBinding.productImage.visibility = VISIBLE
                 viewDataBinding.deleteImage.visibility = VISIBLE
-                viewDataBinding.productImage.setImageURI(result.data!!.data)
+                result.data!!.data?.let { viewModel.setImageUri(it) }
                 selectedFile = result.data!!.data!!
             }
 
@@ -211,9 +216,14 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
 
                 if (selectedImageName != null) {
                     viewModel.upload(
-                        categoryId.toString(),
+                        selectedCategory.id.toString(),
                         selectedFile!!,
-                        getFilePathFromUri(requireContext(), selectedFile!!, viewModel,selectedImageName)
+                        getFilePathFromUri(
+                            requireContext(),
+                            selectedFile!!,
+                            viewModel,
+                            selectedImageName
+                        )
                     )
                 }else{
                     Toast.makeText(requireContext(),"No image Selected",Toast.LENGTH_LONG).show()
