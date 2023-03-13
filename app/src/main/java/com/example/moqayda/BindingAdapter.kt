@@ -1,5 +1,7 @@
 package com.example.moqayda
 
+import android.net.Uri
+import android.util.Log
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -18,6 +20,13 @@ fun bindImage(imageView: ImageView, url: String?) {
     url?.let {
         val photoUri = url.toUri().buildUpon().scheme("http").build()
         Picasso.with(imageView.context).load(photoUri).into(imageView)
+    }
+}
+
+@BindingAdapter("imgUri")
+fun bindImageUri(imageView: ImageView, uri: Uri?) {
+    uri?.let {
+        imageView.setImageURI(it)
     }
 }
 

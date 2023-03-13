@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
+import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.ProductItemBinding
 import com.example.moqayda.models.CategoryProductViewModel
 
@@ -15,7 +16,9 @@ class ProductAdapter(private var productList: List<CategoryProductViewModel?>?):
     class ProductViewHolder(private val viewBinding:ProductItemBinding): RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(product: CategoryProductViewModel){
             viewBinding.product=product
+            bindImage(viewBinding.productImage,"http://www.moqayda.somee.com/" + product.pathImage)
             viewBinding.invalidateAll()
+
         }
     }
 
@@ -27,11 +30,10 @@ class ProductAdapter(private var productList: List<CategoryProductViewModel?>?):
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = productList?.get(position)
         Log.e("product","$product")
-            holder.bind(product!!)
+        holder.bind(product!!)
         holder.itemView.setOnClickListener {
             onItemClickListener.onItemClick(product)
         }
-
     }
 
     override fun getItemCount(): Int {

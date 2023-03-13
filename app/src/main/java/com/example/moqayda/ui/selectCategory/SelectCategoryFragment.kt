@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSelectCategoryBinding
+import com.example.moqayda.models.CategoryItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -56,13 +57,11 @@ class SelectCategoryFragment :
     }
 
     override fun onNavigateToAddProductFragment(
-        categoryId: Int,
-        categoryPathImage: String,
-        categoryBackgroundColor: Int
+        categoryItem: CategoryItem
     ) {
         this.findNavController().navigate(
             SelectCategoryFragmentDirections.actionSelectCategoryFragmentToAddProductFragment(
-                categoryPathImage,categoryBackgroundColor,categoryId
+                categoryItem
             )
         )
     }

@@ -1,6 +1,8 @@
 package com.example.moqayda.ui.selectCategory
 
+import com.example.moqayda.models.CategoryItem
+
 
 interface Navigator {
-    fun onNavigateToAddProductFragment(categoryId:Int,categoryPathImage:String,categoryBackgroundColor:Int)
+    fun onNavigateToAddProductFragment(categoryItem: CategoryItem)
 }

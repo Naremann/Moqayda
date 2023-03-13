@@ -1,5 +1,9 @@
 package com.example.moqayda.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class CategoryProductViewModel(
     val availableSince: String,
     val categoryId: Int,
@@ -10,4 +14,4 @@ data class CategoryProductViewModel(
     val name: String,
     val pathImage: String,
     val productToSwap: String
-)
+) : Parcelable
