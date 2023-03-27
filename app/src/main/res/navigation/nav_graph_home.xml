@@ -35,9 +35,9 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/productsListFragment"
-        android:name="com.example.moqayda.ui.product.ProductsListFragment"
+        android:name="com.example.moqayda.ui.products.ProductFragment"
         android:label="ProductsListFragment"
-        tools:layout="@layout/fragment_list_products">
+        tools:layout="@layout/fragment_products">
 
 
         <argument
@@ -74,13 +74,15 @@
         tools:layout="@layout/fragment_product_details" >
         <argument
             android:name="itemName"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="productToSwapName"
             app:argType="string"
             app:nullable="true" />
         <argument
             android:name="description"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>
