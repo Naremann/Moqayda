@@ -38,5 +38,6 @@
     <string name="swap_with_text">Swap With</string>
     <string name="description_text">Description :</string>
     <string name="swap_now_text">Swap Now</string>
+    <string name="add_to_favorite_text">Add To Favorite</string>
 
 </resources>
