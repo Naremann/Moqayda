@@ -17,7 +17,7 @@
     <string name="select_category">Product Category</string>
     <string name="confirm">Confirm</string>
     <string name="pick_photo">Pick File</string>
-    <string name="permission_denied_explanation">You must grant storage permmision</string>
+    <string name="permission_denied_explanation">You must grant storage permission</string>
     <string name="settings">settings</string>
     <string name="what_are_you_offering">What are you offering?</string>
     <string name="pick_your_category_of_interest">Pick your category of interest</string>
@@ -33,11 +33,36 @@
     <string name="product_uploaded">File uploaded</string>
     <string name="no_enough_space">"No enough space"</string>
     <string name="choose_image">"Please Choose image"</string>
-    <string name="details_text">Product Details</string>
+    <string name="details_text">Item Details</string>
     <string name="swap_text">Swap</string>
     <string name="swap_with_text">Swap With</string>
     <string name="description_text">Description :</string>
     <string name="swap_now_text">Swap Now</string>
     <string name="add_to_favorite_text">Add To Favorite</string>
+    <string name="or_text">or</string>
+    <string name="sign_in_text">Sign In</string>
+    <string name="have_account_text">Already have an account?</string>
+    <string name="first_name_text">First Name</string>
+    <string name="last_name_text">Last Name</string>
+    <string name="mobile_text">Mobile Number</string>
+    <string name="country_text">Country</string>
+    <string name="address_text">You Address</string>
+    <string name="password">Password</string>
+    <string name="city">City</string>
+    <string name="create_account">Create an account</string>
+    <string name="registration">Registration</string>
+    <string name="verify">Verify</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 
 </resources>

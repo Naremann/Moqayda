@@ -11,7 +11,7 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background">
@@ -25,13 +25,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/baseline_of_tv" />
+            app:layout_constraintTop_toBottomOf="@id/baseline_of_tv"
+            style="@style/TextViewTitle"/>
 
         <com.google.android.material.internal.BaselineLayout
             android:id="@+id/baseline_of_fields"
@@ -57,7 +57,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/baseline_of_fields">
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailContainer"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -65,7 +64,7 @@
                         android:layout_width="346dp"
                         android:layout_height="wrap_content"
                         android:enabled="true"
-                        app:boxStrokeColor="#6F1280"
+                        app:boxStrokeColor="@color/black"
                         app:boxStrokeWidth="1dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -90,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:enabled="true"
-                        app:boxStrokeColor="#FFC107"
+                        app:boxStrokeColor="@color/black"
                         app:boxStrokeWidth="1dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -108,7 +107,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
-                        android:id="@+id/login_btn"
+                        android:id="@+id/sign_in_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
@@ -118,8 +117,8 @@
                         android:text="sign in"
                         app:layout_constraintEnd_toEndOf="@+id/passwordContainer"
                         app:layout_constraintStart_toStartOf="@+id/passwordContainer"
-                        app:layout_constraintTop_toBottomOf="@+id/passwordContainer" />
-
+                        app:layout_constraintTop_toBottomOf="@+id/passwordContainer"
+                        />
                     <TextView
                         android:id="@+id/forget_pass_tv"
                         android:layout_width="wrap_content"
@@ -129,9 +128,9 @@
                         android:text="forget password ?"
                         android:textColor="@color/blue"
                         android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="@+id/login_btn"
-                        app:layout_constraintStart_toStartOf="@+id/login_btn"
-                        app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+                        app:layout_constraintEnd_toEndOf="@+id/sign_in_btn"
+                        app:layout_constraintStart_toStartOf="@+id/sign_in_btn"
+                        app:layout_constraintTop_toBottomOf="@+id/sign_in_btn" />
 
                     <View
                         android:id="@+id/line_view"
@@ -141,40 +140,77 @@
                         app:layout_constraintEnd_toEndOf="@+id/forget_pass_tv"
                         app:layout_constraintStart_toStartOf="@id/forget_pass_tv"
                         app:layout_constraintTop_toBottomOf="@+id/forget_pass_tv" />
-
-                    <Button
-                        android:id="@+id/login_google_btn"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="348dp"
-                        android:layout_height="51dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/google"
-                        android:paddingHorizontal="16dp"
-                        android:text="Sign In with google"
-                        android:textColor="#000000"
-                        app:iconSize="20sp"
-                        app:layout_constraintEnd_toEndOf="@+id/login_btn"
-                        app:layout_constraintStart_toStartOf="@+id/login_btn"
-                        app:layout_constraintTop_toBottomOf="@+id/line_view" />
-
                     <TextView
-                        android:id="@+id/create_account_tv"
+                        android:id="@+id/or_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:onClick="@{()->vm.navigateToRegisterActivity()}"
-                        android:text="Or create account"
-                        android:textColor="@color/blue"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintTop_toBottomOf="@id/line_view"
+                        app:layout_constraintStart_toStartOf="@id/forget_pass_tv"
+                        app:layout_constraintEnd_toEndOf="@id/forget_pass_tv"
+                        android:text="@string/or_text"
+                        android:layout_marginTop="13dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/login_google_btn"
+                            android:layout_height="60dp"
+                            android:layout_width="60dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/or_tv"
+                            android:layout_marginTop="15dp"
+                           android:src="@drawable/google"
+                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:theme="@style/GoogleBtnStyle"
+                            android:scaleType="fitXY"
+                           />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/have_not_account_linear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/login_google_btn" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/login_google_btn"
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="Don't have account?"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            />
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/sign_up_linear_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:orientation="vertical"
+
+                            >
+                            <TextView
+                                android:id="@+id/sign_up_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:onClick="@{()->vm.navigateToRegisterActivity()}"
+                                android:text="Sign Up"
+                                android:textColor="@color/blue"
+                                android:textSize="16sp"
+
+                                />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/blue"
+                                />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </ScrollView>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

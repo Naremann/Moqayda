@@ -62,7 +62,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
     }
 
     private fun initAdapter(item: CategoryItem?) {
-        ProductAdapter(item?.categoryProductViewModels)
+        adapter = ProductAdapter(item?.categoryProductViewModels)
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onItemClickListener = object : ProductAdapter.OnItemClickListener {
             override fun onItemClick(productItem: CategoryProductViewModel?) {

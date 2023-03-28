@@ -1,7 +1,7 @@
 package com.example.moqayda.repo.category
 
 import com.example.moqayda.NetworkHandler
-import com.example.moqayda.api.ApiInterface
+import com.example.moqayda.api.ApiService
 import com.example.moqayda.database.MyDatabase
 import dagger.Module
 import dagger.Provides
@@ -17,7 +17,7 @@ object CategoryModule {
         return CategoryOfflineRepositoryImp(database)
     }
     @Provides
-    fun provideOnlineCategory(webServices: ApiInterface):CategoryOnlineRepository{
+    fun provideOnlineCategory(webServices: ApiService):CategoryOnlineRepository{
         return CategoryOnlineRepositoryImp(webServices)
     }
 
