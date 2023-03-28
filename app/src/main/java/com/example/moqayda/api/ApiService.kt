@@ -8,7 +8,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
-interface ApiInterface {
+interface ApiService {
 
     @GET("/api/Category")
     suspend fun getAllCategories(): Response<CategoryResponse>
@@ -25,8 +25,12 @@ interface ApiInterface {
     @GET("/api/Category/{id}")
     suspend fun getProductsByCategoryId(@Path("id") categoryId:Int?):Response<CategoryItem>
 
-//    @GET("/api/Category/3")
-//    suspend fun getProductsByCategoryId(): Response<CategoryItemTest>
+    @Multipart
+    @POST("/api/Wishlist")
+    suspend fun addProductToFavorite(
+        @Part productId:MultipartBody.Part?,
+        @Part ownerADObjectId:MultipartBody.Part?
+    ):BasicApiResponse<Unit>
 
 
 

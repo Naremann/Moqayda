@@ -10,9 +10,9 @@ import com.example.moqayda.models.CategoryProductViewModel
 
 class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,ProductDetailsViewModel>() {
     lateinit var product: CategoryProductViewModel
-    lateinit var description:String
-    lateinit var name:String
-    lateinit var productToSwapWithName:String
+    private var description: String?=null
+    var name:String?=null
+    private var productToSwapWithName:String?=null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
