@@ -56,7 +56,9 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
                 viewDataBinding.progressBar.isVisible = isVisibleProgress
             }
             viewModel.connectionError.observe(viewLifecycleOwner) { error ->
-                showToastMessage(error)
+                if (error != null) {
+                    showToastMessage(error)
+                }
             }
         }
     }
