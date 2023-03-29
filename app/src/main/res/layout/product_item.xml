@@ -166,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/in_active_love_img"
-                app:layout_constraintStart_toEndOf="@id/active_love_img"
+                app:layout_constraintStart_toEndOf="@id/in_active_love_img"
                 android:text="@string/add_to_favorite_text"
                 android:textStyle="bold"
                 android:textSize="23sp"

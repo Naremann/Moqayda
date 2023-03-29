@@ -46,7 +46,7 @@ object ApiModule {
     }
 
     @Provides
-    fun provideWebService(retrofit: Retrofit):ApiInterface{
-        return retrofit.create(ApiInterface::class.java)
+    fun provideWebService(retrofit: Retrofit):ApiService{
+        return retrofit.create(ApiService::class.java)
     }
 }

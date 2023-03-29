@@ -82,7 +82,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20%</item>
     </style>
-    <style name="details">
+    <style name="Details">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">80%</item>
     </style>
@@ -92,5 +92,14 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/baloo_tamma_2</item>
     </style>
+
+    <style name="GoogleBtnStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:bottomRightRadius">10dp</item>
+        <item name="android:bottomLeftRadius">10dp</item>
+        <item name="android:topLeftRadius">10dp</item>
+        <item name="android:topRightRadius">10dp</item>
+    </style>
+
 
 </resources>

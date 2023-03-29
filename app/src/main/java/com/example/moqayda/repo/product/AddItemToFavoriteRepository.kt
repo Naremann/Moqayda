@@ -7,7 +7,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 
 class AddItemToFavoriteRepository {
-    val connectionError = MutableLiveData("")
+    val connectionError = MutableLiveData<String?>()
     suspend fun addItemToFavorite(productId:Int,ownerADObjectId:String){
             val response = RetrofitBuilder.retrofitService.addProductToFavorite(MultipartBody.Part.createFormData(
                 "text/plain".toMediaTypeOrNull().toString(), productId.toString()

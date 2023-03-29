@@ -56,13 +56,15 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
                 viewDataBinding.progressBar.isVisible = isVisibleProgress
             }
             viewModel.connectionError.observe(viewLifecycleOwner) { error ->
-                showToastMessage(error)
+                if (error != null) {
+                    showToastMessage(error)
+                }
             }
         }
     }
 
     private fun initAdapter(item: CategoryItem?) {
-        ProductAdapter(item?.categoryProductViewModels)
+        adapter = ProductAdapter(item?.categoryProductViewModels)
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onItemClickListener = object : ProductAdapter.OnItemClickListener {
             override fun onItemClick(productItem: CategoryProductViewModel?) {

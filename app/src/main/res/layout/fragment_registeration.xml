@@ -26,14 +26,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/TextViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Registration"
+            android:text="@string/registration"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/baseline_of_tv" />
-
+            app:layout_constraintTop_toBottomOf="@id/baseline_of_tv"
+            style="@style/TextViewTitle"
+            />
         <com.google.android.material.internal.BaselineLayout
             android:id="@+id/baseline_of_fields"
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="20dp">
 
@@ -79,7 +79,7 @@
                             android:id="@+id/firstNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="First Name"
+                            android:hint="@string/first_name_text"
                             android:text="@={vm.firstName}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +106,7 @@
                             android:id="@+id/lastNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Last Name"
+                            android:hint="@string/last_name_text"
                             android:text="@={vm.lastName}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +130,7 @@
                         android:id="@+id/mobileEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Mobile Number"
+                        android:hint="@string/mobile_text"
                         android:text="@={vm.mobile}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,7 +158,7 @@
                             android:id="@+id/countryEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Country"
+                            android:hint="@string/country_text"
                             android:text="@={vm.country}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -177,7 +177,7 @@
                             android:id="@+id/cityEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="City"
+                            android:hint="@string/city"
                             android:text="@={vm.city}" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -197,7 +197,7 @@
                         android:id="@+id/AddressEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Your Address"
+                        android:hint="@string/address_text"
                         android:text="@={vm.address}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -219,7 +219,7 @@
                         android:id="@+id/emailEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
+                        android:hint="@string/email"
                         android:text="@={vm.email}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -243,59 +243,85 @@
                         android:id="@+id/passwordEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="password"
+                        android:hint="@string/password"
                         android:text="@={vm.password}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/signUpBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginTop="16dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/blue"
                     android:onClick="@{()->vm.createAccount()}"
-                    android:text="Create account"
+                    android:text="@string/create_account"
 
                     />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/or_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_gravity="center"
+                    android:text="@string/or_text"
+                    android:layout_marginTop="13dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                     />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/login_google_btn"
+                    android:layout_height="60dp"
+                    android:layout_width="60dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
-                    android:text="or"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:src="@drawable/google"
+                    android:theme="@style/GoogleBtnStyle"
+                    android:scaleType="fitXY"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    />
 
-                <Button
-                    android:id="@+id/button3"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/google"
-                    android:paddingHorizontal="16dp"
-                    android:text="Sign Up with google"
-                    android:textColor="#000000"
-                    app:iconSize="16sp" />
-
-                <TextView
-                    android:id="@+id/alreadyHaveAccountTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:text="Already have an account?"
-                    android:textColor="@color/blue"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+               <androidx.appcompat.widget.LinearLayoutCompat
+                   android:id="@+id/sign_in_linear"
+                   android:layout_height="wrap_content"
+                   android:layout_width="wrap_content"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   android:layout_marginTop="8dp"
+                   android:orientation="horizontal"
+                   >
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/have_account_text"
+                       android:textSize="16sp"
+                       android:textColor="@color/black"
+                       android:textStyle="bold"
+                       />
+                   <androidx.appcompat.widget.LinearLayoutCompat
+                       android:layout_height="wrap_content"
+                       android:layout_width="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_gravity="center"
+                           android:text="@string/sign_in_text"
+                           android:textColor="@color/blue"
+                           android:textSize="16sp"
+                           />
+                       <View
+                           android:layout_width="0dp"
+                           android:layout_height="1dp"
+                           android:background="@color/blue"
+                           />
+                   </androidx.appcompat.widget.LinearLayoutCompat>
+               </androidx.appcompat.widget.LinearLayoutCompat>
             </LinearLayout>
-
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
