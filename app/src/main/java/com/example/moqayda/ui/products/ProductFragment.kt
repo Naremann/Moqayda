@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -12,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductsBinding
-import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.models.CategoryProductViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,9 @@ import kotlinx.coroutines.launch
 class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>() {
 
     private var categoryId: Int = 0
-    private lateinit var adapter: ProductAdapter
+    private var adapter: ProductAdapter = ProductAdapter()
+    private var productList: MutableList<CategoryProductViewModel> = mutableListOf()
+    private var filteredList: MutableList<CategoryProductViewModel> = mutableListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +32,45 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         viewDataBinding.vm = viewModel
         getProductsById()
         observeToLiveData()
+        initRecycler()
+        searchItems()
     }
+
+    private fun searchItems() {
+        viewDataBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterItemsList(newText)
+                return false
+            }
+        })
+    }
+
+    private fun filterItemsList(newText: String?) {
+        filteredList.clear()
+        for (item in productList) {
+            for (i in 0 until item.name!!.length) {
+                if (newText != null) {
+                    if (newText.lowercase().contains(item.name[i].lowercase())
+                    ) {
+                        if (item !in filteredList)
+                            item.let { filteredList.add(it) }
+                    }
+                }
+            }
+        }
+        if (filteredList.isEmpty() && newText?.isNotBlank() == true) {
+            showToastMessage("No Data Match..", Toast.LENGTH_SHORT)
+        } else {
+            adapter.changeData(filteredList)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
 
     private fun getProductsById() {
         categoryId.let { id ->
@@ -48,9 +89,12 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
 
     private fun observeToLiveData() {
         lifecycleScope.launch {
-            viewModel.categoryItem.observe(viewLifecycleOwner) { item ->
-                Log.e("ProductsListFragment", item.toString())
-                item?.let { initAdapter(item) }
+            viewModel.categoryItem.observe(viewLifecycleOwner) { categoryItem ->
+                Log.e("ProductsListFragment", categoryItem.toString())
+                adapter.changeData(categoryItem?.categoryProductViewModels)
+                adapter.notifyDataSetChanged()
+                productList =
+                    categoryItem?.categoryProductViewModels as MutableList<CategoryProductViewModel>
             }
             viewModel.isVisibleProgress.observe(viewLifecycleOwner) { isVisibleProgress ->
                 viewDataBinding.progressBar.isVisible = isVisibleProgress
@@ -63,8 +107,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         }
     }
 
-    private fun initAdapter(item: CategoryItem?) {
-        adapter = ProductAdapter(item?.categoryProductViewModels)
+    private fun initRecycler() {
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onItemClickListener = object : ProductAdapter.OnItemClickListener {
             override fun onItemClick(productItem: CategoryProductViewModel?) {
@@ -73,14 +116,17 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         }
         adapter.onActiveLoveImage = object : ProductAdapter.OnActiveLoveImageClickListener {
             override fun onIconClick(
-                activeLoveImage: ImageView, inActiveLoveImage: ImageView, addToFavoriteTv: TextView
+                activeLoveImage: ImageView, inActiveLoveImage: ImageView,
+                addToFavoriteTv: TextView, product: CategoryProductViewModel
             ) {
-                deleteItemFromFavorite(
-                    activeLoveImage,
-                    inActiveLoveImage,
-                    addToFavoriteTv,
-                    item?.id!!
-                )
+                product.id?.let {
+                    deleteItemFromFavorite(
+                        activeLoveImage,
+                        inActiveLoveImage,
+                        addToFavoriteTv,
+                        product.id
+                    )
+                }
             }
 
         }
@@ -89,21 +135,13 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
                 activeLoveImage: ImageView,
                 inActiveLoveImage: ImageView,
                 addToFavoriteTv: TextView,
+                product: CategoryProductViewModel
             ) {
-                addItemToFavorite(
-                    activeLoveImage, inActiveLoveImage, addToFavoriteTv, item?.id!!
-                )
-            }
-        }
-        adapter.onActiveLoveImage = object : ProductAdapter.OnActiveLoveImageClickListener {
-            override fun onIconClick(
-                activeLoveImage: ImageView,
-                inActiveLoveImage: ImageView,
-                addToFavoriteTv: TextView
-            ) {
-                activeLoveImage.isVisible = false
-                inActiveLoveImage.isVisible = true
-                addToFavoriteTv.isVisible = true
+                product.id?.let {
+                    addItemToFavorite(
+                        activeLoveImage, inActiveLoveImage, addToFavoriteTv, it
+                    )
+                }
             }
         }
     }

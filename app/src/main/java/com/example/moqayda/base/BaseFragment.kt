@@ -53,8 +53,8 @@ abstract class BaseFragment<DB: ViewDataBinding,VM: BaseViewModel<*>> : Fragment
     abstract fun initViewModeL() : VM
     abstract fun getLayoutId() : Int
 
-    fun showToastMessage(message:String){
-        Toast.makeText(requireContext(),message, Toast.LENGTH_LONG).show()
+    fun showToastMessage(message:String,duration:Int=Toast.LENGTH_LONG){
+        Toast.makeText(requireContext(),message, duration).show()
     }
     private fun showAlertDialog(
         message:String, posActionName:String?=null,

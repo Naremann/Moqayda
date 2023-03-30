@@ -12,7 +12,7 @@ import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.ProductItemBinding
 import com.example.moqayda.models.CategoryProductViewModel
 
-class ProductAdapter(private var productList: List<CategoryProductViewModel?>?) :
+class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutableListOf()) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     lateinit var onInActiveLoveImage: OnInActiveLoveImageClickListener
@@ -51,14 +51,15 @@ class ProductAdapter(private var productList: List<CategoryProductViewModel?>?) 
         }
         holder.activeLoveImage.setOnClickListener {
             onActiveLoveImage.onIconClick(
-                holder.activeLoveImage, holder.inActiveLoveImage, holder.addToFavoriteTv
+                holder.activeLoveImage, holder.inActiveLoveImage, holder.addToFavoriteTv,product
             )
         }
         holder.inActiveLoveImage.setOnClickListener {
                     onInActiveLoveImage.onIconClick(
                         holder.activeLoveImage,
                         holder.inActiveLoveImage,
-                        holder.addToFavoriteTv
+                        holder.addToFavoriteTv,
+                        product
                     )
 
         }
@@ -67,6 +68,10 @@ class ProductAdapter(private var productList: List<CategoryProductViewModel?>?) 
 
     override fun getItemCount(): Int {
         return productList?.size ?: 0
+    }
+
+    fun changeData(products: List<CategoryProductViewModel?>?){
+        productList=products
     }
 
     interface OnItemClickListener {
@@ -78,6 +83,7 @@ class ProductAdapter(private var productList: List<CategoryProductViewModel?>?) 
             activeLoveImage: ImageView,
             inActiveLoveImage: ImageView,
             addToFavoriteTv: TextView,
+            product: CategoryProductViewModel
         )
     }
 
@@ -85,7 +91,8 @@ class ProductAdapter(private var productList: List<CategoryProductViewModel?>?) 
         fun onIconClick(
             activeLoveImage: ImageView,
             inActiveLoveImage: ImageView,
-            addToFavoriteTv: TextView
+            addToFavoriteTv: TextView,
+            product: CategoryProductViewModel
         )
     }
 
