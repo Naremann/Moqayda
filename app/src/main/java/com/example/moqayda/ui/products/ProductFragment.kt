@@ -14,10 +14,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductsBinding
+import com.example.moqayda.initToolbar
 import com.example.moqayda.models.CategoryProductViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>() {
 
@@ -30,6 +32,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         super.onViewCreated(view, savedInstanceState)
         categoryId = ProductFragmentArgs.fromBundle(requireArguments()).categoryId
         viewDataBinding.vm = viewModel
+        viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.Swap_items),this)
         getProductsById()
         observeToLiveData()
         initRecycler()
@@ -183,3 +186,6 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
     }
 
 }
+
+
+
