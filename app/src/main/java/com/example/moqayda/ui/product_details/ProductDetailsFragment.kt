@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductDetailsBinding
+import com.example.moqayda.initToolbar
 import com.example.moqayda.models.CategoryProductViewModel
 
 class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,ProductDetailsViewModel>() {
@@ -17,6 +18,7 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.vm=viewModel
+        viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.item_details),this)
         getProductDetails()
         setProductDetailsData()
     }
