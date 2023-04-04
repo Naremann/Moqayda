@@ -1,5 +1,6 @@
 package com.example.moqayda.ui.home
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
@@ -51,6 +52,7 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem?>, private val cli
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val categoryItem = categoryList[position]
+        val hexColor ="#" + categoryItem?.categoryBackgroundColor?.let { Integer.toHexString(it) }
         holder.itemView.setOnClickListener {
 
         }
@@ -58,23 +60,15 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem?>, private val cli
         if (getItemViewType(position) == rightItemCode) {
             (holder as CategoryRightItemViewHolder).bind(categoryItem!!,clickListener)
             holder.rightItemBinding.materialCardView.setCardBackgroundColor(
-                getColor(
-                    holder.itemView.context,
-                    categoryItem.categoryBackgroundColor!!
-                )
+            Color.parseColor(hexColor)
             )
-
             bindImage(holder.rightItemBinding.categoryImg,categoryItem.pathImage)
 
         } else {
             (holder as CategoryLeftItemViewHolder).bind(categoryItem!!,clickListener)
             holder.leftItemBinding.materialCardView.setCardBackgroundColor(
-                getColor(
-                    holder.itemView.context,
-                    categoryItem.categoryBackgroundColor!!
-                )
+                Color.parseColor(hexColor)
             )
-
             bindImage(holder.leftItemBinding.categoryImg,categoryItem.pathImage)
         }
 

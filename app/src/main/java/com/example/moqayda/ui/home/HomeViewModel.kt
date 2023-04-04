@@ -51,6 +51,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.moqayda.R
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.CategoryItem
@@ -60,14 +61,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel  @Inject constructor(val categoryRepository: CategoryRepository) : BaseViewModel<Navigator>() {
-    lateinit var categoryOnlineRepository: CategoryOnlineRepository
-    // lateinit var categoryOfflineRepository: CategoryOfflineRepository
-    /*lateinit var categoryRepository: CategoryRepository
-
-
-    lateinit var networkHandler: NetworkHandler*/
-
+class HomeViewModel  @Inject constructor(private val categoryRepository: CategoryRepository) : BaseViewModel<Navigator>() {
     var progressBarVisible = MutableLiveData<Boolean>()
 
     private val _categoryList = MutableLiveData<List<CategoryItem?>?>()
@@ -77,6 +71,7 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
     private val _navigateToProductListFragment = MutableLiveData<CategoryItem?>()
     val navigateToProductListFragment: LiveData<CategoryItem?>
         get() = _navigateToProductListFragment
+
 
 
     private fun fetchCategoryList() {
@@ -108,8 +103,7 @@ class HomeViewModel  @Inject constructor(val categoryRepository: CategoryReposit
     }
 
     init {
-        categoryOnlineRepository=CategoryOnlineRepositoryImp(RetrofitBuilder.retrofitService)
-       // categoryOfflineRepository=CategoryOfflineRepositoryImp(MyDatabase.getInstance()!!)
+        // categoryOfflineRepository=CategoryOfflineRepositoryImp(MyDatabase.getInstance()!!)
        /* networkHandler=NetworkHandlerImp()
 
 
