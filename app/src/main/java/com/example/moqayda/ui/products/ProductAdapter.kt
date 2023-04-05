@@ -26,7 +26,8 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutable
         val addToFavoriteTv = viewBinding.addToFavoriteTv
         fun bind(product: CategoryProductViewModel) {
             viewBinding.product = product
-            bindImage(viewBinding.productImage, "http://www.moqayda.somee.com/" + product.pathImage)
+            product.pathImage?.let { Log.e("ProductAdapter", it) }
+            bindImage(viewBinding.productImage, product.pathImage)
             viewBinding.invalidateAll()
 
         }

@@ -25,6 +25,9 @@ interface ApiService {
     @GET("/api/Category/{id}")
     suspend fun getProductsByCategoryId(@Path("id") categoryId:Int?):Response<CategoryItem>
 
+    @GET("/api/Product/{id}")
+    suspend fun getProductById(@Path("id") productId:Int?):Response<CategoryProductViewModel>
+
     @Multipart
     @POST("/api/Wishlist")
     suspend fun addProductToFavorite(
@@ -32,6 +35,8 @@ interface ApiService {
         @Part ownerADObjectId:MultipartBody.Part?
     ):BasicApiResponse<Unit>
 
+    @GET("/api/Wishlist/all")
+    suspend fun getWishlist(): Response<WishlistResponse>
 
 
 }
