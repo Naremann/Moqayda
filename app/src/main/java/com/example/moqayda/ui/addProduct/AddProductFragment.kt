@@ -5,6 +5,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -15,7 +16,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getColor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
@@ -58,7 +58,9 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
         viewDataBinding.category = selectedCategory
         bindImage(viewDataBinding.categoryItemImg, selectedCategory.pathImage)
         viewDataBinding.categoryItemImg.setBackgroundColor(
-            getColor(requireContext(), selectedCategory.categoryBackgroundColor!!)
+            Color.parseColor(
+                "#" + selectedCategory.categoryBackgroundColor?.let { Integer.toHexString(it) }
+            )
         )
 
         viewDataBinding.pickButton.setOnClickListener {
