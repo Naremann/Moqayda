@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/registeration"
-        android:name="com.example.moqayda.ui.register.RegistrationFragment"
+        android:name="com.example.moqayda.ui.registeration.RegistrationFragment"
         android:label="fragment_registeration"
         tools:layout="@layout/fragment_registeration" />
     <fragment

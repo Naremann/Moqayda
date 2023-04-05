@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.example.moqayda.ui.register.RegisterViewModel" />
+            type="com.example.moqayda.ui.registeration.RegisterViewModel" />
 
     </data>
 
@@ -290,6 +290,8 @@
                    android:layout_width="wrap_content"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintStart_toStartOf="parent"
+                   android:gravity="center"
+                   android:layout_gravity="center"
                    android:layout_marginTop="8dp"
                    android:orientation="horizontal"
                    >
@@ -305,17 +307,18 @@
                        android:layout_height="wrap_content"
                        android:layout_width="wrap_content"
                        android:orientation="vertical"
+                       android:layout_marginStart="6dp"
+                       android:onClick="@{()->vm.signIn()}"
                        >
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
-                           android:layout_gravity="center"
                            android:text="@string/sign_in_text"
                            android:textColor="@color/blue"
                            android:textSize="16sp"
                            />
                        <View
-                           android:layout_width="0dp"
+                           android:layout_width="match_parent"
                            android:layout_height="1dp"
                            android:background="@color/blue"
                            />

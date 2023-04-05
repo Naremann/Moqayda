@@ -190,13 +190,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:orientation="vertical"
-
+                            android:onClick="@{()->vm.navigateToRegisterActivity()}"
                             >
                             <TextView
                                 android:id="@+id/sign_up_btn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:onClick="@{()->vm.navigateToRegisterActivity()}"
                                 android:text="Sign Up"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"

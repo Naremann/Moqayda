@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "266968754469",
+    "project_id": "moqayda-34d10",
+    "storage_bucket": "moqayda-34d10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266968754469:android:8900fe11fca953022012cc",
+        "android_client_info": {
+          "package_name": "com.example.moqayda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266968754469-e6ldgqa35na0gt2a7cbkm1e8u7010elg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd4WO2n2YswU7zZ09D9E7FmoscPi_RNx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266968754469-e6ldgqa35na0gt2a7cbkm1e8u7010elg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
