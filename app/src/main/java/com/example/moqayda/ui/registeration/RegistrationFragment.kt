@@ -1,4 +1,4 @@
-package com.example.moqayda.ui.register
+package com.example.moqayda.ui.registeration
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -6,7 +6,6 @@ import androidx.navigation.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentRegisterationBinding
-import com.example.moqayda.ui.register.Navigator
 
 class RegistrationFragment : BaseFragment<FragmentRegisterationBinding, RegisterViewModel>(),Navigator{
 
@@ -32,7 +31,7 @@ class RegistrationFragment : BaseFragment<FragmentRegisterationBinding, Register
         return viewDataBinding.root
     }
 
-    override fun navigateToLoginActivity() {
+    override fun navigateToLoginFragment() {
         requireView().findNavController().navigate(R.id.login)
     }
 }
