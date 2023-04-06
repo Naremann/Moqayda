@@ -36,7 +36,7 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
             addAccountToFirebase()
         }
     }
-    fun signIn(){
+    fun navigateToLogin(){
         navigator.navigateToLoginFragment()
     }
     private fun addAccountToFirebase() {

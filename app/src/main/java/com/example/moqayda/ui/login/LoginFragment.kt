@@ -1,9 +1,11 @@
 package com.example.moqayda.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.example.moqayda.HomeActivity
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentLoginBinding
@@ -26,7 +28,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(), Navi
     }
 
     override fun navigateToHomeActivity() {
-
+        val intent = Intent(requireContext(),HomeActivity::class.java)
+        startActivity(intent)
     }
 
 
