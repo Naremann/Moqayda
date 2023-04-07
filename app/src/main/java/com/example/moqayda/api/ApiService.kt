@@ -38,5 +38,7 @@ interface ApiService {
     @GET("/api/Wishlist/all")
     suspend fun getWishlist(): Response<WishlistResponse>
 
+    @DELETE("api/Wishlist/{id}")
+    suspend fun deleteFavoriteProductById(@Path("id") productId:Int) : Response<Unit>
 
 }

@@ -54,7 +54,8 @@
     <string name="verify">Verify</string>
     <string name="item_details">Item Details</string>
     <string name="Swap_items">Swap Items</string>
-
+    <string name="show_original_post">Show original post</string>
+    <string name="remove_from_favorites">Remove from favorites</string>
 
 
 </resources>
