@@ -35,9 +35,29 @@ class LoginViewModel : BaseViewModel<Navigator>() {
 
         }
     }
+    fun validateEmailField():Boolean{
+        var isValidate=true
+        if(email.get().isNullOrBlank()){
+            emailError.set("Please Enter your email")
+            isValidate=false
+        }
+        else
+            emailError.set(null)
+        return isValidate
+    }
 
     fun resetPassword(){
-        navigator.navigateToResettingPassFragment()
+        if(validateEmailField()){
+            email.get().let {
+                auth.sendPasswordResetEmail(it!!).addOnCompleteListener { task->
+                    if(task.isSuccessful){
+                        messageLiveData.value="Check your email"
+                    } else{
+                        messageLiveData.value=task.exception?.localizedMessage
+                    }
+                }
+            }
+        }
     }
 
     private fun checkUser(userId:String) {
@@ -62,7 +82,7 @@ class LoginViewModel : BaseViewModel<Navigator>() {
     private fun validate() : Boolean{
         var validate = true
         if(email.get().isNullOrBlank()){
-            emailError.set("Please enter the email")
+            emailError.set("Please enter your email")
             validate = false
         }
         else

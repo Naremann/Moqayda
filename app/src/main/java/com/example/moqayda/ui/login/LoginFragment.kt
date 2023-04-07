@@ -37,10 +37,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(), Navi
         requireView().findNavController().navigate(R.id.registeration)
     }
 
-    override fun navigateToResettingPassFragment() {
-        requireView().findNavController().navigate(R.id.resettingPassFragment)
-    }
-
     override fun getViews(): View {
         return viewDataBinding.root
     }
