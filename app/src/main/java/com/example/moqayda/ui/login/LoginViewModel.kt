@@ -35,7 +35,7 @@ class LoginViewModel : BaseViewModel<Navigator>() {
 
         }
     }
-    fun validateEmailField():Boolean{
+    private fun validateEmailField():Boolean{
         var isValidate=true
         if(email.get().isNullOrBlank()){
             emailError.set("Please Enter your email")
@@ -61,8 +61,8 @@ class LoginViewModel : BaseViewModel<Navigator>() {
     }
 
     private fun checkUser(userId:String) {
-        showLoading.value=false
         getUserFromFirestore(userId, { documentSnapshot->
+            showLoading.value=false
             navigator.navigateToHomeActivity()
             val user = documentSnapshot.toObject(AppUser::class.java)
             DataUtils.USER=user
@@ -71,6 +71,7 @@ class LoginViewModel : BaseViewModel<Navigator>() {
 
 
         }) { ex ->
+            showLoading.value=false
             messageLiveData.value = ex.localizedMessage
         }
 
