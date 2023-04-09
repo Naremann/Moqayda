@@ -30,6 +30,7 @@ class FavoriteViewModel : BaseViewModel<Navigator>() {
 
 
     private fun fetchDataFromWishlist() {
+        dataList.clear()
         viewModelScope.launch {
             val result = RetrofitBuilder.retrofitService.getWishlist()
             if (result.isSuccessful){
@@ -57,6 +58,7 @@ class FavoriteViewModel : BaseViewModel<Navigator>() {
             val response = RetrofitBuilder.retrofitService.deleteFavoriteProductById(productId)
             if (response.isSuccessful){
                 Log.e("FavoriteViewModel","deleted successfully")
+
                 fetchDataFromWishlist()
             }else{
                 Log.e("FavoriteViewModel","Delete Failed")
@@ -64,5 +66,6 @@ class FavoriteViewModel : BaseViewModel<Navigator>() {
         }
 
     }
+
 
 }
