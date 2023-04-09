@@ -9,6 +9,8 @@ import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSelectCategoryBinding
 import com.example.moqayda.models.CategoryItem
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +24,11 @@ class SelectCategoryFragment :
         viewDataBinding.viewModel = viewModel
         viewModel.navigator = this
         observeToLiveData()
+
         activity?.findViewById<FloatingActionButton>(R.id.fabButton)?.hide()
+        activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)?.visibility = View.VISIBLE
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+            View.VISIBLE
     }
 
     private fun observeToLiveData() {

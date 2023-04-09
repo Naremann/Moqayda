@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentFavoriteBinding
@@ -15,7 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>() {
-    private lateinit var binding:FragmentFavoriteBinding
+    private lateinit var adapter: FavoriteAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -28,13 +31,23 @@ class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
         activityBottomNavigationView?.visibility = View.VISIBLE
         activityFabButton?.visibility = View.GONE
 
+        initRecyclerView()
+
         viewModel.productsWishlist.observe(viewLifecycleOwner){
+
+            adapter = FavoriteAdapter(it, requireContext(),this,this)
+
             it?.forEach{item ->
                 item.name?.let { it1 -> Log.e("FavoriteFragment", it1) }
             }
+            viewDataBinding.recyclerView.adapter = adapter
         }
 
+    }
 
+    private fun initRecyclerView() {
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+        viewDataBinding.recyclerView.layoutManager = layoutManager
     }
 
     override fun getViews(): View {
