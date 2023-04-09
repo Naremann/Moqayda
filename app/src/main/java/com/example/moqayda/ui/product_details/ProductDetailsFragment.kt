@@ -3,13 +3,14 @@ package com.example.moqayda.ui.product_details
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductDetailsBinding
 import com.example.moqayda.initToolbar
 import com.example.moqayda.models.CategoryProductViewModel
 
-class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,ProductDetailsViewModel>() {
+class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,ProductDetailsViewModel>(),Navigator {
     lateinit var product: CategoryProductViewModel
     private var description: String?=null
     var name:String?=null
@@ -21,6 +22,7 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.item_details),this)
         getProductDetails()
         setProductDetailsData()
+        viewModel.navigator=this
     }
 
     private fun setProductDetailsData() {
@@ -45,5 +47,9 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_product_details
+    }
+
+    override fun navigateToSwappingItemsFragment() {
+        findNavController().navigate(ProductDetailsFragmentDirections.actionBlankFragmentToSwappingItemFragment(name))
     }
 }
