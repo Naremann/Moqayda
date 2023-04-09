@@ -84,5 +84,18 @@
             android:name="description"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_blankFragment_to_swappingItemFragment"
+            app:destination="@id/swappingItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/swappingItemFragment"
+        android:name="com.example.moqayda.ui.swapping_items.SwappingItemFragment"
+        android:label="fragment_swapping_item"
+        tools:layout="@layout/fragment_swapping_item" >
+        <argument
+            android:name="itemName"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

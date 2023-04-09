@@ -6,4 +6,8 @@ class ProductDetailsViewModel:BaseViewModel<Navigator>(){
     var description:String?=null
     var name:String?=null
     var productToSwapWithName:String?=null
+    var navigator:Navigator?=null
+    fun navigateToSwapItemsFragment(){
+        navigator?.navigateToSwappingItemsFragment()
+    }
 }
