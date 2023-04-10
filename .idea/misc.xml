@@ -26,11 +26,13 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/search_view_bg.xml" value="0.1265" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/font/baloo_tamma_2.xml" value="0.1" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/activity_home.xml" value="0.18" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/activity_image_viewer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/category_left_item.xml" value="0.1" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/category_list_item.xml" value="0.10572916666666667" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/category_right_item.xml" value="0.13489583333333333" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/drawer_header.xml" value="0.203125" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/favorite_product_item.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_add_product.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_blank.xml" value="0.2" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_chat.xml" value="0.13055555555555556" />
@@ -52,6 +54,7 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/product_item.xml" value="0.3" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/test.xml" value="0.1824074074074074" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/menu/favorite_product_dot_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/menu/search_menu.xml" value="0.22" />
       </map>
     </option>
