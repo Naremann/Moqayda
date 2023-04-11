@@ -168,7 +168,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
-            android:text="@string/create_new_item"/>
+            android:text="@string/create_new_item"
+            android:onClick="@{()->vm.navigateToAddPrivateProductFragment()}"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

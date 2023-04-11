@@ -97,5 +97,13 @@
             android:name="itemName"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_swappingItemFragment_to_addPrivateProductFragment"
+            app:destination="@id/addPrivateProductFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addPrivateProductFragment"
+        android:name="com.example.moqayda.ui.addProduct.AddPrivateProductFragment"
+        android:label="fragment_add_private_product"
+        tools:layout="@layout/fragment_add_private_product" />
 </navigation>
