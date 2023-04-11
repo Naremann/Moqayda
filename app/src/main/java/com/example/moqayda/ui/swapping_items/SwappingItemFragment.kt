@@ -17,6 +17,7 @@ class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingI
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.swap_now_text),this)
         itemName=SwappingItemFragmentArgs.fromBundle(requireArguments()).itemName
         viewModel.itemName=itemName
+        viewModel.navigator=this
 
 
         
