@@ -58,5 +58,9 @@
     <string name="remove_from_favorites">Remove from favorites</string>
     <string name="choose_your_item">Choose item from your items</string>
     <string name="create_new_item">Create new item</string>
+    <string name="send_request">Send Request</string>
+    <string name="items_in_public">Public Items</string>
+    <string name="items_in_private">Private Items</string>
+    <string name="swap_offers">Swap Offers</string>
 
 </resources>

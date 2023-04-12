@@ -1,5 +1,6 @@
 package com.example.moqayda.ui.products
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,10 +8,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.ProductItemBinding
 import com.example.moqayda.models.CategoryProductViewModel
+import com.github.chrisbanes.photoview.PhotoViewAttacher
+
+
+
 
 class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutableListOf()) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
@@ -24,6 +30,7 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutable
         val activeLoveImage = viewBinding.activeLoveImg
         val inActiveLoveImage = viewBinding.inActiveLoveImg
         val addToFavoriteTv = viewBinding.addToFavoriteTv
+        val productImage=viewBinding.productImage
         fun bind(product: CategoryProductViewModel) {
             viewBinding.product = product
             product.pathImage?.let { Log.e("ProductAdapter", it) }
@@ -47,6 +54,12 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutable
         val product = productList?.get(position)
         Log.e("product", "$product")
         holder.bind(product!!)
+        holder.productImage.setOnClickListener {
+            startFullImageScreen(holder,product)
+        }
+        if(holder.productImage.isClickable){
+            makeImageZoomable(holder)
+        }
         holder.itemView.setOnClickListener {
             onItemClickListener.onItemClick(product)
         }
@@ -65,6 +78,17 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutable
 
         }
 
+    }
+
+    private fun makeImageZoomable(holder: ProductViewHolder) {
+        val photoViewAttacher = PhotoViewAttacher(holder.productImage)
+        photoViewAttacher.update()
+    }
+
+    private fun startFullImageScreen(holder: ProductViewHolder,product:CategoryProductViewModel) {
+        val intent = Intent(holder.itemView.context,ImageViewerActivity::class.java)
+        intent.putExtra("image_url",product.pathImage)
+        holder.itemView.context.startActivity(intent)
     }
 
     override fun getItemCount(): Int {

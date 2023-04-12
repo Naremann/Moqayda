@@ -129,7 +129,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <com.github.chrisbanes.photoview.PhotoView
                 android:id="@+id/product_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

@@ -3,6 +3,7 @@ package com.example.moqayda.ui.swapping_items
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSwappingItemBinding
@@ -16,6 +17,7 @@ class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingI
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.swap_now_text),this)
         itemName=SwappingItemFragmentArgs.fromBundle(requireArguments()).itemName
         viewModel.itemName=itemName
+        viewModel.navigator=this
 
 
         
@@ -31,6 +33,10 @@ class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingI
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_swapping_item
+    }
+
+    override fun navigateToAddPrivateProductFragment() {
+        findNavController().navigate(R.id.addPrivateProductFragment)
     }
 
 
