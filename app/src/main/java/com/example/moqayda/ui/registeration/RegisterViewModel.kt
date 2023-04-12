@@ -6,11 +6,15 @@ import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.addUserToFirestore
 import com.example.moqayda.models.AppUser
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 class RegisterViewModel : BaseViewModel<Navigator>() {
     private var auth: FirebaseAuth = Firebase.auth
+    private lateinit var firebaseReference:DatabaseReference
 
     val firstName = ObservableField<String>()
     val lastName = ObservableField<String>()
@@ -40,15 +44,18 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
         navigator.navigateToLoginFragment()
     }
     private fun addAccountToFirebase() {
-        val currentUser = auth.currentUser
+
         showLoading.value = true
         password.get()?.let {
             auth.createUserWithEmailAndPassword(email.get().toString(), it)
                 .addOnCompleteListener { task ->
                     showLoading.value = false
                     if (task.isSuccessful) {
+                        val currentUser = auth.currentUser
+                        val userId = currentUser!!.uid
                         Log.e("addUser", "signInWithCustomToken:success${email.get().toString()}")
                         createFireStoreUser(task.result.user!!.uid)
+                        addUserToFirebaseDatabase(userId)
                     } else {
                         messageLiveData.value = task.exception?.localizedMessage
                     }
@@ -74,6 +81,21 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
         }, { ex ->
             messageLiveData.value = ex.localizedMessage
         })
+    }
+
+    private fun addUserToFirebaseDatabase(userId:String){
+        firebaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId)
+        val hashMap:HashMap<String,String> = HashMap()
+        hashMap["userUid"] = userId
+        hashMap["email"] = email.get()!!
+        hashMap["profileImage"] = ""
+        firebaseReference.setValue(hashMap).addOnCompleteListener {
+            if (it.isSuccessful){
+                Log.e("RegisterViewModel","userAdded")
+            }else{
+                Log.e("RegisterViewModel","Failed")
+            }
+        }
     }
 
     private fun validate(): Boolean {
