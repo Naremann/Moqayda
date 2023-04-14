@@ -6,7 +6,6 @@ import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.addUserToFirestore
 import com.example.moqayda.models.AppUser
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -51,11 +50,16 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
                 .addOnCompleteListener { task ->
                     showLoading.value = false
                     if (task.isSuccessful) {
-                        val currentUser = auth.currentUser
-                        val userId = currentUser!!.uid
                         Log.e("addUser", "signInWithCustomToken:success${email.get().toString()}")
                         createFireStoreUser(task.result.user!!.uid)
-                        addUserToFirebaseDatabase(userId)
+                        addUserToFirebaseDatabase(AppUser("",
+                            firstName.get(),
+                            lastName.get(),
+                            mobile.get(),
+                            country.get(),
+                            city.get(),
+                            address.get(),
+                            email.get()))
                     } else {
                         messageLiveData.value = task.exception?.localizedMessage
                     }
@@ -83,17 +87,16 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
         })
     }
 
-    private fun addUserToFirebaseDatabase(userId:String){
-        firebaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId)
-        val hashMap:HashMap<String,String> = HashMap()
-        hashMap["userUid"] = userId
-        hashMap["email"] = email.get()!!
-        hashMap["profileImage"] = ""
-        firebaseReference.setValue(hashMap).addOnCompleteListener {
-            if (it.isSuccessful){
-                Log.e("RegisterViewModel","userAdded")
-            }else{
-                Log.e("RegisterViewModel","Failed")
+    private fun addUserToFirebaseDatabase(user: AppUser) {
+
+        firebaseReference = FirebaseDatabase.getInstance().getReference("Users//${email.get()?.split(".")
+            ?.get(0)}")
+
+        firebaseReference.setValue(user).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.e("RegisterViewModel", "userAdded")
+            } else {
+                Log.e("RegisterViewModel", "Failed")
             }
         }
     }

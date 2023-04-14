@@ -35,7 +35,7 @@ class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
 
         viewModel.productsWishlist.observe(viewLifecycleOwner){
 
-            adapter = FavoriteAdapter(it, requireContext(),this,this)
+            adapter = FavoriteAdapter(it, requireContext(),this)
 
             it?.forEach{item ->
                 item.name?.let { it1 -> Log.e("FavoriteFragment", it1) }

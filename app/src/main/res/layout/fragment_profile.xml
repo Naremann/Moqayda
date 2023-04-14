@@ -10,248 +10,263 @@
 
     </data>
 
-        <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="20dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/blue"
+        android:layout_margin="10dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="20dp"
-            app:strokeWidth="2dp"
-            app:strokeColor="@color/blue"
-            android:layout_margin="10dp"
-            >
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-               <androidx.appcompat.widget.LinearLayoutCompat
-                   android:id="@+id/linear_user_data"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   app:layout_constraintTop_toTopOf="parent"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   android:orientation="vertical"
-                   android:layout_marginTop="30dp"
-                   >
-                   <com.google.android.material.imageview.ShapeableImageView
-                       android:id="@+id/user_image"
-                       android:layout_width="80dp"
-                       android:layout_height="80dp"
-                       app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                       app:strokeColor="@color/blue"
-                       app:strokeWidth="2dp"
-                       android:adjustViewBounds="true"
-                       photoUrl="@{vm.image}"
-                       android:src="@drawable/ic_person"
-                       />
-                   <TextView
-                       android:id="@+id/user_name_tv"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       app:layout_constraintTop_toBottomOf="@id/user_image"
-                       app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintEnd_toEndOf="parent"
-                       android:text="@{vm.fullName}"
-                       android:textStyle="bold"
-                       android:textColor="@color/black"
-                       android:layout_marginTop="5dp"
-                       />
-
-               </androidx.appcompat.widget.LinearLayoutCompat>
-                <ScrollView
-                    android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_user_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                >
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/user_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    app:strokeColor="@color/blue"
+                    app:strokeWidth="2dp"
+                    android:adjustViewBounds="true"
+                    photoUrl="@{vm.image}"
+                    android:src="@drawable/ic_person"
+                    />
+                <TextView
+                    android:id="@+id/user_name_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/linear_user_data"
+                    app:layout_constraintTop_toBottomOf="@id/user_image"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="30dp"
-                    android:padding="10dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:orientation="vertical"
-                    >
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@{vm.fullName}"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ScrollView
+                android:id="@+id/scrollView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear_user_data">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/linear_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/linear_user"
+                        app:cardCornerRadius="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeColor="@color/blue"
+                        app:strokeWidth="1dp">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:cardCornerRadius="20sp"
-                            app:strokeColor="@color/blue"
-                            app:strokeWidth="1dp"
-                            >
-                           <androidx.appcompat.widget.LinearLayoutCompat
-                               android:layout_width="match_parent"
-                               android:layout_height="wrap_content"
-                               android:paddingStart="10dp"
-                               android:paddingVertical="5dp"
-                               android:orientation="vertical"
-                               >
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="@{vm.email}"
-                                   android:gravity="center"
-                                   android:padding="10dp"
-                                   android:drawableStart="@drawable/ic_email"
-                                   />
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="@{vm.phone}"
-                                   android:gravity="center"
-                                   android:padding="10dp"
-                                   android:drawableStart="@drawable/ic_baseline_call_24"
-                                   />
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="@{vm.address}"
-                                   android:gravity="center"
-                                   android:padding="10dp"
-                                   android:drawableStart="@drawable/ic_baseline_location_on_24"
-                                   />
-                           </androidx.appcompat.widget.LinearLayoutCompat>
+                            android:orientation="vertical"
+                            android:paddingVertical="5dp"
+                            android:paddingStart="10dp">
 
-                        </com.google.android.material.card.MaterialCardView>
-                  <androidx.appcompat.widget.LinearLayoutCompat
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      app:layout_constraintTop_toBottomOf="@id/linear_user"
-                      android:layout_marginTop="20dp"
-                      android:orientation="vertical"
-                      >
-                      <androidx.appcompat.widget.LinearLayoutCompat
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal"
-                          style="@style/LinearLayoutProfileStyle"
-                          android:weightSum="2"
-                          >
-                          <ImageView
-                              android:layout_width="25dp"
-                              android:layout_height="25dp"
-                              android:src="@drawable/ic_list"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_email"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@{vm.email}" />
 
-                              />
-                          <TextView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="@string/items_in_public"
-                              android:textSize="15sp"
-                              android:textStyle="bold"
-                              android:layout_marginStart="10dp"
-                              android:textColor="@color/black"
-                              android:layout_gravity="center"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_baseline_call_24"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@{vm.phone}" />
 
-                              />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_baseline_location_on_24"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="@{vm.address}" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                          <androidx.appcompat.widget.LinearLayoutCompat
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:orientation="vertical"
-                              android:layout_gravity="end"
-                              android:gravity="end"
-                              >
-                              <ImageView
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:src="@drawable/ic_arrow_forward"
-                                  android:layout_gravity="end"
-                                  android:gravity="end"
-                                  />
-                          </androidx.appcompat.widget.LinearLayoutCompat>
-                      </androidx.appcompat.widget.LinearLayoutCompat>
-                      <androidx.appcompat.widget.LinearLayoutCompat
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          style="@style/LinearLayoutProfileStyle"
-                          android:orientation="horizontal"
-                          android:weightSum="2"
-                          >
-                          <ImageView
-                              android:layout_width="25dp"
-                              android:layout_height="25dp"
-                              android:src="@drawable/ic_list"
-                              android:layout_gravity="start"
-                              />
-                          <TextView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="@string/items_in_private"
-                              android:textSize="15sp"
-                              android:textStyle="bold"
-                              android:layout_marginStart="10dp"
-                              android:textColor="@color/black"
-                              android:layout_gravity="center"
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/linear_user">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            style="@style/LinearLayoutProfileStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/ic_list"
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/items_in_public"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+
+                                />
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:gravity="end"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:gravity="end"
+                                    android:src="@drawable/ic_arrow_forward" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            style="@style/LinearLayoutProfileStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="start"
+                                android:src="@drawable/ic_list" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/items_in_private"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
 
 
+                                />
 
-                              />
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:gravity="end"
+                                android:orientation="vertical">
 
-                          <androidx.appcompat.widget.LinearLayoutCompat
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:orientation="vertical"
-                              android:layout_gravity="end"
-                              android:gravity="end"
-                              >
-                              <ImageView
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:src="@drawable/ic_arrow_forward"
-                                  android:layout_gravity="end"
-                                  android:gravity="end"
-                                  />
-                          </androidx.appcompat.widget.LinearLayoutCompat>
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:gravity="end"
+                                    android:src="@drawable/ic_arrow_forward" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-                      </androidx.appcompat.widget.LinearLayoutCompat>
-                      <androidx.appcompat.widget.LinearLayoutCompat
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          style="@style/LinearLayoutProfileStyle"
-                          android:orientation="horizontal"
-                          android:weightSum="2"
-                          >
-                          <ImageView
-                              android:layout_width="25dp"
-                              android:layout_height="25dp"
-                              android:src="@drawable/swap_ic_black"
-                              android:layout_gravity="start"
-                              />
-                          <TextView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:text="@string/swap_offers"
-                              android:textSize="15sp"
-                              android:textStyle="bold"
-                              android:layout_marginStart="10dp"
-                              android:textColor="@color/black"
-                              android:layout_gravity="center"
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                              />
-                          <androidx.appcompat.widget.LinearLayoutCompat
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:orientation="vertical"
-                              android:layout_gravity="end"
-                              android:gravity="end"
-                              >
-                              <ImageView
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:src="@drawable/ic_arrow_forward"
-                                  android:layout_gravity="end"
-                                  android:gravity="end"
-                                  />
-                          </androidx.appcompat.widget.LinearLayoutCompat>
-                      </androidx.appcompat.widget.LinearLayoutCompat>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            style="@style/LinearLayoutProfileStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
 
-                  </androidx.appcompat.widget.LinearLayoutCompat>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="start"
+                                android:src="@drawable/swap_ic_black" />
 
-                </ScrollView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/swap_offers"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+
+                                />
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:gravity="end"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:gravity="end"
+                                    android:src="@drawable/ic_arrow_forward" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+            <Button
+                android:id="@+id/logOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/log_out"
+                android:onClick="@{()->vm.logOut()}"
+                android:layout_marginTop="@dimen/_4sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
