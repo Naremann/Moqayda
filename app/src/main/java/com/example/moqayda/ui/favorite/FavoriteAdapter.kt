@@ -19,7 +19,6 @@ class FavoriteAdapter(
     private var productList: List<CategoryProductViewModel?>? = mutableListOf(),
     private val mContext: Context,
     private val owner: ViewModelStoreOwner,
-    private val fragment: FavoriteFragment
 ) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
     inner class FavoriteViewHolder(val binding: FavoriteProductItemBinding) :
@@ -70,7 +69,7 @@ class FavoriteAdapter(
                         }
                     }
 
-                    builder.setNegativeButton("Cancel") { dialog, which ->
+                    builder.setNegativeButton("Cancel") { _, _ ->
                         // Cancel button clicked
                         // Do something here
 

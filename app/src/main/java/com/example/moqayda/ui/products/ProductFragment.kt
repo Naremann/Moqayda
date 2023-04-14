@@ -16,6 +16,9 @@ import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductsBinding
 import com.example.moqayda.initToolbar
 import com.example.moqayda.models.CategoryProductViewModel
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +33,9 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)?.visibility = View.VISIBLE
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility = View.VISIBLE
+        activity?.findViewById<FloatingActionButton>(R.id.fabButton)?.hide()
         categoryId = ProductFragmentArgs.fromBundle(requireArguments()).categoryId
         viewDataBinding.vm = viewModel
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.Swap_items),this)

@@ -62,5 +62,7 @@
     <string name="items_in_public">Public Items</string>
     <string name="items_in_private">Private Items</string>
     <string name="swap_offers">Swap Offers</string>
+    <string name="log_out">Log out</string>
+    <string name="request_chat">request chat</string>
 
 </resources>
