@@ -1,23 +1,40 @@
 package com.example.moqayda.ui.swapping_items
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.moqayda.base.BaseViewModel
+import com.example.moqayda.models.Message
 import com.example.moqayda.models.MessageRequest
+import com.example.moqayda.repo.FirebaseRepo
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 class SwappingItemViewModel:BaseViewModel<Navigator>() {
-    var itemName:String?=null
-    var navigator:Navigator?=null
-    private val firebaseDatabase = Firebase.database
-    val email = "khph@test" //هنفترض ان الايميل ده بتاع الشخص اللي رفع البوست
-    fun navigateToAddPrivateProductFragment(){
+
+    var itemName: String? = null
+    var navigator: Navigator? = null
+    private val firebaseInstance = FirebaseRepo()
+    private val currentUser = Firebase.auth.currentUser
+
+
+
+
+    fun navigateToAddPrivateProductFragment() {
         navigator?.navigateToAddPrivateProductFragment()
     }
 
-    fun sendChatRequest(){
-        val currentUser = Firebase.auth.currentUser?.email?.split(".")?.get(0)
-        val myRef = firebaseDatabase.getReference("Users//${email}//Requests//${currentUser}")
-        myRef.setValue(MessageRequest(Firebase.auth.currentUser?.email!!,"Hello"))
+    fun sendChatRequest() {
+        viewModelScope.launch {
+            firebaseInstance.setRequests(MessageRequest("",
+                currentUser!!.email, false,
+                "Hello I want Chat with u"))
+        }
     }
+
+
+
+
 }

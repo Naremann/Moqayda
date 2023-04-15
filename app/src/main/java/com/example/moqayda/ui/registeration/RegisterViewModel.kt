@@ -2,6 +2,7 @@ package com.example.moqayda.ui.registeration
 
 import android.util.Log
 import androidx.databinding.ObservableField
+import com.example.moqayda.DataUtils
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.addUserToFirestore
 import com.example.moqayda.models.AppUser
@@ -89,8 +90,9 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
 
     private fun addUserToFirebaseDatabase(user: AppUser) {
 
-        firebaseReference = FirebaseDatabase.getInstance().getReference("Users//${email.get()?.split(".")
-            ?.get(0)}")
+        val userId = auth.currentUser?.uid
+        firebaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId!!)
+
 
         firebaseReference.setValue(user).addOnCompleteListener {
             if (it.isSuccessful) {

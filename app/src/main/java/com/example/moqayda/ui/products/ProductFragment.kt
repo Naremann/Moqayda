@@ -33,9 +33,8 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)?.visibility = View.VISIBLE
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility = View.VISIBLE
-        activity?.findViewById<FloatingActionButton>(R.id.fabButton)?.hide()
+        showBottomAppBar()
+        showFloatingBtn()
         categoryId = ProductFragmentArgs.fromBundle(requireArguments()).categoryId
         viewDataBinding.vm = viewModel
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.Swap_items),this)

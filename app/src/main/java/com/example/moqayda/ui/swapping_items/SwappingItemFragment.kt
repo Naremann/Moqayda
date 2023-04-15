@@ -8,16 +8,15 @@ import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSwappingItemBinding
 import com.example.moqayda.initToolbar
-import com.example.moqayda.models.MessageRequest
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+
 
 class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingItemViewModel>(),
     Navigator {
     private var itemName: String? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideBottomAppBar()
+        hideBottomAppBar()
         viewDataBinding.vm = viewModel
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,
             getString(R.string.swap_now_text),

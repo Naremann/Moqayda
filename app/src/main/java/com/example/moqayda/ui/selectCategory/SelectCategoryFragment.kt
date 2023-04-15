@@ -25,10 +25,8 @@ class SelectCategoryFragment :
         viewModel.navigator = this
         observeToLiveData()
 
-        activity?.findViewById<FloatingActionButton>(R.id.fabButton)?.hide()
-        activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)?.visibility = View.VISIBLE
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-            View.VISIBLE
+        showBottomAppBar()
+        hideFloatingBtn()
     }
 
     private fun observeToLiveData() {
