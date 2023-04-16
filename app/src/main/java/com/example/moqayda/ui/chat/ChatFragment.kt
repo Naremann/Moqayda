@@ -159,7 +159,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
     private fun getUserName(): String? {
         val user = auth.currentUser
         return if (user != null) {
-            user.email
+            user.displayName
         } else ANONYMOUS
     }
 

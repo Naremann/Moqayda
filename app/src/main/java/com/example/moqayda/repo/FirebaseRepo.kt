@@ -20,7 +20,7 @@ class FirebaseRepo : FirebaseRepoInterface {
     var messagesLiveData = MutableLiveData<List<Message>>()
 
     private val currentUser = Firebase.auth.currentUser
-    private val receiver = "hHwb69MRgsNQQbFKplvIH2CtZ0T2"//-> user l product
+    private val receiver = "u0TWeU4HTCYYEjUgfW3gMlMHZkV2"//-> user l product
 
     override suspend fun getUsers(): List<AppUser> {
         val myRef = firebaseDatabase.getReference("Users")
@@ -68,7 +68,7 @@ class FirebaseRepo : FirebaseRepoInterface {
 
     override suspend fun setRequests(request: MessageRequest): Boolean {
         var isUploaded = false
-        var myRef = firebaseDatabase.getReference("Users//${receiver}//requests").push()
+        var myRef = firebaseDatabase.getReference("Users//${request.receiverId}//requests").push()
         request.id = myRef.key.toString()
         myRef.setValue(request).addOnSuccessListener {
             Log.d(tag, "Upload Successfully id -> ${myRef.key}")

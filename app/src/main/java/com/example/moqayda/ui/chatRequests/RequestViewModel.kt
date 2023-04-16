@@ -8,6 +8,8 @@ import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.Message
 import com.example.moqayda.models.MessageRequest
 import com.example.moqayda.repo.FirebaseRepo
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class RequestViewModel : BaseViewModel<Navigator>() {
@@ -20,6 +22,8 @@ class RequestViewModel : BaseViewModel<Navigator>() {
     private val _navigateToSelectedChat = MutableLiveData<String>()
     val navigateToSelectedChat: LiveData<String>
         get() = _navigateToSelectedChat
+
+
 
     fun selectedChat(chat: String) {
         _navigateToSelectedChat.value = chat

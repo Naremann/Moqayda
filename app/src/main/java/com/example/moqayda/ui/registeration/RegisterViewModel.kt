@@ -1,12 +1,14 @@
 package com.example.moqayda.ui.registeration
 
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.ObservableField
 import com.example.moqayda.DataUtils
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.addUserToFirestore
 import com.example.moqayda.models.AppUser
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -51,6 +53,21 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
                 .addOnCompleteListener { task ->
                     showLoading.value = false
                     if (task.isSuccessful) {
+
+                        val user = auth.currentUser
+                        val profileUpdates = UserProfileChangeRequest.Builder()
+                            .setDisplayName("${firstName.get()} ${lastName.get()}")
+                            .build()
+
+                        user?.updateProfile(profileUpdates)
+                            ?.addOnCompleteListener { updateTask ->
+                                if (updateTask.isSuccessful) {
+                                    Log.e("RegisterViewModel","display name Updated")
+                                } else {
+                                    Log.e("RegisterViewModel","failed to update name")
+                                }
+                            }
+
                         Log.e("addUser", "signInWithCustomToken:success${email.get().toString()}")
                         createFireStoreUser(task.result.user!!.uid)
                         addUserToFirebaseDatabase(AppUser("",

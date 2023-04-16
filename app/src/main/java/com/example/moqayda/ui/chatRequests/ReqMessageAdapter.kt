@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.databinding.ItemChatUserBinding
 import com.example.moqayda.models.MessageRequest
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class ReqMessageAdapter(
     private val reqList: List<MessageRequest>,
@@ -58,10 +60,17 @@ class ReqMessageAdapter(
     }
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
+        val currentUser = Firebase.auth.currentUser
         val req = reqList[position]
         holder.bind(req, requestViewModel)
-
         val builder = AlertDialog.Builder(mContext)
+
+        if (currentUser?.uid == req.senderId){
+            holder.binding.userName.text = req.receiverName
+            Log.e("reqMessageAdapter",req.receiverName!!)
+        }else{
+            holder.binding.userName.text = req.senderName
+        }
 
         builder.setTitle("Confirmation")
         builder.setMessage("Are you sure you want to cancel this Request ?")
