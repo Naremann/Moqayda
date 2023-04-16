@@ -17,6 +17,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        showBottomAppBar()
+        hideFloatingBtn()
+
         viewDataBinding.vm=viewModel
 
         viewModel.navigateToMainActivity.observe(viewLifecycleOwner){

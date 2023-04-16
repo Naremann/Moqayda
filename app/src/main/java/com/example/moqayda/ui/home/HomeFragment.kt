@@ -22,12 +22,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val activityBottomAppBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val activityBottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val activityFabButton = activity?.findViewById<FloatingActionButton>(R.id.fabButton)
-        activityBottomAppBar?.visibility = View.VISIBLE
-        activityBottomNavigationView?.visibility = View.VISIBLE
-        activityFabButton?.show()
+        showBottomAppBar()
 
         viewDataBinding.vm=viewModel
         initRecyclerView()

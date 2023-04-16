@@ -24,12 +24,8 @@ class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
 
 
 
-        val activityBottomAppBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val activityBottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val activityFabButton = activity?.findViewById<FloatingActionButton>(R.id.fabButton)
-        activityBottomAppBar?.visibility = View.VISIBLE
-        activityBottomNavigationView?.visibility = View.VISIBLE
-        activityFabButton?.visibility = View.GONE
+        showBottomAppBar()
+        hideFloatingBtn()
 
         initRecyclerView()
 

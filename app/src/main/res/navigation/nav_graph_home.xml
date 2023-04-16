@@ -25,9 +25,13 @@
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.example.moqayda.ui.chat.ChatFragment"
+        android:name="com.example.moqayda.ui.chatRequests.RequestsFragment"
         android:label="ChatFragment"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_requests">
+        <action
+            android:id="@+id/action_chatFragment_to_chatFragment2"
+            app:destination="@id/chatFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.moqayda.ui.profile.ProfileFragment"
@@ -106,4 +110,9 @@
         android:name="com.example.moqayda.ui.addProduct.AddPrivateProductFragment"
         android:label="fragment_add_private_product"
         tools:layout="@layout/fragment_add_private_product" />
+    <fragment
+        android:id="@+id/chatFragment2"
+        android:name="com.example.moqayda.ui.chat.ChatFragment"
+        android:label="ChatFragment"
+        tools:layout="@layout/fragment_chat" />
 </navigation>

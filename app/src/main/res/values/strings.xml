@@ -64,5 +64,8 @@
     <string name="swap_offers">Swap Offers</string>
     <string name="log_out">Log out</string>
     <string name="request_chat">request chat</string>
+    <string name="are_you_want_to_accept">Are You Want to accept?</string>
+    <string name="accept">accept</string>
+    <string name="cancel">cancel</string>
 
 </resources>

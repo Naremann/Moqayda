@@ -25,6 +25,7 @@
     <color name="colorPrimary">@color/blue</color>
     <color name="colorGray">#dedede</color>
     <color name="colorDarkGray">#b4b4b4</color>
+    <color name="red">#F34340</color>
 
 
 

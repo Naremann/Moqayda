@@ -23,6 +23,7 @@ class AddPrivateProductFragment :
     private var selectedFile: Uri? = null
     private lateinit var permReqLauncher: ActivityResultLauncher<Array<String>>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        hideBottomAppBar()
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.viewModel=viewModel
         viewDataBinding.lifecycleOwner = this

@@ -18,6 +18,8 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showBottomAppBar()
+        hideFloatingBtn()
         viewDataBinding.vm=viewModel
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.item_details),this)
         getProductDetails()
