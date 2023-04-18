@@ -139,7 +139,6 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/countryContainer"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        layout_error="@{vm.countryError}"
                         android:layout_width="175dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -148,7 +147,7 @@
                         app:layout_constraintHorizontal_chainStyle="spread"
                         app:layout_constraintStart_toStartOf="@+id/firsNameContainer"
                         app:layout_constraintTop_toBottomOf="@+id/mobileContainer"
-
+                        android:enabled="false"
                         >
 
                         <EditText
@@ -156,27 +155,31 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/country_text"
-                            android:text="@={vm.country}" />
+                            android:text="@{vm.country}"
+                            android:textColor="@color/black"
+                            android:drawableEnd="@drawable/egypt_flag"
+
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/cityContainer"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        layout_error="@{vm.cityError}"
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/city_card_view"
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-
+                        android:layout_marginTop="25dp"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/black_overlay"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
                         >
-
-                        <EditText
-                            android:id="@+id/cityEditText"
+                        <Spinner
+                            android:id="@+id/spinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/city"
-                            android:text="@={vm.city}" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            style="@style/spinner_style" />
+
+                    </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
