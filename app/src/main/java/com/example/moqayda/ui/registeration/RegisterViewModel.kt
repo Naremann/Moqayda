@@ -1,9 +1,7 @@
 package com.example.moqayda.ui.registeration
 
 import android.util.Log
-import android.widget.Toast
 import androidx.databinding.ObservableField
-import com.example.moqayda.DataUtils
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.addUserToFirestore
 import com.example.moqayda.models.AppUser
@@ -21,8 +19,8 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
     val firstName = ObservableField<String>()
     val lastName = ObservableField<String>()
     val mobile = ObservableField<String>()
-    val country = ObservableField<String>()
-    val city = ObservableField<String>()
+    val country = ObservableField("Egypt")
+    lateinit var city :String
     val address = ObservableField<String>()
     val email = ObservableField<String>()
     val password = ObservableField<String>()
@@ -31,8 +29,6 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
     val firstNameError = ObservableField<String>()
     val lastNameError = ObservableField<String>()
     val mobileError = ObservableField<String>()
-    val countryError = ObservableField<String>()
-    val cityError = ObservableField<String>()
     val addressError = ObservableField<String>()
     val emailError = ObservableField<String>()
     val passwordError = ObservableField<String>()
@@ -75,7 +71,7 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
                             lastName.get(),
                             mobile.get(),
                             country.get(),
-                            city.get(),
+                            city,
                             address.get(),
                             email.get()))
                     } else {
@@ -94,7 +90,7 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
             lastName.get(),
             mobile.get(),
             country.get(),
-            city.get(),
+            city,
             address.get(),
             email.get()
         )
@@ -137,16 +133,6 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
             validate = false
         } else
             mobileError.set(null)
-        if (country.get().isNullOrBlank()) {
-            countryError.set("Please enter country")
-            validate = false
-        } else
-            countryError.set(null)
-        if (city.get().isNullOrBlank()) {
-            cityError.set("Please enter city")
-            validate = false
-        } else
-            cityError.set(null)
         if (address.get().isNullOrBlank()) {
             addressError.set("Please enter address")
             validate = false
