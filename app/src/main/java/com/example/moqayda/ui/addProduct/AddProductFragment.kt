@@ -42,10 +42,7 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)?.visibility = GONE
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility = GONE
-        activity?.findViewById<FloatingActionButton>(R.id.fabButton)?.hide()
-
+        hideBottomAppBar()
         selectedCategory = AddProductFragmentArgs.fromBundle(requireArguments()).selectedCategory
 
         viewDataBinding.viewModel = viewModel
