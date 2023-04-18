@@ -3,12 +3,10 @@ package com.example.moqayda
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.navigation.findNavController
 import com.example.moqayda.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {

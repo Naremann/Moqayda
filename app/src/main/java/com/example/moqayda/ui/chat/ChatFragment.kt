@@ -16,6 +16,7 @@ import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentChatBinding
 import com.example.moqayda.initToolbar
 import com.example.moqayda.models.Message
+import com.example.moqayda.models.MessageRequest
 import com.example.moqayda.ui.chatRequests.RequestViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -38,7 +39,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
     private lateinit var db: FirebaseDatabase
     private lateinit var adapter: MessageAdapter
     val user = Firebase.auth.currentUser
-
+//    private  val selectedReq = ChatFragmentArgs.fromBundle(requireArguments()).selectedRequest
     private val openDocument = registerForActivityResult(MyOpenDocumentContract()) { uri ->
         uri?.let { onImageSelected(it) }
     }
@@ -156,6 +157,19 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
             }
     }
 
+//    private fun getSenderAndReceiverName():String{
+//        var userName = ""
+//
+//        userName = if (user?.uid == selectedReq.senderId){
+//            selectedReq.receiverName!!
+//        }else{
+//            selectedReq.senderName!!
+//        }
+//
+//
+//        return userName
+//    }
+
     private fun getUserName(): String? {
         val user = auth.currentUser
         return if (user != null) {
@@ -179,5 +193,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
     override fun getLayoutId(): Int {
         return R.layout.fragment_chat
     }
+
+
 
 }

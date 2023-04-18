@@ -1,45 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    android:layout_margin="10dp">
+    <data>
 
-    <ImageView
-        android:id="@+id/messageImageView"
-        android:layout_width="0dp"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="300dp"
-        android:maxHeight="200dp"
-        android:padding="10dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toEndOf="@+id/messengerImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@android:drawable/ic_menu_gallery" />
+        android:id="@+id/imageMessageLayout"
+        android:layout_margin="4dp">
 
-    <TextView
-        android:id="@+id/messengerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        app:layout_constraintStart_toStartOf="@+id/messengerImageView"
-        app:layout_constraintTop_toBottomOf="@id/messageImageView"
-        tools:text="FirstName LastName" />
+        <ImageView
+            android:id="@+id/messageImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="300dp"
+            android:maxHeight="200dp"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toEndOf="@+id/messengerImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@android:drawable/ic_menu_gallery" />
 
-    <ImageView
-        android:id="@+id/messengerImageView"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="15dp"
-        android:src="@drawable/ic_person"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/messengerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:paddingHorizontal="0dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/messengerImageView"
+            tools:text="FirstName LastName" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/messengerImageView"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_person"
+            app:layout_constraintBottom_toBottomOf="@+id/messageImageView"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
 
 

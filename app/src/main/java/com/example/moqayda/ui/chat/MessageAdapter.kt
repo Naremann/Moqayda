@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.moqayda.R
+import com.example.moqayda.bindImage
+import com.example.moqayda.bindImageUri
 import com.example.moqayda.databinding.ImageMessageBinding
 import com.example.moqayda.databinding.MessageBinding
 import com.example.moqayda.models.Message
@@ -27,6 +29,22 @@ class MessageAdapter(
     private val messageList: List<Message>,
     private val currentUserName: String?,
 ) : RecyclerView.Adapter<ViewHolder>() {
+
+    private fun setSenderAndReceiver(
+        userName: String?,
+        textView: TextView?,
+        messageLayout: ConstraintLayout
+    ) {
+        if (userName != ANONYMOUS && currentUserName == userName && userName != null) {
+            messageLayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            textView?.setBackgroundResource(R.drawable.rounded_message_blue)
+            textView?.setTextColor(Color.WHITE)
+
+        } else {
+            textView?.setBackgroundResource(R.drawable.rounded_message_gray)
+            textView?.setTextColor(Color.BLACK)
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -66,28 +84,15 @@ class MessageAdapter(
             }
         }
 
-        private fun setSenderAndReceiver(
-            userName: String?,
-            textView: TextView,
-            messageLayout: ConstraintLayout
-        ) {
-            if (userName != ANONYMOUS && currentUserName == userName && userName != null) {
-                messageLayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
-                textView.setBackgroundResource(R.drawable.rounded_message_blue)
-                textView.setTextColor(Color.WHITE)
 
-            } else {
-                textView.setBackgroundResource(R.drawable.rounded_message_gray)
-                textView.setTextColor(Color.BLACK)
-            }
-        }
     }
 
     inner class ImageMessageViewHolder(private val binding: ImageMessageBinding) :
         ViewHolder(binding.root) {
         fun bind(item: Message) {
+            setSenderAndReceiver(item.senderName, null,binding.imageMessageLayout)
             loadImageIntoView(binding.messageImageView, item.imageUrl!!, false)
-
+            Log.e("MessageAdapter",item.imageUrl)
             binding.messengerTextView.text = item.senderName ?: ANONYMOUS
             if (item.senderPhotoUrl != null) {
                 loadImageIntoView(binding.messengerImageView, item.senderPhotoUrl)
@@ -99,13 +104,13 @@ class MessageAdapter(
 
     private fun loadImageIntoView(view: ImageView, url: String, isCircular: Boolean = true) {
         if (url.startsWith("gs://")) {
+            Log.e("MessageAdapter","loadWithGlide url starts with gs")
             val storageReference = Firebase.storage.getReferenceFromUrl(url)
             storageReference.downloadUrl
                 .addOnSuccessListener { uri ->
                     val downloadUrl = uri.toString()
                     loadWithGlide(view, downloadUrl, isCircular)
-
-
+                    Log.e("MessageAdapter","addOnSuccessListener")
                 }
                 .addOnFailureListener { e ->
                     Log.w(
@@ -113,15 +118,18 @@ class MessageAdapter(
                         "Getting download url was not successful.",
                         e
                     )
+                    Log.e("MessageAdapter","addOnFailureListener")
                 }
         } else {
             loadWithGlide(view, url, isCircular)
+            Log.e("MessageAdapter","loadWithGlide url is not starts with gs")
         }
     }
 
     private fun loadWithGlide(view: ImageView, url: String, isCircular: Boolean = true) {
         Glide.with(view.context).load(url).into(view)
         var requestBuilder = Glide.with(view.context).load(url)
+        Log.e("MessageAdapter","loadWithGlide Method")
         if (isCircular) {
             requestBuilder = requestBuilder.transform(CircleCrop())
         }
