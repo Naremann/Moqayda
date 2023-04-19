@@ -61,7 +61,7 @@ abstract class BaseFragment<DB: ViewDataBinding,VM: BaseViewModel<*>> : Fragment
     fun showToastMessage(message:String,duration:Int=Toast.LENGTH_LONG){
         Toast.makeText(requireContext(),message, duration).show()
     }
-    private fun showAlertDialog(
+    fun showAlertDialog(
         message:String, posActionName:String?=null,
         posActionListener: DialogInterface.OnClickListener?=null,
         negActionName : String?=null,

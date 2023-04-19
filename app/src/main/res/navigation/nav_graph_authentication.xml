@@ -22,24 +22,12 @@
         <action
             android:id="@+id/action_login_to_registeration"
             app:destination="@id/registeration" />
-        <action
-            android:id="@+id/action_login_to_resettingPassFragment"
-            app:destination="@id/resettingPassFragment" />
     </fragment>
     <fragment
         android:id="@+id/registeration"
         android:name="com.example.moqayda.ui.registeration.RegistrationFragment"
         android:label="fragment_registeration"
         tools:layout="@layout/fragment_registeration" />
-    <fragment
-        android:id="@+id/resettingPassFragment"
-        android:name="com.example.moqayda.ui.resetting_pass.ResettingPassFragment"
-        android:label="fragment_resetting_pass"
-        tools:layout="@layout/fragment_resetting_pass" >
-        <action
-            android:id="@+id/action_resettingPassFragment_to_passwordVerificationFragment"
-            app:destination="@id/passwordVerificationFragment" />
-    </fragment>
     <fragment
         android:id="@+id/passwordVerificationFragment"
         android:name="com.example.moqayda.ui.password_verification.PasswordVerificationFragment"

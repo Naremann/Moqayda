@@ -67,5 +67,10 @@
     <string name="are_you_want_to_accept">Are You Want to accept?</string>
     <string name="accept">accept</string>
     <string name="cancel">cancel</string>
+    <string name="ok">OK</string>
+    <string name="edit">Edit</string>
+    <string name="setting">Setting</string>
+    <string name="want_exit">Are you sure you want to logout?</string>
+    <string name="my_profile">My Profile</string>
 
 </resources>

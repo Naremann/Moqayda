@@ -1,34 +1,22 @@
 package com.example.moqayda.ui.profile
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.moqayda.MainActivity
+import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProfileBinding
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.example.moqayda.initToolbar
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() ,Navigator{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         showBottomAppBar()
         hideFloatingBtn()
-
         viewDataBinding.vm=viewModel
-
-        viewModel.navigateToMainActivity.observe(viewLifecycleOwner){
-            if (it == true){
-                startActivity(Intent(this.context,MainActivity::class.java))
-                viewModel.onNavigateToMainActivity()
-            }
-        }
+        viewModel.navigator=this
 
     }
     override fun getViews(): View {
@@ -41,6 +29,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_profile
+    }
+    override fun navigateToLoginFragment() {
+
+        showAlertDialog(getString(R.string.want_exit),getString(R.string.ok),
+            { dialog, which ->
+                findNavController().setGraph(R.navigation.nav_graph_authentication)
+                findNavController().navigate(R.id.login)
+        },getString(R.string.cancel))
     }
 
 }
