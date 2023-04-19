@@ -12,23 +12,21 @@ import com.google.firebase.ktx.Firebase
 
 class ProfileViewModel: BaseViewModel<Navigator>() {
 
-    private val _navigateToMainActivity = MutableLiveData<Boolean>()
-    val navigateToMainActivity: LiveData<Boolean>
-        get() = _navigateToMainActivity
-
+    lateinit var navigator : Navigator
     val fullName = DataUtils.USER?.firstName+" "+DataUtils.USER?.lastName
     val email = DataUtils.USER?.email
     val phone = DataUtils.USER?.phoneNumber
     val address = DataUtils.USER?.city+"-"+DataUtils.USER?.address
     val image = DataUtils.USER?.image
-
-    fun logOut(){
+    private fun isLoggedOut():Boolean{
         Firebase.auth.signOut()
-        _navigateToMainActivity.postValue(true)
+        return true
     }
 
-    fun onNavigateToMainActivity() {
-        _navigateToMainActivity.postValue(false)
+    fun navigateToLoginFragment(){
+        if(isLoggedOut()){
+            navigator.navigateToLoginFragment()
+        }
     }
 
 }
