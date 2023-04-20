@@ -31,7 +31,7 @@ class ReqMessageAdapter(
                     binding.cancel.visibility = View.GONE
                     binding.ConstraintLayout.setOnClickListener {
                         // TODO navigate to chat req.id
-                        it.findNavController().navigate(R.id.action_chatFragment_to_chatFragment2)
+                        it.findNavController().navigate(RequestsFragmentDirections.actionRequestFragmentToChatFragment(req))
                         requestViewModel.selectedChat(req.id!!)
                         requestViewModel.getMessage(req.id!!)
                     }
