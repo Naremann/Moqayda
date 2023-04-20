@@ -37,7 +37,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.chat -> {
                     binding.bottomAppBar.visibility = VISIBLE
                     binding.fabButton.hide()
-                    findNavController(R.id.home_nav_host_fragment).navigate(R.id.chatFragment)
+                    findNavController(R.id.home_nav_host_fragment).navigate(R.id.requestFragment)
                     true
                 }
                 R.id.profile -> {
@@ -73,7 +73,7 @@ class HomeActivity : AppCompatActivity() {
                 binding.fabButton.hide()
                 super.onBackPressed()
             }
-            R.id.chatFragment -> {
+            R.id.requestFragment -> {
                 binding.bottomAppBar.visibility = VISIBLE
                 binding.bottomNavigationView.selectedItemId = R.id.chat
                 binding.fabButton.hide()

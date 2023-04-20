@@ -1,5 +1,6 @@
 package com.example.moqayda.ui.chat
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +31,8 @@ import com.google.firebase.storage.ktx.storage
 
 
 class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
+
+
     private lateinit var manager: LinearLayoutManager
     private val requestViewModel by activityViewModels<RequestViewModel>()
 
@@ -39,7 +42,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
     private lateinit var db: FirebaseDatabase
     private lateinit var adapter: MessageAdapter
     val user = Firebase.auth.currentUser
-//    private  val selectedReq = ChatFragmentArgs.fromBundle(requireArguments()).selectedRequest
+    private lateinit var selectedReq: MessageRequest
     private val openDocument = registerForActivityResult(MyOpenDocumentContract()) { uri ->
         uri?.let { onImageSelected(it) }
     }
@@ -49,7 +52,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
 
 
         hideBottomAppBar()
-        viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,"Chat",this)
+        viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getSenderAndReceiverName(),this)
         if (BuildConfig.DEBUG) {
             Firebase.database.useEmulator("10.0.2.2", 9000)
             Firebase.auth.useEmulator("10.0.2.2", 9099)
@@ -105,6 +108,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
             openDocument.launch(arrayOf("image/*"))
         }
     }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        selectedReq = ChatFragmentArgs.fromBundle(requireArguments()).selectedRequest
+        Log.e("ChatFragment",selectedReq.senderName!!)
+    }
 
     companion object {
         private const val TAG = "MainActivity"
@@ -157,18 +165,18 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
             }
     }
 
-//    private fun getSenderAndReceiverName():String{
-//        var userName = ""
-//
-//        userName = if (user?.uid == selectedReq.senderId){
-//            selectedReq.receiverName!!
-//        }else{
-//            selectedReq.senderName!!
-//        }
-//
-//
-//        return userName
-//    }
+    private fun getSenderAndReceiverName():String{
+        var userName = ""
+
+        userName = if (user?.uid == selectedReq.senderId){
+            selectedReq.receiverName!!
+        }else{
+            selectedReq.senderName!!
+        }
+
+
+        return userName
+    }
 
     private fun getUserName(): String? {
         val user = auth.currentUser
