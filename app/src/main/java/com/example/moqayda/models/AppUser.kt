@@ -9,7 +9,7 @@ data class AppUser(
     val city:String?=null,
     val address:String?=null,
     val email:String?=null,
-    val image:String?=null
+    var image:String?=null
         )
 {
     companion object{

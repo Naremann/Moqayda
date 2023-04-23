@@ -86,9 +86,7 @@ abstract class BaseFragment<DB: ViewDataBinding,VM: BaseViewModel<*>> : Fragment
         progressDialog.show()
     }
     fun hideProgressDialog(){
-        if(progressDialog != null){
-            progressDialog.dismiss()
-        }
+        progressDialog.dismiss()
     }
 
     fun hideBottomAppBar(){

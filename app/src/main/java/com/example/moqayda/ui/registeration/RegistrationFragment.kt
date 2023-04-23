@@ -10,7 +10,8 @@ import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentRegisterationBinding
 
-class RegistrationFragment : BaseFragment<FragmentRegisterationBinding, RegisterViewModel>(),Navigator,AdapterView.OnItemSelectedListener {
+class RegistrationFragment : BaseFragment<FragmentRegisterationBinding, RegisterViewModel>(),Navigator,
+    AdapterView.OnItemSelectedListener {
 
     private var city : String?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.example.moqayda.database
+package com.example.moqayda.database.local
 
 import android.content.Context
 import androidx.room.*

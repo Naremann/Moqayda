@@ -1,4 +1,4 @@
-package com.example.moqayda.database
+package com.example.moqayda.database.local
 
 import androidx.room.*
 import com.example.moqayda.models.CategoryItem
