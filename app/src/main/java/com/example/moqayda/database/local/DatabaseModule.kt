@@ -1,4 +1,4 @@
-package com.example.moqayda.database
+package com.example.moqayda.database.local
 
 import dagger.Module
 import dagger.Provides
@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 object DatabaseModule {
 
     @Provides
-    fun provideDatabase():MyDatabase{
+    fun provideDatabase(): MyDatabase {
         return MyDatabase.getInstance()!!
     }
 }

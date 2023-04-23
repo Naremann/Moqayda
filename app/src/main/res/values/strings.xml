@@ -72,5 +72,8 @@
     <string name="setting">Setting</string>
     <string name="want_exit">Are you sure you want to logout?</string>
     <string name="my_profile">My Profile</string>
+    <string name="delete_img">Delete image</string>
+    <string name="update">Update</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>

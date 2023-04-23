@@ -2,7 +2,7 @@ package com.example.moqayda
 
 import android.app.Application
 import android.net.ConnectivityManager
-import com.example.moqayda.database.MyDatabase
+import com.example.moqayda.database.local.MyDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import dagger.hilt.android.HiltAndroidApp

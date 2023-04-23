@@ -42,6 +42,7 @@
                 android:layout_margin="10dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:onClick="@{()->vm.navigateToProfileEditing()}"
 
                 />
         </androidx.appcompat.widget.Toolbar>
@@ -73,26 +74,29 @@
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:layout_gravity="center_horizontal"
                     app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                     app:civ_border_color="@color/colorPrimary"
-                    app:civ_border_width="2dp"
-                    photoUrl="@{vm.image}"
+                    app:civ_border_width="4dp"
+                    android:padding="10dp"
                     android:src="@drawable/ic_person"
+                    android:onClick="@{()->vm.startFullImageScreen()}"
                     />
                 <TextView
                     android:id="@+id/user_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/user_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/user_image"
+                    app:layout_constraintEnd_toEndOf="@id/user_image"
                     android:text="@{vm.fullName}"
+                    android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_marginTop="5dp"
+                    tools:text="Hana Ahmed"
                     />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -2,7 +2,7 @@ package com.example.moqayda.repo.category
 
 import com.example.moqayda.NetworkHandler
 import com.example.moqayda.api.ApiService
-import com.example.moqayda.database.MyDatabase
+import com.example.moqayda.database.local.MyDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

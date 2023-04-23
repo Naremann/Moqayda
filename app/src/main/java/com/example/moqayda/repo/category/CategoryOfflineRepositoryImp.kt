@@ -1,7 +1,7 @@
 package com.example.moqayda.repo.category
 
 import android.util.Log
-import com.example.moqayda.database.MyDatabase
+import com.example.moqayda.database.local.MyDatabase
 import com.example.moqayda.models.CategoryItem
 
 class CategoryOfflineRepositoryImp(val database: MyDatabase):CategoryOfflineRepository {
