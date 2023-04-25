@@ -5,14 +5,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.example.moqayda.DataUtils
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
-import com.example.moqayda.database.downloadFirebaseStorageImage
+import com.example.moqayda.database.getFirebaseImageUri
+import com.example.moqayda.database.getUerImageFromFirebase
 import com.example.moqayda.databinding.FragmentProfileBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() ,Navigator{
     var imageUri : Uri?=null
@@ -23,21 +28,30 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         hideFloatingBtn()
         viewDataBinding.vm=viewModel
         viewModel.navigator=this
+        loadUserImage()
 
     }
+    private fun loadUserImage(){
+        DataUtils.USER?.id?.let { userId ->
+            getUerImageFromFirebase(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    DataUtils.USER!!.id?.let {
+                        getFirebaseImageUri({ uri->
+                            viewDataBinding.progressBar.isVisible=false
+                            Picasso.with(requireContext()).load(uri).into(viewDataBinding.userImage)
 
-    override fun onStart() {
-        super.onStart()
-        showUserImage()
-    }
-    private fun showUserImage() {
-        DataUtils.USER?.id?.let {
-            downloadFirebaseStorageImage({ uri->
-                imageUri=uri
-                Glide.with(viewDataBinding.userImage.context).load(uri).into(viewDataBinding.userImage)
-            }, { ex->
-                ex.localizedMessage?.let { it1 -> showToastMessage(it1) }
-            }, it)
+                        }, { ex->
+                            viewDataBinding.progressBar.isVisible=false
+                            ex.localizedMessage?.let { error -> showToastMessage(error) }
+
+                        }, userId)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                   showToastMessage("Error Loading Image")
+                }
+            }, userId)
         }
     }
 
