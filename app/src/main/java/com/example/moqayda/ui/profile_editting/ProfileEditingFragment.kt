@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.view.View
@@ -16,19 +15,23 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.example.moqayda.*
 import com.example.moqayda.base.BaseFragment
-import com.example.moqayda.database.downloadFirebaseStorageImage
+import com.example.moqayda.database.getFirebaseImageUri
+import com.example.moqayda.database.getUerImageFromFirebase
 import com.example.moqayda.databinding.FragmentProfileEdittingBinding
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.BuildConfig
 
 
 class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, ProfileEditingViewModel>(), AdapterView.OnItemSelectedListener {
     private var city : String?=null
     private var selectedFile: Uri? = null
-    var permReqLauncher: ActivityResultLauncher<Array<String>>?=null
+    private var permReqLauncher: ActivityResultLauncher<Array<String>>?=null
     private var resultLauncher:ActivityResultLauncher<Intent>?=null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,17 +45,17 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
         viewDataBinding.spinner.onItemSelectedListener = this
         initResultLauncher()
         initSpinner()
-        showUserImage()
         viewDataBinding.addIcon.setOnClickListener {
             resultLauncher?.let { it1 -> pickImage(requireContext(),requireActivity(), it1)
-                showUserImage()
             }
         }
-        viewDataBinding.deleteImage.setOnClickListener {
+        viewDataBinding.deleteImageTv.setOnClickListener {
             hideImage()
         }
+        loadUserImage()
 
     }
+
 
 
     private fun initSpinner() {
@@ -65,30 +68,37 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
         }
     }
 
-    private fun initResultLauncher(){
-        resultLauncher=
+    private fun initResultLauncher() {
+        resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-
                 if (result.resultCode == Activity.RESULT_OK) {
-
                     result.data!!.data?.let { viewModel.setImageUri(it) }
-                    Log.e("initResult","uri ${result.data?.data}")
+                    Log.e("initResult", "uri ${result.data?.data}")
                     selectedFile = result.data!!.data!!
-                    val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver,selectedFile
-                        )
-                    viewDataBinding.userImage.setImageBitmap(bitmap)
                 }
             }
-
     }
-    private fun showUserImage(){
-        DataUtils.USER?.id?.let {
-            downloadFirebaseStorageImage({ uri->
-                viewDataBinding.deleteImage.isVisible=true
-                Glide.with(viewDataBinding.userImage.context).load(uri).into(viewDataBinding.userImage)
-            }, { ex->
-                ex.localizedMessage?.let { it1 -> showToastMessage(it1) }
-            }, it)
+    private fun loadUserImage(){
+        DataUtils.USER?.id?.let {userId->
+            getUerImageFromFirebase(object:ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    DataUtils.USER!!.id?.let {
+                        getFirebaseImageUri({ uri->
+                            viewDataBinding.progressBar.isVisible=false
+                            Picasso.with(requireContext()).load(uri).into(viewDataBinding.userImage)
+
+                        }, {ex->
+                            ex.localizedMessage?.let { error -> showToastMessage(error) }
+                            viewDataBinding.progressBar.isVisible=false
+
+                        }, userId)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    showToastMessage("Error Loading Image")
+                }
+            }, userId)
         }
     }
 
@@ -111,7 +121,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
 
         }
         viewModel.message.observe(viewLifecycleOwner){message->
-            showAlertDialog(message,getString(R.string.ok), { dialog, which ->
+            showAlertDialog(message,getString(R.string.ok), { _, _ ->
                 val navController = findNavController()
                 navController.run {
                     popBackStack()
@@ -121,15 +131,14 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
         }
         viewModel.isUploadedImage.observe(viewLifecycleOwner){isUploaded->
             if(isUploaded==true){
-                showUserImage()
+                viewDataBinding.deleteImageTv.isVisible=true
             }
-
         }
     }
 
     private fun hideImage() {
         selectedFile=null
-        viewDataBinding.deleteImage.isVisible=false
+        viewDataBinding.deleteImageTv.isVisible=false
         viewModel.setImageUri(null)
         viewDataBinding.userImage.setImageResource(R.drawable.ic_person)
     }

@@ -5,6 +5,8 @@ import com.example.moqayda.models.AppUser
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -12,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+
 
 fun getCollectionReference(collectionName: String): CollectionReference {
     val db = Firebase.firestore
@@ -44,10 +47,18 @@ fun storeImageInFirebaseStore(filePath:Uri,userId: String,onSuccessListener: OnS
     getStorageReference().child(
         "images/$userId").putFile(filePath).addOnSuccessListener(onSuccessListener).addOnFailureListener(onFailureListener)
 }
-fun downloadFirebaseStorageImage(onSuccessListener: OnSuccessListener<Uri>, onFailureListener: OnFailureListener, userId: String){
+
+fun getFirebaseImageUri(onSuccessListener: OnSuccessListener<Uri>, onFailureListener: OnFailureListener, userId: String){
     getStorageReference().child("images/$userId").downloadUrl.addOnSuccessListener(onSuccessListener).addOnFailureListener(onFailureListener)
 }
 
+fun getUerImageFromFirebase(valueEventListener: ValueEventListener, userId: String){
+    val firebaseDatabase = FirebaseDatabase.getInstance()
+    val databaseReference = firebaseDatabase.reference
+    val getImage = databaseReference.child("images/$userId")
+    getImage.addListenerForSingleValueEvent(valueEventListener)
+
+}
 fun getStorageReference(): StorageReference {
     val storageReference: StorageReference
     val storage: FirebaseStorage = FirebaseStorage.getInstance();
