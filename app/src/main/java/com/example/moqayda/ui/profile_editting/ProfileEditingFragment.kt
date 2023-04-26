@@ -33,6 +33,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
     private var selectedFile: Uri? = null
     private var permReqLauncher: ActivityResultLauncher<Array<String>>?=null
     private var resultLauncher:ActivityResultLauncher<Intent>?=null
+    var imageUri:Uri?=null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,6 +56,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
         loadUserImage()
 
     }
+
 
 
 
@@ -84,7 +86,9 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
                 override fun onDataChange(snapshot: DataSnapshot) {
                     DataUtils.USER!!.id?.let {
                         getFirebaseImageUri({ uri->
+                            imageUri=uri
                             viewDataBinding.progressBar.isVisible=false
+                            viewDataBinding.deleteImageTv.isVisible=true
                             Picasso.with(requireContext()).load(uri).into(viewDataBinding.userImage)
 
                         }, {ex->
@@ -103,6 +107,11 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
     }
 
     private fun observeToLiveData() {
+        viewModel.isUploadedImage.observe(viewLifecycleOwner){isUploaded->
+            if(isUploaded==true)
+                viewDataBinding.deleteImageTv.isVisible=true
+
+        }
         viewModel.isDeletedImage.observe(viewLifecycleOwner){isDeleted->
             if(isDeleted==true){
                 hideImage()
@@ -110,14 +119,6 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
         }
         viewModel.toastMessage.observe(viewLifecycleOwner){message->
             showToastMessage(message)
-
-        }
-        viewModel.isShowProgressDialog.observe(viewLifecycleOwner){isShowProgress->
-            if(isShowProgress==true)
-                showProgressDialog()
-            else{
-                hideProgressDialog()
-            }
 
         }
         viewModel.message.observe(viewLifecycleOwner){message->
@@ -129,11 +130,8 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
                 }
             })
         }
-        viewModel.isUploadedImage.observe(viewLifecycleOwner){isUploaded->
-            if(isUploaded==true){
-                viewDataBinding.deleteImageTv.isVisible=true
-            }
-        }
+
+
     }
 
     private fun hideImage() {

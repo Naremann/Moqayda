@@ -26,17 +26,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         super.onViewCreated(view, savedInstanceState)
         showBottomAppBar()
         hideFloatingBtn()
+        loadUserImage()
         viewDataBinding.vm=viewModel
         viewModel.navigator=this
-        loadUserImage()
 
     }
+
     private fun loadUserImage(){
         DataUtils.USER?.id?.let { userId ->
             getUerImageFromFirebase(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     DataUtils.USER!!.id?.let {
                         getFirebaseImageUri({ uri->
+                            imageUri=uri
                             viewDataBinding.progressBar.isVisible=false
                             Picasso.with(requireContext()).load(uri).into(viewDataBinding.userImage)
 
@@ -80,11 +82,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
     }
 
     override fun startFullImageScreen() {
-        val intent = Intent()
-        intent.action = Intent.ACTION_VIEW
-        Log.e("imageFullScreen","uri : $imageUri")
-        intent.setDataAndType(imageUri, "image/*")
-        startActivity(intent)
+       if(imageUri!=null){
+           val intent = Intent()
+           intent.action = Intent.ACTION_VIEW
+           Log.e("imageFullScreen","uri : $imageUri")
+           intent.setDataAndType(imageUri, "image/*")
+           startActivity(intent)
+       }
+        else{
+            showToastMessage("No Image")
+        }
     }
 
 }
