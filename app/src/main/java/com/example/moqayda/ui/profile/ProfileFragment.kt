@@ -68,6 +68,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
     override fun getLayoutId(): Int {
         return R.layout.fragment_profile
     }
+
     override fun navigateToLoginFragment() {
 
         showAlertDialog(getString(R.string.want_exit),getString(R.string.ok),
@@ -92,6 +93,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         else{
             showToastMessage("No Image")
         }
+    }
+
+    override fun navigateToSettingFragment() {
+        findNavController().navigate(R.id.settingFragment)
     }
 
 }
