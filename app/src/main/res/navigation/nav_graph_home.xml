@@ -40,6 +40,9 @@
     <action
         android:id="@+id/action_profileFragment_to_profileEdittingFragment"
         app:destination="@id/profileEditingFragment"/>
+        <action
+            android:id="@+id/action_profileFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsListFragment"
@@ -128,4 +131,13 @@
         android:name="com.example.moqayda.ui.profile_editting.ProfileEditingFragment"
         android:label="fragment_profile_editting"
         tools:layout="@layout/fragment_profile_editting" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.moqayda.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

@@ -296,7 +296,9 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         style="@style/LinearLayoutProfileStyle"
-                        android:weightSum="2">
+                        android:weightSum="2"
+                        android:onClick="@{()->vm.navigateToSettingFragment()}"
+                        >
 
                         <ImageView
                             android:layout_width="30dp"

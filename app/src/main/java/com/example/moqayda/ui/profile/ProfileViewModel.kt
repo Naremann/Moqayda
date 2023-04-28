@@ -13,6 +13,10 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
     val phone = DataUtils.USER?.phoneNumber
     val address = DataUtils.USER?.city+"-"+DataUtils.USER?.address
 
+    fun navigateToSettingFragment(){
+        navigator.navigateToSettingFragment()
+    }
+
     private fun isLoggedOut():Boolean{
         Firebase.auth.signOut()
         return true

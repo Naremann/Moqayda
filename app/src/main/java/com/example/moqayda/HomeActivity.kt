@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.View.VISIBLE
 import androidx.navigation.findNavController
 import com.example.moqayda.databinding.ActivityHomeBinding
+import com.example.moqayda.ui.setting.LanguagesSettingsHelper
+import com.example.moqayda.ui.setting.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,6 +15,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setLocalLanguage()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -88,6 +91,16 @@ class HomeActivity : AppCompatActivity() {
             else -> {
                 super.onBackPressed()
             }
+        }
+    }
+    private fun setLocalLanguage() {
+        var data = LanguagesSettingsHelper.retreiveDataFromSharedPreferences("lang", this)
+        if (data == "ar") {
+            LocaleHelper.setLocale(this, "ar")
+        } else {
+            Log.e("lang", data)
+            LocaleHelper.setLocale(this, "en")
+
         }
     }
 

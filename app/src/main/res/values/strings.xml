@@ -46,7 +46,7 @@
     <string name="last_name_text">Last Name</string>
     <string name="mobile_text">Mobile Number</string>
     <string name="country_text">Country</string>
-    <string name="address_text">You Address</string>
+    <string name="address_text">Your Address</string>
     <string name="password">Password</string>
     <string name="city">City</string>
     <string name="create_account">Create an account</string>
@@ -75,5 +75,7 @@
     <string name="delete_img">Delete image</string>
     <string name="update">Update</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="english_lan">English</string>
+    <string name="arabic_lan">اللغة العربية</string>
 
 </resources>
