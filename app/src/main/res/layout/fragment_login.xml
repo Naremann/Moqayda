@@ -69,18 +69,22 @@
                         android:layout_height="wrap_content"
                         android:enabled="true"
                         app:boxStrokeWidth="1dp"
+                        app:boxStrokeColor="@color/black_overlay"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        android:hint="@string/email"
+                        android:textColorHint="@color/black_overlay"
                         app:startIconDrawable="@drawable/ic_baseline_person_24">
 
                         <EditText
                             android:id="@+id/emailEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Email"
-                            android:text="@={vm.email}" />
+                            android:text="@={vm.email}"
+                            android:textColor="@color/black"
+                            />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,9 +97,12 @@
                         android:layout_marginTop="20dp"
                         android:enabled="true"
                         app:boxStrokeWidth="1dp"
+                        app:boxStrokeColor="@color/black_overlay"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
+                        android:hint="@string/password"
+                        android:textColorHint="@color/black_overlay"
                         app:layout_constraintTop_toBottomOf="@+id/emailContainer"
                         app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
@@ -103,8 +110,9 @@
                             android:id="@+id/passwordEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="password"
-                            android:text="@={vm.password}" />
+                            android:text="@={vm.password}"
+                            android:textColor="@color/black"
+                            />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

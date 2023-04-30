@@ -1,24 +1,29 @@
 package com.example.moqayda
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View.VISIBLE
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
+import androidx.test.InstrumentationRegistry
+import com.example.moqayda.database.local.LanguagesSettingsHelper
+import com.example.moqayda.database.local.LocaleHelper
+import com.example.moqayda.database.local.ThemeModeSettingHelper.Companion.getThemeMode
 import com.example.moqayda.databinding.ActivityHomeBinding
-import com.example.moqayda.ui.setting.LanguagesSettingsHelper
-import com.example.moqayda.ui.setting.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setLocalLanguage()
+        checkAppThemeMode()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.bottomAppBar.visibility = VISIBLE
 
 
@@ -94,7 +99,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
     private fun setLocalLanguage() {
-        var data = LanguagesSettingsHelper.retreiveDataFromSharedPreferences("lang", this)
+        val data = LanguagesSettingsHelper.retreiveDataFromSharedPreferences("lang", this)
         if (data == "ar") {
             LocaleHelper.setLocale(this, "ar")
         } else {
@@ -102,6 +107,12 @@ class HomeActivity : AppCompatActivity() {
             LocaleHelper.setLocale(this, "en")
 
         }
+    }
+    private fun checkAppThemeMode() {
+        if(getThemeMode(this))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
 

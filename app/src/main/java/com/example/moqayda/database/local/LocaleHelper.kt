@@ -1,4 +1,4 @@
-package com.example.moqayda.ui.setting
+package com.example.moqayda.database.local
 
 import android.content.Context
 import android.annotation.TargetApi

@@ -77,5 +77,6 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="english_lan">English</string>
     <string name="arabic_lan">اللغة العربية</string>
+    <string name="dark_mode">Dark Mode</string>
 
 </resources>

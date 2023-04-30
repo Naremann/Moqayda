@@ -1,4 +1,4 @@
-package com.example.moqayda.ui.setting
+package com.example.moqayda.database.local
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -8,7 +8,7 @@ class LanguagesSettingsHelper {
         var sharedPreferences:SharedPreferences?=null
 
 
-        private fun getSharedPreferencesInstance(context: Context):SharedPreferences{
+        fun getSharedPreferencesInstance(context: Context):SharedPreferences{
             if(sharedPreferences ==null){
                 sharedPreferences =  context.getSharedPreferences("lang", Context.MODE_PRIVATE)
             }
@@ -20,7 +20,7 @@ class LanguagesSettingsHelper {
             var editor = getSharedPreferencesInstance(context).edit()
             editor.putString("lang",lang)
 
-            editor.commit()
+            editor.apply()
         }
 
         fun retreiveDataFromSharedPreferences(key: String, context: Context): String{

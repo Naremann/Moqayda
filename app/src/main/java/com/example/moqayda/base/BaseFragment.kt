@@ -21,7 +21,7 @@ abstract class BaseFragment<DB: ViewDataBinding,VM: BaseViewModel<*>> : Fragment
     lateinit var viewDataBinding: DB
     lateinit var viewModel: VM
     var alertDialog: AlertDialog?=null
-    lateinit var progressDialog : ProgressDialog
+    private var progressDialog : ProgressDialog?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -81,12 +81,12 @@ abstract class BaseFragment<DB: ViewDataBinding,VM: BaseViewModel<*>> : Fragment
     }
     fun showProgressDialog(){
         progressDialog = ProgressDialog(requireContext())
-        progressDialog.setMessage("Loading....")
-        progressDialog.setCancelable(false)
-        progressDialog.show()
+        progressDialog?.setMessage("Loading....")
+        progressDialog?.setCancelable(false)
+        progressDialog?.show()
     }
     fun hideProgressDialog(){
-        progressDialog.dismiss()
+        progressDialog?.dismiss()
     }
 
     fun hideBottomAppBar(){
