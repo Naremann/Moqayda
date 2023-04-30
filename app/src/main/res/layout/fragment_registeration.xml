@@ -70,7 +70,10 @@
                         android:layout_width="175dp"
                         android:layout_height="wrap_content"
                         android:enabled="true"
+                        android:textColorHint="@color/black_overlay"
                         app:boxStrokeWidth="1dp"
+                        android:hint="@string/first_name_text"
+                        app:boxStrokeColor="@color/black_overlay"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -79,7 +82,7 @@
                             android:id="@+id/firstNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/first_name_text"
+                            android:textColor="@color/black"
                             android:text="@={vm.firstName}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -95,6 +98,9 @@
                         android:layout_marginStart="20dp"
                         android:enabled="true"
                         app:boxStrokeWidth="1dp"
+                        android:hint="@string/last_name_text"
+                        android:textColorHint="@color/black_overlay"
+                        app:boxStrokeColor="@color/black_overlay"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintTop_toTopOf="parent"
@@ -104,8 +110,8 @@
                             android:id="@+id/lastNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/last_name_text"
                             android:text="@={vm.lastName}"
+                            android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/et_email" />
@@ -118,8 +124,11 @@
                     layout_error="@{vm.mobileError}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:boxStrokeWidth="1dp"
+                    app:boxStrokeColor="@color/black_overlay"
                     android:layout_marginTop="20dp"
                     app:startIconDrawable="@drawable/ic_baseline_call_24"
+                    android:hint="@string/mobile_text"
 
                     >
 
@@ -127,8 +136,9 @@
                         android:id="@+id/mobileEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/mobile_text"
-                        android:text="@={vm.mobile}" />
+                        android:text="@={vm.mobile}"
+                        android:textColor="@color/black"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
@@ -142,19 +152,22 @@
                         android:layout_width="175dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeColor="@color/black_overlay"
                         app:layout_constraintEnd_toEndOf="@+id/firsNameContainer"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintHorizontal_chainStyle="spread"
                         app:layout_constraintStart_toStartOf="@+id/firsNameContainer"
                         app:layout_constraintTop_toBottomOf="@+id/mobileContainer"
                         android:enabled="false"
+                        android:textColorHint="@color/black_overlay"
+                        android:hint="@string/country_text"
                         >
 
                         <EditText
                             android:id="@+id/countryEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/country_text"
                             android:text="@{vm.country}"
                             android:textColor="@color/black"
                             android:drawableEnd="@drawable/egypt_flag"
@@ -177,6 +190,7 @@
                             android:id="@+id/spinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:popupBackground="#000000"
                             style="@style/spinner_style" />
 
                     </com.google.android.material.card.MaterialCardView>
@@ -189,16 +203,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    app:boxStrokeWidth="1dp"
+                    android:hint="@string/address_text"
+                    app:boxStrokeColor="@color/black_overlay"
                     app:startIconDrawable="@drawable/ic_baseline_location_on_24"
-
+                    android:textColorHint="@color/black_overlay"
                     >
 
                     <EditText
                         android:id="@+id/AddressEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/address_text"
-                        android:text="@={vm.address}" />
+                        android:text="@={vm.address}"
+                        android:textColor="@color/black"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -210,7 +228,10 @@
                     android:layout_marginTop="20dp"
                     android:enabled="true"
                     app:boxStrokeWidth="1dp"
+                    android:hint="@string/email"
+                    app:boxStrokeColor="@color/black_overlay"
                     app:startIconDrawable="@drawable/ic_baseline_person_24"
+                    android:textColorHint="@color/black_overlay"
 
                     >
 
@@ -218,8 +239,9 @@
                         android:id="@+id/emailEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/email"
-                        android:text="@={vm.email}" />
+                        android:text="@={vm.email}"
+                        android:textColor="@color/black"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -230,19 +252,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:enabled="true"
-                    app:boxStrokeWidth="1dp"
                     app:layout_constraintEnd_toEndOf="@id/emailContainer"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:startIconDrawable="@drawable/ic_baseline_lock_24"
-
+                    app:boxStrokeWidth="1dp"
+                    app:boxStrokeColor="@color/black_overlay"
+                    android:textColorHint="@color/black_overlay"
+                    android:hint="@string/password"
                     >
 
                     <EditText
                         android:id="@+id/passwordEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/password"
-                        android:text="@={vm.password}" />
+                        android:text="@={vm.password}"
+                        android:textColor="@color/black"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button

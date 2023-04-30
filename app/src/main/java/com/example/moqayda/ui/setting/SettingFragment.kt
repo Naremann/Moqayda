@@ -2,15 +2,21 @@ package com.example.moqayda.ui.setting
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.moqayda.HomeActivity
 import com.example.moqayda.R
+import com.example.moqayda.database.local.LanguagesSettingsHelper
+import com.example.moqayda.database.local.LocaleHelper
+import com.example.moqayda.database.local.ThemeModeSettingHelper.Companion.getThemeMode
+import com.example.moqayda.database.local.ThemeModeSettingHelper.Companion.saveCurrentThemMode
 import com.example.moqayda.databinding.FragmentSettingBinding
 import com.example.moqayda.initToolbar
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -30,6 +36,13 @@ class SettingFragment :Fragment(),AdapterView.OnItemSelectedListener{
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.e("OnStart()","IsChecked ${dataBinding.switcher.isChecked}")
+        dataBinding.switcher.isChecked= getThemeMode(requireContext())
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataBinding.spinnerLanguage.onItemSelectedListener=this
@@ -38,7 +51,22 @@ class SettingFragment :Fragment(),AdapterView.OnItemSelectedListener{
         hideBottomAppBar()
         hideFloatingBtn()
         dataBinding.toolbar.initToolbar(dataBinding.toolbar,getString(R.string.setting),this)
+        dataBinding.switcher.setOnClickListener {
+            checkSwitcherMode()
+        }
 
+
+
+    }
+
+    private fun checkSwitcherMode() {
+        if(dataBinding.switcher.isChecked){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+        else
+        {AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)}
+        Log.e("SwitcherIsClicked","IsChecked ${dataBinding.switcher.isChecked}")
+        saveCurrentThemMode(requireContext(),dataBinding.switcher.isChecked)
     }
 
     private fun checkCurrentLanguage() {

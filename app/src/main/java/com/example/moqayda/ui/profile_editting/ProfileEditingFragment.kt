@@ -89,7 +89,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
                             imageUri=uri
                             viewDataBinding.progressBar.isVisible=false
                             viewDataBinding.deleteImageTv.isVisible=true
-                            Picasso.with(requireContext()).load(uri).into(viewDataBinding.userImage)
+                            Picasso.with(viewDataBinding.userImage.context).load(uri).into(viewDataBinding.userImage)
 
                         }, {ex->
                             ex.localizedMessage?.let { error -> showToastMessage(error) }

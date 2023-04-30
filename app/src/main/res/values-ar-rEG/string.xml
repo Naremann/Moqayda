@@ -78,5 +78,6 @@
     <string name="edit_profile">تعديل الملف الشخصي</string>
     <string name="english_lan">English</string>
     <string name="arabic_lan">اللغة العربية</string>
+    <string name="dark_mode">الوضع الليلي</string>
 
 </resources>

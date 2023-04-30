@@ -40,7 +40,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
                         getFirebaseImageUri({ uri->
                             imageUri=uri
                             viewDataBinding.progressBar.isVisible=false
-                            Picasso.with(requireContext()).load(uri).into(viewDataBinding.userImage)
+                            Picasso.with(viewDataBinding.userImage.context).load(uri).into(viewDataBinding.userImage)
 
                         }, { ex->
                             viewDataBinding.progressBar.isVisible=false
