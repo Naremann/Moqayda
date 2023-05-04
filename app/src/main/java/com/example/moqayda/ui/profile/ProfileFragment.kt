@@ -33,6 +33,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
     }
 
     private fun loadUserImage(){
+        viewDataBinding.progressBar.isVisible=false
         DataUtils.USER?.id?.let { userId ->
             getUerImageFromFirebase(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
