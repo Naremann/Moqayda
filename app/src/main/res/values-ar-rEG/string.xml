@@ -79,5 +79,8 @@
     <string name="english_lan">English</string>
     <string name="arabic_lan">اللغة العربية</string>
     <string name="dark_mode">الوضع الليلي</string>
+    <string name="change_pass">تغيير كلمة المرور</string>
+    <string name="delete_account">حذف الحساب</string>
+
 
 </resources>

@@ -47,12 +47,16 @@ class LoginViewModel : BaseViewModel<Navigator>() {
     }
 
     fun resetPassword(){
+        showLoading.value=true
+
         if(validateEmailField()){
             email.get().let {
                 auth.sendPasswordResetEmail(it!!).addOnCompleteListener { task->
+                    showLoading.value=false
                     if(task.isSuccessful){
-                        messageLiveData.value="Check your email"
+                        messageLiveData.value="We have sent you a mail, check your email now !"
                     } else{
+                        showLoading.value=false
                         messageLiveData.value=task.exception?.localizedMessage
                     }
                 }
