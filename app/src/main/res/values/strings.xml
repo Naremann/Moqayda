@@ -80,5 +80,7 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="change_pass">Change Password</string>
     <string name="delete_account">Delete the account</string>
+    <string name="want_delete_account">Are you sure you want to delete your account?</string>
+
 
 </resources>
