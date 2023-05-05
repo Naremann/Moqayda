@@ -69,7 +69,6 @@
                 android:id="@+id/spinner_language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_language"
                 style="@style/spinner_style" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -165,6 +164,7 @@
             android:layout_marginTop="30dp"
             style="@style/LinearLayoutProfileStyle"
             android:weightSum="2"
+            android:onClick="@{()->vm.navigateToRegisterFragment()}"
             >
 
             <ImageView

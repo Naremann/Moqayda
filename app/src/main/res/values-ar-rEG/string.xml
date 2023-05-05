@@ -81,6 +81,8 @@
     <string name="dark_mode">الوضع الليلي</string>
     <string name="change_pass">تغيير كلمة المرور</string>
     <string name="delete_account">حذف الحساب</string>
+    <string name="want_delete_account">هل انت متأكد انك تريد حذف حسابك؟</string>
+
 
 
 </resources>

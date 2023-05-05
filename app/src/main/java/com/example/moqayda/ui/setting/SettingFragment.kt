@@ -6,9 +6,9 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.moqayda.HomeActivity
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
@@ -19,7 +19,7 @@ import com.example.moqayda.database.local.ThemeModeSettingHelper.Companion.saveC
 import com.example.moqayda.databinding.FragmentSettingBinding
 import com.example.moqayda.initToolbar
 
-class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>(),AdapterView.OnItemSelectedListener{
+class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>(),AdapterView.OnItemSelectedListener,Navigator{
     private lateinit var adapter: ArrayAdapter<String>
     private var spinnerList: MutableList<String> = ArrayList()
 
@@ -27,6 +27,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.vm=viewModel
+        viewModel.navigator=this
         subscribeToLiveData()
         viewDataBinding.spinnerLanguage.onItemSelectedListener=this
         initSpinner()
@@ -67,7 +68,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>()
     private fun convertAppLanguage(position:Int) {
         if (spinnerList[position] == getString(R.string.arabic_lan)) {
             saveCurrentLanguage("ar")
-            showToastSelectedLang(getString(R.string.arabic_lan))
             viewDataBinding.spinnerLanguage.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -82,7 +82,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>()
             }
         } else {
             saveCurrentLanguage("en")
-            showToastSelectedLang("English")
             viewDataBinding.spinnerLanguage.onItemSelectedListener = object :
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -101,7 +100,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>()
     private fun convertedAppLangToSelected(position:Int,spinnerItem: String,language: String) {
         if (spinnerList[position] == spinnerItem) {
             saveCurrentLanguage(language)
-            showToastSelectedLang(language)
             startHomeActivity()
         }
     }
@@ -137,9 +135,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>()
         startActivity(intent)
     }
 
-    private fun showToastSelectedLang(language: String) {
-        Toast.makeText(requireContext(), language, Toast.LENGTH_LONG).show()
-    }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         convertAppLanguage(position)
@@ -161,6 +156,13 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>()
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_setting
+    }
+
+    override fun navigateToRegisterFragment() {
+        showAlertDialog(getString(R.string.want_delete_account),getString(R.string.ok),{ _, _ ->
+            findNavController().setGraph(R.navigation.nav_graph_authentication)
+            findNavController().navigate(R.id.registeration)
+        },getString(R.string.cancel))
     }
 
 
