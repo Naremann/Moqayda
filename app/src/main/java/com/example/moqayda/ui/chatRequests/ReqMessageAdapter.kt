@@ -1,19 +1,32 @@
 package com.example.moqayda.ui.chatRequests
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.moqayda.DataUtils
 import com.example.moqayda.R
+import com.example.moqayda.database.getFirebaseImageUri
+import com.example.moqayda.database.getUerImageFromFirebase
 import com.example.moqayda.databinding.ItemChatUserBinding
 import com.example.moqayda.models.MessageRequest
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class ReqMessageAdapter(
     private val reqList: List<MessageRequest>,
@@ -31,7 +44,9 @@ class ReqMessageAdapter(
                     binding.cancel.visibility = View.GONE
                     binding.ConstraintLayout.setOnClickListener {
                         // TODO navigate to chat req.id
-                        it.findNavController().navigate(RequestsFragmentDirections.actionRequestFragmentToChatFragment(req))
+                        it.findNavController().navigate(
+                            RequestsFragmentDirections.actionRequestFragmentToChatFragment(req)
+                        )
                         requestViewModel.selectedChat(req.id!!)
                         requestViewModel.getMessage(req.id!!)
                     }
@@ -60,15 +75,19 @@ class ReqMessageAdapter(
     }
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
+
         val currentUser = Firebase.auth.currentUser
         val req = reqList[position]
         holder.bind(req, requestViewModel)
         val builder = AlertDialog.Builder(mContext)
 
-        if (currentUser?.uid == req.senderId){
+
+
+        if (currentUser?.uid == req.senderId) {
             holder.binding.userName.text = req.receiverName
-            Log.e("reqMessageAdapter",req.receiverName!!)
-        }else{
+            Log.e("reqMessageAdapter", req.receiverName!!)
+        } else {
+            req.senderId?.let { loadUserImage(holder, it) }
             holder.binding.userName.text = req.senderName
         }
 
@@ -90,10 +109,37 @@ class ReqMessageAdapter(
         }
 
 
-
     }
+
+
+
+    private fun showToastMessage(message: String) {
+        Toast.makeText(mContext,message,Toast.LENGTH_LONG).show()
+
+}
 
     override fun getItemCount(): Int {
         return reqList.size
+    }
+
+    private fun loadUserImage(holder: ChatViewHolder, userId: String) {
+        getUerImageFromFirebase(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                getFirebaseImageUri({ uri ->
+                    Picasso.with(holder.binding.userImage.context).load(uri)
+                        .into(holder.binding.userImage)
+
+                }, { ex ->
+                    ex.localizedMessage?.let { error ->
+                        showToastMessage(error)
+                    }
+
+                }, userId)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                showToastMessage("Error Loading Image")
+            }
+        }, userId)
     }
 }
