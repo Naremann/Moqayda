@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.CategoryItem
-import com.example.moqayda.models.CategoryProductViewModel
+import com.example.moqayda.models.Product
 import com.example.moqayda.models.WishlistResponse
 import kotlinx.coroutines.launch
 
@@ -18,10 +17,10 @@ class FavoriteViewModel : BaseViewModel<Navigator>() {
     val wishlist: MutableLiveData<WishlistResponse>
         get() = _wishlist
 
-    private val dataList = mutableListOf<CategoryProductViewModel>()
+    private val dataList = mutableListOf<Product>()
 
-    private val _productsWishlist = MutableLiveData<List<CategoryProductViewModel>?>()
-    val productsWishlist: MutableLiveData<List<CategoryProductViewModel>?>
+    private val _productsWishlist = MutableLiveData<List<Product>?>()
+    val productsWishlist: MutableLiveData<List<Product>?>
         get() = _productsWishlist
 
     init {

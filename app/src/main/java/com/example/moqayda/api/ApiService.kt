@@ -19,14 +19,16 @@ interface ApiService {
         @Part("Name") productName: RequestBody?,
         @Part("Descriptions") productDescription: RequestBody?,
         @Part("CategoryId") categoryId: RequestBody?,
+        @Part("UserId") userId: RequestBody,
         @Part file: MultipartBody.Part?
+
     ): Response<ResponseBody>
 
     @GET("/api/Category/{id}")
     suspend fun getProductsByCategoryId(@Path("id") categoryId:Int?):Response<CategoryItem>
 
     @GET("/api/Product/{id}")
-    suspend fun getProductById(@Path("id") productId:Int?):Response<CategoryProductViewModel>
+    suspend fun getProductById(@Path("id") productId:Int?):Response<Product>
 
     @Multipart
     @POST("/api/Wishlist")
@@ -40,5 +42,8 @@ interface ApiService {
 
     @DELETE("api/Wishlist/{id}")
     suspend fun deleteFavoriteProductById(@Path("id") productId:Int) : Response<Unit>
+
+    @GET("/api/User/{id}")
+    suspend fun getUserById(@Path("id") userId: String?):Response<AppUser>
 
 }

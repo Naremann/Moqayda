@@ -6,7 +6,11 @@
     <data>
         <variable
             name="product"
-            type="com.example.moqayda.models.CategoryProductViewModel"/>
+            type="com.example.moqayda.models.Product"/>
+
+        <variable
+            name="user"
+            type="com.example.moqayda.models.AppUser" />
 
     </data>
 
@@ -47,8 +51,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/user_image"
                 app:layout_constraintStart_toEndOf="@id/user_image"
-                android:text="Ali Mohammed"
-                android:textStyle="bold"
+                tools:text="Ali Mohammed"
+                android:text="@{user.firstName + ` ` + user.lastName}"                android:textStyle="bold"
                 android:textSize="23sp"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black"
@@ -59,7 +63,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/user_name"
                 app:layout_constraintStart_toEndOf="@id/user_image"
-                android:text="Cairo"
+                android:text="@{user.city}"
                 android:textSize="20sp"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black" />

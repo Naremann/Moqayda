@@ -11,13 +11,15 @@ import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.repo.product.AddProductRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
 
     lateinit var navigator: Navigator
-
     private val addProductRepository = AddProductRepository(ctx)
 
     val productName = ObservableField<String>()
@@ -100,10 +102,10 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     }
 
     fun upload(
-
         selectedCategory: String,
         imageUri: Uri,
-        fileRealPath: String
+        fileRealPath: String,
+        userId: String
     ) {
         if (
             productName.get().isNullOrBlank() ||
@@ -124,7 +126,8 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                         productDescription.get()!!,
                         selectedCategory,
                         imageUri,
-                        fileRealPath
+                        fileRealPath,
+                        userId
                     )
                 }
 

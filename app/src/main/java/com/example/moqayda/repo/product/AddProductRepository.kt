@@ -35,11 +35,13 @@ class AddProductRepository constructor(private val ctx:Context) {
         categoryId: String,
         imageUri: Uri,
         fileRealPath: String,
+        userId: String
     ) {
         val fileToSend = prepareFilePart("image", fileRealPath, imageUri)
         val productNameRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),productName)
         val productDescriptionRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),productDescription)
         val categoryIdRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),categoryId)
+        val userIdRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),userId)
 
 
 
@@ -48,6 +50,7 @@ class AddProductRepository constructor(private val ctx:Context) {
                 productNameRequestBody,
                 productDescriptionRequestBody,
                 categoryIdRequestBody,
+                userIdRequestBody,
                 fileToSend
             )
             if(response.body() != null && response.isSuccessful) {

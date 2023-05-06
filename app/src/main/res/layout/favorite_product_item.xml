@@ -7,7 +7,7 @@
 
         <variable
             name="product"
-            type="com.example.moqayda.models.CategoryProductViewModel" />
+            type="com.example.moqayda.models.Product" />
 
     </data>
 
