@@ -15,10 +15,7 @@ import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductsBinding
 import com.example.moqayda.initToolbar
-import com.example.moqayda.models.CategoryProductViewModel
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.moqayda.models.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,9 +24,9 @@ import kotlinx.coroutines.launch
 class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>() {
 
     private var categoryId: Int = 0
-    private var adapter: ProductAdapter = ProductAdapter()
-    private var productList: MutableList<CategoryProductViewModel> = mutableListOf()
-    private var filteredList: MutableList<CategoryProductViewModel> = mutableListOf()
+    private lateinit var adapter: ProductAdapter
+    private var productList: MutableList<Product> = mutableListOf()
+    private var filteredList: MutableList<Product> = mutableListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +35,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         categoryId = ProductFragmentArgs.fromBundle(requireArguments()).categoryId
         viewDataBinding.vm = viewModel
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.Swap_items),this)
+        adapter = ProductAdapter(productList,viewModel)
         getProductsById()
         observeToLiveData()
         initRecycler()
@@ -87,7 +85,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         }
     }
 
-    private fun navigateToProductDetails(productItem: CategoryProductViewModel?) {
+    private fun navigateToProductDetails(productItem: Product?) {
         findNavController().navigate(
             ProductFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
                 productItem?.name, productItem?.productToSwap, productItem?.descriptions
@@ -102,7 +100,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
                 adapter.changeData(categoryItem?.categoryProductViewModels)
                 adapter.notifyDataSetChanged()
                 productList =
-                    categoryItem?.categoryProductViewModels as MutableList<CategoryProductViewModel>
+                    categoryItem?.categoryProductViewModels as MutableList<Product>
             }
             viewModel.isVisibleProgress.observe(viewLifecycleOwner) { isVisibleProgress ->
                 viewDataBinding.progressBar.isVisible = isVisibleProgress
@@ -118,14 +116,14 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
     private fun initRecycler() {
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onItemClickListener = object : ProductAdapter.OnItemClickListener {
-            override fun onItemClick(productItem: CategoryProductViewModel?) {
+            override fun onItemClick(productItem: Product?) {
                 productItem?.let { navigateToProductDetails(productItem) }
             }
         }
         adapter.onActiveLoveImage = object : ProductAdapter.OnActiveLoveImageClickListener {
             override fun onIconClick(
                 activeLoveImage: ImageView, inActiveLoveImage: ImageView,
-                addToFavoriteTv: TextView, product: CategoryProductViewModel
+                addToFavoriteTv: TextView, product: Product
             ) {
                 product.id?.let {
                     deleteItemFromFavorite(
@@ -143,7 +141,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
                 activeLoveImage: ImageView,
                 inActiveLoveImage: ImageView,
                 addToFavoriteTv: TextView,
-                product: CategoryProductViewModel
+                product: Product
             ) {
                 product.id?.let {
                     addItemToFavorite(

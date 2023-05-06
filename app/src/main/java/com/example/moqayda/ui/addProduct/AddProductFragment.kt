@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.view.View.*
 import android.widget.Toast
@@ -27,20 +28,25 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.BuildConfig
 import java.io.File
 
 
 class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductViewModel>(),
     Navigator {
+    var auth: FirebaseAuth = Firebase.auth
     private lateinit var permReqLauncher: ActivityResultLauncher<Array<String>>
     private var selectedFile: Uri? = null
     private lateinit var categoryList: List<CategoryItem>
     private lateinit var selectedCategory: CategoryItem
     private var permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-    private var imageUri:Uri? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.e("AddProductFragment", auth.currentUser!!.uid)
 
         hideBottomAppBar()
         selectedCategory = AddProductFragmentArgs.fromBundle(requireArguments()).selectedCategory
@@ -221,8 +227,10 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
                             requireContext(),
                             selectedFile!!,
                             viewModel,
-                            selectedImageName
-                        )
+                            selectedImageName,
+
+                        ),
+                        auth.currentUser!!.uid
                     )
                 }else{
                     Toast.makeText(requireContext(),"No image Selected",Toast.LENGTH_LONG).show()

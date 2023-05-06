@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -14,9 +13,9 @@ import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.FavoriteProductItemBinding
-import com.example.moqayda.models.CategoryProductViewModel
+import com.example.moqayda.models.Product
 class FavoriteAdapter(
-    private var productList: List<CategoryProductViewModel?>? = mutableListOf(),
+    private var productList: List<Product?>? = mutableListOf(),
     private val mContext: Context,
     private val owner: ViewModelStoreOwner,
 ) :
@@ -25,7 +24,7 @@ class FavoriteAdapter(
         RecyclerView.ViewHolder(binding.root) {
         val dotMenu = binding.dotMenu
         val popupMenu = PopupMenu(mContext,dotMenu)
-        fun bind(product: CategoryProductViewModel) {
+        fun bind(product: Product) {
             binding.product = product
             bindImage(binding.productImage, product.pathImage)
             binding.invalidateAll()

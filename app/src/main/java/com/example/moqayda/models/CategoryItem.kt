@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Entity
 data class CategoryItem(
     val categoryBackgroundColor: Int?=null,
-    val categoryProductViewModels: List<CategoryProductViewModel?>?=null,
+    val categoryProductViewModels: List<Product?>?=null,
     @PrimaryKey
     val id: Int?=null,
     val isActive: Boolean?=null,

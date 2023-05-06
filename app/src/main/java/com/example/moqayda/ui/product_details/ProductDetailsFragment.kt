@@ -8,10 +8,10 @@ import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductDetailsBinding
 import com.example.moqayda.initToolbar
-import com.example.moqayda.models.CategoryProductViewModel
+import com.example.moqayda.models.Product
 
 class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,ProductDetailsViewModel>(),Navigator {
-    lateinit var product: CategoryProductViewModel
+    lateinit var product: Product
     private var description: String?=null
     var name:String?=null
     private var productToSwapWithName:String?=null

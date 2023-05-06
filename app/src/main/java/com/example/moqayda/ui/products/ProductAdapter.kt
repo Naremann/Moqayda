@@ -12,26 +12,27 @@ import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.ProductItemBinding
-import com.example.moqayda.models.CategoryProductViewModel
+import com.example.moqayda.models.Product
 import com.github.chrisbanes.photoview.PhotoViewAttacher
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
-
-
-class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutableListOf()) :
+class ProductAdapter(var productList: List<Product?>? = mutableListOf(),private val productViewModel: ProductViewModel) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     lateinit var onInActiveLoveImage: OnInActiveLoveImageClickListener
     lateinit var onActiveLoveImage: OnActiveLoveImageClickListener
     lateinit var onItemClickListener: OnItemClickListener
 
-    class ProductViewHolder(private val viewBinding: ProductItemBinding) :
+    class ProductViewHolder(val viewBinding: ProductItemBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
         val activeLoveImage = viewBinding.activeLoveImg
         val inActiveLoveImage = viewBinding.inActiveLoveImg
         val addToFavoriteTv = viewBinding.addToFavoriteTv
         val productImage=viewBinding.productImage
-        fun bind(product: CategoryProductViewModel) {
+        fun bind(product: Product) {
             viewBinding.product = product
             product.pathImage?.let { Log.e("ProductAdapter", it) }
             bindImage(viewBinding.productImage, product.pathImage)
@@ -50,10 +51,17 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutable
         return ProductViewHolder(viewBinding)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = productList?.get(position)
         Log.e("product", "$product")
         holder.bind(product!!)
+        GlobalScope.launch {
+            val appUser = productViewModel.getProductOwner(product.userId!!)
+            holder.viewBinding.user = appUser
+        }
+
+
         holder.productImage.setOnClickListener {
             startFullImageScreen(holder,product)
         }
@@ -85,7 +93,7 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutable
         photoViewAttacher.update()
     }
 
-    private fun startFullImageScreen(holder: ProductViewHolder,product:CategoryProductViewModel) {
+    private fun startFullImageScreen(holder: ProductViewHolder,product:Product) {
         val intent = Intent(holder.itemView.context,ImageViewerActivity::class.java)
         intent.putExtra("image_url",product.pathImage)
         holder.itemView.context.startActivity(intent)
@@ -95,12 +103,12 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutable
         return productList?.size ?: 0
     }
 
-    fun changeData(products: List<CategoryProductViewModel?>?){
+    fun changeData(products: List<Product?>?){
         productList=products
     }
 
     interface OnItemClickListener {
-        fun onItemClick(productItem: CategoryProductViewModel?)
+        fun onItemClick(productItem: Product?)
     }
 
     interface OnInActiveLoveImageClickListener {
@@ -108,7 +116,7 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutable
             activeLoveImage: ImageView,
             inActiveLoveImage: ImageView,
             addToFavoriteTv: TextView,
-            product: CategoryProductViewModel
+            product: Product
         )
     }
 
@@ -117,9 +125,10 @@ class ProductAdapter(var productList: List<CategoryProductViewModel?>? = mutable
             activeLoveImage: ImageView,
             inActiveLoveImage: ImageView,
             addToFavoriteTv: TextView,
-            product: CategoryProductViewModel
+            product: Product
         )
     }
+
 
 
 }
