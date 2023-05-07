@@ -1,18 +1,21 @@
 package com.example.moqayda.ui.swapping_items
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSwappingItemBinding
 import com.example.moqayda.initToolbar
+import com.example.moqayda.models.Product
 
 
 class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingItemViewModel>(),
     Navigator {
-    private var itemName: String? = null
+    private lateinit var selectedProduct: Product
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideBottomAppBar()
@@ -21,11 +24,19 @@ class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingI
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,
             getString(R.string.swap_now_text),
             this)
-        itemName = SwappingItemFragmentArgs.fromBundle(requireArguments()).itemName
-        viewModel.itemName = itemName
+        selectedProduct = SwappingItemFragmentArgs.fromBundle(requireArguments()).selectedProduct
+        viewModel.itemName = selectedProduct.name
+        viewModel.itemId = selectedProduct.id
+        viewModel.receiverId = selectedProduct.userId
+        viewModel.getReceiverData()
         viewModel.navigator = this
 
-
+        viewModel.appUser.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                Log.e("SwappingItemFragment",it.firstName!!)
+                viewDataBinding.appUser = it
+            }
+        })
 
 
     }

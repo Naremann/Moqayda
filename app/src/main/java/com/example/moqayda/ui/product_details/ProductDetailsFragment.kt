@@ -11,10 +11,7 @@ import com.example.moqayda.initToolbar
 import com.example.moqayda.models.Product
 
 class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,ProductDetailsViewModel>(),Navigator {
-    lateinit var product: Product
-    private var description: String?=null
-    var name:String?=null
-    private var productToSwapWithName:String?=null
+    lateinit var selectedProduct: Product
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,15 +25,14 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
     }
 
     private fun setProductDetailsData() {
-        viewModel.description=description
-        viewModel.name=name
-        viewModel.productToSwapWithName=productToSwapWithName
+        viewModel.description=selectedProduct.descriptions
+        viewModel.name=selectedProduct.name
+        viewModel.productToSwapWithName=selectedProduct.productToSwap
     }
 
     private fun getProductDetails() {
-        description=ProductDetailsFragmentArgs.fromBundle(requireArguments()).description
-        name=ProductDetailsFragmentArgs.fromBundle(requireArguments()).itemName
-        productToSwapWithName= ProductDetailsFragmentArgs.fromBundle(requireArguments()).productToSwapName.toString()
+        selectedProduct=ProductDetailsFragmentArgs.fromBundle(requireArguments()).selectedProduct
+
     }
 
     override fun getViews(): View {
@@ -52,6 +48,6 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
     }
 
     override fun navigateToSwappingItemsFragment() {
-        findNavController().navigate(ProductDetailsFragmentDirections.actionBlankFragmentToSwappingItemFragment(name))
+        findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToSwappingItemFragment(selectedProduct))
     }
 }

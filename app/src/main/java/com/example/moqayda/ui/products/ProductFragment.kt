@@ -85,13 +85,13 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         }
     }
 
-    private fun navigateToProductDetails(productItem: Product?) {
-        findNavController().navigate(
-            ProductFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
-                productItem?.name, productItem?.productToSwap, productItem?.descriptions
-            )
-        )
-    }
+//    private fun navigateToProductDetails(productItem: Product?) {
+//        findNavController().navigate(
+//            ProductFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
+//                productItem
+//            )
+//        )
+//    }
 
     private fun observeToLiveData() {
         lifecycleScope.launch {
@@ -117,7 +117,11 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onItemClickListener = object : ProductAdapter.OnItemClickListener {
             override fun onItemClick(productItem: Product?) {
-                productItem?.let { navigateToProductDetails(productItem) }
+                findNavController().navigate(
+                    ProductFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
+                        productItem!!
+                    )
+                )
             }
         }
         adapter.onActiveLoveImage = object : ProductAdapter.OnActiveLoveImageClickListener {
