@@ -56,7 +56,7 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_productsListFragment_to_productDetailsFragment"
-            app:destination="@id/blankFragment" />
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addProductFragment"
@@ -79,38 +79,28 @@
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
-        android:id="@+id/blankFragment"
+        android:id="@+id/productDetailsFragment"
         android:name="com.example.moqayda.ui.product_details.ProductDetailsFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_product_details" >
-        <argument
-            android:name="itemName"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="productToSwapName"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="description"
-            app:argType="string"
-            app:nullable="true" />
         <action
-            android:id="@+id/action_blankFragment_to_swappingItemFragment"
+            android:id="@+id/action_productDetailsFragment_to_swappingItemFragment"
             app:destination="@id/swappingItemFragment" />
+        <argument
+            android:name="selectedProduct"
+            app:argType="com.example.moqayda.models.Product" />
     </fragment>
     <fragment
         android:id="@+id/swappingItemFragment"
         android:name="com.example.moqayda.ui.swapping_items.SwappingItemFragment"
         android:label="fragment_swapping_item"
         tools:layout="@layout/fragment_swapping_item" >
-        <argument
-            android:name="itemName"
-            app:argType="string"
-            app:nullable="true" />
         <action
             android:id="@+id/action_swappingItemFragment_to_addPrivateProductFragment"
             app:destination="@id/addPrivateProductFragment" />
+        <argument
+            android:name="selectedProduct"
+            app:argType="com.example.moqayda.models.Product" />
     </fragment>
     <fragment
         android:id="@+id/addPrivateProductFragment"

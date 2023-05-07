@@ -1,19 +1,26 @@
 package com.example.moqayda.ui.swapping_items
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
+import com.example.moqayda.models.AppUser
+import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.models.MessageRequest
 import com.example.moqayda.repo.FirebaseRepo
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 
 class SwappingItemViewModel:BaseViewModel<Navigator>() {
 
     var itemName: String? = null
+    var itemId: Int? = null
+
     var navigator: Navigator? = null
     private val firebaseInstance = FirebaseRepo()
     private val currentUser = Firebase.auth.currentUser
@@ -21,11 +28,15 @@ class SwappingItemViewModel:BaseViewModel<Navigator>() {
     private val usersRef: DatabaseReference = database.getReference("Users")
     private var senderUserName = MutableLiveData("")
     private var receiverUserName = MutableLiveData("")
-    private var receiverId = "keZnfdjMZ1NtTnMWURfYvtMUHrW2"
+    var receiverId: String? = null
+
+    private val _appUser = MutableLiveData<AppUser?>()
+    val appUser: LiveData<AppUser?>
+        get() = _appUser
 
     init {
         getSenderName()
-        getReceiverName()
+
     }
     fun navigateToAddPrivateProductFragment() {
         navigator?.navigateToAddPrivateProductFragment()
@@ -62,12 +73,14 @@ class SwappingItemViewModel:BaseViewModel<Navigator>() {
             override fun onCancelled(error: DatabaseError) {
                 Log.e("SwappingItemViewModel", "Error retrieving data: ${error.message}")
             }
+
+
         })
     }
 
-    private fun getReceiverName(){
+     fun getReceiverData(){
         val userId = receiverId
-        val userRef: DatabaseReference = usersRef.child(userId)
+        val userRef: DatabaseReference = usersRef.child(userId!!)
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -80,5 +93,16 @@ class SwappingItemViewModel:BaseViewModel<Navigator>() {
                 Log.e("SwappingItemViewModel", "Error retrieving data: ${error.message}")
             }
         })
+        viewModelScope.launch {
+            val response = RetrofitBuilder.retrofitService.getUserById(userId)
+            if (response.isSuccessful){
+                _appUser.postValue(response.body())
+
+            }else{
+                Log.e("SwappingItemViewModel",response.message())
+            }
+        }
     }
+    
+    
 }
