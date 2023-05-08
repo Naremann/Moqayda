@@ -26,9 +26,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         super.onViewCreated(view, savedInstanceState)
         showBottomAppBar()
         hideFloatingBtn()
-        loadUserImage()
+//        loadUserImage()
         viewDataBinding.vm=viewModel
         viewModel.navigator=this
+
+        viewModel.appUser.observe(viewLifecycleOwner){
+            viewDataBinding.appUser = it
+
+        }
 
     }
 
@@ -42,7 +47,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
                             imageUri=uri
                             viewDataBinding.progressBar.isVisible=false
                             Picasso.with(viewDataBinding.userImage.context).load(uri).into(viewDataBinding.userImage)
-
                         }, { ex->
                             viewDataBinding.progressBar.isVisible=false
                             ex.localizedMessage?.let { error -> showToastMessage(error) }
@@ -50,7 +54,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
                         }, userId)
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                    showToastMessage("Error Loading Image")
                 }

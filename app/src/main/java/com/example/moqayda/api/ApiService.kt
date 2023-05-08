@@ -46,4 +46,20 @@ interface ApiService {
     @GET("/api/User/{id}")
     suspend fun getUserById(@Path("id") userId: String?):Response<AppUser>
 
+    @Multipart
+    @POST("/api/User")
+    suspend fun addUser(
+        @Part("Id") id: RequestBody?,
+        @Part("firstName") firstName: RequestBody?,
+        @Part("lastName") lastName: RequestBody?,
+        @Part("password") password: RequestBody?,
+        @Part("phoneNumber") phoneNumber: RequestBody?,
+        @Part("country") country: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part image: MultipartBody.Part?
+
+    ): Response<ResponseBody>
+
 }
