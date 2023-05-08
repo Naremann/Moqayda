@@ -208,7 +208,6 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
                     null
                 )
                 cursor?.moveToFirst()
-
                 // Check if the DISPLAY_NAME column is present in the Cursor
                 val displayNameIndex = cursor?.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME)
                 val selectedImageName = if (displayNameIndex != null && displayNameIndex >= 0) {
@@ -228,7 +227,6 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
                             selectedFile!!,
                             viewModel,
                             selectedImageName,
-
                         ),
                         auth.currentUser!!.uid
                     )

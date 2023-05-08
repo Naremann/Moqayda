@@ -2,6 +2,8 @@ package com.example.moqayda.ui.registeration
 
 import android.util.Log
 import androidx.databinding.ObservableField
+import androidx.lifecycle.viewModelScope
+import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.addUserToFirestore
 import com.example.moqayda.models.AppUser
@@ -11,11 +13,15 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class RegisterViewModel : BaseViewModel<Navigator>() {
     private var auth: FirebaseAuth = Firebase.auth
     private lateinit var firebaseReference:DatabaseReference
-
+    var filePart: MultipartBody.Part? = null
     val firstName = ObservableField<String>()
     val lastName = ObservableField<String>()
     val mobile = ObservableField<String>()
@@ -36,6 +42,7 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
     fun createAccount() {
         if (validate()) {
             addAccountToFirebase()
+
         }
     }
     fun navigateToLogin(){
@@ -66,6 +73,7 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
 
                         Log.e("addUser", "signInWithCustomToken:success${email.get().toString()}")
                         createFireStoreUser(task.result.user!!.uid)
+                        addUser(task.result.user!!.uid)
                         addUserToFirebaseDatabase(AppUser("",
                             firstName.get(),
                             lastName.get(),
@@ -112,6 +120,31 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
                 Log.e("RegisterViewModel", "userAdded")
             } else {
                 Log.e("RegisterViewModel", "Failed")
+            }
+        }
+    }
+
+
+
+    private fun addUser(id: String) {
+        viewModelScope.launch {
+            val response = RetrofitBuilder.retrofitService.addUser(
+                RequestBody.create("text/plain".toMediaTypeOrNull(), id),
+                RequestBody.create("text/plain".toMediaTypeOrNull(), firstName.get()!!),
+                RequestBody.create("text/plain".toMediaTypeOrNull(), lastName.get()!!),
+                RequestBody.create("text/plain".toMediaTypeOrNull(), password.get()!!),
+                RequestBody.create("text/plain".toMediaTypeOrNull(), mobile.get()!!),
+                RequestBody.create("text/plain".toMediaTypeOrNull(), country.get()!!),
+                RequestBody.create("text/plain".toMediaTypeOrNull(), city),
+                RequestBody.create("text/plain".toMediaTypeOrNull(), address.get()!!),
+                RequestBody.create("text/plain".toMediaTypeOrNull(), email.get()!!),
+                filePart
+            )
+            if (response.isSuccessful) {
+                Log.e("RegisterViewModel", "Backend user added")
+            } else {
+                // Handle error response
+                Log.e("RegisterViewModel", "Backend user Failure: ${response.message()}")
             }
         }
     }
