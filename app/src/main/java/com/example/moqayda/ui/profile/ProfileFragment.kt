@@ -103,4 +103,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         findNavController().navigate(R.id.settingFragment)
     }
 
+    override fun navigateToAddPrivateProduct() {
+        findNavController().navigate(R.id.addPrivateProductFragment)
+    }
+
 }

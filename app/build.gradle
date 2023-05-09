@@ -7,6 +7,7 @@ plugins {
     id 'com.google.dagger.hilt.android'
     id 'com.google.gms.google-services'
 
+
 }
 apply plugin: 'kotlin-android'
 
@@ -128,6 +129,11 @@ dependencies {
     implementation 'androidx.media:media:1.6.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
+
+    implementation 'io.coil-kt:coil-compose:1.4.0'
+    implementation 'id.zelory:compressor:3.0.1'
+
+
 }
 
 

@@ -5,12 +5,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
-import com.google.android.material.snackbar.Snackbar
-import de.hdodenhof.circleimageview.BuildConfig
 
 private var permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
 fun pickImage(context: Context, activity: Activity, resultLauncher: ActivityResultLauncher<Intent>) {
@@ -42,5 +38,6 @@ fun selectImage(resultLauncher: ActivityResultLauncher<Intent>) {
     val intent = Intent(Intent.ACTION_GET_CONTENT)
     intent.type = "image/*"
     resultLauncher.launch(intent)
+
 }
 

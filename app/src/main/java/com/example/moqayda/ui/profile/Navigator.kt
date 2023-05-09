@@ -5,4 +5,5 @@ interface Navigator {
     fun navigateToProfileEditing()
     fun startFullImageScreen()
     fun navigateToSettingFragment()
+    fun navigateToAddPrivateProduct()
 }

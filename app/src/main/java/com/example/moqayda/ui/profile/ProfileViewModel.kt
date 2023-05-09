@@ -29,6 +29,10 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
         getCurrentUser()
     }
 
+    fun navigateToAddPrivateProduct(){
+        navigator.navigateToAddPrivateProduct()
+    }
+
     fun navigateToSettingFragment(){
         navigator.navigateToSettingFragment()
     }

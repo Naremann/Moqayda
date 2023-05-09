@@ -4,11 +4,18 @@ import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.AssetFileDescriptor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.os.StatFs
+import android.provider.MediaStore
 import android.webkit.MimeTypeMap
 import com.example.moqayda.ui.addProduct.AddProductViewModel
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.default
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.withContext
 import java.io.*
 import java.util.*
 
@@ -92,4 +99,32 @@ fun getFileSize(context: Context,uri:Uri): Long {
     val fileDescriptor: AssetFileDescriptor =
         context.contentResolver.openAssetFileDescriptor(uri, "r")!!
     return fileDescriptor.length
+}
+
+suspend fun compressImageFile(file: File?,context: Context) : File?  = withContext(GlobalScope.coroutineContext)  {
+    return@withContext try {
+        Compressor.compress(context,file!!, Dispatchers.IO) { default() }
+    } catch (e: IOException) {
+        e.printStackTrace()
+        file
+    }
+}
+
+suspend fun convertBitmapToFile(imageUri:Uri,context: Context): File? {
+    val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
+    return try {
+        val f = File(context.cacheDir, "image")
+        f.createNewFile()
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 60 /*ignored for PNG*/, bos)
+        val bitmapdata = bos.toByteArray()
+        val fos = FileOutputStream(f)
+        fos.write(bitmapdata)
+        fos.flush()
+        fos.close()
+        compressImageFile(f,context)
+    } catch (e: IOException) {
+        e.printStackTrace()
+        null
+    }
 }

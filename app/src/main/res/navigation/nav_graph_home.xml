@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_profileFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_addPrivateProductFragment"
+            app:destination="@id/addPrivateProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsListFragment"
@@ -104,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/addPrivateProductFragment"
-        android:name="com.example.moqayda.ui.addProduct.AddPrivateProductFragment"
+        android:name="com.example.moqayda.ui.add_private_product.AddPrivateProductFragment"
         android:label="fragment_add_private_product"
         tools:layout="@layout/fragment_add_private_product" />
     <fragment

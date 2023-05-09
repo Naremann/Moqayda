@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.moqayda.ui.addProduct.AddProductViewModel" />
+            type="com.example.moqayda.ui.add_private_product.AddPrivateProductViewModel" />
 
     </data>
 
@@ -167,12 +167,12 @@ android:layout_height="match_parent">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
-        android:text="@string/send_request"
+        android:text="@string/create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputProductDescription"
-        android:onClick="@{()->viewModel.sendRequest()}"
+        android:onClick="@{()->viewModel.createPrivateProduct()}"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
