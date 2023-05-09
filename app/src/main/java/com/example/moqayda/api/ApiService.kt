@@ -62,4 +62,15 @@ interface ApiService {
 
     ): Response<ResponseBody>
 
+
+
+   @Multipart
+   @POST("/api/PrivateItem")
+   suspend fun addPrivateProduct(
+       @Part("Name") productName: RequestBody?,
+       @Part("Descriptions") productDescription: RequestBody?,
+       @Part("UserId") userId: RequestBody,
+       @Part productImage: MultipartBody.Part
+   ):  BasicApiResponse<Unit>
+
 }

@@ -24,8 +24,6 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
     val productName = ObservableField<String>()
     val productDescription = ObservableField<String>()
-    val productNameError = ObservableField<String>()
-    val productDescriptionError = ObservableField<String>()
     val userLocation = ObservableField<String>()
     val productToSwap = ObservableField<String>()
 
@@ -56,29 +54,6 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     private val _imageUri = MutableLiveData<Uri>(null)
     val imageUri: LiveData<Uri>
         get() = _imageUri
-     fun sendRequest(){
-         if(validateProductNameAndDescFields()){
-
-         }
-     }
-
-    private fun validateProductNameAndDescFields(): Boolean {
-        var isValidate=true
-        if(productName.get().isNullOrBlank()){
-            productNameError.set("Please enter the product name")
-            isValidate=false
-        }else{
-            productNameError.set(null)
-        }
-        if(productDescription.get().isNullOrBlank()){
-            productDescriptionError.set("Please enter the product description")
-            isValidate=false
-        }
-        else{
-            productDescriptionError.set(null)
-        }
-        return isValidate
-    }
 
     fun setImageUri(uri: Uri) {
         _imageUri.postValue(uri)

@@ -1,4 +1,4 @@
-package com.example.moqayda.ui.addProduct
+package com.example.moqayda.ui.add_private_product
 
 import android.app.Activity
 import android.content.Intent
@@ -16,10 +16,12 @@ import com.example.moqayda.databinding.FragmentAddPrivateProductBinding
 import com.example.moqayda.pickImage
 import com.example.moqayda.selectImage
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.BuildConfig
 
+@AndroidEntryPoint
 class AddPrivateProductFragment :
-    BaseFragment<FragmentAddPrivateProductBinding, AddProductViewModel>() {
+    BaseFragment<FragmentAddPrivateProductBinding, AddPrivateProductViewModel>() {
     private var selectedFile: Uri? = null
     private lateinit var permReqLauncher: ActivityResultLauncher<Array<String>>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,10 +29,13 @@ class AddPrivateProductFragment :
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.viewModel=viewModel
         viewDataBinding.lifecycleOwner = this
-        observeToLiveData()
+
         initPermReqLauncher()
+        observeToLiveData()
+        subscribeToLiveData()
+
         viewDataBinding.pickButton.setOnClickListener {
-            pickImage(requireContext(), requireActivity(), resultLauncher)
+             pickImage(requireContext(), requireActivity(), resultLauncher)
         }
         viewDataBinding.deleteImage.setOnClickListener {
             deleteImage()
@@ -38,6 +43,11 @@ class AddPrivateProductFragment :
     }
 
     private fun observeToLiveData() {
+        viewModel.toastMessage.observe(viewLifecycleOwner){message->
+            showToastMessage(message)
+
+        }
+
         viewModel.imageUri.observe(viewLifecycleOwner){ imageUri ->
             if (imageUri != null){
                 showImage()
@@ -62,6 +72,10 @@ class AddPrivateProductFragment :
                 viewDataBinding.deleteImage.visibility = View.VISIBLE
                 result.data!!.data?.let { viewModel.setImageUri(it) }
                 selectedFile = result.data!!.data!!
+
+
+
+
             }
 
         }
@@ -128,9 +142,8 @@ class AddPrivateProductFragment :
         return viewDataBinding.root
     }
 
-    override fun initViewModeL(): AddProductViewModel {
-        val addProductViewModelFactory = AddProductViewModelFactory(requireContext())
-        return ViewModelProvider(this, addProductViewModelFactory)[AddProductViewModel::class.java]
+    override fun initViewModeL(): AddPrivateProductViewModel {
+        return ViewModelProvider(this)[AddPrivateProductViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {
