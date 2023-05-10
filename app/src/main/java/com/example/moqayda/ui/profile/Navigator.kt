@@ -7,4 +7,6 @@ interface Navigator {
     fun navigateToProfileEditing(currentUser: AppUser)
     fun startFullImageScreen()
     fun navigateToSettingFragment()
+    fun navigateToPrivateProducts()
+
 }

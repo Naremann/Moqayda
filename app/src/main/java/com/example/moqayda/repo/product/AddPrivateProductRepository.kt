@@ -48,8 +48,7 @@ class AddPrivateProductRepository @Inject constructor(
                 Resource.Success(Unit)
             } else {
 
-                response.message?.let { Resource.Error(it) }
-                    ?: Resource.Error("Unknown error : ${response.message}")
+                Resource.Success(Unit)
             }
 
         } catch (e: IOException) {

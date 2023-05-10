@@ -32,6 +32,10 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
     fun navigateToSettingFragment(){
         navigator.navigateToSettingFragment()
     }
+    fun navigateToPrivateProduct(){
+        navigator.navigateToPrivateProducts()
+    }
+
 
     private fun isLoggedOut():Boolean{
         Firebase.auth.signOut()

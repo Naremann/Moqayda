@@ -10,6 +10,7 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentAddPrivateProductBinding
@@ -21,12 +22,13 @@ import de.hdodenhof.circleimageview.BuildConfig
 
 @AndroidEntryPoint
 class AddPrivateProductFragment :
-    BaseFragment<FragmentAddPrivateProductBinding, AddPrivateProductViewModel>() {
+    BaseFragment<FragmentAddPrivateProductBinding, AddPrivateProductViewModel>(),Navigator {
     private var selectedFile: Uri? = null
     private lateinit var permReqLauncher: ActivityResultLauncher<Array<String>>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         hideBottomAppBar()
         super.onViewCreated(view, savedInstanceState)
+        viewModel.navigator=this
         viewDataBinding.viewModel=viewModel
         viewDataBinding.lifecycleOwner = this
 
@@ -148,6 +150,12 @@ class AddPrivateProductFragment :
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_add_private_product
+    }
+
+    override fun navigateToPrivateProductFragment() {
+        showAlertDialog(getString(R.string.product_uploaded),getString(R.string.ok),{ _, _ ->
+            findNavController().navigate(R.id.privateProductsFragment)
+        })
     }
 
 }

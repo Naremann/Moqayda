@@ -19,7 +19,7 @@ class SettingViewModel:BaseViewModel<Navigator>() {
 
     }
 
-    fun deleteAccount():Boolean{
+    private fun deleteAccount():Boolean{
         var isDeleted = true
         showLoading.value=true
         user.delete()

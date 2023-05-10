@@ -24,6 +24,7 @@ class AddPrivateProductViewModel  @Inject constructor(
     val productNameError = ObservableField<String>()
     val productDescriptionError = ObservableField<String>()
     var toastMessage=MutableLiveData<String>()
+    var navigator: Navigator?=null
 
     private val _imageUri = MutableLiveData<Uri>(null)
     val imageUri: LiveData<Uri>
@@ -52,6 +53,7 @@ class AddPrivateProductViewModel  @Inject constructor(
                 is Resource.Success<*> -> {
                     toastMessage.value="Product created successfully"
                     Log.e("TAG", "addProduct: product created Successfully")
+                    navigator?.navigateToPrivateProductFragment()
                 }
                 is Resource.Error<*> -> {
                     Log.e("TAG", "addProduct: ${result.message}")
@@ -59,6 +61,7 @@ class AddPrivateProductViewModel  @Inject constructor(
                 else -> {
                 }
             }
+
             showLoading.value=false
         }
     }
