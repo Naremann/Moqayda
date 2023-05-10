@@ -10,8 +10,6 @@ import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Message
 import com.example.moqayda.models.MessageRequest
 import com.example.moqayda.repo.FirebaseRepo
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class RequestViewModel : BaseViewModel<Navigator>() {
@@ -25,6 +23,9 @@ class RequestViewModel : BaseViewModel<Navigator>() {
     val navigateToSelectedChat: LiveData<String>
         get() = _navigateToSelectedChat
 
+    private val _appUser = MutableLiveData<AppUser?>()
+    val appUser: LiveData<AppUser?>
+        get() = _appUser
 
 
     fun selectedChat(chat: String) {
@@ -67,6 +68,14 @@ class RequestViewModel : BaseViewModel<Navigator>() {
         viewModelScope.launch {
             firebaseInstance.getRequests()
 
+        }
+    }
+
+    fun getAppUser(id:String){
+        viewModelScope.launch {
+            _appUser.postValue(
+                getUser(id)
+            )
         }
     }
 

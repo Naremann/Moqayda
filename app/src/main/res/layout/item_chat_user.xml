@@ -24,6 +24,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             photoUrl="@{appUser.image}"
+            tools:src="@drawable/user_img"
             app:civ_border_color="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,19 +32,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:maxLines="1"
+            android:text="@{appUser.firstName+` `+appUser.lastName }"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/userImage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.018"
             app:layout_constraintStart_toEndOf="@+id/userImage"
             app:layout_constraintTop_toTopOf="@+id/userImage"
-            app:layout_constraintVertical_bias="0.0"
             tools:text="Abdelrahman" />
 
         <ImageView

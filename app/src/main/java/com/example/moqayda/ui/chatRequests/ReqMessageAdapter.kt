@@ -14,6 +14,7 @@ import com.example.moqayda.R
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.ItemChatUserBinding
+import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.MessageRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -27,6 +28,7 @@ class ReqMessageAdapter(
     private val mContext: Context,
 ) :
     RecyclerView.Adapter<ReqMessageAdapter.ChatViewHolder>() {
+    lateinit var appUser: AppUser
     inner class ChatViewHolder(val binding: ItemChatUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(req: MessageRequest, requestViewModel: RequestViewModel) {
@@ -38,7 +40,7 @@ class ReqMessageAdapter(
                     binding.ConstraintLayout.setOnClickListener {
                         // TODO navigate to chat req.id
                         it.findNavController().navigate(
-                            RequestsFragmentDirections.actionRequestFragmentToChatFragment(req)
+                            RequestsFragmentDirections.actionRequestFragmentToChatFragment(req,appUser)
                         )
                         requestViewModel.selectedChat(req.id!!)
                         requestViewModel.getMessage(req.id!!)
@@ -78,21 +80,18 @@ class ReqMessageAdapter(
 
 
         if (currentUser?.uid == req.senderId) {
-            holder.binding.userName.text = req.receiverName
+
             GlobalScope.launch {
-                val appUser = requestViewModel.getUser(req.receiverId!!)
+                appUser = requestViewModel.getUser(req.receiverId!!)!!
                 holder.binding.appUser = appUser
-                Log.e("reqMessageAdapter",appUser?.city!!)
             }
-            Log.e("reqMessageAdapter", req.receiverName!!)
+
         } else {
-            Log.e("reqMessageAdapter",req.senderId!!)
             GlobalScope.launch {
-                val appUser = requestViewModel.getUser(req.senderId!!)
+                appUser = requestViewModel.getUser(req.senderId!!)!!
                 holder.binding.appUser = appUser
-                Log.e("reqMessageAdapter",appUser?.city!!)
             }
-            holder.binding.userName.text = req.senderName
+
         }
 
         builder.setTitle("Confirmation")
