@@ -3,6 +3,7 @@ package com.example.moqayda.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+
 @Parcelize
 data class PrivateProduct(
     val id: Int?=null,

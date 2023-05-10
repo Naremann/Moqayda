@@ -90,6 +90,9 @@ interface ApiService {
         @Part image: MultipartBody.Part?
     ): Response<ResponseBody>
 
+    @GET("/api/PrivateItem/{id}")
+    suspend fun getPrivateProductByUserId(@Path("id") userId:String?):PrivateItemResponse
+
 
 
 }
