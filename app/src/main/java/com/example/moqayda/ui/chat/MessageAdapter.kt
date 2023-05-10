@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.moqayda.R
 import com.example.moqayda.databinding.ImageMessageBinding
 import com.example.moqayda.databinding.MessageBinding
+import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Message
 import com.example.moqayda.ui.chat.ChatFragment.Companion.ANONYMOUS
 import com.google.firebase.ktx.Firebase
@@ -26,6 +27,7 @@ import com.google.firebase.storage.ktx.storage
 class MessageAdapter(
     private val messageList: List<Message>,
     private val currentUserName: String?,
+    val selectedUser: AppUser,
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     private fun setSenderAndReceiver(
@@ -33,14 +35,14 @@ class MessageAdapter(
         messageTextView: TextView?,
         messageImageView: ImageView?,
         senderImageView: ImageView,
-        senderName: TextView,
+
         messageLayout: ConstraintLayout,
     ) {
         if (userName != ANONYMOUS && currentUserName == userName && userName != null) {
             messageLayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
             messageTextView?.setBackgroundResource(R.drawable.rounded_message_blue)
             senderImageView.visibility = View.GONE
-            senderName.visibility = View.GONE
+
             messageTextView?.setTextColor(Color.WHITE)
             messageImageView?.setBackgroundResource(R.drawable.current_user_image_message_background)
 
@@ -48,7 +50,7 @@ class MessageAdapter(
             messageTextView?.setBackgroundResource(R.drawable.rounded_message_gray)
             messageTextView?.setTextColor(Color.BLACK)
             senderImageView.visibility = View.VISIBLE
-            senderName.visibility = View.VISIBLE
+
             messageImageView?.setBackgroundResource(R.drawable.other_user_image_message_background)
         }
     }
@@ -81,14 +83,15 @@ class MessageAdapter(
 
     inner class MessageViewHolder(private val binding: MessageBinding) : ViewHolder(binding.root) {
         fun bind(item: Message) {
+            binding.appUser = selectedUser
             binding.messageTextView.text = item.text
             setSenderAndReceiver(item.senderName,
                 binding.messageTextView,
                 null,
                 binding.messengerImageView,
-                binding.messengerTextView,
+
                 binding.messageLayout)
-            binding.messengerTextView.text = item.senderName ?: ANONYMOUS
+
             if (item.senderPhotoUrl != null) {
                 loadImageIntoView(binding.messengerImageView, item.senderPhotoUrl)
             } else {
@@ -105,7 +108,7 @@ class MessageAdapter(
                 null,
                 binding.messageImageView,
                 binding.messengerImageView,
-                binding.messengerTextView,
+
                 binding.imageMessageLayout)
             loadImageIntoView(binding.messageImageView, item.imageUrl!!, false)
             Log.e("MessageAdapter", item.imageUrl)

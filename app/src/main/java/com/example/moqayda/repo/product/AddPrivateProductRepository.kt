@@ -39,7 +39,7 @@ class AddPrivateProductRepository @Inject constructor(
                 userId.toRequestBody("text/plain".toMediaTypeOrNull()),
 
                 productImage =
-                MultipartBody.Part.createFormData("image", file?.name,
+                MultipartBody.Part.createFormData("image", "image.jpg",
                     file?.asRequestBody()!!)
 
             )

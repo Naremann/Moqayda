@@ -104,7 +104,7 @@
     </fragment>
     <fragment
         android:id="@+id/addPrivateProductFragment"
-        android:name="com.example.moqayda.ui.addProduct.AddPrivateProductFragment"
+        android:name="com.example.moqayda.ui.add_private_product.AddPrivateProductFragment"
         android:label="fragment_add_private_product"
         tools:layout="@layout/fragment_add_private_product" />
     <fragment
@@ -115,6 +115,9 @@
         <argument
             android:name="selectedRequest"
             app:argType="com.example.moqayda.models.MessageRequest" />
+        <argument
+            android:name="selectedUser"
+            app:argType="com.example.moqayda.models.AppUser" />
     </fragment>
     <fragment
         android:id="@+id/profileEditingFragment"

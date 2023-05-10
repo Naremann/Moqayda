@@ -4,11 +4,8 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +13,7 @@ import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentChatBinding
 import com.example.moqayda.initToolbar
+import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Message
 import com.example.moqayda.models.MessageRequest
 import com.example.moqayda.ui.chatRequests.RequestViewModel
@@ -43,6 +41,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
     private lateinit var adapter: MessageAdapter
     val user = Firebase.auth.currentUser
     private lateinit var selectedReq: MessageRequest
+    private lateinit var selectedUser: AppUser
     private val openDocument = registerForActivityResult(MyOpenDocumentContract()) { uri ->
         uri?.let { onImageSelected(it) }
     }
@@ -52,7 +51,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
 
 
         hideBottomAppBar()
-        viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getSenderAndReceiverName(),this)
+        viewDataBinding.toolbar.initToolbar(
+            viewDataBinding.toolbar,
+            "${selectedUser.firstName} ${selectedUser.lastName}",
+            this
+        )
         if (BuildConfig.DEBUG) {
             Firebase.database.useEmulator("10.0.2.2", 9000)
             Firebase.auth.useEmulator("10.0.2.2", 9099)
@@ -60,13 +63,16 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
         }
 
 
+
         auth = Firebase.auth
 
         db = Firebase.database
 
 
-        requestViewModel.message.observe(viewLifecycleOwner) {
-            adapter = MessageAdapter(it, getUserName())
+
+
+        requestViewModel.message.observe(viewLifecycleOwner) { messages ->
+            adapter = MessageAdapter(messages, getUserName(), selectedUser)
             viewDataBinding.progressBar.visibility = ProgressBar.INVISIBLE
             manager = LinearLayoutManager(requireContext())
             manager.stackFromEnd = true
@@ -107,11 +113,15 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
         viewDataBinding.addMessageImageView.setOnClickListener {
             openDocument.launch(arrayOf("image/*"))
         }
+
+
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
         selectedReq = ChatFragmentArgs.fromBundle(requireArguments()).selectedRequest
-        Log.e("ChatFragment",selectedReq.senderName!!)
+        selectedUser = ChatFragmentArgs.fromBundle(requireArguments()).selectedUser
+        Log.e("ChatFragment", selectedReq.receiverName!!)
+        Log.e("ChatFragment", selectedUser.image!!)
     }
 
     companion object {
@@ -165,18 +175,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
             }
     }
 
-    private fun getSenderAndReceiverName():String{
-        var userName = ""
-
-        userName = if (user?.uid == selectedReq.senderId){
-            selectedReq.receiverName!!
-        }else{
-            selectedReq.senderName!!
-        }
-
-
-        return userName
-    }
 
     private fun getUserName(): String? {
         val user = auth.currentUser
