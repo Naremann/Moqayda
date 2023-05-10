@@ -23,14 +23,10 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
     val userId = DataUtils.USER?.id
     private val _appUser = MutableLiveData<AppUser>()
     val appUser:LiveData<AppUser>
-    get() = _appUser
+        get() = _appUser
 
     init {
         getCurrentUser()
-    }
-
-    fun navigateToAddPrivateProduct(){
-        navigator.navigateToAddPrivateProduct()
     }
 
     fun navigateToSettingFragment(){
@@ -41,8 +37,8 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
         Firebase.auth.signOut()
         return true
     }
-    fun navigateToProfileEditing(){
-        navigator.navigateToProfileEditing()
+    fun navigateToProfileEditing(appUser:AppUser){
+        navigator.navigateToProfileEditing(appUser)
     }
 
     fun navigateToLoginFragment(){

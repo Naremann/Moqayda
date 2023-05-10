@@ -14,6 +14,7 @@ import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.database.getFirebaseImageUri
 import com.example.moqayda.database.getUerImageFromFirebase
 import com.example.moqayda.databinding.FragmentProfileBinding
+import com.example.moqayda.models.AppUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -21,7 +22,6 @@ import com.squareup.picasso.Picasso
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() ,Navigator{
     var imageUri : Uri?=null
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showBottomAppBar()
@@ -32,8 +32,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
 
         viewModel.appUser.observe(viewLifecycleOwner){
             viewDataBinding.appUser = it
-
         }
+
 
     }
 
@@ -55,12 +55,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
-                   showToastMessage("Error Loading Image")
+                    showToastMessage("Error Loading Image")
                 }
             }, userId)
         }
     }
-
     override fun getViews(): View {
         return viewDataBinding.root
     }
@@ -79,21 +78,21 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
             { dialog, which ->
                 findNavController().setGraph(R.navigation.nav_graph_authentication)
                 findNavController().navigate(R.id.login)
-        },getString(R.string.cancel))
+            },getString(R.string.cancel))
     }
 
-    override fun navigateToProfileEditing() {
-        findNavController().navigate(R.id.profileEditingFragment)
+    override fun navigateToProfileEditing(currentUser: AppUser) {
+        findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToProfileEdittingFragment(currentUser))
     }
 
     override fun startFullImageScreen() {
-       if(imageUri!=null){
-           val intent = Intent()
-           intent.action = Intent.ACTION_VIEW
-           Log.e("imageFullScreen","uri : $imageUri")
-           intent.setDataAndType(imageUri, "image/*")
-           startActivity(intent)
-       }
+        if(imageUri!=null){
+            val intent = Intent()
+            intent.action = Intent.ACTION_VIEW
+            Log.e("imageFullScreen","uri : $imageUri")
+            intent.setDataAndType(imageUri, "image/*")
+            startActivity(intent)
+        }
         else{
             showToastMessage("No Image")
         }
@@ -101,10 +100,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
 
     override fun navigateToSettingFragment() {
         findNavController().navigate(R.id.settingFragment)
-    }
-
-    override fun navigateToAddPrivateProduct() {
-        findNavController().navigate(R.id.addPrivateProductFragment)
     }
 
 }

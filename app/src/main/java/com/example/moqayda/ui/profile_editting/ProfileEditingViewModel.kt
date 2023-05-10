@@ -1,22 +1,36 @@
 package com.example.moqayda.ui.profile_editting
 
+import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.moqayda.DataUtils
+import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
+import com.example.moqayda.convertBitmapToFile
 import com.example.moqayda.database.*
 import com.example.moqayda.models.AppUser
+import com.example.moqayda.repo.product.Resource
+import com.example.moqayda.repo.user.UserRepo
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
-class ProfileEditingViewModel : BaseViewModel<Navigator>() {
+class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     val user = Firebase.auth.currentUser
     var message = MutableLiveData<String>()
     var toastMessage = MutableLiveData<String>()
     var isUploadedImage=MutableLiveData<Boolean>()
     val isDeletedImage = MutableLiveData<Boolean>()
-
     val firstName = ObservableField<String>(DataUtils.USER?.firstName)
     val lastName = ObservableField<String>(DataUtils.USER?.lastName)
     val mobile = ObservableField<String>(DataUtils.USER?.phoneNumber)
@@ -27,30 +41,42 @@ class ProfileEditingViewModel : BaseViewModel<Navigator>() {
     val mobileError = ObservableField<String>()
     val addressError = ObservableField<String>()
     lateinit var city: String
-
     private val _imageUri = MutableLiveData<Uri?>(null)
     val imageUri: MutableLiveData<Uri?>
         get() = _imageUri
 
+    val userRepo = UserRepo(ctx)
+
+    private val _selectedImageUri = MutableLiveData<Uri?>(null)
+    val selectedImageUri: MutableLiveData<Uri?>
+        get() = _selectedImageUri
+
+    fun setSelectedImageUri(uri: Uri?){
+        _selectedImageUri.postValue(uri)
+    }
+
     fun setImageUri(uri: Uri?) {
         _imageUri.postValue(uri)
     }
-     private fun deleteImage(){
-            if(imageUri.value==null){
-                DataUtils.USER?.id?.let { deleteImageFromFirebaseFirestore(it, {
-                    getUser()
-                }, { ex->
-                    showLoading.value=false
-                    toastMessage.value=ex.localizedMessage
-                }) }
-            }
+    private fun deleteImage(){
+        if(imageUri.value==null){
+            DataUtils.USER?.id?.let { deleteImageFromFirebaseFirestore(it, {
+                getUser()
+            }, { ex->
+                showLoading.value=false
+                toastMessage.value=ex.localizedMessage
+            }) }
+        }
     }
 
     fun update() {
         showLoading.value = true
         val appUser = AppUser(DataUtils.USER?.id, firstName.get(), lastName.get(), mobile.get(), country.get(), city, address.get())
-        deleteImage()
+//        deleteImage()
+        getUser()
         if (validate()) {
+            updateBackendUser()
+            Log.e("ProfileEditingViewModel",imageUri.value!!.toString())
             DataUtils.USER?.id?.let {
                 updateFirebaseUser(it,  { task ->
                     if (task.isSuccessful) {
@@ -58,7 +84,7 @@ class ProfileEditingViewModel : BaseViewModel<Navigator>() {
                             DataUtils.USER!!.id?.let { it1 ->
                                 storeImageInFirebaseStore(it, it1, { _->
                                     isUploadedImage.value=true
-                                   getUser()
+                                    getUser()
                                 },  { ex->
                                     showLoading.value = false
                                     isUploadedImage.value=false
@@ -75,7 +101,40 @@ class ProfileEditingViewModel : BaseViewModel<Navigator>() {
             }
         }
 
+
+
     }
+
+    private fun updateBackendUser(){
+        viewModelScope.launch {
+            val result = DataUtils.USER?.id?.let {
+                userRepo.updateUser(
+                    it,
+                    firstName.get()!!,
+                    lastName.get()!!,
+                    "password",
+                    mobile.get()!!,
+                    country.get()!!,
+                    city,
+                    address.get()!!,
+                    DataUtils.USER?.email!!,
+                    _selectedImageUri.value
+                )
+            }
+            when (result) {
+                is Resource.Success<*> -> {
+                    Log.e("ProfileEditingViewModel", "user updated successfully")
+                }
+                is Resource.Error<*> -> {
+                    Log.e("ProfileEditingViewModel", "error: ${result.message}")
+                }
+                else -> {
+                }
+            }
+        }
+    }
+
+
     private fun getUser(){
         getUserFromFirestore(DataUtils.USER?.id!!, { docSnapshot ->
             DataUtils.USER = docSnapshot.toObject(AppUser::class.java)
