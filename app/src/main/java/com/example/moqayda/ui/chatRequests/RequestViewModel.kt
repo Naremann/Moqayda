@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
+import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Message
 import com.example.moqayda.models.MessageRequest
 import com.example.moqayda.repo.FirebaseRepo
@@ -65,6 +67,23 @@ class RequestViewModel : BaseViewModel<Navigator>() {
         viewModelScope.launch {
             firebaseInstance.getRequests()
 
+        }
+    }
+
+    suspend fun getUser(id: String) : AppUser? {
+        return try {
+            val result = RetrofitBuilder.retrofitService.getUserById(id)
+            if (result.isSuccessful) {
+                val user = result.body()
+                user?.firstName?.let { Log.e("RequestViewModel", it) }
+                user
+            } else {
+                result.message().let { Log.e("RequestViewModel", it) }
+                null
+            }
+        } catch (e: Exception) {
+            Log.e("RequestViewModel", e.message ?: "Unknown error")
+            null
         }
     }
 

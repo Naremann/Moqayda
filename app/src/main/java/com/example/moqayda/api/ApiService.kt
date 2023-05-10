@@ -64,13 +64,32 @@ interface ApiService {
 
 
 
-   @Multipart
-   @POST("/api/PrivateItem")
-   suspend fun addPrivateProduct(
-       @Part("Name") productName: RequestBody?,
-       @Part("Descriptions") productDescription: RequestBody?,
-       @Part("UserId") userId: RequestBody,
-       @Part productImage: MultipartBody.Part
-   ):  BasicApiResponse<Unit>
+    @Multipart
+    @POST("/api/PrivateItem")
+    suspend fun addPrivateProduct(
+        @Part("Name") productName: RequestBody?,
+        @Part("Descriptions") productDescription: RequestBody?,
+        @Part("UserId") userId: RequestBody,
+        @Part productImage: MultipartBody.Part
+    ):  BasicApiResponse<Unit>
+
+
+    @Multipart
+    @PUT("/api/User/{id}")
+    suspend fun updateUser(
+        @Path("id") id: String,
+        @Part("Id") Id: RequestBody?,
+        @Part("firstName") firstName: RequestBody?,
+        @Part("lastName") lastName: RequestBody?,
+        @Part("password") password: RequestBody?,
+        @Part("phoneNumber") phoneNumber: RequestBody?,
+        @Part("country") country: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): Response<ResponseBody>
+
+
 
 }

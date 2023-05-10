@@ -14,18 +14,25 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.moqayda.*
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.database.getFirebaseImageUri
 import com.example.moqayda.database.getUerImageFromFirebase
 import com.example.moqayda.databinding.FragmentProfileEdittingBinding
+import com.example.moqayda.models.AppUser
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.BuildConfig
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 
 class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, ProfileEditingViewModel>(), AdapterView.OnItemSelectedListener {
@@ -34,12 +41,14 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
     private var permReqLauncher: ActivityResultLauncher<Array<String>>?=null
     private var resultLauncher:ActivityResultLauncher<Intent>?=null
     var imageUri:Uri?=null
-
+    private lateinit var currentUser: AppUser
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPermReqLauncher()
         observeToLiveData()
         subscribeToLiveData()
+
+        currentUser = ProfileEditingFragmentArgs.fromBundle(requireArguments()).currentUser
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.edit_profile),this)
         viewDataBinding.vm=viewModel
         viewDataBinding.lifecycleOwner = this
@@ -55,10 +64,9 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
         }
         loadUserImage()
 
+
+
     }
-
-
-
 
     private fun initSpinner() {
         ArrayAdapter.createFromResource(requireContext(),
@@ -77,6 +85,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
                     result.data!!.data?.let { viewModel.setImageUri(it) }
                     Log.e("initResult", "uri ${result.data?.data}")
                     selectedFile = result.data!!.data!!
+                    viewModel.setSelectedImageUri(selectedFile)
                 }
             }
     }
@@ -104,6 +113,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
                 }
             }, userId)
         }
+
     }
 
     private fun observeToLiveData() {
@@ -202,7 +212,8 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
     }
 
     override fun initViewModeL(): ProfileEditingViewModel {
-        return ViewModelProvider(this)[ProfileEditingViewModel::class.java]
+        val viewModelFactory = ProfileEditingViewModelFactory(requireContext())
+        return ViewModelProvider(this,viewModelFactory)[ProfileEditingViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {

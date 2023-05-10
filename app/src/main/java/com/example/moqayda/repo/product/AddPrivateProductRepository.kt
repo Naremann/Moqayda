@@ -18,8 +18,8 @@ import javax.inject.Inject
 
 
 @SuppressLint("StaticFieldLeak")
-class AddPrivateProductRepository  @Inject constructor(
-    @ApplicationContext private val context: Context
+class AddPrivateProductRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
 ) {
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -30,34 +30,34 @@ class AddPrivateProductRepository  @Inject constructor(
         imageUri: Uri?,
     ): Resource<Unit> {
 
-        val file = imageUri?.let { convertBitmapToFile(it,context) }
+        val file = imageUri?.let { convertBitmapToFile(it, context) }
 
-        return try{
-             val response = retrofitService.addPrivateProduct(
-                 name.toRequestBody("text/plain".toMediaTypeOrNull()),
-                 descriptions.toRequestBody("text/plain".toMediaTypeOrNull()),
-                 userId.toRequestBody("text/plain".toMediaTypeOrNull()),
+        return try {
+            val response = retrofitService.addPrivateProduct(
+                name.toRequestBody("text/plain".toMediaTypeOrNull()),
+                descriptions.toRequestBody("text/plain".toMediaTypeOrNull()),
+                userId.toRequestBody("text/plain".toMediaTypeOrNull()),
 
-                 productImage =
-                 MultipartBody.Part.createFormData("image", file?.name,
-                     file?.asRequestBody()!!)
+                productImage =
+                MultipartBody.Part.createFormData("image", file?.name,
+                    file?.asRequestBody()!!)
 
-             )
+            )
 
-             if (response.successful) {
-                 Resource.Success(Unit)
-             } else {
+            if (response.successful) {
+                Resource.Success(Unit)
+            } else {
 
-                 response.message?.let { Resource.Error(it) } ?: Resource.Error("Unknown error : ${response.message}")
-             }
+                response.message?.let { Resource.Error(it) }
+                    ?: Resource.Error("Unknown error : ${response.message}")
+            }
 
-         }
-             catch (e: IOException) {
-                 Resource.Error(e.localizedMessage)
+        } catch (e: IOException) {
+            Resource.Error(e.localizedMessage)
 
         } catch (e: HttpException) {
             Resource.Error(
-                  "Oops! something went wrong. Please try again : ${e.localizedMessage}"
+                "Oops! something went wrong. Please try again : ${e.localizedMessage}"
             )
         }
     }

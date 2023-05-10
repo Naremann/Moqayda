@@ -1,32 +1,25 @@
 package com.example.moqayda.ui.chatRequests
 
 import android.content.Context
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.moqayda.DataUtils
 import com.example.moqayda.R
-import com.example.moqayda.database.getFirebaseImageUri
-import com.example.moqayda.database.getUerImageFromFirebase
+import com.example.moqayda.api.RetrofitBuilder
+import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.ItemChatUserBinding
 import com.example.moqayda.models.MessageRequest
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import com.squareup.picasso.Picasso
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class ReqMessageAdapter(
     private val reqList: List<MessageRequest>,
@@ -74,6 +67,7 @@ class ReqMessageAdapter(
         return ChatViewHolder(viewBinding)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
 
         val currentUser = Firebase.auth.currentUser
@@ -85,9 +79,19 @@ class ReqMessageAdapter(
 
         if (currentUser?.uid == req.senderId) {
             holder.binding.userName.text = req.receiverName
+            GlobalScope.launch {
+                val appUser = requestViewModel.getUser(req.receiverId!!)
+                holder.binding.appUser = appUser
+                Log.e("reqMessageAdapter",appUser?.city!!)
+            }
             Log.e("reqMessageAdapter", req.receiverName!!)
         } else {
-            req.senderId?.let { loadUserImage(holder, it) }
+            Log.e("reqMessageAdapter",req.senderId!!)
+            GlobalScope.launch {
+                val appUser = requestViewModel.getUser(req.senderId!!)
+                holder.binding.appUser = appUser
+                Log.e("reqMessageAdapter",appUser?.city!!)
+            }
             holder.binding.userName.text = req.senderName
         }
 
@@ -112,34 +116,33 @@ class ReqMessageAdapter(
     }
 
 
-
     private fun showToastMessage(message: String) {
-        Toast.makeText(mContext,message,Toast.LENGTH_LONG).show()
+        Toast.makeText(mContext, message, Toast.LENGTH_LONG).show()
 
-}
+    }
 
     override fun getItemCount(): Int {
         return reqList.size
     }
 
-    private fun loadUserImage(holder: ChatViewHolder, userId: String) {
-        getUerImageFromFirebase(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                getFirebaseImageUri({ uri ->
-                    Picasso.with(holder.binding.userImage.context).load(uri)
-                        .into(holder.binding.userImage)
-
-                }, { ex ->
-                    ex.localizedMessage?.let { error ->
-                        showToastMessage(error)
-                    }
-
-                }, userId)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                showToastMessage("Error Loading Image")
-            }
-        }, userId)
-    }
+//    private fun loadUserImage(holder: ChatViewHolder, userId: String) {
+//        getUerImageFromFirebase(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                getFirebaseImageUri({ uri ->
+//                    Picasso.with(holder.binding.userImage.context).load(uri)
+//                        .into(holder.binding.userImage)
+//
+//                }, { ex ->
+//                    ex.localizedMessage?.let { error ->
+//                        showToastMessage(error)
+//                    }
+//
+//                }, userId)
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                showToastMessage("Error Loading Image")
+//            }
+//        }, userId)
+//    }
 }
