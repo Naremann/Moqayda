@@ -37,8 +37,7 @@ interface ApiService {
         @Part ownerADObjectId:MultipartBody.Part?
     ):BasicApiResponse<Unit>
 
-    @GET("/api/Wishlist/all")
-    suspend fun getWishlist(): Response<WishlistResponse>
+
 
     @DELETE("api/Wishlist/{id}")
     suspend fun deleteFavoriteProductById(@Path("id") productId:Int) : Response<Unit>
@@ -93,6 +92,9 @@ interface ApiService {
     @GET("/api/PrivateItem/{id}")
     suspend fun getPrivateProductByUserId(@Path("id") userId:String?):PrivateItemResponse
 
+    @GET("/api/Wishlist/{id}")
+    suspend fun getFavoriteItems(@Path("id") userId:String?):Response<FavoriteResponse>
 
-
+    @POST("/api/Wishlist")
+    suspend fun addProductToFavorite(@Body favoriteItem: FavoriteItem) : Response<ResponseBody>
 }

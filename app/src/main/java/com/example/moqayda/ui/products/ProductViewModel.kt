@@ -7,7 +7,10 @@ import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.FavoriteItem
 import com.example.moqayda.repo.product.AddItemToFavoriteRepository
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class ProductViewModel(): BaseViewModel<Navigator>() {
@@ -22,10 +25,33 @@ class ProductViewModel(): BaseViewModel<Navigator>() {
         categoryId.postValue(id)
         fetchProductsData(id)
     }
-     var categoryItem = MutableLiveData<CategoryItem?>()
+
+    var categoryItem = MutableLiveData<CategoryItem?>()
 
     init {
 
+    }
+
+    fun addProductToFavorite(id: Int) {
+        Log.e("ProductViewModelLog", "button pressed")
+        viewModelScope.launch {
+            addProductToFav(id)
+        }
+    }
+
+    private suspend fun addProductToFav(productId: Int) {
+        val response = RetrofitBuilder.retrofitService.addProductToFavorite(FavoriteItem(0,
+            productId,
+            Firebase.auth.currentUser?.uid!!))
+        if (response.isSuccessful) {
+            Log.e("ProductViewModelLog", "Product added to favorite")
+            messageLiveData.postValue("Product added to favorite")
+        } else {
+            if (response.code() == 400){
+                messageLiveData.postValue("This product is already in you favorite items")
+            }
+            Log.e("ProductViewModelLog", "failed to add product: ${response.code()}")
+        }
     }
 
 
@@ -64,10 +90,4 @@ class ProductViewModel(): BaseViewModel<Navigator>() {
             }
     }
 
-    
-    fun addItemToFavorite(itemId:Int,itemOwner:String){
-        viewModelScope.launch {
-             addFavoriteItemRepository.addItemToFavorite(itemId, itemOwner)
-        }
-    }
 }

@@ -74,16 +74,13 @@
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/user_name"
-                app:layout_constraintBottom_toTopOf="@id/view"
-                android:text="@{product.availableSince}"
-                tools:text="22/02/2023"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:layout_marginStart="15dp"
                 android:layout_marginBottom="5dp"
-                />
+                android:text="@{product.availableSince}"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/view"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="22/02/2023" />
 
             <View
                 android:id="@+id/view"

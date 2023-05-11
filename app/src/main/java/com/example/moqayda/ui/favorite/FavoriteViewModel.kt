@@ -5,37 +5,62 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
+import com.example.moqayda.models.AppUser
+import com.example.moqayda.models.FavoriteItem
+import com.example.moqayda.models.FavoriteResponse
 import com.example.moqayda.models.Product
-import com.example.moqayda.models.WishlistResponse
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel : BaseViewModel<Navigator>() {
-
+    private val auth = Firebase.auth
     var progressBarVisible = MutableLiveData<Boolean>()
 
-    private val _wishlist = MutableLiveData<WishlistResponse>()
-    val wishlist: MutableLiveData<WishlistResponse>
+    private val _wishlist = MutableLiveData<List<FavoriteItem>>()
+    val wishlist: MutableLiveData<List<FavoriteItem>>
         get() = _wishlist
+
+
+    private val _favoriteProducts = MutableLiveData<List<Product>>()
+    val favoriteProducts: MutableLiveData<List<Product>>
+        get() = _favoriteProducts
 
     private val dataList = mutableListOf<Product>()
 
-    private val _productsWishlist = MutableLiveData<List<Product>?>()
-    val productsWishlist: MutableLiveData<List<Product>?>
-        get() = _productsWishlist
+
 
     init {
         fetchDataFromWishlist()
     }
 
 
+    suspend fun getProductOwner(id: String) : AppUser? {
+        return try {
+            val result = RetrofitBuilder.retrofitService.getUserById(id)
+            if (result.isSuccessful) {
+                val user = result.body()
+                user?.firstName?.let { Log.e("ProductViewModelLog", it) }
+                user
+            } else {
+                result.message().let { Log.e("ProductViewModelLog", it) }
+                null
+            }
+        } catch (e: Exception) {
+            Log.e("ProductViewModelLog", e.message ?: "Unknown error")
+            null
+        }
+    }
+
+
     private fun fetchDataFromWishlist() {
         dataList.clear()
         viewModelScope.launch {
-            val result = RetrofitBuilder.retrofitService.getWishlist()
+            val result = RetrofitBuilder.retrofitService.getFavoriteItems(auth.currentUser?.uid)
             if (result.isSuccessful){
                 Log.e("FavoriteViewModel", "success result$result")
-                _wishlist.postValue(result.body())
-                result.body()?.forEach {
+                _wishlist.postValue(result.body()?.favoriteItems)
+                result.body()?.favoriteItems?.forEach {
                     val response = RetrofitBuilder.retrofitService.getProductById(it.productId)
                     if(response.isSuccessful){
                         Log.e("FavoriteViewModel", "success response$response")
@@ -48,7 +73,7 @@ class FavoriteViewModel : BaseViewModel<Navigator>() {
             }else{
                 Log.e("FavoriteViewModel","Failed result")
             }
-            _productsWishlist.postValue(dataList)
+            _favoriteProducts.postValue(dataList)
         }
     }
 

@@ -2,20 +2,13 @@ package com.example.moqayda.ui.favorite
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentFavoriteBinding
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>() {
     private lateinit var adapter: FavoriteAdapter
@@ -29,7 +22,7 @@ class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
 
         initRecyclerView()
 
-        viewModel.productsWishlist.observe(viewLifecycleOwner){
+        viewModel.favoriteProducts.observe(viewLifecycleOwner){
 
             adapter = FavoriteAdapter(it, requireContext(),this)
 
