@@ -14,12 +14,17 @@ import com.example.moqayda.R
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.FavoriteProductItemBinding
 import com.example.moqayda.models.Product
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
 class FavoriteAdapter(
     private var productList: List<Product?>? = mutableListOf(),
     private val mContext: Context,
-    private val owner: ViewModelStoreOwner,
+    owner: ViewModelStoreOwner,
 ) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+    val viewModel = ViewModelProvider(owner)[FavoriteViewModel::class.java]
     inner class FavoriteViewHolder(val binding: FavoriteProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val dotMenu = binding.dotMenu
@@ -44,13 +49,20 @@ class FavoriteAdapter(
         )
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        val viewModel = ViewModelProvider(owner)[FavoriteViewModel::class.java]
+
         val builder = AlertDialog.Builder(mContext)
         builder.setTitle("Confirmation")
         builder.setMessage("Are you sure you want to do remove it from favorites ?")
         val product = productList?.get(position)
         holder.bind(product!!)
+
+        GlobalScope.launch {
+            holder.binding.user = viewModel.getProductOwner(product.userId!!)
+
+        }
+
         holder.popupMenu.menuInflater.inflate(R.menu.favorite_product_dot_menu,holder.popupMenu.menu)
         holder.popupMenu.setOnMenuItemClickListener {menuItem ->
             when(menuItem.itemId){

@@ -40,6 +40,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         observeToLiveData()
         initRecycler()
         searchItems()
+        subscribeToLiveData()
     }
 
     private fun searchItems() {

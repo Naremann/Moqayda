@@ -9,6 +9,10 @@
             name="product"
             type="com.example.moqayda.models.Product" />
 
+        <variable
+            name="user"
+            type="com.example.moqayda.models.AppUser" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -25,15 +29,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/user_image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_person"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:src="@drawable/ic_person"
+                photoUrl="@{user.image}"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/blue"
+                app:strokeWidth="1dp"
+                android:adjustViewBounds="true"
 
                 />
 
@@ -42,7 +49,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Ali Mohammed"
+                tools:text="Ali Mohammed"
+                android:text="@{user.firstName+` `+user.lastName}"
                 android:textColor="@color/black"
                 android:textSize="23sp"
                 android:textStyle="bold"
@@ -54,7 +62,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Cairo"
+                tools:text="Cairo"
+                android:text="@{user.city}"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/user_image"

@@ -86,6 +86,11 @@ class ProductAdapter(var productList: List<Product?>? = mutableListOf(),private 
 
         }
 
+        holder.viewBinding.addToFavoriteTv.setOnClickListener {
+            Log.e("ProductAdapter","addToFavoriteTv pressed")
+            product.id?.let { it1 -> productViewModel.addProductToFavorite(it1) }
+        }
+
     }
 
     private fun makeImageZoomable(holder: ProductViewHolder) {
