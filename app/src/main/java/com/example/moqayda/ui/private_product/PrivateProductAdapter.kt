@@ -4,32 +4,29 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
-import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.PrivateProductItemBinding
 import com.example.moqayda.models.PrivateItem
-import com.example.moqayda.models.PrivateProduct
-import com.example.moqayda.models.Product
 import com.github.chrisbanes.photoview.PhotoViewAttacher
-import kotlinx.coroutines.DelicateCoroutinesApi
 
-class PrivateProductAdapter(var productList: List<PrivateItem?>? = mutableListOf()):
+class PrivateProductAdapter(var productList: List<PrivateItem?>? = mutableListOf(),var privateProductsFragment: PrivateProductsFragment):
     RecyclerView.Adapter<PrivateProductAdapter.PrivateProductViewHolder>(){
 
 
-    lateinit var onItemClickListener: OnItemClickListener
+    lateinit var onSwapLinearClickListener: OnSwapLinearClickListener
 
     class PrivateProductViewHolder(private val viewBinding: PrivateProductItemBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
-
+        var isVisibleSwapLinear=viewBinding.linearSwap
         val productImage=viewBinding.productImage
         fun bind(product: PrivateItem) {
+
             viewBinding.product = product
-           // product.privateItempathImage?.let { Log.e("ProductAdapter", it) }
-           // bindImage(viewBinding.productImage, product.privateItempathImage)
+
             viewBinding.invalidateAll()
 
         }
@@ -58,11 +55,22 @@ class PrivateProductAdapter(var productList: List<PrivateItem?>? = mutableListOf
             makeImageZoomable(holder)
         }
         holder.itemView.setOnClickListener {
-            onItemClickListener.onItemClick(product)
+            onSwapLinearClickListener.onSwapLinearClick(product)
         }
 
+       holder.isVisibleSwapLinear.isVisible = PrivateProductsFragmentArgs.fromBundle(privateProductsFragment.requireArguments())
+           .isVisible
+       Log.e("adapter", "Value ${holder.isVisibleSwapLinear.isVisible}")
 
+        holder.isVisibleSwapLinear.setOnClickListener {
+            onSwapLinearClickListener.onSwapLinearClick(product)
+        }
     }
+
+
+
+
+
 
     private fun makeImageZoomable(holder: PrivateProductViewHolder) {
         val photoViewAttacher = PhotoViewAttacher(holder.productImage)
@@ -84,8 +92,8 @@ class PrivateProductAdapter(var productList: List<PrivateItem?>? = mutableListOf
 
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(productItem: PrivateItem?)
+    interface OnSwapLinearClickListener {
+        fun onSwapLinearClick(privateProductItem: PrivateItem?)
     }
 
 

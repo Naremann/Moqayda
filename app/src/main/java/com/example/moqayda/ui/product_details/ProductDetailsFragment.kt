@@ -28,6 +28,7 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
         viewModel.description=selectedProduct.descriptions
         viewModel.name=selectedProduct.name
         viewModel.productToSwapWithName=selectedProduct.productToSwap
+        viewModel.productId=selectedProduct.id
     }
 
     private fun getProductDetails() {
