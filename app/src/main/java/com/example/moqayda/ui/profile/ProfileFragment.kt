@@ -15,6 +15,7 @@ import com.example.moqayda.database.getFirebaseImageUri
 import com.example.moqayda.database.getUerImageFromFirebase
 import com.example.moqayda.databinding.FragmentProfileBinding
 import com.example.moqayda.models.AppUser
+import com.example.moqayda.ui.swapping_items.SwappingItemFragmentDirections
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -103,7 +104,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
     }
 
     override fun navigateToPrivateProducts() {
-        findNavController().navigate(R.id.privateProductsFragment)
+        findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToPrivateProductsFragment(false,null))
     }
 
 }

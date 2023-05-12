@@ -7,19 +7,18 @@ import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.AppUser
-import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.models.MessageRequest
 import com.example.moqayda.repo.FirebaseRepo
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 
 class SwappingItemViewModel:BaseViewModel<Navigator>() {
 
     var itemName: String? = null
     var itemId: Int? = null
+    var isCheckedCreateBtn=MutableLiveData<Boolean>()
 
     var navigator: Navigator? = null
     private val firebaseInstance = FirebaseRepo()
@@ -38,8 +37,9 @@ class SwappingItemViewModel:BaseViewModel<Navigator>() {
         getSenderName()
 
     }
-    fun navigateToAddPrivateProductFragment() {
-        navigator?.navigateToAddPrivateProductFragment()
+    fun toAddPrivateProductFragment() {
+        isCheckedCreateBtn.value=true
+        navigator?.navigateToPrivateProductFragment()
     }
     fun sendChatRequest() {
         if (!senderUserName.value.isNullOrBlank()) {

@@ -18,7 +18,7 @@ import com.example.moqayda.models.PrivateItem
 class PrivateProductsFragment :
     BaseFragment<FragmentPrivateProductsBinding, PrivateProductViewModel>(),Navigator {
 
-    private  var adapter= PrivateProductAdapter()
+    private  var adapter= PrivateProductAdapter(privateProductsFragment = this)
     private var productList: MutableList<PrivateItem> = mutableListOf()
     private var filteredList: MutableList<PrivateItem> = mutableListOf()
 
@@ -33,6 +33,7 @@ class PrivateProductsFragment :
         observeToLiveData()
         initRecycler()
         searchItems()
+
     }
 
     private fun searchItems() {
@@ -87,18 +88,21 @@ class PrivateProductsFragment :
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),RecyclerView.VERTICAL,true)
         viewDataBinding.recyclerView.layoutManager=layoutManager
         viewDataBinding.recyclerView.adapter = adapter
-        adapter.onItemClickListener = object :PrivateProductAdapter.OnItemClickListener {
-            override fun onItemClick(productItem: PrivateItem?) {
-                TODO("Not yet implemented")
+        adapter.onSwapLinearClickListener = object :PrivateProductAdapter.OnSwapLinearClickListener {
+            override fun onSwapLinearClick(privateProductItem: PrivateItem?) {
+                navigateToSwapRequestFragment(privateProductItem!!)
             }
 
 
         }
     }
 
+    private fun navigateToSwapRequestFragment(privateProductItem:PrivateItem) {
 
-
-
+        val product = PrivateProductsFragmentArgs.fromBundle(requireArguments()).product
+        findNavController().navigate(PrivateProductsFragmentDirections.actionPrivateProductsFragmentToSwapRequestFragment(privateProductItem.id!!,
+            product,privateProductItem.privateItempathImage,privateProductItem.privateItemName))
+    }
 
 
     override fun getViews(): View {

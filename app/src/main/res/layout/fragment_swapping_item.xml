@@ -172,7 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:onClick="@{()->vm.navigateToAddPrivateProductFragment()}"
+            android:onClick="@{()->vm.toAddPrivateProductFragment()}"
             android:text="@string/create_new_item"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
