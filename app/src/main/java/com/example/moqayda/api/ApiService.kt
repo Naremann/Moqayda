@@ -97,4 +97,12 @@ interface ApiService {
 
     @POST("/api/Wishlist")
     suspend fun addProductToFavorite(@Body favoriteItem: FavoriteItem) : Response<ResponseBody>
+
+    @POST("/api/PrivateItemToSwap")
+    suspend fun sendRequestToSwap(
+        @Body swapItem: SwapItem
+    ):Response<ResponseBody>
+
+
+
 }

@@ -102,12 +102,12 @@
         android:name="com.example.moqayda.ui.swapping_items.SwappingItemFragment"
         android:label="fragment_swapping_item"
         tools:layout="@layout/fragment_swapping_item" >
-        <action
-            android:id="@+id/action_swappingItemFragment_to_addPrivateProductFragment"
-            app:destination="@id/addPrivateProductFragment" />
         <argument
             android:name="selectedProduct"
             app:argType="com.example.moqayda.models.Product" />
+        <action
+            android:id="@+id/action_swappingItemFragment_to_privateProductsFragment"
+            app:destination="@id/privateProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPrivateProductFragment"
@@ -157,6 +157,40 @@
         <action
             android:id="@+id/action_privateProductsFragment_to_addPrivateProductFragment"
             app:destination="@id/addPrivateProductFragment" />
+        <argument
+            android:id="@+id/my_arg_id"
+            android:name="isVisible"
+            app:argType="boolean"
+            />
+        <action
+            android:id="@+id/action_privateProductsFragment_to_swapRequestFragment"
+            app:destination="@id/swapRequestFragment" />
+        <argument
+            android:name="product"
+            app:argType="com.example.moqayda.models.Product"
+            app:nullable="true" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/swapRequestFragment"
+        android:name="com.example.moqayda.ui.swap_request.SwapRequestFragment"
+        android:label="fragment_swap_request"
+        tools:layout="@layout/fragment_swap_request" >
+        <argument
+            android:name="privateItemId"
+            app:argType="integer" />
+        <argument
+            android:name="product"
+            app:argType="com.example.moqayda.models.Product"
+            app:nullable="true" />
+        <argument
+            android:name="privateItemImage"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="privateItemName"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

@@ -12,7 +12,6 @@ import com.example.moqayda.databinding.FragmentSwappingItemBinding
 import com.example.moqayda.initToolbar
 import com.example.moqayda.models.Product
 
-
 class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingItemViewModel>(),
     Navigator {
     private lateinit var selectedProduct: Product
@@ -31,12 +30,12 @@ class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingI
         viewModel.getReceiverData()
         viewModel.navigator = this
 
-        viewModel.appUser.observe(viewLifecycleOwner, Observer {
+        viewModel.appUser.observe(viewLifecycleOwner) {
             if (it != null) {
-                Log.e("SwappingItemFragment",it.firstName!!)
+                Log.e("SwappingItemFragment", it.firstName!!)
                 viewDataBinding.appUser = it
             }
-        })
+        }
 
 
     }
@@ -53,8 +52,15 @@ class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingI
         return R.layout.fragment_swapping_item
     }
 
-    override fun navigateToAddPrivateProductFragment() {
-        findNavController().navigate(R.id.addPrivateProductFragment)
+    override fun navigateToPrivateProductFragment() {
+        viewModel.isCheckedCreateBtn.observe(viewLifecycleOwner) { isChecked ->
+            findNavController().navigate(
+                SwappingItemFragmentDirections.actionSwappingItemFragmentToPrivateProductsFragment(
+                    isChecked,selectedProduct
+                )
+            )
+
+        }
     }
 
 
