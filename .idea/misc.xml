@@ -64,6 +64,8 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_splash_screen.xml" value="0.33" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_request.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swapping_item.xml" value="0.25" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_user_public_items.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_user_public_products.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/image_message.xml" value="0.33" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/item_chat_user.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/message.xml" value="0.33" />
@@ -71,6 +73,8 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/private_product_item.xml" value="0.22" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/product_item.xml" value="0.3" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/test.xml" value="0.1824074074074074" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/user_products_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/user_public__product_item.xml" value="0.203125" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/menu/favorite_product_dot_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/menu/search_menu.xml" value="0.22" />

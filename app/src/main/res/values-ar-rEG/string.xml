@@ -58,7 +58,6 @@
     <string name="show_original_post">Show original post</string>
     <string name="remove_from_favorites">إزالة من المفضلة</string>
     <string name="choose_your_item">اختر عنصر من العناصر الخاصة بك</string>
-    <string name="create_new_item">إنشاء عنصر جديد</string>
     <string name="send_request">ارسل طلب</string>
     <string name="items_in_public">العناصر العامة</string>
     <string name="items_in_private">العناصر الخاصة</string>
@@ -83,6 +82,7 @@
     <string name="delete_account">حذف الحساب</string>
     <string name="want_delete_account">هل انت متأكد انك تريد حذف حسابك؟</string>
     <string name="create">انشاء</string>
+    <string name="Choose_private_items">اختر من العناصر الخاصة</string>
 
 
 

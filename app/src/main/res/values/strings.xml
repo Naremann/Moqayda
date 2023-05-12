@@ -57,7 +57,6 @@
     <string name="show_original_post">Show original post</string>
     <string name="remove_from_favorites">Remove from favorites</string>
     <string name="choose_your_item">Choose item from your items</string>
-    <string name="create_new_item">Create new item</string>
     <string name="send_request">Send Request</string>
     <string name="items_in_public">Public Items</string>
     <string name="items_in_private">Private Items</string>
@@ -82,6 +81,6 @@
     <string name="delete_account">Delete the account</string>
     <string name="want_delete_account">Are you sure you want to delete your account?</string>
     <string name="create">Create</string>
-
+    <string name="Choose_private_items">Choose from your private Items</string>
 
 </resources>

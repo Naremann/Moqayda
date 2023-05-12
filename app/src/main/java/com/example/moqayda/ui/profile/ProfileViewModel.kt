@@ -36,7 +36,9 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
         navigator.navigateToPrivateProducts()
     }
 
-
+    fun navigateToUserPublicProducts(){
+        navigator.navigateToUserPublicProducts()
+    }
     private fun isLoggedOut():Boolean{
         Firebase.auth.signOut()
         return true

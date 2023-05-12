@@ -107,4 +107,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToPrivateProductsFragment(false,null))
     }
 
+    override fun navigateToUserPublicProducts() {
+
+        findNavController().navigate(ProfileFragmentDirections
+            .actionProfileFragmentToUserPublicItemsFragment(false))
+    }
+
 }
