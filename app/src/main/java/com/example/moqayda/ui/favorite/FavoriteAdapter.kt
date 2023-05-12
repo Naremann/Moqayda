@@ -13,6 +13,7 @@ import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.FavoriteProductItemBinding
+import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.models.Product
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -61,8 +62,8 @@ class FavoriteAdapter(
         holder.bind(product!!)
         GlobalScope.launch {
             holder.binding.user = viewModel.getProductOwner(product.userId!!)
-
         }
+
         holder.popupMenu.menuInflater.inflate(R.menu.favorite_product_dot_menu,holder.popupMenu.menu)
         holder.popupMenu.setOnMenuItemClickListener {menuItem ->
             when(menuItem.itemId){
@@ -76,7 +77,6 @@ class FavoriteAdapter(
                         viewModel.wishlist.value?.forEach{
                             if (product.id == it.productId){
                                 viewModel.removeFavoriteProduct(it.id)
-
                             }
                         }
                     }

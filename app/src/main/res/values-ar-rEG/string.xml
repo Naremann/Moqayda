@@ -36,7 +36,7 @@
     <string name="choose_image">"الرجاء اختيار الصورة"</string>
     <string name="details_text">تفاصيل العنصر</string>
     <string name="swap_text">تبديل</string>
-    <string name="swap_with_text">مبادلة مع</string>
+    <string name="swap_with_text">مبادلة مع: </string>
     <string name="description_text">وصف :</string>
     <string name="swap_now_text">مبادلة الآن</string>
     <string name="add_to_favorite_text">أضف إلى المفضلة</string>
@@ -55,7 +55,7 @@
     <string name="verify">تأكيد</string>
     <string name="item_details">تفاصيل العنصر</string>
     <string name="Swap_items">عناصر المبادلة</string>
-    <string name="show_original_post">Show original post</string>
+    <string name="show_original_post">عرض المنشور الاساسي</string>
     <string name="remove_from_favorites">إزالة من المفضلة</string>
     <string name="choose_your_item">اختر عنصر من العناصر الخاصة بك</string>
     <string name="create_new_item">إنشاء عنصر جديد</string>
