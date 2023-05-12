@@ -100,5 +100,4 @@ class CategoryItemAdapter(var categoryList: List<CategoryItem?>, private val cli
 
 class CategoryListener(val clickListener: (categoryItem: CategoryItem) -> Unit) {
     fun onClick(categoryItem: CategoryItem) = clickListener(categoryItem)
-
 }

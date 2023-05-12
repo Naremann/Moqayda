@@ -13,7 +13,7 @@
     <string name="enter_code">Enter the code</string>
     <string name="email">Email</string>
     <string name="product_name">Product Name</string>
-    <string name="product_description">Product Description</string>
+    <string name="product_description">Product Description:</string>
     <string name="select_category">Product Category</string>
     <string name="confirm">Confirm</string>
     <string name="pick_photo">Pick File</string>
@@ -35,7 +35,7 @@
     <string name="choose_image">"Please Choose image"</string>
     <string name="details_text">Item Details</string>
     <string name="swap_text">Swap</string>
-    <string name="swap_with_text">Swap With</string>
+    <string name="swap_with_text">Swap With: </string>
     <string name="description_text">Description :</string>
     <string name="swap_now_text">Swap Now</string>
     <string name="add_to_favorite_text">Add To Favorite</string>

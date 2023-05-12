@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel : BaseViewModel<Navigator>() {
+    lateinit var navigator: Navigator
     private val auth = Firebase.auth
     var progressBarVisible = MutableLiveData<Boolean>()
 
@@ -91,5 +92,8 @@ class FavoriteViewModel : BaseViewModel<Navigator>() {
 
     }
 
+    fun navigateToHome(product: Product){
+        navigator.onNavigateToProductDetails(product)
+    }
 
 }

@@ -13,6 +13,8 @@ import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.FavoriteProductItemBinding
+import com.example.moqayda.models.AppUser
+import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.models.Product
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -22,6 +24,7 @@ class FavoriteAdapter(
     private var productList: List<Product?>? = mutableListOf(),
     private val mContext: Context,
     owner: ViewModelStoreOwner,
+
 ) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
     val viewModel = ViewModelProvider(owner)[FavoriteViewModel::class.java]
@@ -57,16 +60,15 @@ class FavoriteAdapter(
         builder.setMessage("Are you sure you want to do remove it from favorites ?")
         val product = productList?.get(position)
         holder.bind(product!!)
-
         GlobalScope.launch {
             holder.binding.user = viewModel.getProductOwner(product.userId!!)
-
         }
 
         holder.popupMenu.menuInflater.inflate(R.menu.favorite_product_dot_menu,holder.popupMenu.menu)
         holder.popupMenu.setOnMenuItemClickListener {menuItem ->
             when(menuItem.itemId){
                 R.id.menu_item_show_original ->{
+                    viewModel.navigateToHome(product)
                     true
                 }
                 R.id.menu_item_remove_from_favorite ->{
@@ -75,7 +77,6 @@ class FavoriteAdapter(
                         viewModel.wishlist.value?.forEach{
                             if (product.id == it.productId){
                                 viewModel.removeFavoriteProduct(it.id)
-
                             }
                         }
                     }
@@ -83,7 +84,6 @@ class FavoriteAdapter(
                     builder.setNegativeButton("Cancel") { _, _ ->
                         // Cancel button clicked
                         // Do something here
-
                     }
 
                     val dialog = builder.create()
@@ -108,3 +108,4 @@ class FavoriteAdapter(
         return productList?.size ?: 0
     }
 }
+

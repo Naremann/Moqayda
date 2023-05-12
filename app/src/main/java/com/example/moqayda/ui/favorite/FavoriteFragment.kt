@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentFavoriteBinding
+import com.example.moqayda.models.Product
 
-class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>() {
+class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(),Navigator {
     private lateinit var adapter: FavoriteAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -21,7 +23,7 @@ class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
         hideFloatingBtn()
 
         initRecyclerView()
-
+        viewModel.navigator = this
         viewModel.favoriteProducts.observe(viewLifecycleOwner){
 
             adapter = FavoriteAdapter(it, requireContext(),this)
@@ -49,5 +51,9 @@ class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_favorite
+    }
+
+    override fun onNavigateToProductDetails(product: Product) {
+        findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToProductDetailsFragment(product))
     }
 }
