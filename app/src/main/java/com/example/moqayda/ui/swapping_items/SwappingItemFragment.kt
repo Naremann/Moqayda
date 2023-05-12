@@ -3,7 +3,6 @@ package com.example.moqayda.ui.swapping_items
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
@@ -53,10 +52,21 @@ class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingI
     }
 
     override fun navigateToPrivateProductFragment() {
-        viewModel.isCheckedCreateBtn.observe(viewLifecycleOwner) { isChecked ->
+        viewModel.isCheckedPrivateBtn.observe(viewLifecycleOwner) { isChecked ->
             findNavController().navigate(
                 SwappingItemFragmentDirections.actionSwappingItemFragmentToPrivateProductsFragment(
                     isChecked,selectedProduct
+                )
+            )
+
+        }
+    }
+
+    override fun navigateToUserPublicProductsFragment() {
+        viewModel.isCheckedPublicBtn.observe(viewLifecycleOwner) { isChecked ->
+            findNavController().navigate(
+                SwappingItemFragmentDirections.actionSwappingItemFragmentToUserPublicItemsFragment(
+                    isChecked
                 )
             )
 

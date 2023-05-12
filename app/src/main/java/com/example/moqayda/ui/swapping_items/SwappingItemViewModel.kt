@@ -18,7 +18,8 @@ class SwappingItemViewModel:BaseViewModel<Navigator>() {
 
     var itemName: String? = null
     var itemId: Int? = null
-    var isCheckedCreateBtn=MutableLiveData<Boolean>()
+    var isCheckedPrivateBtn=MutableLiveData<Boolean>()
+    var isCheckedPublicBtn=MutableLiveData<Boolean>()
 
     var navigator: Navigator? = null
     private val firebaseInstance = FirebaseRepo()
@@ -37,8 +38,13 @@ class SwappingItemViewModel:BaseViewModel<Navigator>() {
         getSenderName()
 
     }
-    fun toAddPrivateProductFragment() {
-        isCheckedCreateBtn.value=true
+
+    fun navigateToUserPublicProductsFragment(){
+        isCheckedPublicBtn.value=true
+        navigator?.navigateToUserPublicProductsFragment()
+    }
+    fun navigateToAddPrivateProductFragment() {
+        isCheckedPrivateBtn.value=true
         navigator?.navigateToPrivateProductFragment()
     }
     fun sendChatRequest() {

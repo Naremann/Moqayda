@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_profileFragment_to_privateProductsFragment"
             app:destination="@id/privateProductsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_userPublicItemsFragment"
+            app:destination="@id/userPublicItemsFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsListFragment"
@@ -104,6 +107,9 @@
         <action
             android:id="@+id/action_swappingItemFragment_to_privateProductsFragment"
             app:destination="@id/privateProductsFragment" />
+        <action
+            android:id="@+id/action_swappingItemFragment_to_userPublicItemsFragment"
+            app:destination="@id/userPublicItemsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPrivateProductFragment"
@@ -187,6 +193,15 @@
             android:name="privateItemName"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/userPublicItemsFragment"
+        android:name="com.example.moqayda.ui.user_public_items.UserPublicItemsFragment"
+        android:label="fragment_user_public_items"
+        tools:layout="@layout/fragment_user_public_products" >
+        <argument
+            android:name="isVisibleSwapLinear"
+            app:argType="boolean" />
     </fragment>
 
 </navigation>

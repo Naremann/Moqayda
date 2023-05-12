@@ -8,5 +8,6 @@ interface Navigator {
     fun startFullImageScreen()
     fun navigateToSettingFragment()
     fun navigateToPrivateProducts()
+    fun navigateToUserPublicProducts()
 
 }
