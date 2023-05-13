@@ -63,6 +63,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
             hideImage()
         }
         loadUserImage()
+        updateUser()
 
 
 
@@ -112,6 +113,16 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
                     showToastMessage("Error Loading Image")
                 }
             }, userId)
+        }
+
+    }
+
+    private fun updateUser(){
+        if (selectedFile !=null){
+            viewModel.setSelectedImageUri(selectedFile)
+        }else{
+            Log.e("ProfileEditingFragment",currentUser.image!!)
+            viewModel.setSelectedImageUrl(currentUser.image)
         }
 
     }
