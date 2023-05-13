@@ -24,7 +24,6 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
     val productName = ObservableField<String>()
     val productDescription = ObservableField<String>()
-    val userLocation = ObservableField<String>()
     val productToSwap = ObservableField<String>()
 
     private val _fileName = MutableLiveData("")
@@ -85,7 +84,6 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         if (
             productName.get().isNullOrBlank() ||
             productDescription.get().isNullOrBlank() ||
-            userLocation.get().isNullOrBlank() ||
             productToSwap.get().isNullOrBlank()
         ) {
             _toastMessage.postValue("Please fill all fields")

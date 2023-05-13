@@ -46,7 +46,9 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onSwapLinearClickListener=object:UserPublicItemAdapter.OnSwapLinearClickListener{
             override fun onSwapLinearClick(ProductItem: PrivateProduct?) {
-                navigateToSwapPublicItemRequestFragment(ProductItem!!)
+                viewModel.privateProduct=ProductItem
+                viewModel.addProductOwner(ProductItem?.id!!)
+                navigateToSwapPublicItemRequestFragment(ProductItem)
             }
 
         }
@@ -55,8 +57,11 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
 
     private fun navigateToSwapPublicItemRequestFragment(senderRequestProduct: PrivateProduct) {
         val product = UserPublicItemsFragmentArgs.fromBundle(requireArguments()).product
-        findNavController().navigate(UserPublicItemsFragmentDirections
-            .actionUserPublicItemsFragmentToSwapPublicItemRequestFragment(senderRequestProduct,product))
+        val productOwnerId = viewModel.productOwnerItemId.observe(viewLifecycleOwner){productOwnerId->
+            findNavController().navigate(UserPublicItemsFragmentDirections
+                .actionUserPublicItemsFragmentToSwapPublicItemRequestFragment(senderRequestProduct,product,productOwnerId))
+        }
+
     }
 
     override fun getViews(): View {

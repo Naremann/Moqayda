@@ -108,6 +108,11 @@ interface ApiService {
         @Body swapPublicItem: SwapPublicItem
     ):Response<ResponseBody>
 
+    @POST("/api/ProductOwner")
+    suspend fun addProductOwner(
+        @Body productOwnerItem: ProductOwnerItem
+    ):Response<ResponseBody>
+
 
 
 }
