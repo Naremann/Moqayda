@@ -162,7 +162,7 @@
         tools:layout="@layout/fragment_private_products" >
         <action
             android:id="@+id/action_privateProductsFragment_to_addPrivateProductFragment"
-            app:destination="@id/addPrivateProductFragment" />
+            app:destination="@id/swapPrivateItemRequestFragment" />
         <argument
             android:id="@+id/my_arg_id"
             android:name="isVisible"
@@ -170,7 +170,7 @@
             />
         <action
             android:id="@+id/action_privateProductsFragment_to_swapRequestFragment"
-            app:destination="@id/swapRequestFragment" />
+            app:destination="@id/swapPrivateItemRequestFragment" />
         <argument
             android:name="product"
             app:argType="com.example.moqayda.models.Product"
@@ -178,9 +178,8 @@
 
     </fragment>
     <fragment
-        android:id="@+id/swapRequestFragment"
-        android:name="com.example.moqayda.ui.swap_request.SwapRequestFragment"
-        android:label="fragment_swap_request"
+        android:id="@+id/swapPrivateItemRequestFragment"
+        android:name="com.example.moqayda.ui.swap_private_item_request.SwapPrivateItemRequestFragment"        android:label="fragment_swap_request"
         tools:layout="@layout/fragment_swap_request" >
         <argument
             android:name="privateItemId"
@@ -206,6 +205,28 @@
         <argument
             android:name="isVisibleSwapLinear"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_userPublicItemsFragment_to_swapPublicItemRequestFragment"
+            app:destination="@id/swapPublicItemRequestFragment" />
+        <string name="Choose_private_items">Choose from your private Items</string>
+        <argument
+            android:name="product"
+            app:argType="com.example.moqayda.models.Product"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/swapPublicItemRequestFragment"
+        android:name="com.example.moqayda.ui.swap_public_item_request.SwapPublicItemRequestFragment"
+        android:label="fragment_swap_public_item_request"
+        tools:layout="@layout/fragment_swap_public_item_request" >
+        <argument
+            android:name="senderRequestProduct"
+            app:argType="com.example.moqayda.models.PrivateProduct"
+            app:nullable="true" />
+        <argument
+            android:name="product"
+            app:argType="com.example.moqayda.models.Product"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

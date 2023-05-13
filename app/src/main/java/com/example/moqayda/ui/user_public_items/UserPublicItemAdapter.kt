@@ -65,9 +65,9 @@ RecyclerView.Adapter<UserPublicItemAdapter.UserPublicItemsViewHolder>(){
                 .isVisibleSwapLinear
         Log.e("adapter", "Value ${holder.isVisibleSwapLinear.isVisible}")
 
-       /* holder.isVisibleSwapLinear.setOnClickListener {
+        holder.isVisibleSwapLinear.setOnClickListener {
             onSwapLinearClickListener.onSwapLinearClick(product)
-        }*/
+        }
     }
 
 

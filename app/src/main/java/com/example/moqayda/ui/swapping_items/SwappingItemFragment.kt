@@ -66,7 +66,7 @@ class SwappingItemFragment : BaseFragment<FragmentSwappingItemBinding, SwappingI
         viewModel.isCheckedPublicBtn.observe(viewLifecycleOwner) { isChecked ->
             findNavController().navigate(
                 SwappingItemFragmentDirections.actionSwappingItemFragmentToUserPublicItemsFragment(
-                    isChecked
+                    isChecked,selectedProduct
                 )
             )
 
