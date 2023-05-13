@@ -45,15 +45,25 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     val imageUri: MutableLiveData<Uri?>
         get() = _imageUri
 
-    val userRepo = UserRepo(ctx)
+    private val userRepo = UserRepo(ctx)
 
     private val _selectedImageUri = MutableLiveData<Uri?>(null)
     val selectedImageUri: MutableLiveData<Uri?>
         get() = _selectedImageUri
 
+    private val _selectedImageUrl = MutableLiveData<String?>(null)
+    val selectedImageUrl: MutableLiveData<String?>
+        get() = _selectedImageUrl
+
     fun setSelectedImageUri(uri: Uri?){
         _selectedImageUri.postValue(uri)
     }
+
+
+    fun setSelectedImageUrl(url: String?){
+        _selectedImageUrl.postValue(url)
+    }
+
 
     fun setImageUri(uri: Uri?) {
         _imageUri.postValue(uri)
@@ -76,7 +86,7 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         getUser()
         if (validate()) {
             updateBackendUser()
-            Log.e("ProfileEditingViewModel",imageUri.value!!.toString())
+
             DataUtils.USER?.id?.let {
                 updateFirebaseUser(it,  { task ->
                     if (task.isSuccessful) {
@@ -107,30 +117,58 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
     private fun updateBackendUser(){
         viewModelScope.launch {
-            val result = DataUtils.USER?.id?.let {
-                userRepo.updateUser(
-                    it,
-                    firstName.get()!!,
-                    lastName.get()!!,
-                    "password",
-                    mobile.get()!!,
-                    country.get()!!,
-                    city,
-                    address.get()!!,
-                    DataUtils.USER?.email!!,
-                    _selectedImageUri.value
-                )
+            if (_selectedImageUri.value != null){
+                val result = DataUtils.USER?.id?.let {
+                    userRepo.updateUser(
+                        it,
+                        firstName.get()!!,
+                        lastName.get()!!,
+                        "password",
+                        mobile.get()!!,
+                        country.get()!!,
+                        city,
+                        address.get()!!,
+                        DataUtils.USER?.email!!,
+                        _selectedImageUri.value
+                    )
+                }
+                when (result) {
+                    is Resource.Success<*> -> {
+                        Log.e("ProfileEditingViewModel", "user updated successfully")
+                    }
+                    is Resource.Error<*> -> {
+                        Log.e("ProfileEditingViewModel", "error: ${result.message}")
+                    }
+                    else -> {
+                    }
+                }
+            }else{
+                val result = DataUtils.USER?.id?.let {
+                    userRepo.updateUserWithCurrentImage(
+                        it,
+                        firstName.get()!!,
+                        lastName.get()!!,
+                        "password",
+                        mobile.get()!!,
+                        country.get()!!,
+                        city,
+                        address.get()!!,
+                        DataUtils.USER?.email!!,
+                        _selectedImageUrl.value
+                    )
+                }
+                when (result) {
+                    is Resource.Success<*> -> {
+                        Log.e("ProfileEditingViewModel", "user updated successfully")
+                    }
+                    is Resource.Error<*> -> {
+                        Log.e("ProfileEditingViewModel", "error: ${result.message}")
+                    }
+                    else -> {
+                    }
+                }
             }
-            when (result) {
-                is Resource.Success<*> -> {
-                    Log.e("ProfileEditingViewModel", "user updated successfully")
-                }
-                is Resource.Error<*> -> {
-                    Log.e("ProfileEditingViewModel", "error: ${result.message}")
-                }
-                else -> {
-                }
-            }
+
         }
     }
 
