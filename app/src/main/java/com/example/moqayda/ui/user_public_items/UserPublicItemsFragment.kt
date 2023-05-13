@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
@@ -11,6 +12,8 @@ import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentUserPublicProductsBinding
 import com.example.moqayda.models.PrivateItem
 import com.example.moqayda.models.PrivateProduct
+import com.example.moqayda.ui.private_product.PrivateProductsFragmentArgs
+import com.example.moqayda.ui.products.ProductAdapter
 
 
 class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,UserPublicItemViewModel>(){
@@ -41,8 +44,21 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
             RecyclerView.VERTICAL,true)
         viewDataBinding.recyclerView.layoutManager=layoutManager
         viewDataBinding.recyclerView.adapter = adapter
+        adapter.onSwapLinearClickListener=object:UserPublicItemAdapter.OnSwapLinearClickListener{
+            override fun onSwapLinearClick(ProductItem: PrivateProduct?) {
+                navigateToSwapPublicItemRequestFragment(ProductItem!!)
+            }
+
+        }
 
     }
+
+    private fun navigateToSwapPublicItemRequestFragment(senderRequestProduct: PrivateProduct) {
+        val product = UserPublicItemsFragmentArgs.fromBundle(requireArguments()).product
+        findNavController().navigate(UserPublicItemsFragmentDirections
+            .actionUserPublicItemsFragmentToSwapPublicItemRequestFragment(senderRequestProduct,product))
+    }
+
     override fun getViews(): View {
         return viewDataBinding.root
     }

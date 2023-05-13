@@ -221,7 +221,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             style="@style/spinner_style"
-                            android:popupBackground="#000000" />
+                            />
 
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>

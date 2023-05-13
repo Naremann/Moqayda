@@ -39,7 +39,7 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
     fun navigateToUserPublicProducts(){
         navigator.navigateToUserPublicProducts()
     }
-    private fun isLoggedOut():Boolean{
+     fun isLoggedOut():Boolean{
         Firebase.auth.signOut()
         return true
     }
@@ -48,9 +48,7 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
     }
 
     fun navigateToLoginFragment(){
-        if(isLoggedOut()){
             navigator.navigateToLoginFragment()
-        }
     }
     fun startFullImageScreen() {
         navigator.startFullImageScreen()

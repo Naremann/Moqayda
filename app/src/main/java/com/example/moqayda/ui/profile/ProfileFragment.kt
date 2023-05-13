@@ -77,8 +77,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
 
         showAlertDialog(getString(R.string.want_exit),getString(R.string.ok),
             { dialog, which ->
-                findNavController().setGraph(R.navigation.nav_graph_authentication)
-                findNavController().navigate(R.id.login)
+                if(viewModel.isLoggedOut()){
+                    findNavController().setGraph(R.navigation.nav_graph_authentication)
+                    findNavController().navigate(R.id.login)
+                }
             },getString(R.string.cancel))
     }
 
@@ -110,7 +112,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
     override fun navigateToUserPublicProducts() {
 
         findNavController().navigate(ProfileFragmentDirections
-            .actionProfileFragmentToUserPublicItemsFragment(false))
+            .actionProfileFragmentToUserPublicItemsFragment(false,null))
     }
 
 }
