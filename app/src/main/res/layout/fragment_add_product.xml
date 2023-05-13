@@ -203,38 +203,6 @@
                 app:layout_constraintStart_toEndOf="@+id/category_Item_img"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
                 tools:text="Furniture" />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputOwnerLocation"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:enabled="true"
-                android:hint="@string/owner_location"
-                app:boxStrokeWidth="1dp"
-                app:boxStrokeWidthFocused="2dp"
-                app:helperText=""
-                app:helperTextTextColor="#EF5350"
-                app:layout_constraintEnd_toEndOf="@+id/textInputProductName"
-                app:layout_constraintStart_toStartOf="@+id/textInputProductName"
-                app:layout_constraintTop_toBottomOf="@+id/category_Item_img"
-                app:shapeAppearance="?attr/shapeAppearanceSmallComponent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ownerLocationEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="true"
-                    android:text="@={viewModel.userLocation}"
-                    app:boxStrokeWidth="4dp"
-                    app:boxStrokeWidthFocused="2dp"
-                    app:shapeAppearance="?attr/shapeAppearanceSmallComponent" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputProductToBarterWith"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -249,8 +217,7 @@
                 app:helperTextTextColor="#EF5350"
                 app:layout_constraintEnd_toEndOf="@+id/textInputProductName"
                 app:layout_constraintStart_toStartOf="@+id/textInputProductName"
-                app:layout_constraintTop_toBottomOf="@+id/textInputOwnerLocation"
-                app:shapeAppearance="?attr/shapeAppearanceSmallComponent">
+                app:layout_constraintTop_toBottomOf="@+id/category_Item_img"                app:shapeAppearance="?attr/shapeAppearanceSmallComponent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/productToBarterWithEt"

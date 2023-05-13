@@ -1,14 +1,13 @@
 package com.example.moqayda.ui.swap_private_item_request
 
 import android.os.Bundle
-import android.support.v4.media.session.MediaSessionCompat.Token.fromBundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
-import com.example.moqayda.databinding.FragmentSwapRequestBinding
+import com.example.moqayda.databinding.FragmentSwapPrivateItemRequestBinding
 
-class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapRequestBinding,SwapPrivateItemRequestViewModel>() {
+class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapPrivateItemRequestBinding,SwapPrivateItemRequestViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.vm=viewModel
@@ -27,7 +26,7 @@ class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapRequestBinding,S
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_swap_request
+        return R.layout.fragment_swap_private_item_request
     }
 
 }

@@ -180,7 +180,7 @@
     <fragment
         android:id="@+id/swapPrivateItemRequestFragment"
         android:name="com.example.moqayda.ui.swap_private_item_request.SwapPrivateItemRequestFragment"        android:label="fragment_swap_request"
-        tools:layout="@layout/fragment_swap_request" >
+        tools:layout="@layout/fragment_swap_private_item_request" >
         <argument
             android:name="privateItemId"
             app:argType="integer" />
@@ -227,6 +227,9 @@
             android:name="product"
             app:argType="com.example.moqayda.models.Product"
             app:nullable="true" />
+        <argument
+            android:name="productOwnerId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

@@ -7,15 +7,38 @@ import com.example.moqayda.DataUtils
 import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.PrivateProduct
+import com.example.moqayda.models.ProductOwnerItem
 import kotlinx.coroutines.launch
 
 class UserPublicItemViewModel:BaseViewModel<Navigator>() {
     var isVisibleProgress = MutableLiveData<Boolean>()
     var product = MutableLiveData<List<PrivateProduct?>?>()
+    var privateProduct:PrivateProduct?=null
+    var productOwnerItemId=MutableLiveData<Int>()
 
     init {
         fetchUserPublicItems()
+
     }
+
+     fun addProductOwner(privateProductId:Int){
+        Log.e("addProductOwner","privateProduct?.id!! $privateProduct?.id!!")
+        val userId = DataUtils.USER?.id
+        val productOwnerItem=ProductOwnerItem(0,privateProductId,userId!!)
+        viewModelScope.launch {
+            val response = retrofitService.addProductOwner(productOwnerItem)
+            try {
+                if(response.isSuccessful){
+                    productOwnerItemId.value=productOwnerItem.id
+                    Log.e("addProductOwner","Success")
+                }
+            }catch (ex:Exception){
+                Log.e("addProductOwner","Fail ${ex.localizedMessage}")
+            }
+        }
+    }
+
+
 
     private fun fetchUserPublicItems(){
         isVisibleProgress.value=true

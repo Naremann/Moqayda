@@ -13,9 +13,14 @@ class SwapPublicItemRequestFragment : BaseFragment<FragmentSwapPublicItemRequest
         super.onViewCreated(view, savedInstanceState)
         subscribeToLiveData()
         viewDataBinding.vm=viewModel
+        getSwapPublicItemRequestArgs()
+
+    }
+
+    private fun getSwapPublicItemRequestArgs() {
         viewModel.product=SwapPublicItemRequestFragmentArgs.fromBundle(requireArguments()).product
         viewModel.requestSenderProduct=SwapPublicItemRequestFragmentArgs.fromBundle(requireArguments()).senderRequestProduct
-
+        viewModel.productOwnerId=SwapPublicItemRequestFragmentArgs.fromBundle(requireArguments()).productOwnerId
     }
 
     override fun getViews(): View {
