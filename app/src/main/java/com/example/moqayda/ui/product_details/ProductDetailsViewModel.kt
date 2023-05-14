@@ -10,15 +10,20 @@ import com.example.moqayda.models.AppUser
 import kotlinx.coroutines.launch
 
 class ProductDetailsViewModel:BaseViewModel<Navigator>() {
-
+    lateinit var navigator: Navigator
     private val _appUser = MutableLiveData<AppUser>()
     val appUser: LiveData<AppUser>
         get() = _appUser
 
-    var navigator: Navigator? = null
+
     fun navigateToSwapItemsFragment() {
-        navigator?.navigateToSwappingItemsFragment()
+        navigator.navigateToSwappingItemsFragment()
     }
+
+    fun navigateToUserProfile(appUser: AppUser){
+        navigator.onNavigateToUserProfile(appUser)
+    }
+
 
      fun getProductOwner(id: String) {
          viewModelScope.launch {

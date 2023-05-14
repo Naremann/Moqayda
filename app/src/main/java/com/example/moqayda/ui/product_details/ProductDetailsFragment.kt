@@ -10,6 +10,7 @@ import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductDetailsBinding
 import com.example.moqayda.initToolbar
+import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Product
 
 class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,ProductDetailsViewModel>(),Navigator {
@@ -62,5 +63,9 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
 
     override fun navigateToSwappingItemsFragment() {
         findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToSwappingItemFragment(selectedProduct))
+    }
+
+    override fun onNavigateToUserProfile(appUser: AppUser) {
+        findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToOtherUserProfileFragment(appUser))
     }
 }
