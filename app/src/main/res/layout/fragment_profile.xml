@@ -205,7 +205,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="end"
+                                android:layout_gravity="center"
                                 android:gravity="end"
                                 android:orientation="vertical">
 
@@ -249,7 +249,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="end"
+                                android:layout_gravity="center"
                                 android:gravity="end"
                                 android:orientation="vertical">
 
@@ -292,7 +292,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="end"
+                                android:layout_gravity="center"
                                 android:gravity="end"
                                 android:orientation="vertical">
 
@@ -334,7 +334,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="end"
+                                android:layout_gravity="center"
                                 android:gravity="end"
                                 android:orientation="vertical">
 
@@ -376,7 +376,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="end"
+                                android:layout_gravity="center"
                                 android:gravity="end"
                                 android:orientation="vertical">
 

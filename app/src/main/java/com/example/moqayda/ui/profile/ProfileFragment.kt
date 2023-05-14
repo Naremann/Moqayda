@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moqayda.DataUtils
+import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.database.getFirebaseImageUri
@@ -22,7 +23,7 @@ import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() ,Navigator{
-    var imageUri : Uri?=null
+    var imageUrl : String?=null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showBottomAppBar()
@@ -33,34 +34,35 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
 
         viewModel.appUser.observe(viewLifecycleOwner){
             viewDataBinding.appUser = it
+            imageUrl = it.image
         }
 
 
     }
 
-    private fun loadUserImage(){
-        viewDataBinding.progressBar.isVisible=true
-        DataUtils.USER?.id?.let { userId ->
-            getUerImageFromFirebase(object: ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    DataUtils.USER!!.id?.let {
-                        getFirebaseImageUri({ uri->
-                            imageUri=uri
-                            viewDataBinding.progressBar.isVisible=false
-                            Picasso.with(viewDataBinding.userImage.context).load(uri).into(viewDataBinding.userImage)
-                        }, { ex->
-                            viewDataBinding.progressBar.isVisible=false
-                            ex.localizedMessage?.let { error -> showToastMessage(error) }
-
-                        }, userId)
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    showToastMessage("Error Loading Image")
-                }
-            }, userId)
-        }
-    }
+//    private fun loadUserImage(){
+//        viewDataBinding.progressBar.isVisible=true
+//        DataUtils.USER?.id?.let { userId ->
+//            getUerImageFromFirebase(object: ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    DataUtils.USER!!.id?.let {
+//                        getFirebaseImageUri({ uri->
+//                            imageUri=uri
+//                            viewDataBinding.progressBar.isVisible=false
+//                            Picasso.with(viewDataBinding.userImage.context).load(uri).into(viewDataBinding.userImage)
+//                        }, { ex->
+//                            viewDataBinding.progressBar.isVisible=false
+//                            ex.localizedMessage?.let { error -> showToastMessage(error) }
+//
+//                        }, userId)
+//                    }
+//                }
+//                override fun onCancelled(error: DatabaseError) {
+//                    showToastMessage("Error Loading Image")
+//                }
+//            }, userId)
+//        }
+//    }
     override fun getViews(): View {
         return viewDataBinding.root
     }
@@ -89,11 +91,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
     }
 
     override fun startFullImageScreen() {
-        if(imageUri!=null){
-            val intent = Intent()
-            intent.action = Intent.ACTION_VIEW
-            Log.e("imageFullScreen","uri : $imageUri")
-            intent.setDataAndType(imageUri, "image/*")
+        if(imageUrl !=null){
+            val intent = Intent(requireContext(), ImageViewerActivity::class.java)
+            intent.putExtra("image_url", imageUrl)
             startActivity(intent)
         }
         else{

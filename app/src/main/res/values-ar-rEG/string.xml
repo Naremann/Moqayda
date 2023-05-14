@@ -83,6 +83,8 @@
     <string name="want_delete_account">هل انت متأكد انك تريد حذف حسابك؟</string>
     <string name="create">انشاء</string>
     <string name="Choose_private_items">اختر من العناصر الخاصة</string>
+    <string name="display_user_ads">عرض إعلانات المستخدم</string>
+    <string name="user_information">بيانات المستخدم</string>
 
 
 

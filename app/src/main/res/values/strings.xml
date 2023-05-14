@@ -82,5 +82,7 @@
     <string name="want_delete_account">Are you sure you want to delete your account?</string>
     <string name="create">Create</string>
     <string name="Choose_private_items">Choose from your private Items</string>
+    <string name="display_user_ads">Display user ads</string>
+    <string name="user_information">User Information</string>
 
 </resources>

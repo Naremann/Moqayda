@@ -99,6 +99,9 @@
         <argument
             android:name="selectedProduct"
             app:argType="com.example.moqayda.models.Product" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_otherUserProfileFragment"
+            app:destination="@id/otherUserProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/swappingItemFragment"
@@ -208,7 +211,6 @@
         <action
             android:id="@+id/action_userPublicItemsFragment_to_swapPublicItemRequestFragment"
             app:destination="@id/swapPublicItemRequestFragment" />
-        <string name="Choose_private_items">Choose from your private Items</string>
         <argument
             android:name="product"
             app:argType="com.example.moqayda.models.Product"
@@ -230,6 +232,15 @@
         <argument
             android:name="productOwnerId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_other_user_profile"
+        android:id="@+id/otherUserProfileFragment"
+        android:name="com.example.moqayda.ui.otherUserProfile.OtherUserProfileFragment"
+        android:label="OtherUserProfileFragment" >
+        <argument
+            android:name="selectedUser"
+            app:argType="com.example.moqayda.models.AppUser" />
     </fragment>
 
 </navigation>
