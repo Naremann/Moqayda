@@ -15,8 +15,7 @@ class OtherUserProfileViewModel: BaseViewModel<Navigator>() {
     fun startFullImageScreen() {
         navigator.onStartFullImageScreen()
     }
-    fun navigateToUserPublicProducts(){
-        navigator.onNavigateToUserPublicProducts()
-    }
+
+
 
 }

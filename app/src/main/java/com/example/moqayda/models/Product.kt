@@ -1,6 +1,7 @@
 package com.example.moqayda.models
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,6 +14,7 @@ data class Product(
     val isActive: Boolean?=null,
     val categoryId: Int?=null,
     val isFavourite: Boolean?=null,
+    @SerializedName("productToSwap")
     val productToSwap: String?=null,
     val userId: String?=null
 ) : Parcelable

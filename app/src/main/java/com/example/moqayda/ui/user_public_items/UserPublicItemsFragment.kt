@@ -5,24 +5,25 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentUserPublicProductsBinding
 import com.example.moqayda.models.PrivateItem
 import com.example.moqayda.models.PrivateProduct
-import com.example.moqayda.ui.private_product.PrivateProductsFragmentArgs
-import com.example.moqayda.ui.products.ProductAdapter
+import com.example.moqayda.models.Product
 
 
-class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,UserPublicItemViewModel>(){
-    private  var adapter= UserPublicItemAdapter(userPublicItemsFragment = this)
+class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,UserPublicItemViewModel>(),Navigator{
+    private lateinit var adapter: UserPublicItemAdapter
     private var productList: MutableList<PrivateProduct> = mutableListOf()
     private var filteredList: MutableList<PrivateItem> = mutableListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.vm=viewModel
+
+        adapter= UserPublicItemAdapter(userPublicItemsFragment = this,
+            mContext = this.requireContext(), owner = this)
+
         subscribeToLiveData()
         observeToLiveData()
         initRecycler()
@@ -40,15 +41,12 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
     }
     private fun initRecycler() {
 
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),
-            RecyclerView.VERTICAL,true)
-        viewDataBinding.recyclerView.layoutManager=layoutManager
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onSwapLinearClickListener=object:UserPublicItemAdapter.OnSwapLinearClickListener{
-            override fun onSwapLinearClick(ProductItem: PrivateProduct?) {
+            override fun onSwapLinearClick(ProductItem: Product?) {
                 viewModel.privateProduct=ProductItem
                 viewModel.addProductOwner(ProductItem?.id!!)
-                navigateToSwapPublicItemRequestFragment(ProductItem)
+//                navigateToSwapPublicItemRequestFragment(ProductItem)
             }
 
         }
@@ -74,6 +72,10 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_user_public_products
+    }
+
+    override fun onNavigateToProductDetails(product: Product) {
+        findNavController().navigate(UserPublicItemsFragmentDirections.actionUserPublicItemsFragmentToProductDetailsFragment(product))
     }
 
 }
