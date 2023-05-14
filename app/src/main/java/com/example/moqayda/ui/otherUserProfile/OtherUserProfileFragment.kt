@@ -2,7 +2,6 @@ package com.example.moqayda.ui.otherUserProfile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.moqayda.ImageViewerActivity
@@ -11,9 +10,11 @@ import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentOtherUserProfileBinding
 import com.example.moqayda.initToolbar
 import com.example.moqayda.models.AppUser
+import com.example.moqayda.ui.user_public_items.UserPublicItemAdapter
 
 class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,OtherUserProfileViewModel>(),Navigator {
     private lateinit var selectedUser:AppUser
+    private lateinit var adapter:UserPublicItemAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -25,6 +26,13 @@ class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,Othe
         viewModel.navigator=this
         selectedUser = OtherUserProfileFragmentArgs.fromBundle(requireArguments()).selectedUser
         viewDataBinding.appUser = selectedUser
+
+        selectedUser.userProductViewModels.let {
+            adapter = UserPublicItemAdapter(selectedUser.userProductViewModels,null,requireContext(),this)
+
+            viewDataBinding.userProductsRecyclerview.adapter = adapter
+        }
+
     }
 
 
@@ -40,9 +48,7 @@ class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,Othe
         return R.layout.fragment_other_user_profile
     }
 
-    override fun onNavigateToUserPublicProducts() {
-        Log.e("UserProfileFragment","onNavigateToUserPublicProducts")
-    }
+
 
     override fun onStartFullImageScreen() {
         selectedUser.image.let {

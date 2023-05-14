@@ -84,5 +84,7 @@
     <string name="Choose_private_items">Choose from your private Items</string>
     <string name="display_user_ads">Display user ads</string>
     <string name="user_information">User Information</string>
+    <string name="edit_product">Edit Post</string>
+    <string name="delete_post">Delete Post</string>
 
 </resources>

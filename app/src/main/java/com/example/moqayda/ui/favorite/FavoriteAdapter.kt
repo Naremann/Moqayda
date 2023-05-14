@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 class FavoriteAdapter(
     private var productList: List<Product?>? = mutableListOf(),
     private val mContext: Context,
-    owner: ViewModelStoreOwner,
+    owner: ViewModelStoreOwner
 
 ) :
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {

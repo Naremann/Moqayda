@@ -19,7 +19,7 @@ data class AppUser(
     @SerializedName("pathImage")
     val image:String?=null,
     @SerializedName("userProductViewModels")
-    val userProductViewModels:List<PrivateProduct?>?=null
+    val userProductViewModels:List<Product?>?=null
 
         ) : Parcelable {
     companion object{

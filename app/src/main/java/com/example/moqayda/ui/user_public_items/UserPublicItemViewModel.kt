@@ -7,13 +7,15 @@ import com.example.moqayda.DataUtils
 import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.PrivateProduct
+import com.example.moqayda.models.Product
 import com.example.moqayda.models.ProductOwnerItem
 import kotlinx.coroutines.launch
 
 class UserPublicItemViewModel:BaseViewModel<Navigator>() {
+    lateinit var navigator: Navigator
     var isVisibleProgress = MutableLiveData<Boolean>()
-    var product = MutableLiveData<List<PrivateProduct?>?>()
-    var privateProduct:PrivateProduct?=null
+    var product = MutableLiveData<List<Product?>?>()
+    var privateProduct:Product?=null
     var productOwnerItemId=MutableLiveData<Int>()
 
     init {
@@ -59,4 +61,10 @@ class UserPublicItemViewModel:BaseViewModel<Navigator>() {
 
         }
     }
+
+
+    fun navigateToProductDetails(product: Product){
+        navigator.onNavigateToProductDetails(product)
+    }
+
 }

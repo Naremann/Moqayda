@@ -215,6 +215,9 @@
             android:name="product"
             app:argType="com.example.moqayda.models.Product"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_userPublicItemsFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/swapPublicItemRequestFragment"
