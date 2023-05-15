@@ -113,6 +113,7 @@ interface ApiService {
         @Body productOwnerItem: ProductOwnerItem
     ):Response<ResponseBody>
 
-
+    @DELETE("/api/Product/{id}")
+    suspend fun deleteProduct(@Path("id") id:Int) : Response<ResponseBody>
 
 }

@@ -86,9 +86,9 @@
     <string name="display_user_ads">عرض إعلانات المستخدم</string>
     <string name="user_information">بيانات المستخدم</string>
     <string name="edit_product">تعديل المنشور</string>
-    <string name="delete_post">مسح المنشور</string>
-
-
+    <string name="delete_post">حذف المنشور</string>
+    <string name="post_deleted_successfully">تم حذف المنشور</string>
+    <string name="filed_to_delete_post">تعذر حذف المنشور</string>
 
 
 </resources>

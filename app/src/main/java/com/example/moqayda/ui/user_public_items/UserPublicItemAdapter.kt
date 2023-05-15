@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.databinding.UserPublicProductItemBinding
-import com.example.moqayda.models.PrivateProduct
 import com.example.moqayda.models.Product
 import com.github.chrisbanes.photoview.PhotoViewAttacher
 
@@ -31,8 +30,8 @@ RecyclerView.Adapter<UserPublicItemAdapter.UserPublicItemsViewHolder>(){
 
    inner class UserPublicItemsViewHolder(private val viewBinding: UserPublicProductItemBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
-        private val dotMenu = viewBinding.dotMenu
-        val popupMenu = PopupMenu(mContext,dotMenu)
+        val dotMenu = viewBinding.dotMenu
+       val popupMenu = PopupMenu(mContext, dotMenu)
         var isVisibleSwapLinear = viewBinding.linearSwap
         val productImage = viewBinding.productImage
         fun bind(product: Product) {
@@ -73,7 +72,8 @@ RecyclerView.Adapter<UserPublicItemAdapter.UserPublicItemsViewHolder>(){
             // because i used this adapter in otherUserProfileFragment and of course i didn't pass
             // the userPublicItemsFragment to the adapter
             Log.e("UserPublicItemAdapter","userPublicItemsFragment not null")
-            val  userPublicItemViewModel = ViewModelProvider(owner)[UserPublicItemViewModel::class.java]
+            val viewModelFactory = UserPublicItemViewModelFactory(mContext)
+            val userPublicItemViewModel = ViewModelProvider(owner,viewModelFactory)[UserPublicItemViewModel::class.java]
             holder.itemView.setOnClickListener {
                 onSwapLinearClickListener.onSwapLinearClick(product)
             }
@@ -92,11 +92,11 @@ RecyclerView.Adapter<UserPublicItemAdapter.UserPublicItemsViewHolder>(){
                         userPublicItemViewModel.navigateToProductDetails(product)
                         true
                     }
-                    R.id.menu_item_remove_from_favorite ->{
-
+                    R.id.delete_post ->{
+                        userPublicItemViewModel.deleteSelectedProduct(product)
                         true
                     }
-                    R.id.edit_post->{
+                    R.id.edit_post -> {
                         true
                     }
 
@@ -104,6 +104,9 @@ RecyclerView.Adapter<UserPublicItemAdapter.UserPublicItemsViewHolder>(){
 
                 }
 
+            }
+            holder.dotMenu.setOnClickListener {
+                holder.popupMenu.show()
             }
 
 

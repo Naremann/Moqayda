@@ -86,5 +86,7 @@
     <string name="user_information">User Information</string>
     <string name="edit_product">Edit Post</string>
     <string name="delete_post">Delete Post</string>
+    <string name="post_deleted_successfully">Post deleted successfully</string>
+    <string name="filed_to_delete_post">Failed to delete post</string>
 
 </resources>
