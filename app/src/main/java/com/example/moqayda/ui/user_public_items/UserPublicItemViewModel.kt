@@ -1,17 +1,24 @@
 package com.example.moqayda.ui.user_public_items
 
+import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.DataUtils
+import com.example.moqayda.R
 import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.PrivateProduct
 import com.example.moqayda.models.Product
 import com.example.moqayda.models.ProductOwnerItem
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import java.lang.ref.WeakReference
 
-class UserPublicItemViewModel:BaseViewModel<Navigator>() {
+class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
+    private val ctxReference: WeakReference<Context> = WeakReference(ctx)
+
     lateinit var navigator: Navigator
     var isVisibleProgress = MutableLiveData<Boolean>()
     var product = MutableLiveData<List<Product?>?>()
@@ -62,9 +69,40 @@ class UserPublicItemViewModel:BaseViewModel<Navigator>() {
         }
     }
 
+    fun deleteSelectedProduct(product: Product){
+        viewModelScope.launch { 
+            if (product.id != null && product.userId == Firebase.auth.currentUser!!.uid){
+                val response = retrofitService.deleteProduct(product.id)
+                
+                if (response.isSuccessful){
+                    messageLiveData.postValue(ctxReference.get()?.getString(R.string.post_deleted_successfully))
+
+                }else{
+                    Log.e("UserPublicItemViewModel","Failed to delete the product ${response.message()}")
+                    Log.e("UserPublicItemViewModel","${product.id}")
+                    Log.e("UserPublicItemViewModel","${response.body()}")
+                    messageLiveData.postValue(ctxReference.get()?.getString(R.string.filed_to_delete_post))
+                }
+                
+            }else{
+                Log.e("UserPublicItemViewModel","failed to recognize user")
+
+            }
+            
+        }
+    }
+
+
+
 
     fun navigateToProductDetails(product: Product){
         navigator.onNavigateToProductDetails(product)
     }
+
+    fun updateSelectedProduct(product: Product){
+        
+    }
+    
+    
 
 }

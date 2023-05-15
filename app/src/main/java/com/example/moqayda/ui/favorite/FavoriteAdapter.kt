@@ -13,8 +13,6 @@ import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.bindImage
 import com.example.moqayda.databinding.FavoriteProductItemBinding
-import com.example.moqayda.models.AppUser
-import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.models.Product
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope

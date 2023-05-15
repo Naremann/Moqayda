@@ -1,5 +1,6 @@
 package com.example.moqayda.ui.user_public_items
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -20,7 +21,7 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.vm=viewModel
-
+        viewModel.navigator = this
         adapter= UserPublicItemAdapter(userPublicItemsFragment = this,
             mContext = this.requireContext(), owner = this)
 
@@ -28,6 +29,7 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
         observeToLiveData()
         initRecycler()
     }
+    @SuppressLint("NotifyDataSetChanged")
     private fun observeToLiveData() {
         viewModel.product.observe(viewLifecycleOwner){ ProductsList->
             adapter.changeData(ProductsList)
@@ -37,6 +39,7 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
         viewModel.isVisibleProgress.observe(viewLifecycleOwner) { isVisibleProgress ->
             viewDataBinding.progressBar.isVisible = isVisibleProgress
         }
+
 
     }
     private fun initRecycler() {
@@ -53,6 +56,9 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
 
     }
 
+
+
+
     private fun navigateToSwapPublicItemRequestFragment(senderRequestProduct: PrivateProduct) {
         val product = UserPublicItemsFragmentArgs.fromBundle(requireArguments()).product
         val productOwnerId = viewModel.productOwnerItemId.observe(viewLifecycleOwner){productOwnerId->
@@ -67,7 +73,8 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
     }
 
     override fun initViewModeL(): UserPublicItemViewModel {
-        return ViewModelProvider(this)[UserPublicItemViewModel::class.java]
+        val viewModelFactory = UserPublicItemViewModelFactory(requireContext())
+        return ViewModelProvider(this,viewModelFactory)[UserPublicItemViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {
