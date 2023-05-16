@@ -16,5 +16,6 @@ data class Product(
     val isFavourite: Boolean?=null,
     @SerializedName("productToSwap")
     val productToSwap: String?=null,
-    val userId: String?=null
+    val userId: String?=null,
+    val productAndOwnerViewModels:List<ProductOwnerItem>?=null
 ) : Parcelable

@@ -116,4 +116,8 @@ interface ApiService {
     @DELETE("/api/Product/{id}")
     suspend fun deleteProduct(@Path("id") id:Int) : Response<ResponseBody>
 
+    @DELETE("/api/ProductOwner/{id}")
+    suspend fun deleteProductOwner(@Path("id") id:Int) : Response<ResponseBody>
+
+
 }
