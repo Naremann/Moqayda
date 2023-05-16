@@ -1,8 +1,11 @@
 package com.example.moqayda.models
 
-data class ProductOwnerItem (
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
+data class ProductOwnerItem(
     var id: Int,
     var productId: Int,
-    var userId: String
-        )
+    var userId: String,
+) : Parcelable
