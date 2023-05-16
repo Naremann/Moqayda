@@ -7,6 +7,7 @@ import com.example.moqayda.DataUtils
 import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.PrivateItem
+import com.example.moqayda.models.UserPrivateItemViewModelsItem
 import kotlinx.coroutines.launch
 
 class PrivateProductViewModel: BaseViewModel<Navigator>() {
@@ -14,7 +15,7 @@ class PrivateProductViewModel: BaseViewModel<Navigator>() {
     var isVisibleProgress = MutableLiveData<Boolean>()
 
     var navigator:Navigator?=null
-    var privateProduct = MutableLiveData<List<PrivateItem?>?>()
+    var privateProduct = MutableLiveData<List<UserPrivateItemViewModelsItem?>?>()
     init {
         fetchPrivateProducts()
     }

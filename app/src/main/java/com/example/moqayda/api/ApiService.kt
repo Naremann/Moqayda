@@ -90,7 +90,7 @@ interface ApiService {
     ): Response<ResponseBody>
 
     @GET("/api/PrivateItem/{id}")
-    suspend fun getPrivateProductByUserId(@Path("id") userId:String?):PrivateItemResponse
+    suspend fun getPrivateProductByUserId(@Path("id") userId:String?):PrivateProductByIdtResponse
 
     @GET("/api/Wishlist/{id}")
     suspend fun getFavoriteItems(@Path("id") userId:String?):Response<FavoriteResponse>

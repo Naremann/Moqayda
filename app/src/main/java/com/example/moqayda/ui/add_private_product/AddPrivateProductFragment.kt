@@ -154,7 +154,7 @@ class AddPrivateProductFragment :
 
     override fun navigateToPrivateProductFragment() {
         showAlertDialog(getString(R.string.product_uploaded),getString(R.string.ok),{ _, _ ->
-            findNavController().navigate(R.id.privateProductsFragment)
+            findNavController().navigate(AddPrivateProductFragmentDirections.actionAddPrivateProductFragmentToPrivateProductsFragment(false,null))
         })
     }
 

@@ -56,6 +56,7 @@ class AddPrivateProductViewModel  @Inject constructor(
                     navigator?.navigateToPrivateProductFragment()
                 }
                 is Resource.Error<*> -> {
+                    toastMessage.value=result.message.toString()
                     Log.e("TAG", "addProduct: ${result.message}")
                 }
                 else -> {
