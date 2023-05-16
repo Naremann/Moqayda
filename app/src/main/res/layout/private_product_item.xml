@@ -6,7 +6,7 @@
     <data>
         <variable
             name="product"
-            type="com.example.moqayda.models.PrivateItem" />
+            type="com.example.moqayda.models.UserPrivateItemViewModelsItem" />
         <variable
             name="vm"
             type="com.example.moqayda.ui.private_product.PrivateProductViewModel" />

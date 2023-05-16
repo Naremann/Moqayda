@@ -2,16 +2,16 @@ package com.example.moqayda.models
 
 import com.google.gson.annotations.SerializedName
 
-data class PrivateItemResponse(
+data class PrivateProductByIdtResponse(
 
 	@field:SerializedName("id")
 	val id: String? = null,
 
 	@field:SerializedName("userPrivateItemViewModels")
-	val userPrivateItemViewModels: List<PrivateItem?>? = null
+	val userPrivateItemViewModels: List<UserPrivateItemViewModelsItem?>? = null
 )
 
-data class PrivateItem(
+data class UserPrivateItemViewModelsItem(
 
 	@field:SerializedName("privateItempathImage")
 	val privateItempathImage: String? = null,
