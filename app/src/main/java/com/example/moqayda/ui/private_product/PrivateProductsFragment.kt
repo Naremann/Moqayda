@@ -1,20 +1,29 @@
 package com.example.moqayda.ui.private_product
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moqayda.DataUtils
 import com.example.moqayda.R
+import com.example.moqayda.api.RetrofitBuilder
+import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentPrivateProductsBinding
 import com.example.moqayda.initToolbar
 import com.example.moqayda.models.PrivateItem
+import com.example.moqayda.models.PrivateProductOwnerResponse
+import com.example.moqayda.models.ProductOwnerItem
 import com.example.moqayda.models.UserPrivateItemViewModelsItem
+import kotlinx.coroutines.launch
 
 class PrivateProductsFragment :
     BaseFragment<FragmentPrivateProductsBinding, PrivateProductViewModel>(),Navigator {
@@ -91,10 +100,31 @@ class PrivateProductsFragment :
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onSwapLinearClickListener = object :PrivateProductAdapter.OnSwapLinearClickListener {
             override fun onSwapLinearClick(privateProductItem: UserPrivateItemViewModelsItem?) {
+              addPrivateItemOwner(privateProductItem?.id!!)
                 navigateToSwapRequestFragment(privateProductItem!!)
             }
 
 
+        }
+    }
+    fun addPrivateItemOwner(productId:Int){
+        val userId = DataUtils.USER?.id
+        val privateOwnerItem = PrivateProductOwnerResponse(id=0, privateItemId = productId, userId = userId!!)
+        lifecycleScope.launch {
+            val response = retrofitService.addPrivateItemOwner(privateOwnerItem)
+            try {
+                if(response.isSuccessful){
+                    Log.e("addPrivateItemOwner","Success ${response.body()}")
+                }
+                else
+                    Log.e("addPrivateItemOwner","Fail :Unknown")
+
+
+            }
+            catch (ex:Exception){
+                Log.e("addPrivateItemOwner","Fail ${ex.localizedMessage}")
+
+            }
         }
     }
 

@@ -25,6 +25,7 @@ class AddPrivateProductViewModel  @Inject constructor(
     val productDescriptionError = ObservableField<String>()
     var toastMessage=MutableLiveData<String>()
     var navigator: Navigator?=null
+    val userId = DataUtils.USER?.id
 
     private val _imageUri = MutableLiveData<Uri>(null)
     val imageUri: LiveData<Uri>
@@ -35,19 +36,21 @@ class AddPrivateProductViewModel  @Inject constructor(
         _imageUri.postValue(uri)
     }
 
+
+
     @RequiresApi(Build.VERSION_CODES.Q)
     fun uploadPrivateProduct() {
         viewModelScope.launch {
             showLoading.value=true
-            val result = DataUtils.USER?.id?.let {userId->
-                addPrivateProductRepository.uploadPrivateProduct(
+                val result = addPrivateProductRepository.uploadPrivateProduct(
                     name = productName.get()!!,
                     descriptions = productDescription.get()!!,
-                    userId = userId,
+                    userId = userId!!,
                     imageUri = _imageUri.value
 
+
                 )
-            }
+
 
             when (result) {
                 is Resource.Success<*> -> {
@@ -58,8 +61,6 @@ class AddPrivateProductViewModel  @Inject constructor(
                 is Resource.Error<*> -> {
                     toastMessage.value=result.message.toString()
                     Log.e("TAG", "addProduct: ${result.message}")
-                }
-                else -> {
                 }
             }
 
@@ -97,4 +98,5 @@ class AddPrivateProductViewModel  @Inject constructor(
         }
         return isValidate
     }
+
 }
