@@ -21,7 +21,7 @@ class SwapPrivateItemRequestViewModel:BaseViewModel<Navigator>() {
         showLoading.value=true
         viewModelScope.launch {
             Log.e("sendRequestToSwap","privateProductId $privateItemId productId ${product?.id}  productOwnerId $productOwnerId")
-            val swapPrivateItem = SwapPrivateItemResponse(productId = product?.id!!,id=0, userId = userId!!, privateItemOwnerId = productOwnerId)
+            val swapPrivateItem = SwapPrivateItemResponse(productId = product?.id!!,id=0, userId = product?.userId, privateItemOwnerId = productOwnerId)
             val response = retrofitService.sendRequestToSwapPrivateItem(swapPrivateItem)
             showLoading.value=false
             try {
