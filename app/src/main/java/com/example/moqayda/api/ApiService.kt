@@ -98,9 +98,9 @@ interface ApiService {
     @POST("/api/Wishlist")
     suspend fun addProductToFavorite(@Body favoriteItem: FavoriteItem) : Response<ResponseBody>
 
-    @POST("/api/PrivateItemToSwap")
+    @POST("/api/PrivToSwap")
     suspend fun sendRequestToSwapPrivateItem(
-        @Body swapItem: SwapItem
+        @Body swapPrivateItem: SwapPrivateItemResponse
     ):Response<ResponseBody>
 
     @POST("/api/ProdToSwap")
@@ -111,6 +111,17 @@ interface ApiService {
     @POST("/api/ProductOwner")
     suspend fun addProductOwner(
         @Body productOwnerItem: ProductOwnerItem
+    ):Response<ResponseBody>
+
+
+    @GET("/api/PrivateItemOwner/{id}")
+    suspend fun getProductOwnerByProductId(
+        @Path("id") productId:Int?
+    ):PrivateProductOwnerByIdResponse
+
+    @POST("/api/PrivateItemOwner")
+    suspend fun addPrivateItemOwner(
+        @Body productOwnerItem: PrivateProductOwnerResponse
     ):Response<ResponseBody>
 
     @DELETE("/api/Product/{id}")

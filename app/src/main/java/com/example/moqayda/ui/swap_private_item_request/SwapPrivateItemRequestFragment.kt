@@ -1,21 +1,49 @@
 package com.example.moqayda.ui.swap_private_item_request
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.moqayda.R
+import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSwapPrivateItemRequestBinding
+import kotlinx.coroutines.launch
 
 class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapPrivateItemRequestBinding,SwapPrivateItemRequestViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.vm=viewModel
+        getSwapPrivateItemRequestArgs()
+        subscribeToLiveData()
+        getProductOwnerByProductId(SwapPrivateItemRequestFragmentArgs.fromBundle(requireArguments()).privateItemId)
+
+    }
+
+    private fun getSwapPrivateItemRequestArgs() {
         viewModel.privateItemId=SwapPrivateItemRequestFragmentArgs.fromBundle(requireArguments()).privateItemId
         viewModel.privateItemName=SwapPrivateItemRequestFragmentArgs.fromBundle(requireArguments()).privateItemName
         viewModel.privateItemImage=SwapPrivateItemRequestFragmentArgs.fromBundle(requireArguments()).privateItemImage
         viewModel.product = SwapPrivateItemRequestFragmentArgs.fromBundle(requireArguments()).product
-        subscribeToLiveData()
+    }
+
+    private fun getProductOwnerByProductId(privateItemId:Int){
+        lifecycleScope.launch {
+            val response = retrofitService.getProductOwnerByProductId(privateItemId).privateItemAndOwnerViewModels
+
+            try {
+                response?.forEach{privateItemAndOwnerViewModels->
+                    viewModel.productOwnerId= privateItemAndOwnerViewModels?.id!!
+
+                    Log.e("getProductOwner","productOwnerId ${privateItemAndOwnerViewModels.id}")
+                }
+
+            }
+            catch (ex:Exception){
+                Log.e("getProductOwner","Fail ${ex.localizedMessage}")
+            }
+        }
     }
     override fun getViews(): View {
         return viewDataBinding.root
