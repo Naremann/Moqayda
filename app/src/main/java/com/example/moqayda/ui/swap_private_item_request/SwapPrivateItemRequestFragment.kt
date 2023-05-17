@@ -30,7 +30,7 @@ class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapPrivateItemReque
 
     private fun getProductOwnerByProductId(privateItemId:Int){
         lifecycleScope.launch {
-            val response = retrofitService.getProductOwnerByProductId(privateItemId).privateItemAndOwnerViewModels
+            val response = retrofitService.getPrivateProductOwnerByProductId(privateItemId).privateItemAndOwnerViewModels
 
             try {
                 response?.forEach{privateItemAndOwnerViewModels->

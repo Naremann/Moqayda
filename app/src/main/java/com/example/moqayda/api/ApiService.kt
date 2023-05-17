@@ -113,9 +113,14 @@ interface ApiService {
         @Body productOwnerItem: ProductOwnerItem
     ):Response<ResponseBody>
 
+    @GET("/api/PrivToSwap/{id}")
+    suspend fun getSwapOffersBuUserId(
+        @Path("id") userId:String?
+    ):SwapResponse
+
 
     @GET("/api/PrivateItemOwner/{id}")
-    suspend fun getProductOwnerByProductId(
+    suspend fun getPrivateProductOwnerByProductId(
         @Path("id") productId:Int?
     ):PrivateProductOwnerByIdResponse
 

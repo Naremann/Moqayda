@@ -35,6 +35,9 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
     fun navigateToPrivateProduct(){
         navigator.navigateToPrivateProducts()
     }
+    fun navigateToSwapPrivateOffersFragment(){
+        navigator.navigateToSwapPrivateOffersFragment()
+    }
 
     fun navigateToUserPublicProducts(){
         navigator.navigateToUserPublicProducts()

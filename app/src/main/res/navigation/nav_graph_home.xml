@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_profileFragment_to_userPublicItemsFragment"
             app:destination="@id/userPublicItemsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_swapOffersFragment"
+            app:destination="@id/swapPrivateOffersFragment" />
     </fragment>
     <fragment
         android:id="@+id/productsListFragment"
@@ -245,5 +248,10 @@
             android:name="selectedUser"
             app:argType="com.example.moqayda.models.AppUser" />
     </fragment>
+    <fragment
+        android:id="@+id/swapPrivateOffersFragment"
+        android:name="com.example.moqayda.ui.swap_private_offers.SwapPrivateOffersFragment"
+        android:label="fragment_swap_offers"
+        tools:layout="@layout/fragment_swap_private_offers" />
 
 </navigation>
