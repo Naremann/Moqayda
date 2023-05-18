@@ -74,83 +74,86 @@ class UpdateProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         }
     }
 
-
     fun updateProduct() {
-        val builder = AlertDialog.Builder(ctxReference.get()!!)
-        builder.setTitle(ctxReference.get()!!.getString(R.string.confirmation))
-        builder.setMessage(ctxReference.get()!!.getString(R.string.update_product_confirmation))
-
-
-        builder.setPositiveButton("OK") { dialog, which ->
-            if (productName.get().isNullOrBlank() || productDescription.get()
-                    .isNullOrBlank() || productToSwap.get().isNullOrBlank()
-            ) {
-                messageLiveData.postValue(ctxReference.get()?.getString(R.string.fill_all_fields))
+        if (productName.get().isNullOrBlank() || productDescription.get()
+                .isNullOrBlank() || productToSwap.get().isNullOrBlank()
+        ) {
+            messageLiveData.postValue(ctxReference.get()?.getString(R.string.fill_all_fields))
+        } else {
+            if (productDescription.get()?.length!! > 100) {
+                _descriptionHelperText.postValue(ctxReference.get()
+                    ?.getString(R.string.maximum_100_characters))
             } else {
-                if (productDescription.get()?.length!! > 100) {
-                    _descriptionHelperText.postValue(ctxReference.get()
-                        ?.getString(R.string.maximum_100_characters))
-                } else {
-                    _descriptionHelperText.postValue("")
-                    viewModelScope.launch {
-                        if (_imageUri.value != null) {
-                            val result = productRepository.updateProduct(productId.get().toString(),
-                                productName.get()!!,
-                                productDescription.get()!!,
-                                _category.value?.id.toString(),
-                                "0",
-                                productToSwap.get()!!,
-                                _imageUri.value)
 
-                            when (result) {
-                                is Resource.Success<*> -> {
-                                    Log.e("UpdateProductViewModel", "Product updated successfully")
-                                    messageLiveData.postValue(ctxReference.get()
-                                        ?.getString(R.string.product_updated_successfully))
-                                }
-                                is Resource.Error<*> -> {
-                                    Log.e("UpdateProductViewModel", "error: ${result.message}")
-                                    messageLiveData.postValue(ctxReference.get()
-                                        ?.getString(R.string.failed_to_update_product))
-                                }
-                                else -> {
-                                }
-                            }
-                        } else {
-                            val result =
-                                productRepository.updateProductWithCurrentImage(productId.get()
-                                    .toString(),
-                                    productName.get()!!,
-                                    productDescription.get()!!,
-                                    _category.value?.id.toString(),
-                                    "0",
-                                    productToSwap.get()!!,
-                                    _selectedImageUrl.value)
-                            Log.e("UpdateProductViewModel", _selectedImageUrl.value!!)
-                            when (result) {
-                                is Resource.Success<*> -> {
-                                    messageLiveData.postValue(ctxReference.get()
-                                        ?.getString(R.string.product_updated_successfully))
-                                    Log.e("UpdateProductViewModel", "Product updated successfully")
-                                }
-                                is Resource.Error<*> -> {
-                                    Log.e("UpdateProductFragment", "error: ${result.message}")
-                                    messageLiveData.postValue(ctxReference.get()
-                                        ?.getString(R.string.failed_to_update_product))
-                                }
+                val builder = AlertDialog.Builder(ctxReference.get()!!)
+                builder.setTitle(ctxReference.get()!!.getString(R.string.confirmation))
+                builder.setMessage(ctxReference.get()!!
+                    .getString(R.string.update_product_confirmation))
+                builder.setPositiveButton("OK") { dialog, which ->
+                    onUpdateProduct()
+                }
 
-                            }
-                        }
+                builder.setNegativeButton("Cancel") { _, _ ->
+                    // Cancel button clicked
+                }
+                val dialog = builder.create()
+                dialog.show()
+            }
+        }
+    }
 
+
+    private fun onUpdateProduct() {
+        _descriptionHelperText.postValue("")
+        viewModelScope.launch {
+            if (_imageUri.value != null) {
+                val result = productRepository.updateProduct(productId.get().toString(),
+                    productName.get()!!,
+                    productDescription.get()!!,
+                    _category.value?.id.toString(),
+                    "0",
+                    productToSwap.get()!!,
+                    _imageUri.value)
+                when (result) {
+                    is Resource.Success<*> -> {
+                        Log.e("UpdateProductViewModel", "Product updated successfully")
+                        messageLiveData.postValue(ctxReference.get()
+                            ?.getString(R.string.product_updated_successfully))
+                        navigateToUserPublicItemsFragment()
+                    }
+                    is Resource.Error<*> -> {
+                        Log.e("UpdateProductViewModel", "error: ${result.message}")
+                        messageLiveData.postValue(ctxReference.get()
+                            ?.getString(R.string.failed_to_update_product))
+                    }
+                    else -> {
+                    }
+                }
+            } else {
+                val result =
+                    productRepository.updateProductWithCurrentImage(productId.get().toString(),
+                        productName.get()!!,
+                        productDescription.get()!!,
+                        _category.value?.id.toString(),
+                        "0",
+                        productToSwap.get()!!,
+                        _selectedImageUrl.value)
+                Log.e("UpdateProductViewModel", _selectedImageUrl.value!!)
+                when (result) {
+                    is Resource.Success<*> -> {
+                        messageLiveData.postValue(ctxReference.get()
+                            ?.getString(R.string.product_updated_successfully))
+                        Log.e("UpdateProductViewModel", "Product updated successfully")
+                        navigateToUserPublicItemsFragment()
+                    }
+                    is Resource.Error<*> -> {
+                        Log.e("UpdateProductFragment", "error: ${result.message}")
+                        messageLiveData.postValue(ctxReference.get()
+                            ?.getString(R.string.failed_to_update_product))
                     }
                 }
             }
         }
-        builder.setNegativeButton("Cancel") { _, _ ->
-            // Cancel button clicked
-        }
-        val dialog = builder.create()
-        dialog.show()
 
     }
 
@@ -159,5 +162,9 @@ class UpdateProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         navigator.onNavigateToSelectCategoryFragment(product, isUpdate)
     }
 
+
+    fun navigateToUserPublicItemsFragment() {
+        navigator.navigateToUserPublicItems()
+    }
 
 }

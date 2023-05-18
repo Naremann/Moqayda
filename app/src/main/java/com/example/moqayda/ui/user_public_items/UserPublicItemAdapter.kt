@@ -16,6 +16,8 @@ import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.databinding.UserPublicProductItemBinding
 import com.example.moqayda.models.Product
+import com.example.moqayda.ui.otherUserProfile.OtherUserProfileVMFactory
+import com.example.moqayda.ui.otherUserProfile.OtherUserProfileViewModel
 import com.github.chrisbanes.photoview.PhotoViewAttacher
 
 class UserPublicItemAdapter(
@@ -121,6 +123,25 @@ RecyclerView.Adapter<UserPublicItemAdapter.UserPublicItemsViewHolder>(){
 
 
         }else{
+            val vmFactory = OtherUserProfileVMFactory(mContext.applicationContext)
+            val otherUserPublicItemViewModel = ViewModelProvider(owner,vmFactory)[OtherUserProfileViewModel::class.java]
+            holder.popupMenu.menuInflater.inflate(R.menu.other_user_public_product_menu,holder.popupMenu.menu)
+            holder.popupMenu.setOnMenuItemClickListener { menuItem ->
+                when(menuItem.itemId){
+                    R.id.show_product_details ->{
+                        otherUserPublicItemViewModel.navigateToProductDetails(product)
+                        true
+                    }
+                    R.id.add_to_favorite ->{
+                        otherUserPublicItemViewModel.addProductToFavorite(product.id!!)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            holder.dotMenu.setOnClickListener {
+                holder.popupMenu.show()
+            }
 
         }
 

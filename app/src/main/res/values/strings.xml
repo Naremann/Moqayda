@@ -98,4 +98,7 @@
     <string name="user_updated_successfully">User updated successfully</string>
     <string name="failed_to_update_user">Failed to update user</string>
     <string name="update_product_confirmation">Are you sure you want to edit this product ?</string>
+    <string name="show_product_details">Show product details</string>
+    <string name="product_already_in_your_favorites">This product is already in you favorite items</string>
+    <string name="product_added_to_favorite">Product added to favorite</string>
 </resources>

@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,7 +19,6 @@ import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.bindImageUri
 import com.example.moqayda.databinding.FragmentUpdateProductBinding
 import com.example.moqayda.initToolbar
-import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.models.Product
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -203,5 +201,12 @@ class UpdateProductFragment : BaseFragment<FragmentUpdateProductBinding, UpdateP
         findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSelectCategoryFragment(
             product,
             isUpdate))
+    }
+
+    override fun navigateToUserPublicItems() {
+        this.findNavController()
+            .navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToUserPublicItemsFragment(
+                false,
+                null))
     }
 }

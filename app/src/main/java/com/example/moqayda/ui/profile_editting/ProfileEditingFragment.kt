@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.moqayda.*
 import com.example.moqayda.base.BaseFragment
@@ -35,7 +36,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 
 
-class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, ProfileEditingViewModel>(), AdapterView.OnItemSelectedListener {
+class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, ProfileEditingViewModel>(), AdapterView.OnItemSelectedListener,Navigator {
     private var city : String?=null
     private var selectedFile: Uri? = null
     private var permReqLauncher: ActivityResultLauncher<Array<String>>?=null
@@ -47,7 +48,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
         initPermReqLauncher()
         observeToLiveData()
         subscribeToLiveData()
-
+        viewModel.navigator = this
         currentUser = ProfileEditingFragmentArgs.fromBundle(requireArguments()).currentUser
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.edit_profile),this)
         viewDataBinding.vm=viewModel
@@ -229,5 +230,9 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_profile_editting
+    }
+
+    override fun onNavigateToProfileFragment() {
+        this.findNavController().navigate(R.id.profileFragment)
     }
 }
