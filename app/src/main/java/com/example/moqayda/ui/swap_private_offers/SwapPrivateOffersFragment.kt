@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSwapPrivateOffersBinding
-import com.example.moqayda.models.Product
-import com.example.moqayda.ui.user_public_items.UserPublicItemAdapter
 
 class SwapPrivateOffersFragment : BaseFragment<FragmentSwapPrivateOffersBinding,SwapPrivateOffersViewModel>() {
     var adapter = SwapPrivateOffersAdapter()
@@ -24,6 +22,14 @@ class SwapPrivateOffersFragment : BaseFragment<FragmentSwapPrivateOffersBinding,
         viewModel.swapPrivateOffers.observe(viewLifecycleOwner){ swapPrivateOffers->
             adapter.changeData(swapPrivateOffers)
             adapter.notifyDataSetChanged()
+        }
+
+        viewModel.isVisibleProgressBar.observe(viewLifecycleOwner){isVisible->
+            viewDataBinding.progressBar.isVisible=isVisible
+        }
+
+        viewModel.toastMessage.observe(viewLifecycleOwner){toastMessage->
+            showToastMessage(toastMessage)
 
         }
 

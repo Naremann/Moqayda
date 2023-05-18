@@ -14,10 +14,10 @@ import kotlinx.coroutines.launch
 class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapPrivateItemRequestBinding,SwapPrivateItemRequestViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getProductOwnerByProductId(SwapPrivateItemRequestFragmentArgs.fromBundle(requireArguments()).privateItemId)
         viewDataBinding.vm=viewModel
         getSwapPrivateItemRequestArgs()
         subscribeToLiveData()
-        getProductOwnerByProductId(SwapPrivateItemRequestFragmentArgs.fromBundle(requireArguments()).privateItemId)
 
     }
 
@@ -30,14 +30,17 @@ class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapPrivateItemReque
 
     private fun getProductOwnerByProductId(privateItemId:Int){
         lifecycleScope.launch {
-            val response = retrofitService.getPrivateProductOwnerByProductId(privateItemId).privateItemAndOwnerViewModels
+           val response= retrofitService.getPrivateProductByItemId(privateItemId).privateItemAndOwnerViewModels
 
             try {
-                response?.forEach{privateItemAndOwnerViewModels->
-                    viewModel.productOwnerId= privateItemAndOwnerViewModels?.id!!
+                response?.forEach { privateItemAndOwnerViewModels->
+                    viewModel.productOwnerId=privateItemAndOwnerViewModels?.id!!
 
-                    Log.e("getProductOwner","productOwnerId ${privateItemAndOwnerViewModels.id}")
+                    Log.e("getProductOwner","Success ${privateItemAndOwnerViewModels.id}")
+
                 }
+
+
 
             }
             catch (ex:Exception){
