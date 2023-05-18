@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentOtherUserProfileBinding
 import com.example.moqayda.initToolbar
 import com.example.moqayda.models.AppUser
+import com.example.moqayda.models.Product
 import com.example.moqayda.ui.user_public_items.UserPublicItemAdapter
 
 class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,OtherUserProfileViewModel>(),Navigator {
@@ -20,6 +22,8 @@ class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,Othe
 
         hideBottomAppBar()
 
+        subscribeToLiveData()
+
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.user_information),this)
 
         viewDataBinding.vm=viewModel
@@ -28,7 +32,10 @@ class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,Othe
         viewDataBinding.appUser = selectedUser
 
         selectedUser.userProductViewModels.let {
-            adapter = UserPublicItemAdapter(selectedUser.userProductViewModels,null,requireContext(),this)
+            adapter = UserPublicItemAdapter(productList = selectedUser.userProductViewModels!!,
+                userPublicItemsFragment = null,
+                mContext = this.requireContext(),
+                this)
 
             viewDataBinding.userProductsRecyclerview.adapter = adapter
         }
@@ -41,7 +48,8 @@ class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,Othe
     }
 
     override fun initViewModeL(): OtherUserProfileViewModel {
-        return ViewModelProvider(this)[OtherUserProfileViewModel::class.java]
+        val vmFactory = OtherUserProfileVMFactory(requireContext())
+        return ViewModelProvider(this, vmFactory)[OtherUserProfileViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {
@@ -52,15 +60,20 @@ class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,Othe
 
     override fun onStartFullImageScreen() {
         selectedUser.image.let {
-            if(it!=null){
+            if (it != null) {
                 val intent = Intent(requireContext(), ImageViewerActivity::class.java)
                 intent.putExtra("image_url", it)
                 startActivity(intent)
-            }
-            else{
+            } else {
                 showToastMessage("No Image")
             }
         }
 
+    }
+
+    override fun onNavigateToProductDetails(product: Product) {
+        this.findNavController()
+            .navigate(OtherUserProfileFragmentDirections.actionOtherUserProfileFragmentToProductDetailsFragment(
+                product))
     }
 }

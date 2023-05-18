@@ -99,5 +99,7 @@
     <string name="user_updated_successfully">تم تعديل بيانات المستخدم</string>
     <string name="failed_to_update_user">تعذر تعديل بيانات المستخدم</string>
     <string name="update_product_confirmation">هل انت متأكد من تعديل المنشور ؟</string>
-
+    <string name="show_product_details">عرض تفاصيل المشروع</string>
+    <string name="product_already_in_your_favorites">هذا المنشور موجود بالفعل في القائمة المفضلة</string>
+    <string name="product_added_to_favorite">تم اضافة المنشور في القائمة المفضلة</string>
 </resources>

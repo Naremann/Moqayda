@@ -29,6 +29,7 @@ import java.lang.ref.WeakReference
 
 class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     private val ctxReference: WeakReference<Context> = WeakReference(ctx)
+    lateinit var navigator: Navigator
     val user = Firebase.auth.currentUser
     var message = MutableLiveData<String>()
     var toastMessage = MutableLiveData<String>()
@@ -130,7 +131,7 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                     is Resource.Success<*> -> {
                         Log.e("ProfileEditingViewModel", "user updated successfully")
                         messageLiveData.postValue(ctxReference.get()?.getString(R.string.user_updated_successfully))
-
+                        navigateToProfileFragment()
                     }
                     is Resource.Error<*> -> {
                         Log.e("ProfileEditingViewModel", "error: ${result.message}")
@@ -159,6 +160,7 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                     is Resource.Success<*> -> {
                         Log.e("ProfileEditingViewModel", "user updated successfully")
                         messageLiveData.postValue(ctxReference.get()?.getString(R.string.user_updated_successfully))
+                        navigateToProfileFragment()
 
                     }
                     is Resource.Error<*> -> {
@@ -210,6 +212,10 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
             addressError.set(null)
         return validate
 
+    }
+
+    fun navigateToProfileFragment(){
+        navigator.onNavigateToProfileFragment()
     }
 
 }

@@ -186,7 +186,8 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
     }
 
     override fun initViewModeL(): ProductViewModel {
-        return ViewModelProvider(this)[ProductViewModel::class.java]
+        val vmFactory = ProductsViewModelFactory(requireContext())
+        return ViewModelProvider(this,vmFactory)[ProductViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {

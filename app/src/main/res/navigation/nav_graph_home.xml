@@ -266,6 +266,9 @@
         <argument
             android:name="selectedUser"
             app:argType="com.example.moqayda.models.AppUser" />
+        <action
+            android:id="@+id/action_otherUserProfileFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateProductFragment"
@@ -283,6 +286,9 @@
         <argument
             android:name="categoryId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_updateProductFragment_to_userPublicItemsFragment"
+            app:destination="@id/userPublicItemsFragment" />
     </fragment>
 
 
