@@ -88,5 +88,14 @@
     <string name="delete_post">Delete Post</string>
     <string name="post_deleted_successfully">Post deleted successfully</string>
     <string name="filed_to_delete_post">Failed to delete post</string>
-
+    <string name="confirmation">Confirmation</string>
+    <string name="remove_product_from_favorite_confirmation">Are you sure you want to do remove this item from favorites ?</string>
+    <string name="remove_product_confirmation">If you remove this item, the offers related to it will be removed. Do you want to remove it?</string>
+    <string name="maximum_100_characters">This element does not require more than 100 characters</string>
+    <string name="chane_image">change image</string>
+    <string name="product_updated_successfully">Product updated successfully</string>
+    <string name="failed_to_update_product">Failed yo update product</string>
+    <string name="user_updated_successfully">User updated successfully</string>
+    <string name="failed_to_update_user">Failed to update user</string>
+    <string name="update_product_confirmation">Are you sure you want to edit this product ?</string>
 </resources>

@@ -82,7 +82,14 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
     }
 
     override fun onNavigateToProductDetails(product: Product) {
-        findNavController().navigate(UserPublicItemsFragmentDirections.actionUserPublicItemsFragmentToProductDetailsFragment(product))
+        findNavController().navigate(UserPublicItemsFragmentDirections.actionUserPublicItemsFragmentToProductDetailsFragment(
+            product))
+    }
+
+    override fun onNavigateTOUpdateProductFragment(product: Product, categoryId: Int) {
+        findNavController().navigate(UserPublicItemsFragmentDirections.actionUserPublicItemsFragmentToUpdateProductFragment(
+            product,
+            categoryId))
     }
 
 }

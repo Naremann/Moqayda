@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -55,10 +56,13 @@ RecyclerView.Adapter<UserPublicItemAdapter.UserPublicItemsViewHolder>(){
 
     override fun onBindViewHolder(holder: UserPublicItemsViewHolder, position: Int) {
         val product = productList?.get(position)
+
         Log.e("product", "$product")
         holder.bind(product!!)
 
-
+        val builder = AlertDialog.Builder(mContext)
+        builder.setTitle(mContext.getString(R.string.confirmation))
+        builder.setMessage(mContext.getString(R.string.remove_product_confirmation))
         holder.productImage.setOnClickListener {
             startFullImageScreen(holder, product)
         }
@@ -93,17 +97,23 @@ RecyclerView.Adapter<UserPublicItemAdapter.UserPublicItemsViewHolder>(){
                         true
                     }
                     R.id.delete_post ->{
-                        userPublicItemViewModel.deleteSelectedProduct(product)
+                        builder.setPositiveButton("OK") { dialog, which ->
+                            userPublicItemViewModel.deleteSelectedProduct(product)
+                        }
+                        builder.setNegativeButton("Cancel") { _, _ ->
+                            // Cancel button clicked
+                        }
+                        val dialog = builder.create()
+                        dialog.show()
+
                         true
                     }
                     R.id.edit_post -> {
+                        userPublicItemViewModel.navigateToUpdateProduct(product,product.categoryId!!)
                         true
                     }
-
                     else -> false
-
                 }
-
             }
             holder.dotMenu.setOnClickListener {
                 holder.popupMenu.show()

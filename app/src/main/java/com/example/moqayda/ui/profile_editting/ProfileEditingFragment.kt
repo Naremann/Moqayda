@@ -63,7 +63,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
             hideImage()
         }
         loadUserImage()
-        updateUser()
+        checkSelectedImage()
 
 
 
@@ -117,7 +117,7 @@ class ProfileEditingFragment : BaseFragment<FragmentProfileEdittingBinding, Prof
 
     }
 
-    private fun updateUser(){
+    private fun checkSelectedImage(){
         if (selectedFile !=null){
             viewModel.setSelectedImageUri(selectedFile)
         }else{

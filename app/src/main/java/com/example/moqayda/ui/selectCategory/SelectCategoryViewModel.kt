@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.CategoryItem
+import com.example.moqayda.models.Product
 import com.example.moqayda.repo.category.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -40,6 +41,11 @@ class SelectCategoryViewModel @Inject constructor(private val categoryRepository
     fun navigateToAddProduct(categoryItem: CategoryItem){
         navigator.onNavigateToAddProductFragment(categoryItem)
     }
+
+    fun navigateToUpdateProduct(categoryId: Int,product: Product){
+        navigator.onNavigateToUpdateProductFragment(categoryId,product)
+    }
+
     init {
 
         fetchCategoryList()

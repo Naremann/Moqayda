@@ -1,17 +1,16 @@
 package com.example.moqayda
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View.VISIBLE
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
-import androidx.test.InstrumentationRegistry
 import com.example.moqayda.database.local.LanguagesSettingsHelper
 import com.example.moqayda.database.local.LocaleHelper
 import com.example.moqayda.database.local.ThemeModeSettingHelper.Companion.getThemeMode
 import com.example.moqayda.databinding.ActivityHomeBinding
+import com.example.moqayda.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,7 +60,9 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.fabButton.setOnClickListener {
-            findNavController(R.id.home_nav_host_fragment).navigate(R.id.selectCategoryFragment)
+            this.findNavController(R.id.home_nav_host_fragment)
+                .navigate(HomeFragmentDirections.actionHomeFragmentToSelectCategoryFragment(null,
+                    false))
         }
 
     }

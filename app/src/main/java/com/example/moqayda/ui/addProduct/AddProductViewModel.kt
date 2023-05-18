@@ -2,25 +2,23 @@ package com.example.moqayda.ui.addProduct
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moqayda.api.RetrofitBuilder
+import com.example.moqayda.R
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.CategoryItem
-import com.example.moqayda.repo.product.AddProductRepository
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.example.moqayda.repo.product.ProductRepository
 import kotlinx.coroutines.launch
+import java.lang.ref.WeakReference
 
 class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
+    private val ctxReference: WeakReference<Context> = WeakReference(ctx)
 
     lateinit var navigator: Navigator
-    private val addProductRepository = AddProductRepository(ctx)
+    private val productRepository = ProductRepository(ctx)
 
     val productName = ObservableField<String>()
     val productDescription = ObservableField<String>()
@@ -45,10 +43,10 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         get() = _toastMessage
 
     val connectionError: LiveData<String>
-        get() = addProductRepository.connectionError
+        get() = productRepository.connectionError
 
     val response: LiveData<String>
-        get() = addProductRepository.serverResponse
+        get() = productRepository.serverResponse
 
     private val _imageUri = MutableLiveData<Uri>(null)
     val imageUri: LiveData<Uri>
@@ -64,7 +62,7 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     }
 
     fun reset() {
-        addProductRepository.restAddProductVariables()
+        productRepository.restAddProductVariables()
     }
 
 
@@ -86,17 +84,17 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
             productDescription.get().isNullOrBlank() ||
             productToSwap.get().isNullOrBlank()
         ) {
-            _toastMessage.postValue("Please fill all fields")
+            _toastMessage.postValue(ctxReference.get()?.getString(R.string.fill_all_fields))
         } else {
-            if (productDescription.get()?.length!! < 100) {
-                _descriptionHelperText.postValue("This field requires at least 100 characters")
+            if (productDescription.get()?.length!! > 100) {
+                _descriptionHelperText.postValue(ctxReference.get()?.getString(R.string.maximum_100_characters))
             } else {
                 _descriptionHelperText.postValue("")
-
                 viewModelScope.launch {
-                    addProductRepository.uploadProduct(
+                    productRepository.uploadProduct(
                         productName.get()!!,
                         productDescription.get()!!,
+                        productToSwap.get()!!,
                         selectedCategory,
                         imageUri,
                         fileRealPath,
@@ -106,27 +104,6 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
             }
         }
-    }
-
-    private fun fetchCategoryList() {
-
-        viewModelScope.launch {
-
-            val response = RetrofitBuilder.retrofitService.getAllCategories()
-            try {
-                if (response.isSuccessful) {
-                    _categoryList.postValue(response.body())
-
-                }
-            } catch (ex: Exception) {
-                Log.e("ex", "error" + ex.localizedMessage)
-            }
-        }
-
-    }
-
-    init {
-        fetchCategoryList()
     }
 
 
