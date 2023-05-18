@@ -19,18 +19,15 @@ import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentPrivateProductsBinding
 import com.example.moqayda.initToolbar
-import com.example.moqayda.models.PrivateItem
-import com.example.moqayda.models.PrivateProductOwnerResponse
-import com.example.moqayda.models.ProductOwnerItem
-import com.example.moqayda.models.UserPrivateItemViewModelsItem
+import com.example.moqayda.models.*
 import kotlinx.coroutines.launch
 
 class PrivateProductsFragment :
     BaseFragment<FragmentPrivateProductsBinding, PrivateProductViewModel>(),Navigator {
 
     private  var adapter= PrivateProductAdapter(privateProductsFragment = this)
-    private var productList: MutableList<UserPrivateItemViewModelsItem> = mutableListOf()
-    private var filteredList: MutableList<UserPrivateItemViewModelsItem> = mutableListOf()
+    private var productList: MutableList<PrivateProduct> = mutableListOf()
+    private var filteredList: MutableList<PrivateProduct> = mutableListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,9 +60,9 @@ class PrivateProductsFragment :
     private fun filterItemsList(newText: String?) {
         filteredList.clear()
         for (item in productList) {
-            for (i in 0 until item.privateItemName!!.length) {
+            for (i in 0 until item.name!!.length) {
                 if (newText != null) {
-                    if (newText.lowercase().contains(item.privateItemName[i].lowercase())
+                    if (newText.lowercase().contains(item.name[i].lowercase())
                     ) {
                         if (item !in filteredList)
                             item.let { filteredList.add(it) }
@@ -99,7 +96,7 @@ class PrivateProductsFragment :
         viewDataBinding.recyclerView.layoutManager=layoutManager
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onSwapLinearClickListener = object :PrivateProductAdapter.OnSwapLinearClickListener {
-            override fun onSwapLinearClick(privateProductItem: UserPrivateItemViewModelsItem?) {
+            override fun onSwapLinearClick(privateProductItem: PrivateProduct?) {
               addPrivateItemOwner(privateProductItem?.id!!)
                 navigateToSwapRequestFragment(privateProductItem!!)
             }
@@ -128,11 +125,11 @@ class PrivateProductsFragment :
         }
     }
 
-    private fun navigateToSwapRequestFragment(privateProductItem:UserPrivateItemViewModelsItem) {
+    private fun navigateToSwapRequestFragment(privateProductItem:PrivateProduct) {
 
         val product = PrivateProductsFragmentArgs.fromBundle(requireArguments()).product
         findNavController().navigate(PrivateProductsFragmentDirections.actionPrivateProductsFragmentToSwapRequestFragment(privateProductItem.id!!,
-            product,privateProductItem.privateItempathImage,privateProductItem.privateItemName))
+            product,privateProductItem.pathImage,privateProductItem.name))
     }
 
 

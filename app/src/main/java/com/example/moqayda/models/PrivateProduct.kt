@@ -1,8 +1,8 @@
 package com.example.moqayda.models
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-
 
 @Parcelize
 data class PrivateProduct(
@@ -12,3 +12,9 @@ data class PrivateProduct(
     val pathImage: String?=null,
     val userId: String?=null
 ) : Parcelable
+
+data class PrivateResponse(
+
+    @field:SerializedName("PrivateResponse")
+    val privateResponse: List<PrivateProduct?>? = null
+)

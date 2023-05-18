@@ -6,19 +6,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.moqayda.DataUtils
 import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.PrivateItem
-import com.example.moqayda.models.ProductOwnerItem
-import com.example.moqayda.models.UserPrivateItemViewModelsItem
+import com.example.moqayda.models.*
 import kotlinx.coroutines.launch
 
 class PrivateProductViewModel: BaseViewModel<Navigator>() {
+    val userId=DataUtils.USER?.id
 
     var isVisibleProgress = MutableLiveData<Boolean>()
 
     var navigator:Navigator?=null
-    var privateProduct = MutableLiveData<List<UserPrivateItemViewModelsItem?>?>()
+    var privateProduct = MutableLiveData<List<PrivateProduct?>?>()
     init {
-        fetchPrivateProducts()
+       // fetchPrivateProducts()
+        fetchUserPrivateProducts()
     }
 
     fun navigateToAddPrivateProduct(){
@@ -41,7 +41,32 @@ class PrivateProductViewModel: BaseViewModel<Navigator>() {
         }
     }*/
 
-    private fun fetchPrivateProducts() {
+    private fun fetchUserPrivateProducts(){
+        var allPrivateItems:MutableList<PrivateProduct> = mutableListOf()
+        viewModelScope.launch {
+            val response = retrofitService.getAllPrivateProducts().privateResponse
+            try {
+                Log.e("fetchUserPrivate","Success")
+                response?.forEach { privateItemResponse->
+                    if(privateItemResponse?.userId==userId){
+                        if (privateItemResponse != null) {
+                            allPrivateItems.add(privateItemResponse)
+                        }
+                    }
+
+                }
+                privateProduct.value=allPrivateItems
+
+            }
+            catch (ex:Exception){
+                Log.e("fetchUserPrivate","Fail ${ex.localizedMessage}")
+            }
+
+
+        }
+    }
+
+    /*private fun fetchPrivateProducts() {
 
         viewModelScope.launch {
             isVisibleProgress.value = true
@@ -58,7 +83,7 @@ class PrivateProductViewModel: BaseViewModel<Navigator>() {
                 Log.e("ex","error"+ex.localizedMessage)
             }
         }
-    }
+    }*/
 
 
 
