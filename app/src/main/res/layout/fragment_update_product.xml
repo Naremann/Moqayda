@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <variable
+            name="product"
+            type="com.example.moqayda.models.Product" />
+
+        <variable
+            name="category"
+            type="com.example.moqayda.models.CategoryItem" />
+
+        <variable
+            name="viewModel"
+            type="com.example.moqayda.ui.updateProduct.UpdateProductViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addProductLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:context=".ui.MainActivity">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorPrimary"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:title="@string/edit_product"
+                    app:titleTextColor="@color/white"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/product_image"
+                photoUrl="@{product.pathImage}"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_margin="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@drawable/product_img_background"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/app_bar"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded2" />
+
+            <TextView
+                android:id="@+id/change_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="@string/chane_image"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_image"
+                 />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputProductName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="16dp"
+                android:enabled="true"
+                android:hint="@string/product_name"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="2dp"
+                app:helperText=""
+                app:helperTextTextColor="#EF5350"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/change_image"
+                app:shapeAppearance="?attr/shapeAppearanceSmallComponent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/productNameEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:text="@={viewModel.productName}"
+                    app:boxStrokeWidth="4dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:shapeAppearance="?attr/shapeAppearanceSmallComponent" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputProductDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:enabled="true"
+                android:hint="@string/product_description"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="2dp"
+                app:helperText=""
+                app:helperTextTextColor="#EF5350"
+                app:layout_constraintEnd_toEndOf="@+id/textInputProductName"
+                app:layout_constraintStart_toStartOf="@+id/textInputProductName"
+                app:layout_constraintTop_toBottomOf="@+id/textInputProductName"
+                app:shapeAppearance="?attr/shapeAppearanceSmallComponent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/productDescriptionEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:text="@={viewModel.productDescription}"
+                    app:boxStrokeWidth="4dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:shapeAppearance="?attr/shapeAppearanceSmallComponent" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/category_label"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="@+id/category_Item_img"
+                app:layout_constraintTop_toBottomOf="@+id/textInputProductDescription" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/category_Item_img"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:adjustViewBounds="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="#002196F3"
+                app:strokeWidth="1dp"
+                tools:background="@color/electronics_category_color"
+                photoUrl="@{category.pathImage}"
+                tools:src="@drawable/img_electronics" />
+
+
+            <TextView
+                android:id="@+id/category_item_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:fontFamily="@font/baloo_tamma_2"
+                android:text="@{category.name}"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/category_Item_img"
+                app:layout_constraintStart_toEndOf="@+id/category_Item_img"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                tools:text="Furniture" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputProductToBarterWith"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:enabled="true"
+                android:hint="@string/a_product_you_want_to_exchange"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="2dp"
+                app:helperText=""
+                app:helperTextTextColor="#EF5350"
+                app:layout_constraintEnd_toEndOf="@+id/textInputProductName"
+                app:layout_constraintStart_toStartOf="@+id/textInputProductName"
+                app:layout_constraintTop_toBottomOf="@+id/category_Item_img"
+                app:shapeAppearance="?attr/shapeAppearanceSmallComponent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/productToBarterWithEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:text="@={viewModel.productToSwap}"
+                    app:boxStrokeWidth="4dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:shapeAppearance="?attr/shapeAppearanceSmallComponent" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/updateBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/update"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{()->viewModel.updateProduct()}"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputProductToBarterWith" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

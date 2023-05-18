@@ -80,6 +80,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         showAlertDialog(getString(R.string.want_exit),getString(R.string.ok),
             { dialog, which ->
                 if(viewModel.isLoggedOut()){
+                    hideBottomAppBar()
                     findNavController().setGraph(R.navigation.nav_graph_authentication)
                     findNavController().navigate(R.id.login)
                 }

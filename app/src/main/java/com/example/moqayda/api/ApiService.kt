@@ -1,7 +1,6 @@
 package com.example.moqayda.api
 
 import com.example.moqayda.models.*
-import com.example.moqayda.models.CategoryItem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -20,9 +19,10 @@ interface ApiService {
         @Part("Descriptions") productDescription: RequestBody?,
         @Part("CategoryId") categoryId: RequestBody?,
         @Part("UserId") userId: RequestBody,
-        @Part file: MultipartBody.Part?
+        @Part("ProductToSwap") productToSwap: RequestBody,
+        @Part file: MultipartBody.Part?,
 
-    ): Response<ResponseBody>
+        ): Response<ResponseBody>
 
     @GET("/api/Category/{id}")
     suspend fun getProductsByCategoryId(@Path("id") categoryId:Int?):Response<CategoryItem>
@@ -134,6 +134,23 @@ interface ApiService {
 
     @DELETE("/api/ProductOwner/{id}")
     suspend fun deleteProductOwner(@Path("id") id:Int) : Response<ResponseBody>
+
+
+
+
+    @Multipart
+    @PUT("/api/Product/{id}")
+    suspend fun updateProduct(
+        @Path("id") id: String,
+        @Part("Id") Id: RequestBody?,
+        @Part("Name") productName: RequestBody?,
+        @Part("Descriptions") productDescription: RequestBody?,
+        @Part("CategoryId") categoryId: RequestBody?,
+        @Part("ProductBackgroundColor") ProductBackgroundColor:RequestBody?,
+        @Part("ProductToSwap") productToSwap: RequestBody?,
+        @Part image: MultipartBody.Part?
+    ): Response<ResponseBody>
+
 
 
 }
