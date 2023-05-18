@@ -30,6 +30,9 @@ interface ApiService {
     @GET("/api/Product/{id}")
     suspend fun getProductById(@Path("id") productId:Int?):Response<Product>
 
+    @GET("/api/PrivateItem")
+    suspend fun getAllPrivateProducts():PrivateResponse
+
     @Multipart
     @POST("/api/Wishlist")
     suspend fun addProductToFavorite(

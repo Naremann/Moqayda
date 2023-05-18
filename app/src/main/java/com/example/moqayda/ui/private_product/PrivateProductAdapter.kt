@@ -10,11 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.databinding.PrivateProductItemBinding
-import com.example.moqayda.models.PrivateItem
-import com.example.moqayda.models.UserPrivateItemViewModelsItem
+import com.example.moqayda.models.PrivateProduct
 import com.github.chrisbanes.photoview.PhotoViewAttacher
 
-class PrivateProductAdapter(var productList: List<UserPrivateItemViewModelsItem?>? = mutableListOf(),var privateProductsFragment: PrivateProductsFragment):
+class PrivateProductAdapter(var productList: List<PrivateProduct?>? = mutableListOf(),var privateProductsFragment: PrivateProductsFragment):
     RecyclerView.Adapter<PrivateProductAdapter.PrivateProductViewHolder>(){
 
 
@@ -24,7 +23,7 @@ class PrivateProductAdapter(var productList: List<UserPrivateItemViewModelsItem?
         RecyclerView.ViewHolder(viewBinding.root) {
         var isVisibleSwapLinear=viewBinding.linearSwap
         val productImage=viewBinding.productImage
-        fun bind(product: UserPrivateItemViewModelsItem) {
+        fun bind(product: PrivateProduct) {
 
             viewBinding.product = product
 
@@ -78,9 +77,9 @@ class PrivateProductAdapter(var productList: List<UserPrivateItemViewModelsItem?
         photoViewAttacher.update()
     }
 
-    private fun startFullImageScreen(holder: PrivateProductViewHolder, product: UserPrivateItemViewModelsItem?) {
+    private fun startFullImageScreen(holder: PrivateProductViewHolder, product: PrivateProduct?) {
         val intent = Intent(holder.itemView.context, ImageViewerActivity::class.java)
-        intent.putExtra("image_url",product?.privateItemName)
+        intent.putExtra("image_url",product?.name)
         holder.itemView.context.startActivity(intent)
     }
 
@@ -88,13 +87,13 @@ class PrivateProductAdapter(var productList: List<UserPrivateItemViewModelsItem?
         return productList?.size ?: 0
     }
 
-    fun changeData(products: List<UserPrivateItemViewModelsItem?>?){
+    fun changeData(products: List<PrivateProduct?>?){
         productList=products
 
     }
 
     interface OnSwapLinearClickListener {
-        fun onSwapLinearClick(privateProductItem: UserPrivateItemViewModelsItem?)
+        fun onSwapLinearClick(privateProductItem: PrivateProduct?)
     }
 
 
