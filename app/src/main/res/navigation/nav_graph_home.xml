@@ -56,6 +56,7 @@
         <action
             android:id="@+id/action_profileFragment_to_swapOffersFragment"
             app:destination="@id/swapPrivateOffersFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/productsListFragment"
@@ -75,10 +76,13 @@
         android:id="@+id/addProductFragment"
         android:name="com.example.moqayda.ui.addProduct.AddProductFragment"
         android:label="AddProductFragment"
-        tools:layout="@layout/fragment_add_product" >
+        tools:layout="@layout/fragment_add_product">
         <argument
             android:name="selectedCategory"
             app:argType="com.example.moqayda.models.CategoryItem" />
+        <action
+            android:id="@+id/action_addProductFragment_to_selectCategoryFragment"
+            app:destination="@id/selectCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectCategoryFragment"
@@ -90,6 +94,17 @@
             app:destination="@id/addProductFragment"
             app:popUpTo="@id/selectCategoryFragment"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="selectedProduct"
+
+            app:argType="com.example.moqayda.models.Product"
+            app:nullable="true" />
+        <argument
+            android:name="isUpdate"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_selectCategoryFragment_to_updateProductFragment"
+            app:destination="@id/updateProductFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
@@ -221,6 +236,10 @@
         <action
             android:id="@+id/action_userPublicItemsFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_userPublicItemsFragment_to_updateProductFragment"
+            app:destination="@id/updateProductFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/swapPublicItemRequestFragment"
@@ -243,11 +262,30 @@
         tools:layout="@layout/fragment_other_user_profile"
         android:id="@+id/otherUserProfileFragment"
         android:name="com.example.moqayda.ui.otherUserProfile.OtherUserProfileFragment"
-        android:label="OtherUserProfileFragment" >
+        android:label="OtherUserProfileFragment">
         <argument
             android:name="selectedUser"
             app:argType="com.example.moqayda.models.AppUser" />
     </fragment>
+    <fragment
+        android:id="@+id/updateProductFragment"
+        android:name="com.example.moqayda.ui.updateProduct.UpdateProductFragment"
+        android:label="UpdateProductFragment"
+        tools:layout="@layout/fragment_update_product">
+        <argument
+            android:name="selectedProduct"
+            app:argType="com.example.moqayda.models.Product"
+
+            />
+        <action
+            android:id="@+id/action_updateProductFragment_to_selectCategoryFragment"
+            app:destination="@id/selectCategoryFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/swapPrivateOffersFragment"
         android:name="com.example.moqayda.ui.swap_private_offers.SwapPrivateOffersFragment"

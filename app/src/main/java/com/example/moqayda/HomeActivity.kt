@@ -61,8 +61,8 @@ class HomeActivity : AppCompatActivity() {
 
         binding.fabButton.setOnClickListener {
             this.findNavController(R.id.home_nav_host_fragment)
-                .navigate(HomeFragmentDirections.actionHomeFragmentToSelectCategoryFragment(null,
-                    false))
+                .navigate(HomeFragmentDirections.actionHomeFragmentToSelectCategoryFragment(null,false
+                    ))
         }
 
     }
