@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.DataUtils
 import com.example.moqayda.R
+import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseViewModel
+import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.models.Product
 import com.example.moqayda.models.ProductOwnerItem
 import com.google.firebase.auth.ktx.auth
@@ -24,6 +26,13 @@ class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
     var product = MutableLiveData<List<Product?>?>()
     var privateProduct:Product?=null
     var productOwnerItemId=MutableLiveData<Int>()
+
+
+
+    private val dataList = mutableListOf<Product>()
+
+
+
 
     init {
         fetchUserPublicItems()
@@ -70,28 +79,43 @@ class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
     }
 
     fun deleteSelectedProduct(product: Product){
-        viewModelScope.launch { 
-            if (product.id != null && product.userId == Firebase.auth.currentUser!!.uid){
-                val response = retrofitService.deleteProduct(product.id)
-                
-                if (response.isSuccessful){
-                    messageLiveData.postValue(ctxReference.get()?.getString(R.string.post_deleted_successfully))
-
-                }else{
-                    Log.e("UserPublicItemViewModel","Failed to delete the product ${response.message()}")
-                    Log.e("UserPublicItemViewModel","${product.id}")
-                    Log.e("UserPublicItemViewModel","${response.body()}")
-                    messageLiveData.postValue(ctxReference.get()?.getString(R.string.filed_to_delete_post))
+        viewModelScope.launch {
+            val selectedProductResponse = retrofitService.getProductById(product.id)
+            if (selectedProductResponse.isSuccessful) {
+                val selectedProduct = selectedProductResponse.body()
+                Log.e("UserPublicItemViewModel","selected product owner ${selectedProduct?.productAndOwnerViewModels}")
+                if (selectedProduct?.productAndOwnerViewModels?.isNotEmpty() == true){
+                    selectedProduct.productAndOwnerViewModels.forEach {
+                        Log.e("UserPublicItemViewModel", selectedProduct.productAndOwnerViewModels.toString())
+                        val deleteProductOwnerResponse = retrofitService.deleteProductOwner(it?.id!!)
+                        if (deleteProductOwnerResponse.isSuccessful) {
+                            Log.e("UserPublicItemViewModel", "Product owner deleted successfully")
+                        } else {
+                            Log.e("UserPublicItemViewModel",
+                                "Failed To delete product owner ${deleteProductOwnerResponse.message()}")
+                        }
+                    }
                 }
-                
-            }else{
-                Log.e("UserPublicItemViewModel","failed to recognize user")
-
+                if (selectedProduct?.id != null && selectedProduct.userId == Firebase.auth.currentUser!!.uid) {
+                    val response = retrofitService.deleteProduct(selectedProduct.id)
+                    if (response.isSuccessful) {
+                        messageLiveData.postValue(ctxReference.get()
+                            ?.getString(R.string.post_deleted_successfully))
+                        fetchUserPublicItems()
+                    } else {
+                        Log.e("UserPublicItemViewModel",
+                            "Failed to delete the product ${response.message()}")
+                        messageLiveData.postValue(ctxReference.get()?.getString(R.string.filed_to_delete_post))
+                    }
+                }else{
+                    Log.e("UserPublicItemViewModel","failed to recognize user")
+                }
+            } else {
+                Log.e("UserPublicItemViewModel",
+                    "Failed To Load selectedProduct ${selectedProductResponse.message()}")
             }
-            
         }
     }
-
 
 
 
@@ -99,10 +123,10 @@ class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
         navigator.onNavigateToProductDetails(product)
     }
 
-    fun updateSelectedProduct(product: Product){
-        
+    fun navigateToUpdateProduct(product: Product,categoryId: Int){
+        navigator.onNavigateTOUpdateProductFragment(product,categoryId)
     }
-    
+
     
 
 }

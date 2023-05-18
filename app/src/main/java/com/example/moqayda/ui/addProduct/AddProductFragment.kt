@@ -20,13 +20,11 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.moqayda.*
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentAddProductBinding
 import com.example.moqayda.models.CategoryItem
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -40,7 +38,6 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
     var auth: FirebaseAuth = Firebase.auth
     private lateinit var permReqLauncher: ActivityResultLauncher<Array<String>>
     private var selectedFile: Uri? = null
-    private lateinit var categoryList: List<CategoryItem>
     private lateinit var selectedCategory: CategoryItem
     private var permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -132,9 +129,6 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
             if (it.isNotEmpty()) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
             }
-        })
-        viewModel.categoryList.observe(viewLifecycleOwner, Observer {
-            categoryList = it
         })
         viewModel.toastMessage.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
@@ -292,6 +286,9 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
     }
 
     override fun onNavigateToSelectCategoryFragment() {
-        findNavController(viewDataBinding.addProductLayout).navigate(R.id.selectCategoryFragment)
+        this.findNavController()
+            .navigate(AddProductFragmentDirections.actionAddProductFragmentToSelectCategoryFragment(
+                null,false
+            ))
     }
 }

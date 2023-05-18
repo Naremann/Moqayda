@@ -9,18 +9,22 @@ import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSelectCategoryBinding
 import com.example.moqayda.models.CategoryItem
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.moqayda.models.Product
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class SelectCategoryFragment :
     BaseFragment<FragmentSelectCategoryBinding, SelectCategoryViewModel>(), Navigator {
-
+    lateinit var selectedProduct: Product
+    var isUpdate by Delegates.notNull<Boolean>()
     private lateinit var adapter: SelectCategoryAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+        isUpdate = SelectCategoryFragmentArgs.fromBundle(requireArguments()).isUpdate
         viewDataBinding.viewModel = viewModel
         viewModel.navigator = this
         observeToLiveData()
@@ -34,7 +38,12 @@ class SelectCategoryFragment :
 
             adapter = data?.let {
                 SelectCategoryAdapter(it, CategoryListener { categoryItem ->
-                    viewModel.navigateToAddProduct(categoryItem)
+                    if (isUpdate) {
+                        selectedProduct = SelectCategoryFragmentArgs.fromBundle(requireArguments()).selectedProduct!!
+                        viewModel.navigateToUpdateProduct(categoryItem.id!!, selectedProduct)
+                    } else {
+                        viewModel.navigateToAddProduct(categoryItem)
+                    }
                 })
 
             }!!
@@ -61,13 +70,22 @@ class SelectCategoryFragment :
     }
 
     override fun onNavigateToAddProductFragment(
-        categoryItem: CategoryItem
+        categoryItem: CategoryItem,
     ) {
         this.findNavController().navigate(
             SelectCategoryFragmentDirections.actionSelectCategoryFragmentToAddProductFragment(
                 categoryItem
             )
         )
+    }
+
+    override fun onNavigateToUpdateProductFragment(categoryId: Int, product: Product) {
+        this.findNavController()
+            .navigate(
+                SelectCategoryFragmentDirections.actionSelectCategoryFragmentToUpdateProductFragment(
+                product,categoryId
+                )
+            )
     }
 
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.DataUtils
+import com.example.moqayda.R
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.convertBitmapToFile
@@ -24,8 +25,10 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import java.lang.ref.WeakReference
 
 class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
+    private val ctxReference: WeakReference<Context> = WeakReference(ctx)
     val user = Firebase.auth.currentUser
     var message = MutableLiveData<String>()
     var toastMessage = MutableLiveData<String>()
@@ -68,16 +71,7 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     fun setImageUri(uri: Uri?) {
         _imageUri.postValue(uri)
     }
-    private fun deleteImage(){
-        if(imageUri.value==null){
-            DataUtils.USER?.id?.let { deleteImageFromFirebaseFirestore(it, {
-                getUser()
-            }, { ex->
-                showLoading.value=false
-                toastMessage.value=ex.localizedMessage
-            }) }
-        }
-    }
+
 
     fun update() {
         showLoading.value = true
@@ -135,9 +129,12 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                 when (result) {
                     is Resource.Success<*> -> {
                         Log.e("ProfileEditingViewModel", "user updated successfully")
+                        messageLiveData.postValue(ctxReference.get()?.getString(R.string.user_updated_successfully))
+
                     }
                     is Resource.Error<*> -> {
                         Log.e("ProfileEditingViewModel", "error: ${result.message}")
+                        messageLiveData.postValue(ctxReference.get()?.getString(R.string.failed_to_update_user))
                     }
                     else -> {
                     }
@@ -157,12 +154,16 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                         _selectedImageUrl.value
                     )
                 }
+                Log.e("ProfileEditingViewModel",_selectedImageUrl.value!!)
                 when (result) {
                     is Resource.Success<*> -> {
                         Log.e("ProfileEditingViewModel", "user updated successfully")
+                        messageLiveData.postValue(ctxReference.get()?.getString(R.string.user_updated_successfully))
+
                     }
                     is Resource.Error<*> -> {
                         Log.e("ProfileEditingViewModel", "error: ${result.message}")
+                        messageLiveData.postValue(ctxReference.get()?.getString(R.string.failed_to_update_user))
                     }
                     else -> {
                     }
@@ -177,7 +178,7 @@ class ProfileEditingViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         getUserFromFirestore(DataUtils.USER?.id!!, { docSnapshot ->
             DataUtils.USER = docSnapshot.toObject(AppUser::class.java)
             showLoading.value = false
-            message.value = "User updated successfully"
+
         }, { ex ->
             showLoading.value = false
             message.value = ex.localizedMessage

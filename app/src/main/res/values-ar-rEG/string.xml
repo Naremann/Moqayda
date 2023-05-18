@@ -89,6 +89,15 @@
     <string name="delete_post">حذف المنشور</string>
     <string name="post_deleted_successfully">تم حذف المنشور</string>
     <string name="filed_to_delete_post">تعذر حذف المنشور</string>
-
+    <string name="confirmation">تأكيد</string>
+    <string name="remove_product_from_favorite_confirmation">هل أنت متأكد انك تريد ازالة هذا العنصر من القائمة المفضلة؟</string>
+    <string name="remove_product_confirmation">اذا قمت بازالة هذا العنصر فسيتم ازالة العروض المتعلقة به هل تريد ازالته؟</string>
+    <string name="maximum_100_characters">لا يتطلب هذا العنصر اكثر من ١٠٠ حرف</string>
+    <string name="chane_image">تغيير الصورة</string>
+    <string name="product_updated_successfully">تم تعديل المنشور بنجاج</string>
+    <string name="failed_to_update_product">تعذر تعديل المنشور</string>
+    <string name="user_updated_successfully">تم تعديل بيانات المستخدم</string>
+    <string name="failed_to_update_user">تعذر تعديل بيانات المستخدم</string>
+    <string name="update_product_confirmation">هل انت متأكد من تعديل المنشور ؟</string>
 
 </resources>
