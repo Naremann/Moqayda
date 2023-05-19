@@ -4,16 +4,26 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moqayda.DataUtils
 import com.example.moqayda.R
+import com.example.moqayda.api.RetrofitBuilder
+import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSwapPrivateOffersBinding
+import com.example.moqayda.models.PrivateProductOwnerByIdResponse
+import com.example.moqayda.models.Product
+import com.example.moqayda.ui.products.ProductAdapter
+import kotlinx.coroutines.launch
 
-class SwapPrivateOffersFragment : BaseFragment<FragmentSwapPrivateOffersBinding,SwapPrivateOffersViewModel>() {
-    var adapter = SwapPrivateOffersAdapter()
+class SwapPrivateOffersFragment : BaseFragment<FragmentSwapPrivateOffersBinding,SwapPrivateOffersViewModel>(),Navigator {
+    var adapter = SwapPrivateOffersAdapter(swapPrivateOffersFragment = this)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.navigator=this
         observeToLiveData()
         initRecycler()
 
@@ -40,8 +50,31 @@ class SwapPrivateOffersFragment : BaseFragment<FragmentSwapPrivateOffersBinding,
             RecyclerView.VERTICAL,true)
         viewDataBinding.recyclerView.layoutManager=layoutManager
         viewDataBinding.recyclerView.adapter = adapter
+        adapter.onItemClickListener=object :
+            SwapPrivateOffersAdapter.OnItemClickListener {
+            override fun onItemClick(swapPrivateOffers: PrivateProductOwnerByIdResponse) {
+            }
+
+        }
 
     }
+
+    fun swapOffersDetails(){
+        val userId=DataUtils.USER?.id
+        lifecycleScope.launch {
+            val response = retrofitService.getSwapOffersBuUserId(userId).userPrivateOffersViewModels
+            try {
+                response?.forEach {userPrivateOffers->
+                    val receiverProductId = userPrivateOffers?.productId
+                }
+            }
+            catch (ex:Exception){
+
+            }
+        }
+    }
+
+
     override fun getViews(): View {
         return viewDataBinding.root
     }
@@ -52,6 +85,10 @@ class SwapPrivateOffersFragment : BaseFragment<FragmentSwapPrivateOffersBinding,
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_swap_private_offers
+    }
+
+    override fun navigateToSwapOfferDetailsFragment(productId: Int, privateItemId: Int) {
+        findNavController().navigate(SwapPrivateOffersFragmentDirections.actionSwapPrivateOffersFragmentToSwapPrivateOffersDetailsFragment(productId,privateItemId))
     }
 
 }

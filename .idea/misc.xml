@@ -23,6 +23,7 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/btn_gmail.xml" value="0.173" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/google_btn_background.xml" value="0.126" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/gradient_spinner.xml" value="0.139" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/hyperlink_underline.xml" value="0.1485" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/product_background.xml" value="0.14" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/rounded_btn.xml" value="0.173" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/drawable/rounded_image.xml" value="0.1035" />
@@ -65,6 +66,7 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_offers.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_private_item_request.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_private_offers.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_private_offers_details.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_public_item_request.xml" value="0.13636363636363635" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_request.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swapping_item.xml" value="0.25" />
