@@ -7,6 +7,9 @@
         <variable
             name="swap_private_offers"
             type="com.example.moqayda.models.PrivateProductOwnerByIdResponse" />
+        <variable
+            name="vm"
+            type="com.example.moqayda.ui.swap_private_offers.SwapPrivateOffersViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,6 +42,7 @@
 
                     />
                 <LinearLayout
+                    android:id="@+id/linear_img"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     app:layout_constraintTop_toBottomOf="@id/product_name"
@@ -48,7 +52,7 @@
                     >
 
                     <com.github.chrisbanes.photoview.PhotoView
-
+                        android:id="@+id/product_img"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         app:layout_constraintTop_toBottomOf="@id/product_name"
@@ -58,6 +62,20 @@
                         photoUrl="@{swap_private_offers.pathImage}"
                         />
                 </LinearLayout>
+                    <TextView
+                        android:id="@+id/product_details_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/linear_img"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/details"
+                        android:padding="10dp"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorPrimary"
+                        android:onClick="@{()->vm.navigateToSwapOfferDetailsFragment()}"
+                                               />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

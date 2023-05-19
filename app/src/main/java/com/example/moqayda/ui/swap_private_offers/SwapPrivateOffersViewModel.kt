@@ -14,9 +14,18 @@ class SwapPrivateOffersViewModel:BaseViewModel<Navigator>() {
     var isVisibleProgressBar=MutableLiveData<Boolean>()
     val swapPrivateOffers= MutableLiveData<List<PrivateProductOwnerByIdResponse?>?>()
     val toastMessage=MutableLiveData<String>()
+    var navigator : Navigator?=null
+    var privateProductId:Int=0
+    var productId:Int=0
     init {
         getSwapOfferResponse()
     }
+
+    fun navigateToSwapOfferDetailsFragment(){
+        Log.e("navigateToSwapDetails","productId $productId ,privateItemId $privateProductId")
+        navigator?.navigateToSwapOfferDetailsFragment(productId,privateProductId)
+    }
+
     private fun getSwapOfferResponse(){
         isVisibleProgressBar.value=true
         viewModelScope.launch {
@@ -26,8 +35,11 @@ class SwapPrivateOffersViewModel:BaseViewModel<Navigator>() {
                 Log.e("getSwapOfferResponse","Success $response")
 
                 response?.forEach {userPrivateOffers->
-                    val privateItemId =
-                        retrofitService.getPrivateProductOwnerByProductId(userPrivateOffers?.privateItemOwnerId).privateItemId
+                   productId=userPrivateOffers?.productId!!
+                    val userPrivateOffersResponse =
+                        retrofitService.getPrivateProductOwnerByProductId(userPrivateOffers?.privateItemOwnerId)
+                    val privateItemId = userPrivateOffersResponse.privateItemId
+                    privateProductId=privateItemId!!
 
 
                     try {
