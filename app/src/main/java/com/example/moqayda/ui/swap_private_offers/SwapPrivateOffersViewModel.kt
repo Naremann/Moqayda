@@ -6,39 +6,55 @@ import androidx.lifecycle.viewModelScope
 import com.example.moqayda.DataUtils
 import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.PrivateProductOwnerByIdResponse
+import com.example.moqayda.models.*
 import kotlinx.coroutines.launch
 
 class SwapPrivateOffersViewModel:BaseViewModel<Navigator>() {
     val userId = DataUtils.USER?.id
-    val swapPrivateOffers= MutableLiveData<List<PrivateProductOwnerByIdResponse>>()
+    var isVisibleProgressBar=MutableLiveData<Boolean>()
+    val swapPrivateOffers= MutableLiveData<List<PrivateProductOwnerByIdResponse?>?>()
+    val toastMessage=MutableLiveData<String>()
     init {
         getSwapOfferResponse()
     }
     private fun getSwapOfferResponse(){
+        isVisibleProgressBar.value=true
         viewModelScope.launch {
             val response = retrofitService.getSwapOffersBuUserId(userId).userPrivateOffersViewModels
             try {
-                val allSwapPrivateOffersResponse:MutableList<PrivateProductOwnerByIdResponse> = mutableListOf()
+                val swapOffersOfPrivateItems:MutableList<PrivateProductOwnerByIdResponse> = mutableListOf()
+                Log.e("getSwapOfferResponse","Success $response")
 
                 response?.forEach {userPrivateOffers->
-                    val swapPrivateOffersResponse =  retrofitService.
-                    getPrivateProductOwnerByProductId(userPrivateOffers?.privateItemOwnerId)//This is supposed to be a PrivateItemId instead of  privateItemOwnerId
-                    allSwapPrivateOffersResponse.add(swapPrivateOffersResponse)
+                    val privateItemId =
+                        retrofitService.getPrivateProductOwnerByProductId(userPrivateOffers?.privateItemOwnerId).privateItemId
+
 
                     try {
-                        Log.e("getSwapPrivateOffers","Success $allSwapPrivateOffersResponse")
+                       val swapOffers= retrofitService.getPrivateProductByItemId(privateItemId)
+                        isVisibleProgressBar.value=false
+                        try {
+                            Log.e("privateItemAndOwner","Success")
+                            swapOffersOfPrivateItems.add(swapOffers)
+                        }
+                        catch (ex:Exception){
+                            toastMessage.value="Fail ${ex.localizedMessage}"
+                            Log.e("swapOffers","Fail ${ex.localizedMessage}")
+                        }
+
+
                     }
                     catch (ex:Exception){
-                        Log.e("getSwapPrivateOffers","Fail $ex.localizedMessage")
+                        toastMessage.value="something went wrong,Try again"
+                        Log.e("privateItemAndOwner","Fail ${ex.localizedMessage}")
                     }
 
-
                 }
-                swapPrivateOffers.value= allSwapPrivateOffersResponse
-                Log.e("getSwapOfferResponse","Success $response")
+                swapPrivateOffers.value=swapOffersOfPrivateItems
+
             }
             catch (ex:Exception){
+                toastMessage.value="something went wrong,Try again"
                 Log.e("getSwapOfferResponse","Fail ${ex.localizedMessage}")
             }
         }

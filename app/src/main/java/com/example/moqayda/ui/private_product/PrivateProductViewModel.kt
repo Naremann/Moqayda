@@ -17,41 +17,24 @@ class PrivateProductViewModel: BaseViewModel<Navigator>() {
     var navigator:Navigator?=null
     var privateProduct = MutableLiveData<List<PrivateProduct?>?>()
     init {
-       // fetchPrivateProducts()
         fetchUserPrivateProducts()
     }
 
     fun navigateToAddPrivateProduct(){
         navigator?.navigateToAddPrivateProduct()
     }
-    /*fun addPrivateItemOwner(productId:Int){
-        val userId = DataUtils.USER?.id
-        val privateOwnerItem = ProductOwnerItem(id=0,productId,userId!!)
-        viewModelScope.launch {
-            val response = retrofitService.addPrivateItemOwner(privateOwnerItem)
-            try {
-                if(response.isSuccessful){
-                    Log.e("addPrivateItemOwner","Success ${response.body()}")
-                }
-            }
-            catch (ex:Exception){
-                Log.e("addPrivateItemOwner","Fail ${ex.localizedMessage}")
-
-            }
-        }
-    }*/
 
     private fun fetchUserPrivateProducts(){
-        var allPrivateItems:MutableList<PrivateProduct> = mutableListOf()
+        isVisibleProgress.value=true
+        val allPrivateItems:MutableList<PrivateProduct> = mutableListOf()
         viewModelScope.launch {
-            val response = retrofitService.getAllPrivateProducts().privateResponse
+            val response = retrofitService.getAllPrivateProducts().body()
+            isVisibleProgress.value=false
             try {
                 Log.e("fetchUserPrivate","Success")
                 response?.forEach { privateItemResponse->
-                    if(privateItemResponse?.userId==userId){
-                        if (privateItemResponse != null) {
-                            allPrivateItems.add(privateItemResponse)
-                        }
+                    if(privateItemResponse.userId==userId){
+                        allPrivateItems.add(privateItemResponse)
                     }
 
                 }

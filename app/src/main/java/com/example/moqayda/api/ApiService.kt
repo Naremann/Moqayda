@@ -31,7 +31,7 @@ interface ApiService {
     suspend fun getProductById(@Path("id") productId:Int?):Response<Product>
 
     @GET("/api/PrivateItem")
-    suspend fun getAllPrivateProducts():PrivateResponse
+    suspend fun getAllPrivateProducts():Response<PrivateItemsResponse>
 
     @Multipart
     @POST("/api/Wishlist")
@@ -121,11 +121,16 @@ interface ApiService {
         @Path("id") userId:String?
     ):SwapResponse
 
+    @GET("/api/PrivateItem/{id}")
+    suspend fun getPrivateProductByItemId(
+        @Path("id") privateItemId:Int?
+    ):PrivateProductOwnerByIdResponse
+
 
     @GET("/api/PrivateItemOwner/{id}")
     suspend fun getPrivateProductOwnerByProductId(
         @Path("id") productId:Int?
-    ):PrivateProductOwnerByIdResponse
+    ):PrivateItemOwnerByIDResponse
 
     @POST("/api/PrivateItemOwner")
     suspend fun addPrivateItemOwner(

@@ -2,7 +2,7 @@ package com.example.moqayda.models
 
 import com.google.gson.annotations.SerializedName
 
-/*data class PrivateProductOwnerByIdResponse(
+data class PrivateProductOwnerByIdResponse(
 
 	@field:SerializedName("pathImage")
 	val pathImage: String? = null,
@@ -34,4 +34,3 @@ data class PrivateItemAndOwnerViewModelsItems(
 	@field:SerializedName("userId")
 	val userId: String? = null
 )
-*/

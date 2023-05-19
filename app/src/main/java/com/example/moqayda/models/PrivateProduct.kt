@@ -12,7 +12,7 @@ data class PrivateProduct(
     val pathImage: String?=null,
     val userId: String?=null
 ) : Parcelable
-
+class PrivateItemsResponse:ArrayList<PrivateProduct>()
 data class PrivateResponse(
 
     @field:SerializedName("PrivateResponse")
