@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/swap_private_offers_item"
+            tools:listitem="@layout/swap_public_offers_item"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
