@@ -50,28 +50,8 @@ class SwapPrivateOffersFragment : BaseFragment<FragmentSwapPrivateOffersBinding,
             RecyclerView.VERTICAL,true)
         viewDataBinding.recyclerView.layoutManager=layoutManager
         viewDataBinding.recyclerView.adapter = adapter
-        adapter.onItemClickListener=object :
-            SwapPrivateOffersAdapter.OnItemClickListener {
-            override fun onItemClick(swapPrivateOffers: PrivateProductOwnerByIdResponse) {
-            }
 
-        }
 
-    }
-
-    fun swapOffersDetails(){
-        val userId=DataUtils.USER?.id
-        lifecycleScope.launch {
-            val response = retrofitService.getSwapOffersBuUserId(userId).userPrivateOffersViewModels
-            try {
-                response?.forEach {userPrivateOffers->
-                    val receiverProductId = userPrivateOffers?.productId
-                }
-            }
-            catch (ex:Exception){
-
-            }
-        }
     }
 
 

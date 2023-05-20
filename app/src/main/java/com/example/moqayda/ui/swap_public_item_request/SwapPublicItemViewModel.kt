@@ -11,15 +11,13 @@ import com.example.moqayda.models.SwapPublicItem
 import kotlinx.coroutines.launch
 
 class SwapPublicItemViewModel:BaseViewModel<Navigator>() {
-    var requestSenderProduct : PrivateProduct?=null
+    var requestSenderProduct : Product?=null
     var product : Product?=null
     var productOwnerId : Int?=null
 
     fun sendSwapRequestOfPublicItem(){
         showLoading.value=true
-
-        val userId = DataUtils.USER?.id
-        val swapPublicItem = SwapPublicItem(id = 0,productId = product?.id!!,userId=userId!!,
+        val swapPublicItem = SwapPublicItem(id = 0,productId = product?.id!!,userId=product?.userId!!,
             productOwnerId = productOwnerId!!)
         viewModelScope.launch {
             Log.e("sendRequestToSwap","productId ${product?.id}  requestSenderProduct $productOwnerId")

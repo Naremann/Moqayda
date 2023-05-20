@@ -20,7 +20,7 @@ import java.lang.ref.WeakReference
 
 class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
     private val ctxReference: WeakReference<Context> = WeakReference(ctx)
-
+    val userId = DataUtils.USER?.id
     lateinit var navigator: Navigator
     var isVisibleProgress = MutableLiveData<Boolean>()
     var product = MutableLiveData<List<Product?>?>()
@@ -39,10 +39,10 @@ class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
 
     }
 
-     fun addProductOwner(privateProductId:Int){
+     fun addProductOwner(ProductId:Int){
         Log.e("addProductOwner","privateProduct?.id!! $privateProduct?.id!!")
-        val userId = DataUtils.USER?.id
-        val productOwnerItem=ProductOwnerItem(0,privateProductId,userId!!)
+
+        val productOwnerItem=ProductOwnerItem(0,ProductId,userId!!)
         viewModelScope.launch {
             val response = retrofitService.addProductOwner(productOwnerItem)
             try {
