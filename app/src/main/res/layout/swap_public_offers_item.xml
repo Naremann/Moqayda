@@ -7,9 +7,6 @@
         <variable
             name="swap_public_offers"
             type="com.example.moqayda.models.Product" />
-        <variable
-            name="vm"
-            type="com.example.moqayda.ui.swa_public_offers.SwapOffersOfPublicItemsViewModel" />
 
     </data>
 
@@ -74,7 +71,6 @@
                     android:textSize="25sp"
                     android:textStyle="bold"
                     android:textColor="?attr/colorPrimary"
-                    android:onClick="@{()->vm.navigateToSwapPublicOffersDetailsFragment()}"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

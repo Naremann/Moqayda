@@ -105,4 +105,5 @@
     <string name="details"><u>تفاصيل</u></string>
     <string name="my_product">"منتجي"</string>
     <string name="swap_offers_public">عروض المبادلة للعناصر العامة </string>
+    <string name="delete_item">حذف العنصر</string>
 </resources>
