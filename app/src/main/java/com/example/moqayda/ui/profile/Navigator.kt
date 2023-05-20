@@ -10,5 +10,6 @@ interface Navigator {
     fun navigateToPrivateProducts()
     fun navigateToUserPublicProducts()
     fun navigateToSwapPrivateOffersFragment()
+    fun navigateToSwapPublicOffersFragment()
 
 }

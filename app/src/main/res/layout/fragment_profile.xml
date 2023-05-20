@@ -312,7 +312,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:weightSum="2"
-                            android:onClick="@{()->vm.navigateToSwapPrivateOffersFragment()}"
+                            android:onClick="@{()->vm.navigateToSwapPublicOffersFragment()}"
                             >
 
                             <ImageView
