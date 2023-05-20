@@ -64,7 +64,8 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_setting.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_splash_screen.xml" value="0.33" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_offers.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_private_item_request.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_offers_of_public_items.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_private_item_request.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_private_offers.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_private_offers_details.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/fragment_swap_public_item_request.xml" value="0.13636363636363635" />
@@ -78,7 +79,8 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/notification.xml" value="0.33" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/private_product_item.xml" value="0.22" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/product_item.xml" value="0.3" />
-        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/swap_private_offers_item.xml" value="0.25" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/swap_private_offers_item.xml" value="0.1" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/swap_public_offers_item.xml" value="0.1" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/test.xml" value="0.1824074074074074" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/user_products_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/user_public__product_item.xml" value="0.18" />

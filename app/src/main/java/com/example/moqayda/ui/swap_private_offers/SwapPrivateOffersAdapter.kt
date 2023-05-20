@@ -12,7 +12,6 @@ import com.example.moqayda.models.PrivateProductOwnerByIdResponse
 
 class SwapPrivateOffersAdapter(var swapPrivateOffers: List<PrivateProductOwnerByIdResponse?>?= mutableListOf(),var swapPrivateOffersFragment: SwapPrivateOffersFragment) : RecyclerView.Adapter<SwapPrivateOffersAdapter.SwapPrivateOffersViewHolder>() {
 
-    lateinit var onItemClickListener:SwapPrivateOffersAdapter.OnItemClickListener
 
       class SwapPrivateOffersViewHolder(var viewBinding: SwapPrivateOffersItemBinding) : RecyclerView.ViewHolder(viewBinding.root) {
          fun bind(swapPrivateOffers: PrivateProductOwnerByIdResponse,swapPrivateOffersFragment: SwapPrivateOffersFragment) {
@@ -31,9 +30,7 @@ class SwapPrivateOffersAdapter(var swapPrivateOffers: List<PrivateProductOwnerBy
     override fun onBindViewHolder(holder: SwapPrivateOffersViewHolder, position: Int) {
         val swapPrivateOffers = swapPrivateOffers?.get(position)
         holder.bind(swapPrivateOffers!!,swapPrivateOffersFragment)
-        holder.itemView.setOnClickListener {
-            onItemClickListener.onItemClick(swapPrivateOffers)
-        }
+
     }
 
     override fun getItemCount(): Int {
@@ -44,9 +41,7 @@ class SwapPrivateOffersAdapter(var swapPrivateOffers: List<PrivateProductOwnerBy
 
     }
 
-    interface OnItemClickListener{
-        fun onItemClick(swapPrivateOffers: PrivateProductOwnerByIdResponse)
-    }
+
 
 
 }
