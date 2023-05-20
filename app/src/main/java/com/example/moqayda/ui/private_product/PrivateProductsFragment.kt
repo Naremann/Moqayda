@@ -105,10 +105,12 @@ class PrivateProductsFragment :
         }
     }
     fun addPrivateItemOwner(productId:Int){
+        showProgressDialog()
         val userId = DataUtils.USER?.id
         val privateOwnerItem = PrivateProductOwnerResponse(id=0, privateItemId = productId, userId = userId!!)
         lifecycleScope.launch {
             val response = retrofitService.addPrivateItemOwner(privateOwnerItem)
+            hideProgressDialog()
             try {
                 if(response.isSuccessful){
                     Log.e("addPrivateItemOwner","Success ${response.body()}")

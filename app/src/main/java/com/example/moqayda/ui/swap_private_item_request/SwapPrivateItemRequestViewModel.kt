@@ -30,9 +30,12 @@ class SwapPrivateItemRequestViewModel:BaseViewModel<Navigator>() {
                     Log.e("sendRequestToSwap","productId ${product?.id}  privateItemId $privateItemId")
                     Log.e("sendRequestToSwap()","Success")
                 }
+                else{
+                    messageLiveData.value="Error, you have already sent a request for this item"
+                }
 
             }catch (ex:Exception){
-                messageLiveData.value="Error , Try again"
+                messageLiveData.value="Error ,${ex.localizedMessage}"
                 Log.e("sendRequestToSwap()","Fail ${ex.localizedMessage}")
             }
         }

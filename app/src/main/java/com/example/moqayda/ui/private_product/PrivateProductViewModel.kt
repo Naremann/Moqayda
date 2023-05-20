@@ -49,24 +49,6 @@ class PrivateProductViewModel: BaseViewModel<Navigator>() {
         }
     }
 
-    /*private fun fetchPrivateProducts() {
-
-        viewModelScope.launch {
-            isVisibleProgress.value = true
-
-            val userId = DataUtils.USER?.id
-            Log.e("ProductViewModelLog", "fetchProductsData: $userId")
-            val result=retrofitService.getPrivateProductByUserId(userId)
-            isVisibleProgress.value = false
-            try {
-                privateProduct.value=result.userPrivateItemViewModels
-                Log.e("success","response$result")
-            }catch (ex:Exception){
-                messageLiveData.value=ex.localizedMessage
-                Log.e("ex","error"+ex.localizedMessage)
-            }
-        }
-    }*/
 
 
 
