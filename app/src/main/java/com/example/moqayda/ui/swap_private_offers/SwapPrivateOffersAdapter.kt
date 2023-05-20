@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.databinding.SwapPrivateOffersItemBinding
 import com.example.moqayda.models.PrivateProductOwnerByIdResponse
+import com.example.moqayda.ui.swa_public_offers.SwapPublicOffersAdapter
 
 class SwapPrivateOffersAdapter(var swapPrivateOffers: List<PrivateProductOwnerByIdResponse?>?= mutableListOf(),var swapPrivateOffersFragment: SwapPrivateOffersFragment) : RecyclerView.Adapter<SwapPrivateOffersAdapter.SwapPrivateOffersViewHolder>() {
 
-
+    lateinit var onDetailsClickListener: OnDetailsClickListener
       class SwapPrivateOffersViewHolder(var viewBinding: SwapPrivateOffersItemBinding) : RecyclerView.ViewHolder(viewBinding.root) {
          fun bind(swapPrivateOffers: PrivateProductOwnerByIdResponse,swapPrivateOffersFragment: SwapPrivateOffersFragment) {
-             viewBinding.vm= ViewModelProvider(swapPrivateOffersFragment)[SwapPrivateOffersViewModel::class.java]
            viewBinding.swapPrivateOffers=swapPrivateOffers
             viewBinding.invalidateAll()
         }
@@ -30,6 +30,9 @@ class SwapPrivateOffersAdapter(var swapPrivateOffers: List<PrivateProductOwnerBy
     override fun onBindViewHolder(holder: SwapPrivateOffersViewHolder, position: Int) {
         val swapPrivateOffers = swapPrivateOffers?.get(position)
         holder.bind(swapPrivateOffers!!,swapPrivateOffersFragment)
+        holder.viewBinding.productDetailsTv.setOnClickListener {
+            onDetailsClickListener.onItemClick(swapPrivateOffers.id!!,swapPrivateOffersFragment.viewModel.productId)
+        }
 
     }
 
@@ -39,6 +42,10 @@ class SwapPrivateOffersAdapter(var swapPrivateOffers: List<PrivateProductOwnerBy
     fun changeData(swapPrivateOffersList: List<PrivateProductOwnerByIdResponse?>?) {
         swapPrivateOffers = swapPrivateOffersList
 
+    }
+
+    interface OnDetailsClickListener{
+        fun onItemClick(senderProductId:Int,receiverProductId:Int)
     }
 
 

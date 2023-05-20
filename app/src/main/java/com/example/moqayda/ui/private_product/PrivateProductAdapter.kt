@@ -4,6 +4,8 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -19,8 +21,10 @@ class PrivateProductAdapter(var productList: List<PrivateProduct?>? = mutableLis
 
     lateinit var onSwapLinearClickListener: OnSwapLinearClickListener
 
-    class PrivateProductViewHolder(private val viewBinding: PrivateProductItemBinding) :
+    inner class PrivateProductViewHolder(private val viewBinding: PrivateProductItemBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
+        val dotMenu = viewBinding.dotMenu
+        val popupMenu = PopupMenu(privateProductsFragment.requireContext(), dotMenu)
         var isVisibleSwapLinear=viewBinding.linearSwap
         val productImage=viewBinding.productImage
         fun bind(product: PrivateProduct) {
@@ -46,6 +50,37 @@ class PrivateProductAdapter(var productList: List<PrivateProduct?>? = mutableLis
         val product = productList?.get(position)
         Log.e("product", "$product")
         holder.bind(product!!)
+        val builder = AlertDialog.Builder(privateProductsFragment.requireContext())
+        builder.setTitle(privateProductsFragment.requireContext().getString(R.string.confirmation))
+        builder.setMessage(privateProductsFragment.requireContext().getString(R.string.remove_product_confirmation))
+
+        holder.popupMenu.menuInflater.inflate(R.menu.user_private_product_menu,holder.popupMenu.menu)
+        holder.popupMenu.setOnMenuItemClickListener { menuItem->
+            when (menuItem.itemId){
+
+                R.id.delete_post ->{
+                    builder.setPositiveButton("OK") { dialog, which ->
+                       // userPublicItemViewModel.deleteSelectedProduct(product)
+                    }
+                    builder.setNegativeButton("Cancel") { _, _ ->
+                        // Cancel button clicked
+                    }
+                    val dialog = builder.create()
+                    dialog.show()
+
+                    true
+                }
+                R.id.edit_post -> {
+                    //userPublicItemViewModel.navigateToUpdateProduct(product,product.categoryId!!)
+                    true
+                }
+                else -> false
+            }
+        }
+        holder.dotMenu.setOnClickListener {
+            holder.popupMenu.show()
+        }
+
 
 
         holder.productImage.setOnClickListener {
@@ -54,9 +89,7 @@ class PrivateProductAdapter(var productList: List<PrivateProduct?>? = mutableLis
         if(holder.productImage.isClickable){
             makeImageZoomable(holder)
         }
-        holder.itemView.setOnClickListener {
-            onSwapLinearClickListener.onSwapLinearClick(product)
-        }
+
 
        holder.isVisibleSwapLinear.isVisible = PrivateProductsFragmentArgs.fromBundle(privateProductsFragment.requireArguments())
            .isVisible

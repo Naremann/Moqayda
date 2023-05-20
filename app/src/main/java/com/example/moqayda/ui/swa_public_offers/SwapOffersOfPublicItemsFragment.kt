@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSwapOffersOfPublicItemsBinding
-import com.example.moqayda.ui.swap_private_offers.SwapPrivateOffersAdapter
 
 class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicItemsBinding,SwapOffersOfPublicItemsViewModel>(),Navigator {
     var adapter = SwapPublicOffersAdapter(swapPublicOffersFragment = this)
@@ -23,8 +22,8 @@ class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicI
 
     }
     private fun observeToLiveData() {
-        viewModel.swappublicOffers.observe(viewLifecycleOwner){ swappublicOffers->
-            adapter.changeData(swappublicOffers)
+        viewModel.swappublicOffers.observe(viewLifecycleOwner){ swapPublicOffers->
+            adapter.changeData(swapPublicOffers)
             adapter.notifyDataSetChanged()
         }
 
@@ -44,6 +43,12 @@ class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicI
             RecyclerView.VERTICAL,true)
         viewDataBinding.recyclerView.layoutManager=layoutManager
         viewDataBinding.recyclerView.adapter = adapter
+        adapter.onDetailsClickListener=object:SwapPublicOffersAdapter.OnDetailsClickListener{
+            override fun onItemClick(senderProductId: Int, receiverProductId: Int) {
+                navigateToSwapPublicOffersDetailsFragment(senderProductId,receiverProductId)
+            }
+
+        }
 
 
     }
@@ -59,10 +64,8 @@ class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicI
         return R.layout.fragment_swap_offers_of_public_items
     }
 
-    override fun navigateToSwapPublicOffersDetailsFragment(
-        receiverProductId: Int,
-        senderProductId: Int
-    ) {
+     fun navigateToSwapPublicOffersDetailsFragment(senderProductId:Int,receiverProductId:Int)
+     {
         findNavController().navigate(SwapOffersOfPublicItemsFragmentDirections.actionSwapOffersOfPublicItemsFragmentToSwapPublicOffersDetailsFragment(senderProductId,receiverProductId))
     }
 

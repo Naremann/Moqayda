@@ -137,6 +137,15 @@
 
 
                 />
+            <ImageView
+                android:id="@+id/dot_menu"
+                android:layout_width="@dimen/_10sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="14dp"
+                android:src="@drawable/ic_dotmenu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
