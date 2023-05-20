@@ -44,7 +44,6 @@ class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapPrivateItemReque
 
             }
             catch (ex:Exception){
-                showToastMessage(ex.localizedMessage)
                 Log.e("getProductOwner","Fail ${ex.localizedMessage}")
             }
         }

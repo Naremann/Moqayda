@@ -32,12 +32,13 @@ class SwapPublicItemViewModel:BaseViewModel<Navigator>() {
                     messageLiveData.value = "Request is sent"
                 }
                 else{
+                    messageLiveData.value="Error, you have already sent a request for this item"
                     Log.e("sendRequestToSwap()", "Error")
                 }
 
 
         }catch (ex:Exception){
-                messageLiveData.value="Error , Try again"
+                messageLiveData.value="Error, ${ex.localizedMessage}"
                 Log.e("sendRequestToSwap()","Fail ${ex.localizedMessage}")
             }
 
