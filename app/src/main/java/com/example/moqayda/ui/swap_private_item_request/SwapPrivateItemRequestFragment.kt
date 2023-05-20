@@ -29,8 +29,10 @@ class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapPrivateItemReque
     }
 
     private fun getProductOwnerByProductId(privateItemId:Int){
+        showProgressDialog()
         lifecycleScope.launch {
            val response= retrofitService.getPrivateProductByItemId(privateItemId).privateItemAndOwnerViewModels
+            hideProgressDialog()
 
             try {
                 response?.forEach { privateItemAndOwnerViewModels->
@@ -40,10 +42,9 @@ class SwapPrivateItemRequestFragment : BaseFragment<FragmentSwapPrivateItemReque
 
                 }
 
-
-
             }
             catch (ex:Exception){
+                showToastMessage(ex.localizedMessage)
                 Log.e("getProductOwner","Fail ${ex.localizedMessage}")
             }
         }
