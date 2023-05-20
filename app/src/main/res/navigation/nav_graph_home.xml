@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_profileFragment_to_swapOffersFragment"
             app:destination="@id/swapPrivateOffersFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_swapOffersOfPublicItemsFragment"
+            app:destination="@id/swapOffersOfPublicItemsFragment" />
 
     </fragment>
     <fragment
@@ -248,15 +251,12 @@
         tools:layout="@layout/fragment_swap_public_item_request" >
         <argument
             android:name="senderRequestProduct"
-            app:argType="com.example.moqayda.models.PrivateProduct"
+            app:argType="com.example.moqayda.models.Product"
             app:nullable="true" />
         <argument
             android:name="product"
             app:argType="com.example.moqayda.models.Product"
             app:nullable="true" />
-        <argument
-            android:name="productOwnerId"
-            app:argType="integer" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_other_user_profile"
@@ -313,5 +313,10 @@
             android:name="privateItemId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/swapOffersOfPublicItemsFragment"
+        android:name="com.example.moqayda.ui.swa_public_offers.SwapOffersOfPublicItemsFragment"
+        android:label="fragment_swap_offers_of_public_items"
+        tools:layout="@layout/fragment_swap_offers_of_public_items" />
 
 </navigation>

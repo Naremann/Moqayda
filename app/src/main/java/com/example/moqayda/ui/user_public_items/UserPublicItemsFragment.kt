@@ -49,7 +49,7 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
             override fun onSwapLinearClick(ProductItem: Product?) {
                 viewModel.privateProduct=ProductItem
                 viewModel.addProductOwner(ProductItem?.id!!)
-//                navigateToSwapPublicItemRequestFragment(ProductItem)
+                navigateToSwapPublicItemRequestFragment(ProductItem)
             }
 
         }
@@ -59,12 +59,10 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
 
 
 
-    private fun navigateToSwapPublicItemRequestFragment(senderRequestProduct: PrivateProduct) {
+    private fun navigateToSwapPublicItemRequestFragment(senderRequestProduct: Product) {
         val product = UserPublicItemsFragmentArgs.fromBundle(requireArguments()).product
-        val productOwnerId = viewModel.productOwnerItemId.observe(viewLifecycleOwner){productOwnerId->
             findNavController().navigate(UserPublicItemsFragmentDirections
-                .actionUserPublicItemsFragmentToSwapPublicItemRequestFragment(senderRequestProduct,product,productOwnerId))
-        }
+                .actionUserPublicItemsFragmentToSwapPublicItemRequestFragment(senderRequestProduct,product))
 
     }
 

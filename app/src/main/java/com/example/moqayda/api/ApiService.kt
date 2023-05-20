@@ -106,6 +106,8 @@ interface ApiService {
         @Body swapPrivateItem: SwapPrivateItemResponse
     ):Response<ResponseBody>
 
+
+
     @POST("/api/ProdToSwap")
     suspend fun sendSwapRequestOfPublicItem(
         @Body swapPublicItem: SwapPublicItem
@@ -121,6 +123,11 @@ interface ApiService {
         @Path("id") userId:String?
     ):SwapResponse
 
+    @GET("/api/ProdToSwap/{id}")
+    suspend fun getSwapPublicOffersBuUserId(
+        @Path("id") userId:String?
+    ):ProductToSwapByUserIdResponse
+
     @GET("/api/PrivateItem/{id}")
     suspend fun getPrivateProductByItemId(
         @Path("id") privateItemId:Int?
@@ -131,6 +138,12 @@ interface ApiService {
     suspend fun getPrivateProductOwnerByProductId(
         @Path("id") productId:Int?
     ):PrivateItemOwnerByIDResponse
+
+    @GET("/api/ProductOwner/{id}")
+    suspend fun getProductOwnerByProductId(
+        @Path("id") productId:Int?
+    ):ProductOwnerItem
+
 
     @POST("/api/PrivateItemOwner")
     suspend fun addPrivateItemOwner(
