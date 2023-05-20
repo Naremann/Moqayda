@@ -104,4 +104,5 @@
     <string name="details"><u>Details</u></string>
     <string name="my_product">My Product</string>
     <string name="swap_offers_public">Swap Offers Of Public Items</string>
+    <string name="delete_item">Delete Item</string>
 </resources>

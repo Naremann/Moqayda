@@ -23,9 +23,6 @@ class SwapOffersOfPublicItemsViewModel:BaseViewModel<Navigator>() {
         getSwapPublicOfferResponse()
     }
 
-    fun navigateToSwapPublicOffersDetailsFragment(){
-        navigator?.navigateToSwapPublicOffersDetailsFragment(productId,senderProductId)
-    }
 
     private fun getSwapPublicOfferResponse(){
         isVisibleProgressBar.value=true

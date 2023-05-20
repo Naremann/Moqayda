@@ -50,6 +50,12 @@ class SwapPrivateOffersFragment : BaseFragment<FragmentSwapPrivateOffersBinding,
             RecyclerView.VERTICAL,true)
         viewDataBinding.recyclerView.layoutManager=layoutManager
         viewDataBinding.recyclerView.adapter = adapter
+        adapter.onDetailsClickListener=object:SwapPrivateOffersAdapter.OnDetailsClickListener{
+            override fun onItemClick(senderProductId: Int, receiverProductId: Int) {
+                navigateToSwapOfferDetailsFragment(receiverProductId,senderProductId)
+            }
+
+        }
 
 
     }
@@ -67,7 +73,7 @@ class SwapPrivateOffersFragment : BaseFragment<FragmentSwapPrivateOffersBinding,
         return R.layout.fragment_swap_private_offers
     }
 
-    override fun navigateToSwapOfferDetailsFragment(productId: Int, privateItemId: Int) {
+    fun navigateToSwapOfferDetailsFragment(productId: Int, privateItemId: Int) {
         findNavController().navigate(SwapPrivateOffersFragmentDirections.actionSwapPrivateOffersFragmentToSwapPrivateOffersDetailsFragment(productId,privateItemId))
     }
 

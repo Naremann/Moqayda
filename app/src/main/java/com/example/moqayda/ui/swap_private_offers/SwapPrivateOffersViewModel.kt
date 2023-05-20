@@ -21,10 +21,6 @@ class SwapPrivateOffersViewModel:BaseViewModel<Navigator>() {
         getSwapOfferResponse()
     }
 
-    fun navigateToSwapOfferDetailsFragment(){
-        Log.e("navigateToSwapDetails","productId $productId ,privateItemId $privateProductId")
-        navigator?.navigateToSwapOfferDetailsFragment(productId,privateProductId)
-    }
 
     private fun getSwapOfferResponse(){
         isVisibleProgressBar.value=true
