@@ -24,7 +24,7 @@ class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
     lateinit var navigator: Navigator
     var isVisibleProgress = MutableLiveData<Boolean>()
     var product = MutableLiveData<List<Product?>?>()
-    var privateProduct:Product?=null
+    var senderProduct:Product?=null
     var productOwnerItemId=MutableLiveData<Int>()
 
 
@@ -40,7 +40,7 @@ class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
     }
 
      fun addProductOwner(ProductId:Int){
-        Log.e("addProductOwner","privateProduct?.id!! $privateProduct?.id!!")
+        Log.e("addProductOwner","privateProduct?.id!! $senderProduct?.id!!")
 
         val productOwnerItem=ProductOwnerItem(0,ProductId,userId!!)
         viewModelScope.launch {

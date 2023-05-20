@@ -27,7 +27,7 @@ class SwapPublicOffersAdapter(var swapPublicOffers: List<Product?>?= mutableList
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwapPublicOffersViewHolder {
         val viewBinding: SwapPublicOffersItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.swap_private_offers_item,parent,false)
+            R.layout.swap_public_offers_item,parent,false)
         return SwapPublicOffersViewHolder(viewBinding)
     }
 

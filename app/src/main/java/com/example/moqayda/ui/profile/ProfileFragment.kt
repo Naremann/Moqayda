@@ -120,4 +120,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         findNavController().navigate(R.id.swapPrivateOffersFragment)
     }
 
+    override fun navigateToSwapPublicOffersFragment() {
+        findNavController().navigate(R.id.swapOffersOfPublicItemsFragment)
+    }
+
 }

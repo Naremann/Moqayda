@@ -47,7 +47,7 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onSwapLinearClickListener=object:UserPublicItemAdapter.OnSwapLinearClickListener{
             override fun onSwapLinearClick(ProductItem: Product?) {
-                viewModel.privateProduct=ProductItem
+                viewModel.senderProduct=ProductItem
                 viewModel.addProductOwner(ProductItem?.id!!)
                 navigateToSwapPublicItemRequestFragment(ProductItem)
             }
