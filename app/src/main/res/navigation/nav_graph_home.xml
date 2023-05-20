@@ -317,6 +317,22 @@
         android:id="@+id/swapOffersOfPublicItemsFragment"
         android:name="com.example.moqayda.ui.swa_public_offers.SwapOffersOfPublicItemsFragment"
         android:label="fragment_swap_offers_of_public_items"
-        tools:layout="@layout/fragment_swap_offers_of_public_items" />
+        tools:layout="@layout/fragment_swap_offers_of_public_items" >
+        <action
+            android:id="@+id/action_swapOffersOfPublicItemsFragment_to_swapPublicOffersDetailsFragment"
+            app:destination="@id/swapPublicOffersDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/swapPublicOffersDetailsFragment"
+        android:name="com.example.moqayda.ui.swap_public_offers_details.SwapPublicOffersDetailsFragment"
+        android:label="fragment_swap_public_offers_details"
+        tools:layout="@layout/fragment_swap_public_offers_details" >
+        <argument
+            android:name="senderProductId"
+            app:argType="integer" />
+        <argument
+            android:name="receiverProductId"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

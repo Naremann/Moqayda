@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
@@ -56,6 +57,13 @@ class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicI
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_swap_offers_of_public_items
+    }
+
+    override fun navigateToSwapPublicOffersDetailsFragment(
+        receiverProductId: Int,
+        senderProductId: Int
+    ) {
+        findNavController().navigate(SwapOffersOfPublicItemsFragmentDirections.actionSwapOffersOfPublicItemsFragmentToSwapPublicOffersDetailsFragment(senderProductId,receiverProductId))
     }
 
 }
