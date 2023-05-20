@@ -2,16 +2,24 @@ package com.example.moqayda.ui.user_public_items
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.example.moqayda.DataUtils
 import com.example.moqayda.R
+import com.example.moqayda.api.RetrofitBuilder
+import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentUserPublicProductsBinding
 import com.example.moqayda.models.PrivateItem
 import com.example.moqayda.models.PrivateProduct
 import com.example.moqayda.models.Product
+import com.example.moqayda.models.ProductOwnerItem
+import kotlinx.coroutines.launch
 
 
 class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,UserPublicItemViewModel>(),Navigator{
@@ -48,13 +56,34 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
         adapter.onSwapLinearClickListener=object:UserPublicItemAdapter.OnSwapLinearClickListener{
             override fun onSwapLinearClick(ProductItem: Product?) {
                 viewModel.senderProduct=ProductItem
-                viewModel.addProductOwner(ProductItem?.id!!)
+                addProductOwner(ProductItem?.id!!)
                 navigateToSwapPublicItemRequestFragment(ProductItem)
             }
 
         }
 
     }
+    fun addProductOwner(ProductId:Int){
+        val userId = DataUtils.USER?.id
+        showProgressDialog()
+
+        val productOwnerItem= ProductOwnerItem(0,ProductId,userId!!)
+        lifecycleScope.launch {
+            val response = retrofitService.addProductOwner(productOwnerItem)
+            hideProgressDialog()
+            try {
+                if(response.isSuccessful){
+                    Log.e("addProductOwner","Success ${response.body()}")
+                }
+                else
+                    Log.e("addPrivateItemOwner","Fail :Unknown")
+
+            }catch (ex:Exception){
+                Log.e("addProductOwner","Fail ${ex.localizedMessage}")
+            }
+        }
+    }
+
 
 
 

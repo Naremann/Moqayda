@@ -22,18 +22,17 @@ class SwapPublicItemRequestFragment : BaseFragment<FragmentSwapPublicItemRequest
 
     }
     private fun getProductOwnerByProductId(){
+        showProgressDialog()
         val productId = SwapPublicItemRequestFragmentArgs.fromBundle(requireArguments()).senderRequestProduct?.id
         lifecycleScope.launch {
             val response= RetrofitBuilder.retrofitService.getProductById(productId).body()?.productAndOwnerViewModels
-
+            hideProgressDialog()
             try {
                 response?.forEach { productAndOwnerViewModels->
                     viewModel.productOwnerId=productAndOwnerViewModels?.id
                     Log.e("getProductOwner","Success ${productAndOwnerViewModels?.id}")
 
                 }
-
-
 
             }
             catch (ex:Exception){
