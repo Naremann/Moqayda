@@ -39,12 +39,14 @@ class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
 
     }
 
-     fun addProductOwner(ProductId:Int){
+    /* fun addProductOwner(ProductId:Int){
+         showLoading.value=true
         Log.e("addProductOwner","privateProduct?.id!! $senderProduct?.id!!")
 
         val productOwnerItem=ProductOwnerItem(0,ProductId,userId!!)
         viewModelScope.launch {
             val response = retrofitService.addProductOwner(productOwnerItem)
+            showLoading.value=false
             try {
                 if(response.isSuccessful){
                     productOwnerItemId.value=productOwnerItem.id
@@ -54,7 +56,7 @@ class UserPublicItemViewModel( ctx: Context) :BaseViewModel<Navigator>() {
                 Log.e("addProductOwner","Fail ${ex.localizedMessage}")
             }
         }
-    }
+    }*/
 
 
 
