@@ -13,12 +13,15 @@ import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Product
 import com.example.moqayda.models.SwapPublicItem
+import com.example.moqayda.repo.product.ProductRepository
+import com.example.moqayda.repo.product.Resource
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
 class SwapPublicOffersDetailsViewModel(ctx: Context) :BaseViewModel<Navigator>() {
     private val ctxReference: WeakReference<Context> = WeakReference(ctx)
-
+    val productRepository = ProductRepository(ctx)
+    lateinit var navigator: Navigator
     private val _receiverProduct = MutableLiveData<Product>()
     val receiverProduct: LiveData<Product>
         get() = _receiverProduct
@@ -76,9 +79,16 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) :BaseViewModel<Navigator>()
                 dialog, which ->
             viewModelScope.launch {
                 val response = RetrofitBuilder.retrofitService.addPublicBarteredProduct(swapOffer)
-                if (response.isSuccessful){
-                    Log.e("SPublicOffersDetailsVM","Success")
+                if (response.isSuccessful) {
+                    Log.e("SPublicOffersDetailsVM", "Success")
                     messageLiveData.postValue(ctxReference.get()!!.getString(R.string.swap_done))
+
+                    deleteSelectedOffer(receiverProduct.value?.userId!!,
+                        receiverProduct.value!!.id!!,
+                        productOwnerID.get()!!)
+                    makeProductUnAvailable(receiverProduct.value!!)
+                    makeProductUnAvailable(senderProduct.value!!)
+                    navigateToSwapPublicOffers()
                 }else{
                     Log.e("SPublicOffersDetailsVM","Failed : ${response.message()}")
                     messageLiveData.postValue(ctxReference.get()!!.getString(R.string.filure_message))
@@ -95,5 +105,61 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) :BaseViewModel<Navigator>()
 
     }
 
+    private fun navigateToSwapPublicOffers() {
+        navigator.onNavigateToPublicSwapOffersFragment()
+    }
+
+
+    private suspend fun deleteOffer(offerId: Int) {
+
+        val response = RetrofitBuilder.retrofitService.deletePublicOffer(offerId)
+        if (response.isSuccessful) {
+            Log.e("SPublicOffersDetailsVM", "offerDeletedSuccessfully")
+        } else {
+            Log.e("SPublicOffersDetailsVM", "failedToDeleteOffer: ${response.message()}")
+        }
+
+    }
+
+
+    private suspend fun deleteSelectedOffer(userId: String, productId: Int, productOwnerId: Int) {
+        val response = RetrofitBuilder.retrofitService.getSwapPublicOffersBuUserId(userId)
+        if (response.isSuccessful) {
+            Log.e("SPublicOffersDetailsVM", "offers loaded successfully")
+            response.body()?.userProdOffersViewModels?.forEach { productOffer ->
+                if (productOffer?.productId == productId && productOffer.productOwnerId == productOwnerId) {
+                    Log.e("SPublicOffersDetailsVM", "offer founded successfully")
+                    deleteOffer(productOffer.id!!)
+                }else{
+                    Log.e("SPublicOffersDetailsVM", "cannot found offer")
+                }
+            }
+        } else {
+            Log.e("SPublicOffersDetailsVM", "failedToLoadOffers: ${response.message()}")
+        }
+    }
+
+    private suspend fun makeProductUnAvailable(product: Product){
+       val result = productRepository.updateProductWithCurrentImage(
+            product.id.toString(),
+            product.name!!,
+            product.descriptions!!,
+            "false",
+            product.categoryId.toString(),
+            "0",
+            product.productToSwap!!,
+            product.pathImage
+        )
+        when (result) {
+            is Resource.Success<*> -> {
+                Log.e("SPublicOffersDetailsVM", "Product updated successfully")
+
+            }
+            is Resource.Error<*> -> {
+                Log.e("SPublicOffersDetailsVM", "error: ${result.message}")
+
+            }
+        }
+    }
 
 }

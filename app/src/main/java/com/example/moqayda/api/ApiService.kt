@@ -119,7 +119,7 @@ interface ApiService {
     @GET("/api/ProdToSwap/{id}")
     suspend fun getSwapPublicOffersBuUserId(
         @Path("id") userId:String?
-    ):ProductToSwapByUserIdResponse
+    ):Response<ProductToSwapByUserIdResponse>
 
     @GET("/api/PrivateItem/{id}")
     suspend fun getPrivateProductByItemId(
@@ -159,6 +159,7 @@ interface ApiService {
         @Part("Id") Id: RequestBody?,
         @Part("Name") productName: RequestBody?,
         @Part("Descriptions") productDescription: RequestBody?,
+        @Part("IsActive") isActive:RequestBody?,
         @Part("CategoryId") categoryId: RequestBody?,
         @Part("ProductBackgroundColor") ProductBackgroundColor:RequestBody?,
         @Part("ProductToSwap") productToSwap: RequestBody?,
@@ -169,5 +170,8 @@ interface ApiService {
     @POST("/api/BarteredProduct")
     suspend fun addPublicBarteredProduct(@Body swapOffer:SwapPublicItem):Response<ResponseBody>
 
+
+    @DELETE("/api/ProdToSwap/{id}")
+    suspend fun deletePublicOffer(@Path("id") id:Int) : Response<ResponseBody>
 
 }
