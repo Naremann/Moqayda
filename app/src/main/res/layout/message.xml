@@ -7,6 +7,10 @@
         <variable
             name="appUser"
             type="com.example.moqayda.models.AppUser" />
+
+        <variable
+            name="viewModel"
+            type="com.example.moqayda.ui.chatRequests.RequestViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +40,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             app:layout_constraintBottom_toBottomOf="@+id/messageTextView"
-
+            android:onClick="@{()->viewModel.navigateToUserProfile(appUser)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/messageTextView"
             tools:src="@drawable/ic_person" />

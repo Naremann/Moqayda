@@ -12,6 +12,10 @@
             name="user"
             type="com.example.moqayda.models.AppUser" />
 
+        <variable
+            name="viewModel"
+            type="com.example.moqayda.ui.products.ProductViewModel" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -39,6 +43,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:src="@drawable/ic_person"
                 photoUrl="@{user.image}"
+                android:onClick="@{()->viewModel.navigateToOwnerProfile(user)}"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                 app:strokeColor="@color/blue"
                 app:strokeWidth="1dp"

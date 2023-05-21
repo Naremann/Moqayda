@@ -54,11 +54,13 @@ class ProductAdapter(var productList: List<Product?>? = mutableListOf(),private 
     @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = productList?.get(position)
+        holder.viewBinding.viewModel = productViewModel
         Log.e("product", "$product")
         holder.bind(product!!)
         GlobalScope.launch {
             val appUser = productViewModel.getProductOwner(product.userId!!)
             holder.viewBinding.user = appUser
+
         }
 
 

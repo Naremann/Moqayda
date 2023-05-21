@@ -19,6 +19,7 @@ import com.example.moqayda.databinding.MessageBinding
 import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Message
 import com.example.moqayda.ui.chat.ChatFragment.Companion.ANONYMOUS
+import com.example.moqayda.ui.chatRequests.RequestViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
@@ -28,6 +29,7 @@ class MessageAdapter(
     private val messageList: List<Message>,
     private val currentUserName: String?,
     val selectedUser: AppUser,
+    val viewModel:RequestViewModel
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     private fun setSenderAndReceiver(
@@ -84,18 +86,21 @@ class MessageAdapter(
     inner class MessageViewHolder(private val binding: MessageBinding) : ViewHolder(binding.root) {
         fun bind(item: Message) {
             binding.appUser = selectedUser
+            binding.viewModel = viewModel
             binding.messageTextView.text = item.text
             setSenderAndReceiver(item.senderName,
                 binding.messageTextView,
                 null,
                 binding.messengerImageView,
-
                 binding.messageLayout)
 
             if (item.senderPhotoUrl != null) {
                 loadImageIntoView(binding.messengerImageView, item.senderPhotoUrl)
             } else {
                 binding.messengerImageView.setImageResource(R.drawable.ic_account_circle_black_36dp)
+            }
+            binding.messengerImageView.setOnClickListener {
+
             }
         }
 
@@ -104,20 +109,17 @@ class MessageAdapter(
     inner class ImageMessageViewHolder(private val binding: ImageMessageBinding) :
         ViewHolder(binding.root) {
         fun bind(item: Message) {
+            binding.appUser = selectedUser
+            binding.viewModel = viewModel
             setSenderAndReceiver(item.senderName,
                 null,
                 binding.messageImageView,
                 binding.messengerImageView,
-
                 binding.imageMessageLayout)
             loadImageIntoView(binding.messageImageView, item.imageUrl!!, false)
             Log.e("MessageAdapter", item.imageUrl)
-            binding.messengerTextView.text = item.senderName ?: ANONYMOUS
-            if (item.senderPhotoUrl != null) {
-                loadImageIntoView(binding.messengerImageView, item.senderPhotoUrl)
-            } else {
-                binding.messengerImageView.setImageResource(R.drawable.ic_account_circle_black_36dp)
-            }
+
+
         }
     }
 

@@ -106,4 +106,9 @@
     <string name="my_product">"منتجي"</string>
     <string name="swap_offers_public">عروض المبادلة للعناصر العامة </string>
     <string name="delete_item">حذف العنصر</string>
+    <string name="decline">رفض</string>
+    <string name="accept_swap_offer_confirmation">هل أنت متأكد أنك تريد قبول هذا العرض ؟</string>
+    <string name="swap_done">اكتملت المقايضة بنجاح</string>
+    <string name="filure_message">عذرا، حدثت مشكلة</string>
+
 </resources>

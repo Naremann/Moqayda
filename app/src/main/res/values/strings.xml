@@ -105,4 +105,8 @@
     <string name="my_product">My Product</string>
     <string name="swap_offers_public">Swap Offers Of Public Items</string>
     <string name="delete_item">Delete Item</string>
+    <string name="decline">Decline</string>
+    <string name="accept_swap_offer_confirmation">Are you sure you want to accept this offer ?</string>
+    <string name="swap_done">The swap completed successfully</string>
+    <string name="filure_message">Sorry, there was a problem</string>
 </resources>

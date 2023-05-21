@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
@@ -16,6 +17,7 @@ import com.example.moqayda.initToolbar
 import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Message
 import com.example.moqayda.models.MessageRequest
+import com.example.moqayda.ui.chatRequests.Navigator
 import com.example.moqayda.ui.chatRequests.RequestViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -28,7 +30,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 
 
-class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
+class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>(), Navigator {
 
 
     private lateinit var manager: LinearLayoutManager
@@ -51,6 +53,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
 
 
         hideBottomAppBar()
+        viewModel.navigator = this
         viewDataBinding.toolbar.initToolbar(
             viewDataBinding.toolbar,
             "${selectedUser.firstName} ${selectedUser.lastName}",
@@ -72,7 +75,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
 
 
         requestViewModel.message.observe(viewLifecycleOwner) { messages ->
-            adapter = MessageAdapter(messages, getUserName(), selectedUser)
+            adapter = MessageAdapter(messages, getUserName(), selectedUser,viewModel)
             viewDataBinding.progressBar.visibility = ProgressBar.INVISIBLE
             manager = LinearLayoutManager(requireContext())
             manager.stackFromEnd = true
@@ -200,6 +203,9 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>() {
         return R.layout.fragment_chat
     }
 
+    override fun onNavigateToUserProfile(user: AppUser) {
+        this.findNavController().navigate(ChatFragmentDirections.actionChatFragmentToOtherUserProfileFragment(user))
+    }
 
 
 }

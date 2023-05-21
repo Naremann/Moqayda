@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 
 class RequestViewModel : BaseViewModel<Navigator>() {
 
+    lateinit var navigator: Navigator
     private val firebaseInstance = FirebaseRepo()
 
     val req = firebaseInstance.requestsLiveData
@@ -71,14 +72,6 @@ class RequestViewModel : BaseViewModel<Navigator>() {
         }
     }
 
-    fun getAppUser(id:String){
-        viewModelScope.launch {
-            _appUser.postValue(
-                getUser(id)
-            )
-        }
-    }
-
     suspend fun getUser(id: String) : AppUser? {
         return try {
             val result = RetrofitBuilder.retrofitService.getUserById(id)
@@ -100,6 +93,11 @@ class RequestViewModel : BaseViewModel<Navigator>() {
         getUsersList()
         getReq()
         Log.e("SwappingItemViewModel", "viewModelInit")
+    }
+
+
+    fun navigateToUserProfile(user: AppUser){
+        navigator.onNavigateToUserProfile(user)
     }
 
 

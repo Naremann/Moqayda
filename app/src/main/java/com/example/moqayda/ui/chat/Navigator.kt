@@ -1,4 +1,4 @@
 package com.example.moqayda.ui.chat
 
-interface Navigator {
+class Navigator {
 }

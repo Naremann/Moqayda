@@ -8,6 +8,18 @@
             name="vm"
             type="com.example.moqayda.ui.swap_public_offers_details.SwapPublicOffersDetailsViewModel" />
 
+        <variable
+            name="senderUser"
+            type="com.example.moqayda.models.AppUser" />
+
+        <variable
+            name="senderProduct"
+            type="com.example.moqayda.models.Product" />
+
+        <variable
+            name="receiverProduct"
+            type="com.example.moqayda.models.Product" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +54,7 @@
                     android:layout_height="80dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    photoUrl="@{vm.user.image}"
+                    photoUrl="@{senderUser.image}"
                     tools:src="@drawable/user_img"
                     app:civ_border_color="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +81,7 @@
                     android:maxLines="1"
                     android:textStyle="bold"
                     android:textColor="?attr/colorOnSecondary"
-                    android:text="@{vm.user.firstName+` `+vm.user.lastName }"
+                    android:text="@{senderUser.firstName+` `+senderUser.lastName }"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/sender_user_image"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:paddingHorizontal="10dp"
-                    android:text="@{vm.senderPublicItem.name}"
+                    android:text="@{senderProduct.name}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -96,7 +108,7 @@
 
                 <com.github.chrisbanes.photoview.PhotoView
                     android:id="@+id/sender_product_image"
-                    photoUrl="@{vm.senderPublicItem.pathImage}"
+                    photoUrl="@{senderProduct.pathImage}"
                     android:layout_width="140dp"
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
@@ -111,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:paddingHorizontal="10dp"
-                    android:text="@{vm.senderPublicItem.descriptions}"
+                    android:text="@{senderProduct.descriptions}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -184,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:paddingHorizontal="10dp"
-                    android:text="@{vm.receiverProduct.name}"
+                    android:text="@{receiverProduct.name}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -196,7 +208,7 @@
 
                 <com.github.chrisbanes.photoview.PhotoView
                     android:id="@+id/receiver_product_image"
-                    photoUrl="@{vm.receiverProduct.pathImage}"
+                    photoUrl="@{receiverProduct.pathImage}"
                     android:layout_width="140dp"
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
@@ -211,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:paddingHorizontal="10dp"
-                    android:text="@{vm.receiverProduct.descriptions}"
+                    android:text="@{receiverProduct.descriptions}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -252,6 +264,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/accept"
+                android:onClick="@{()->vm.addBarteredProducts()}"
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:backgroundTint="#7CCF4A"
@@ -259,7 +272,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/cancel"
+                android:text="@string/decline"
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:backgroundTint="#F44336"
