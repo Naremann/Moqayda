@@ -15,13 +15,14 @@ import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductsBinding
 import com.example.moqayda.initToolbar
+import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Product
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>() {
+class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(), Navigator {
 
     private var categoryId: Int = 0
     private lateinit var adapter: ProductAdapter
@@ -36,6 +37,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         viewDataBinding.vm = viewModel
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.Swap_items),this)
         adapter = ProductAdapter(productList,viewModel)
+        viewModel.navigator = this
         getProductsById()
         observeToLiveData()
         initRecycler()
@@ -106,11 +108,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
             viewModel.isVisibleProgress.observe(viewLifecycleOwner) { isVisibleProgress ->
                 viewDataBinding.progressBar.isVisible = isVisibleProgress
             }
-            viewModel.connectionError.observe(viewLifecycleOwner) { error ->
-                if (error != null) {
-                    showToastMessage(error)
-                }
-            }
+            
         }
     }
 
@@ -187,11 +185,17 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
 
     override fun initViewModeL(): ProductViewModel {
         val vmFactory = ProductsViewModelFactory(requireContext())
-        return ViewModelProvider(this,vmFactory)[ProductViewModel::class.java]
+        return ViewModelProvider(this, vmFactory)[ProductViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_products
+    }
+
+    override fun onNavigateToOwnerProfile(user: AppUser) {
+        this.findNavController()
+            .navigate(ProductFragmentDirections.actionProductsListFragmentToOtherUserProfileFragment(
+                user))
     }
 
 }

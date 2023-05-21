@@ -30,10 +30,10 @@ class SwapPrivateOffersViewModel:BaseViewModel<Navigator>() {
                 val swapOffersOfPrivateItems:MutableList<PrivateProductOwnerByIdResponse> = mutableListOf()
                 Log.e("getSwapOfferResponse","Success $response")
 
-                response?.forEach {userPrivateOffers->
-                   productId=userPrivateOffers?.productId!!
+                response?.forEach {userPrivateOffer->
+                   productId=userPrivateOffer?.productId!!
                     val userPrivateOffersResponse =
-                        retrofitService.getPrivateProductOwnerByProductId(userPrivateOffers?.privateItemOwnerId)
+                        retrofitService.getPrivateProductOwnerByPrivateItemOwnerId(userPrivateOffer.privateItemOwnerId)
                     val privateItemId = userPrivateOffersResponse.privateItemId
                     privateProductId=privateItemId!!
 

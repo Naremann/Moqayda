@@ -1,11 +1,9 @@
 package com.example.moqayda.ui.swa_public_offers
 
 import android.util.Log
-import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.DataUtils
-import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.Product
@@ -35,9 +33,9 @@ class SwapOffersOfPublicItemsViewModel:BaseViewModel<Navigator>() {
                 response?.forEach {userProdOffersViewModels->
                     productId=userProdOffersViewModels?.productId!!
                     val userPublicOffersResponse =
-                        retrofitService.getProductOwnerByProductId(userProdOffersViewModels.productOwnerId)
-                    val senderItemId = userPublicOffersResponse.productId
-                    senderProductId=senderItemId
+                        retrofitService.getProductOwnerByProductOwnerId(userProdOffersViewModels.productOwnerId)
+                    val senderItemId = userPublicOffersResponse.body()?.productId
+                    senderProductId=senderItemId!!
 
 
                     try {
@@ -58,7 +56,6 @@ class SwapOffersOfPublicItemsViewModel:BaseViewModel<Navigator>() {
                         toastMessage.value="something went wrong,Try again"
                         Log.e("privateItemAndOwner","Fail ${ex.localizedMessage}")
                     }
-
                 }
                 swappublicOffers.value=swapOffersOfPrivateItems
 

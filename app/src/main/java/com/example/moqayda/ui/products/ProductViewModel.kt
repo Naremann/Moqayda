@@ -10,17 +10,15 @@ import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.CategoryItem
 import com.example.moqayda.models.FavoriteItem
-import com.example.moqayda.repo.product.AddItemToFavoriteRepository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
 class ProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
+    lateinit var navigator: Navigator
     private val ctxReference: WeakReference<Context> = WeakReference(ctx)
-    private val addFavoriteItemRepository: AddItemToFavoriteRepository=AddItemToFavoriteRepository()
     var isVisibleProgress = MutableLiveData<Boolean>()
-    val connectionError = addFavoriteItemRepository.connectionError
     private val categoryId = MutableLiveData<Int>()
 
     fun getProductsById(id: Int){
@@ -95,4 +93,13 @@ class ProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
             }
     }
 
+    fun navigateToOwnerProfile(user: AppUser){
+        navigator.onNavigateToOwnerProfile(user)
+        Log.e("ProductViewModelLog","navigateToOwnerProfile called")
+    }
+
+
+
 }
+
+

@@ -33,13 +33,6 @@ interface ApiService {
     @GET("/api/PrivateItem")
     suspend fun getAllPrivateProducts():Response<PrivateItemsResponse>
 
-    @Multipart
-    @POST("/api/Wishlist")
-    suspend fun addProductToFavorite(
-        @Part productId:MultipartBody.Part?,
-        @Part ownerADObjectId:MultipartBody.Part?
-    ):BasicApiResponse<Unit>
-
 
 
     @DELETE("api/Wishlist/{id}")
@@ -135,14 +128,14 @@ interface ApiService {
 
 
     @GET("/api/PrivateItemOwner/{id}")
-    suspend fun getPrivateProductOwnerByProductId(
+    suspend fun getPrivateProductOwnerByPrivateItemOwnerId(
         @Path("id") productId:Int?
     ):PrivateItemOwnerByIDResponse
 
     @GET("/api/ProductOwner/{id}")
-    suspend fun getProductOwnerByProductId(
-        @Path("id") productId:Int?
-    ):ProductOwnerItem
+    suspend fun getProductOwnerByProductOwnerId(
+        @Path("id") productOwner:Int?
+    ):Response<ProductOwnerItem>
 
 
     @POST("/api/PrivateItemOwner")
@@ -172,6 +165,9 @@ interface ApiService {
         @Part image: MultipartBody.Part?
     ): Response<ResponseBody>
 
+
+    @POST("/api/BarteredProduct")
+    suspend fun addPublicBarteredProduct(@Body swapOffer:SwapPublicItem):Response<ResponseBody>
 
 
 }

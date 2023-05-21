@@ -15,44 +15,44 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/_8sdp">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/userImage"
+            photoUrl="@{appUser.image}"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            photoUrl="@{appUser.image}"
-            tools:src="@drawable/user_img"
             app:civ_border_color="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            tools:src="@drawable/user_img" />
 
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="4dp"
             android:maxLines="1"
             android:text="@{appUser.firstName+` `+appUser.lastName }"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/userImage"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/accept"
             app:layout_constraintHorizontal_bias="0.018"
             app:layout_constraintStart_toEndOf="@+id/userImage"
             app:layout_constraintTop_toTopOf="@+id/userImage"
-            tools:text="Abdelrahman" />
+            tools:text="Abdelrahman Talaat" />
 
         <ImageView
             android:id="@+id/accept"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/accept_background"
             android:src="@drawable/ic_baseline_done_24"
@@ -69,6 +69,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/userImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accept" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="#7A7A7A"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userImage" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

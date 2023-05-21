@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_productsListFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_productsListFragment_to_otherUserProfileFragment"
+            app:destination="@id/otherUserProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addProductFragment"
@@ -160,6 +163,9 @@
         <argument
             android:name="selectedUser"
             app:argType="com.example.moqayda.models.AppUser" />
+        <action
+            android:id="@+id/action_chatFragment_to_otherUserProfileFragment"
+            app:destination="@id/otherUserProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileEditingFragment"
