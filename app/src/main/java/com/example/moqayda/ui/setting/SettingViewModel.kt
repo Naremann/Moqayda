@@ -19,6 +19,10 @@ class SettingViewModel:BaseViewModel<Navigator>() {
 
     }
 
+    fun navigateToAppTermsFragment(){
+        navigator?.navigateToAppTermsFragment()
+    }
+
     private fun deleteAccount():Boolean{
         var isDeleted = true
         showLoading.value=true

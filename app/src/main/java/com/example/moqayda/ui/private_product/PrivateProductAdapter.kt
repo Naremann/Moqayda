@@ -60,7 +60,8 @@ class PrivateProductAdapter(var productList: List<PrivateProduct?>? = mutableLis
 
                 R.id.delete_post ->{
                     builder.setPositiveButton("OK") { dialog, which ->
-                       // userPublicItemViewModel.deleteSelectedProduct(product)
+                        privateProductsFragment.viewModel.deletePrivateItemOwnerById(product.id!!)
+
                     }
                     builder.setNegativeButton("Cancel") { _, _ ->
                         // Cancel button clicked
@@ -70,10 +71,7 @@ class PrivateProductAdapter(var productList: List<PrivateProduct?>? = mutableLis
 
                     true
                 }
-                R.id.edit_post -> {
-                    //userPublicItemViewModel.navigateToUpdateProduct(product,product.categoryId!!)
-                    true
-                }
+
                 else -> false
             }
         }

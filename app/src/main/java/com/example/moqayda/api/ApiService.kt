@@ -126,6 +126,12 @@ interface ApiService {
         @Path("id") privateItemId:Int?
     ):PrivateProductOwnerByIdResponse
 
+    @DELETE("/api/PrivateItem/{id}")
+    suspend fun deletePrivateItemById(@Path("id") privateItemId:Int?):Response<ResponseBody>
+
+
+    @DELETE("/api/PrivateItemOwner/{id}")
+    suspend fun deletePrivateItemOwnerById(@Path("id") privateItemId:Int?):Response<ResponseBody>
 
     @GET("/api/PrivateItemOwner/{id}")
     suspend fun getPrivateProductOwnerByPrivateItemOwnerId(
