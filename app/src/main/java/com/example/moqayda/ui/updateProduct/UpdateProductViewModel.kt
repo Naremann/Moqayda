@@ -107,13 +107,14 @@ class UpdateProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         _descriptionHelperText.postValue("")
         viewModelScope.launch {
             if (_imageUri.value != null) {
-                val result = productRepository.updateProduct(productId.get().toString(),
-                    productName.get()!!,
-                    productDescription.get()!!,
-                    _category.value?.id.toString(),
-                    "0",
-                    productToSwap.get()!!,
-                    _imageUri.value)
+                val result = productRepository.updateProduct(
+                    id = productId.get().toString(),
+                    productName = productName.get()!!,
+                    productDescription = productDescription.get()!!,
+                    categoryId = _category.value?.id.toString(),
+                    ProductBackgroundColor = "0",
+                    ProductToSwap = productToSwap.get()!!,
+                    imageUri = _imageUri.value)
                 when (result) {
                     is Resource.Success<*> -> {
                         Log.e("UpdateProductViewModel", "Product updated successfully")
@@ -131,13 +132,14 @@ class UpdateProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                 }
             } else {
                 val result =
-                    productRepository.updateProductWithCurrentImage(productId.get().toString(),
-                        productName.get()!!,
-                        productDescription.get()!!,
-                        _category.value?.id.toString(),
-                        "0",
-                        productToSwap.get()!!,
-                        _selectedImageUrl.value)
+                    productRepository.updateProductWithCurrentImage(
+                        id = productId.get().toString(),
+                        productName = productName.get()!!,
+                        productDescription = productDescription.get()!!,
+                        categoryId = _category.value?.id.toString(),
+                        ProductBackgroundColor = "0",
+                        ProductToSwap = productToSwap.get()!!,
+                        imageUrl = _selectedImageUrl.value)
                 Log.e("UpdateProductViewModel", _selectedImageUrl.value!!)
                 when (result) {
                     is Resource.Success<*> -> {

@@ -25,7 +25,7 @@ class SwapOffersOfPublicItemsViewModel:BaseViewModel<Navigator>() {
     private fun getSwapPublicOfferResponse(){
         isVisibleProgressBar.value=true
         viewModelScope.launch {
-            val response = retrofitService.getSwapPublicOffersBuUserId(userId).userProdOffersViewModels
+            val response = retrofitService.getSwapPublicOffersBuUserId(userId).body()?.userProdOffersViewModels
             try {
                 val swapOffersOfPrivateItems:MutableList<Product> = mutableListOf()
                 Log.e("getSwapOfferResponse","Success $response")

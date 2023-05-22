@@ -21,266 +21,338 @@
             type="com.example.moqayda.models.Product" />
 
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        >
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/sender_product_card"
-            android:layout_width="match_parent"
-            android:backgroundTint="#E2E9F1"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent=".35"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:cardCornerRadius="25dp"
-            android:layout_marginVertical="8dp"
-            android:layout_marginHorizontal="8dp"
-            app:strokeWidth="2dp"
-
-            >
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/sender_user_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    photoUrl="@{senderUser.image}"
-                    tools:src="@drawable/user_img"
-                    app:civ_border_color="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-                <View
-                    android:id="@+id/sender_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/sender_user_image"
-                    android:background="@color/blue"
-                    android:layout_marginVertical="5dp"
-                    />
-
-                <TextView
-                    android:id="@+id/userName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:maxLines="1"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnSecondary"
-                    android:text="@{senderUser.firstName+` `+senderUser.lastName }"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/sender_user_image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.018"
-                    app:layout_constraintStart_toEndOf="@+id/sender_user_image"
-                    app:layout_constraintTop_toTopOf="@+id/sender_user_image"
-                    tools:text="Abdelrahman" />
-
-                <TextView
-                    android:id="@+id/product_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:paddingHorizontal="10dp"
-                    android:text="@{senderProduct.name}"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/sender_product_image"
-                    app:layout_constraintTop_toBottomOf="@id/sender_view"
-                    tools:text="Sofa" />
-
-
-
-                <com.github.chrisbanes.photoview.PhotoView
-                    android:id="@+id/sender_product_image"
-                    photoUrl="@{senderProduct.pathImage}"
-                    android:layout_width="140dp"
-                    android:layout_height="0dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/sender_view"
-                    tools:src="@drawable/img_furniture" />
-
-                <TextView
-                    android:id="@+id/sender_product_desc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:paddingHorizontal="10dp"
-                    android:text="@{senderProduct.descriptions}"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/sender_product_image"
-                    app:layout_constraintTop_toBottomOf="@+id/product_name"
-                    tools:text="Ultimate Comfort, Timeless Elegance." />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-        <ImageView
-            android:id="@+id/swap_ic"
-            android:layout_width="80dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/sender_product_card"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/swap_ic"
-            app:layout_constraintHeight_percent=".1"
-            android:layout_marginVertical="5dp"
-            />
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/receiver_product_card"
-            android:layout_width="match_parent"
-            android:backgroundTint="#E2E9F1"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent=".35"
-            app:layout_constraintTop_toBottomOf="@id/swap_ic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:cardCornerRadius="25dp"
-            android:layout_marginVertical="8dp"
-            android:layout_marginHorizontal="8dp"
-            app:strokeWidth="2dp"
-
-            >
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-                <View
-                    android:id="@+id/receiver_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/receiver_userName"
-                    android:background="@color/blue"
-                    android:layout_marginVertical="5dp"
-                    />
-
-                <TextView
-                    android:id="@+id/receiver_userName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:maxLines="1"
-                    android:textSize="16sp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="10dp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnSecondary"
-                    android:text="@string/my_product"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.018"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-
-                <TextView
-                    android:id="@+id/receiver_product_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:paddingHorizontal="10dp"
-                    android:text="@{receiverProduct.name}"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/receiver_product_image"
-                    app:layout_constraintTop_toBottomOf="@id/receiver_view"
-                    tools:text="Sofa" />
-
-
-
-                <com.github.chrisbanes.photoview.PhotoView
-                    android:id="@+id/receiver_product_image"
-                    photoUrl="@{receiverProduct.pathImage}"
-                    android:layout_width="140dp"
-                    android:layout_height="0dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/receiver_view"
-                    tools:src="@drawable/img_furniture" />
-
-                <TextView
-                    android:id="@+id/receiver_product_desc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:paddingHorizontal="10dp"
-                    android:text="@{receiverProduct.descriptions}"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/receiver_product_image"
-                    app:layout_constraintTop_toBottomOf="@+id/receiver_product_name"
-                    tools:text="Ultimate Comfort, Timeless Elegance." />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-        <ProgressBar
-            android:id="@+id/sender_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/sender_product_card"
-            app:layout_constraintBottom_toBottomOf="@id/sender_product_card"
-            app:layout_constraintStart_toStartOf="@id/sender_product_card"
-            app:layout_constraintEnd_toEndOf="@id/sender_product_card"
-            />
-        <ProgressBar
-            android:id="@+id/receiver_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/sender_product_card"
-            app:layout_constraintBottom_toBottomOf="@id/sender_product_card"
-            app:layout_constraintStart_toStartOf="@id/sender_product_card"
-            app:layout_constraintEnd_toEndOf="@id/sender_product_card"
-            />
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="10dp"
-            android:weightSum="2"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
-            >
-            <Button
-                android:layout_width="0dp"
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/accept"
-                android:onClick="@{()->vm.addBarteredProducts()}"
-                android:layout_weight="1"
-                android:layout_marginStart="5dp"
-                android:backgroundTint="#7CCF4A"
-                />
-            <Button
-                android:layout_width="0dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.517" />
+
+            <TextView
+                android:id="@+id/text_hint"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/decline"
-                android:layout_weight="1"
+                android:layout_marginHorizontal="8dp"
+                android:gravity="center"
+                android:text="@string/offer_request_hint"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_negotiate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="center"
+                android:onClick="@{()->vm.navigateToChatRequestsFragment()}"
+                android:text="@string/go_negotiate"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_hint" />
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/sender_product_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="#E2E9F1"
+                app:cardCornerRadius="25dp"
+                app:layout_constraintHeight_percent=".35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_negotiate"
+                app:strokeWidth="2dp"
+
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/sender_user_image"
+                        photoUrl="@{senderUser.image}"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        app:civ_border_color="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:src="@drawable/user_img" />
+
+                    <View
+                        android:id="@+id/sender_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginVertical="5dp"
+                        android:background="@color/blue"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/sender_user_image" />
+
+                    <TextView
+                        android:id="@+id/userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:maxLines="1"
+                        android:text="@{senderUser.firstName+` `+senderUser.lastName }"
+                        android:textColor="?attr/colorOnSecondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/sender_user_image"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.018"
+                        app:layout_constraintStart_toEndOf="@+id/sender_user_image"
+                        app:layout_constraintTop_toTopOf="@+id/sender_user_image"
+                        tools:text="Abdelrahman" />
+
+                    <TextView
+                        android:id="@+id/product_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:paddingHorizontal="10dp"
+                        android:text="@{senderProduct.name}"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/sender_product_image"
+                        app:layout_constraintTop_toBottomOf="@id/sender_view"
+                        tools:text="Sofa" />
+
+
+                    <com.github.chrisbanes.photoview.PhotoView
+                        android:id="@+id/sender_product_image"
+                        photoUrl="@{senderProduct.pathImage}"
+                        android:layout_width="140dp"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/sender_view"
+                        tools:src="@drawable/img_furniture" />
+
+                    <TextView
+                        android:id="@+id/sender_product_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:paddingHorizontal="10dp"
+                        android:text="@{senderProduct.descriptions}"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/sender_product_image"
+                        app:layout_constraintTop_toBottomOf="@+id/product_name"
+                        tools:text="Ultimate Comfort, Timeless Elegance." />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:id="@+id/swap_ic"
+                android:layout_width="80dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="5dp"
+                android:src="@drawable/swap_ic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent=".1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sender_product_card" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/receiver_product_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="#E2E9F1"
+                app:cardCornerRadius="25dp"
+                app:layout_constraintHeight_percent=".35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/swap_ic"
+                app:strokeWidth="2dp"
+
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+                    <View
+                        android:id="@+id/receiver_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginVertical="5dp"
+                        android:background="@color/blue"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/receiver_userName" />
+
+                    <TextView
+                        android:id="@+id/receiver_userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:maxLines="1"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/my_product"
+                        android:textColor="?attr/colorOnSecondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.018"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/receiver_product_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:paddingHorizontal="10dp"
+                        android:text="@{receiverProduct.name}"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/receiver_product_image"
+                        app:layout_constraintTop_toBottomOf="@id/receiver_view"
+                        tools:text="Sofa" />
+
+
+                    <com.github.chrisbanes.photoview.PhotoView
+                        android:id="@+id/receiver_product_image"
+                        photoUrl="@{receiverProduct.pathImage}"
+                        android:layout_width="140dp"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/receiver_view"
+                        tools:src="@drawable/img_furniture" />
+
+                    <TextView
+                        android:id="@+id/receiver_product_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:paddingHorizontal="10dp"
+                        android:text="@{receiverProduct.descriptions}"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/receiver_product_image"
+                        app:layout_constraintTop_toBottomOf="@+id/receiver_product_name"
+                        tools:text="Ultimate Comfort, Timeless Elegance." />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/offer_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_16sdp"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/receiver_product_card"
+                tools:text="@string/sender_product_not_available" />
+
+            <Button
+                android:id="@+id/delete_offer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:layout_weight="1"
                 android:backgroundTint="#F44336"
-                />
+                android:onClick="@{()->vm.deleteTheOffer()}"
+                android:text="@string/delete_offer"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/offer_status" />
+
+            <ProgressBar
+                android:id="@+id/sender_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/sender_product_card"
+                app:layout_constraintEnd_toEndOf="@id/sender_product_card"
+                app:layout_constraintStart_toStartOf="@id/sender_product_card"
+                app:layout_constraintTop_toTopOf="@id/sender_product_card" />
+
+            <ProgressBar
+                android:id="@+id/receiver_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/sender_product_card"
+                app:layout_constraintEnd_toEndOf="@id/sender_product_card"
+                app:layout_constraintStart_toStartOf="@id/sender_product_card"
+                app:layout_constraintTop_toTopOf="@id/sender_product_card" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                android:weightSum="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/receiver_product_card">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#7CCF4A"
+                    android:onClick="@{()->vm.addBarteredProducts()}"
+                    android:text="@string/accept" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#F44336"
+                    android:onClick="@{()->vm.deleteTheOffer()}"
+                    android:text="@string/decline" />
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

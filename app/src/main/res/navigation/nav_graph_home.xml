@@ -339,6 +339,9 @@
         <argument
             android:name="senderProductId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_swapPublicOffersDetailsFragment_to_requestFragment"
+            app:destination="@id/requestFragment" />
         <argument
             android:name="receiverProductId"
             app:argType="integer" />
