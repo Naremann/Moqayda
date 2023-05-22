@@ -1,26 +1,15 @@
 package com.example.moqayda.ui.profile
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.moqayda.DataUtils
 import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
-import com.example.moqayda.database.getFirebaseImageUri
-import com.example.moqayda.database.getUerImageFromFirebase
 import com.example.moqayda.databinding.FragmentProfileBinding
 import com.example.moqayda.models.AppUser
-import com.example.moqayda.ui.swapping_items.SwappingItemFragmentDirections
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.squareup.picasso.Picasso
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() ,Navigator{
     var imageUrl : String?=null
@@ -124,8 +113,5 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         findNavController().navigate(R.id.swapOffersOfPublicItemsFragment)
     }
 
-    override fun navigateToAppTermsFragment() {
-        findNavController().navigate(R.id.appTermsFragment)
-    }
 
 }

@@ -55,15 +55,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="25sp"
-                    android:textColor="@color/blue"
+                    android:textColor="?attr/colorOnSecondary"
                     android:textStyle="bold"
-                    android:text="Moqayda is a straightforward and practical application that gives users the opportunity to trade for what they need most WITH NO MONEY,all from their mobile device .
-If you want to swap your items, all you have to do is enter the item details about your item to enable other users to send you the exchange request.
-
-You can send a swap request with another person whose product you like by selecting an  offer from your public items or create a specific private items and send the offer.
-
-THE CHAT between you and another person IS ACTIVATED ONLY when he/she sends you a swap offer and you accept the request offer.
-" />
+                    android:text="text" />
                 </ScrollView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

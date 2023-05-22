@@ -11,6 +11,5 @@ interface Navigator {
     fun navigateToUserPublicProducts()
     fun navigateToSwapPrivateOffersFragment()
     fun navigateToSwapPublicOffersFragment()
-    fun navigateToAppTermsFragment()
 
 }

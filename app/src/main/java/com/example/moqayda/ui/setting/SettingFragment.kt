@@ -164,6 +164,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>()
             findNavController().navigate(R.id.registeration)
         },getString(R.string.cancel))
     }
+    override fun navigateToAppTermsFragment() {
+        findNavController().navigate(R.id.appTermsFragment)
+    }
 
 
 }
