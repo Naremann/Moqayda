@@ -29,6 +29,8 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
         getCurrentUser()
     }
 
+
+
     fun navigateToSwapPublicOffersFragment(){
         navigator.navigateToSwapPublicOffersFragment()
     }
