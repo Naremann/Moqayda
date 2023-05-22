@@ -232,6 +232,36 @@
                     tools:text="Ultimate Comfort, Timeless Elegance." />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/offer_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16sdp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/receiver_product_card"
+            tools:text="@string/sender_product_not_available" />
+
+        <Button
+            android:id="@+id/delete_offer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:backgroundTint="#F44336"
+            android:onClick="@{()->vm.deleteTheOffer()}"
+            android:text="@string/delete_offer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/offer_status" />
+
         <ProgressBar
             android:id="@+id/sender_progress"
             android:layout_width="wrap_content"
@@ -251,8 +281,10 @@
             app:layout_constraintEnd_toEndOf="@id/sender_product_card"
             />
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="horizontal"

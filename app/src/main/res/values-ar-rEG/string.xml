@@ -109,6 +109,11 @@
     <string name="decline">رفض</string>
     <string name="accept_swap_offer_confirmation">هل أنت متأكد أنك تريد قبول هذا العرض ؟</string>
     <string name="swap_done">اكتملت المقايضة بنجاح</string>
-    <string name="filure_message">عذرا، حدثت مشكلة</string>
+    <string name="failure_message">عذرا، حدثت مشكلة</string>
+    <string name="sender_product_not_available">هذا العرض غير متوفر حيث ان مرسل العرض قام بمقايضة منتجه بالفعل. </string>
+    <string name="delete_offer">حذف العرض</string>
+    <string name="receiver_product_not_available">هذا العرض غير متوفر حيث انك قمت بمقايضة هذا المنتج مسبقا</string>
+    <string name="offer_deleted_successfully">تم حذف العرض بنجاح</string>
+
 
 </resources>
