@@ -8,6 +8,13 @@
             name="vm"
             type="com.example.moqayda.ui.swap_public_item_request.SwapPublicItemViewModel" />
 
+        <variable
+            name="receiverProduct"
+            type="com.example.moqayda.models.Product" />
+
+        <variable
+            name="senderProduct"
+            type="com.example.moqayda.models.Product" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +69,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="Mobile"
-                    android:text="@{vm.product.name}"
+                    android:text="@{receiverProduct.name}"
                     android:textSize="25sp"
                     android:textStyle="bold"
                     android:textColor="@color/blue"
@@ -85,7 +92,7 @@
                     app:layout_constraintTop_toBottomOf="@id/product_name"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:src="@drawable/img_furniture"
-                    photoUrl="@{vm.product.pathImage}"
+                    photoUrl="@{receiverProduct.pathImage}"
                     android:layout_marginTop="5dp"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -126,7 +133,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="Mobile"
-                    android:text="@{vm.requestSenderProduct.name}"
+                    android:text="@{senderProduct.name}"
                     android:textSize="25sp"
                     android:textStyle="bold"
                     android:textColor="@color/blue"
@@ -149,7 +156,7 @@
                     app:layout_constraintTop_toBottomOf="@id/sent_product_name"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:src="@drawable/img_furniture"
-                    photoUrl="@{vm.requestSenderProduct.pathImage}"
+                    photoUrl="@{senderProduct.pathImage}"
                     android:layout_marginTop="5dp"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>

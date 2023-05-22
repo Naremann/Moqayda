@@ -113,4 +113,10 @@
     <string name="delete_offer">Delete offer</string>
     <string name="receiver_product_not_available">This offer is not available as you have already bartered this product</string>
     <string name="offer_deleted_successfully">Offer Deleted Successfully</string>
+    <string name="offer_request_hint">This user sent you a trade-in request for your product and also sent you a message request if you want to negotiate.</string>
+    <string name="go_negotiate"><u>go negotiate now</u></string>
+    <string name="delete_swap_offer_confirmation">Are you sure you want to decline and delete this offer ?\n</string>
+    <string name="item_not_available">This item is not available</string>
+    <string name="request_sent">Request sent</string>
+    <string name="failed_to_send_request">Error, you have already sent a request for this item</string>
 </resources>

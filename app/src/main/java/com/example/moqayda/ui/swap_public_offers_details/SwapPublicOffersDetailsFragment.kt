@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSwapPublicOffersDetailsBinding
+import com.example.moqayda.repo.FirebaseRepo
 import kotlin.properties.Delegates
 
 class SwapPublicOffersDetailsFragment :
@@ -17,7 +19,6 @@ class SwapPublicOffersDetailsFragment :
     Navigator {
     private var senderProductId by Delegates.notNull<Int>()
     private var receiverProductId by Delegates.notNull<Int>()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideBottomAppBar()
@@ -30,7 +31,7 @@ class SwapPublicOffersDetailsFragment :
 
         viewModel.getReceiverItemDetails(receiverProductId)
         viewModel.getSenderItemDetails(senderProductId)
-
+        subscribeToLiveData()
         observeToLiveData()
 
 
@@ -44,6 +45,7 @@ class SwapPublicOffersDetailsFragment :
 
     @SuppressLint("LongLogTag")
     fun observeToLiveData() {
+
         viewModel.senderProduct.observe(viewLifecycleOwner) { senderProduct ->
             viewDataBinding.senderProduct = senderProduct
             senderProduct.productAndOwnerViewModels?.forEach { productOwner ->
@@ -73,7 +75,9 @@ class SwapPublicOffersDetailsFragment :
             viewDataBinding.senderUser = it
         }
 
-
+        viewModel.progressBar.observe(viewLifecycleOwner){
+            viewDataBinding.progressBar.isVisible = it
+        }
     }
 
 
@@ -90,8 +94,12 @@ class SwapPublicOffersDetailsFragment :
         return R.layout.fragment_swap_public_offers_details
     }
 
-    override fun onNavigateToPublicSwapOffersFragment() {
-        findNavController().navigate(R.id.swapOffersOfPublicItemsFragment)
+    override fun onNavigateToProfileFragment() {
+        findNavController().navigate(R.id.profileFragment)
+    }
+
+    override fun onNavigateToChatRequestsFragment() {
+        this.findNavController().navigate(SwapPublicOffersDetailsFragmentDirections.actionSwapPublicOffersDetailsFragmentToRequestFragment())
     }
 
 }

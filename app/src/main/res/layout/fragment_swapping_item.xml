@@ -182,19 +182,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/or_tv" />
 
-        <Button
-            android:id="@+id/chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/request_chat"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{()-> vm.sendChatRequest()}"
-            app:layout_constraintTop_toBottomOf="@id/create_item"
-
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

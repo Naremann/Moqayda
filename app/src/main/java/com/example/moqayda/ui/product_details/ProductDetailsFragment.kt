@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moqayda.ImageViewerActivity
@@ -16,34 +17,28 @@ import com.example.moqayda.models.Product
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,ProductDetailsViewModel>(),Navigator {
+class ProductDetailsFragment :
+    BaseFragment<FragmentProductDetailsBinding, ProductDetailsViewModel>(), Navigator {
     lateinit var selectedProduct: Product
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showBottomAppBar()
         hideFloatingBtn()
-        viewDataBinding.vm=viewModel
-        viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.item_details),this)
+        viewDataBinding.vm = viewModel
+        viewDataBinding.toolbar.initToolbar(
+            viewDataBinding.toolbar,
+            getString(R.string.item_details),
+            this
+        )
+        viewModel.navigator = this
+
         getProductDetails()
-        viewModel.navigator=this
 
 
 
 
-        viewModel.appUser.observe(viewLifecycleOwner){
-            it.let {
-                viewDataBinding.appUser = it
-            }
-            if (Firebase.auth.currentUser?.uid == it.id){
-                viewDataBinding.button2.visibility = GONE
-                viewDataBinding.view.visibility = GONE
-                viewDataBinding.view2.visibility = GONE
-                viewDataBinding.userImg.visibility = GONE
-                viewDataBinding.userName.visibility = GONE
-                viewDataBinding.userCity.visibility = GONE
-            }
-        }
+
 
         viewDataBinding.productImage.setOnClickListener {
             val intent = Intent(requireContext(), ImageViewerActivity::class.java)
@@ -54,11 +49,32 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
     }
 
 
-
     private fun getProductDetails() {
-        selectedProduct=ProductDetailsFragmentArgs.fromBundle(requireArguments()).selectedProduct
+        selectedProduct = ProductDetailsFragmentArgs.fromBundle(requireArguments()).selectedProduct
+
         viewModel.getProductOwner(selectedProduct.userId!!)
         viewDataBinding.product = selectedProduct
+
+        viewModel.appUser.observe(viewLifecycleOwner) {
+            it.let {
+                viewDataBinding.appUser = it
+            }
+            if (Firebase.auth.currentUser?.uid != it.id) {
+                viewDataBinding.view.visibility = VISIBLE
+                viewDataBinding.userImg.visibility = VISIBLE
+                viewDataBinding.userName.visibility = VISIBLE
+                viewDataBinding.userCity.visibility = VISIBLE
+            }
+            if (selectedProduct.isActive != false) {
+                viewDataBinding.button2.visibility = VISIBLE
+                viewDataBinding.productStatus.visibility = GONE
+
+            } else {
+                viewDataBinding.button2.visibility = GONE
+                viewDataBinding.productStatus.visibility = VISIBLE
+            }
+        }
+
     }
 
     override fun getViews(): View {
@@ -74,10 +90,18 @@ class ProductDetailsFragment : BaseFragment<FragmentProductDetailsBinding,Produc
     }
 
     override fun navigateToSwappingItemsFragment() {
-        findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToSwappingItemFragment(selectedProduct))
+        findNavController().navigate(
+            ProductDetailsFragmentDirections.actionProductDetailsFragmentToSwappingItemFragment(
+                selectedProduct
+            )
+        )
     }
 
     override fun onNavigateToUserProfile(appUser: AppUser) {
-        findNavController().navigate(ProductDetailsFragmentDirections.actionProductDetailsFragmentToOtherUserProfileFragment(appUser))
+        findNavController().navigate(
+            ProductDetailsFragmentDirections.actionProductDetailsFragmentToOtherUserProfileFragment(
+                appUser
+            )
+        )
     }
 }

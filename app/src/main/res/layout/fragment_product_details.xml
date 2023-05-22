@@ -156,6 +156,7 @@
                     android:id="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginTop="16dp"
                     android:background="#7A7A7A"
                     app:layout_constraintTop_toBottomOf="@id/product_desc" />
@@ -168,6 +169,7 @@
                     android:layout_marginStart="@dimen/_4sdp"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:adjustViewBounds="true"
+                    android:visibility="gone"
                     android:onClick="@{()->vm.navigateToUserProfile(appUser)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view"
@@ -180,6 +182,7 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:onClick="@{()->vm.navigateToUserProfile(appUser)}"
@@ -194,6 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:visibility="gone"
                     android:text="@{appUser.city}"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/user_img"
@@ -236,7 +240,18 @@
                     app:layout_constraintTop_toTopOf="@+id/swap_with_text"
                     tools:text="Laptop" />
 
-
+                <TextView
+                    android:id="@+id/product_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/item_not_available"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/swap_with"
+                     />
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="match_parent"
@@ -244,6 +259,7 @@
                     android:layout_marginHorizontal="55dp"
                     android:layout_marginTop="@dimen/_24sdp"
                     android:layout_marginBottom="30dp"
+                    android:visibility="gone"
                     android:background="@drawable/rounded_btn"
                     android:onClick="@{()->vm.navigateToSwapItemsFragment()}"
                     android:text="@string/swap_now_text"

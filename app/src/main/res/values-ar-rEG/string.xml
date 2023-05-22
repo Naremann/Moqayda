@@ -114,6 +114,11 @@
     <string name="delete_offer">حذف العرض</string>
     <string name="receiver_product_not_available">هذا العرض غير متوفر حيث انك قمت بمقايضة هذا المنتج مسبقا</string>
     <string name="offer_deleted_successfully">تم حذف العرض بنجاح</string>
-
+    <string name="offer_request_hint">ارسل لك هذا المستخدم طلب مقايضة منتجك وايضا ارسل لك طلب مراسلة اذا كنت تريد التفاوض.</string>
+    <string name="go_negotiate"><u>اذهب للتفاوض الان</u></string>
+    <string name="delete_swap_offer_confirmation">هل انت متأكد من رفض و ازالة هذا العرض ؟</string>
+    <string name="item_not_available">هذا العنصر غير متوفر</string>
+    <string name="request_sent">تم ارسال الطلب بنجاج</string>
+    <string name="failed_to_send_request">عذرا, لقد قمت بإرسال طلب لهذا المنتج من قبل</string>
 
 </resources>

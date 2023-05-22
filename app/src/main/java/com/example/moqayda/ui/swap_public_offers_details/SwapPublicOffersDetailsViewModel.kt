@@ -7,20 +7,25 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.moqayda.DataUtils
 import com.example.moqayda.R
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.AppUser
+import com.example.moqayda.models.MessageRequest
 import com.example.moqayda.models.Product
 import com.example.moqayda.models.SwapPublicItem
+import com.example.moqayda.repo.FirebaseRepo
 import com.example.moqayda.repo.product.ProductRepository
 import com.example.moqayda.repo.product.Resource
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
 class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     private val ctxReference: WeakReference<Context> = WeakReference(ctx)
-    val productRepository = ProductRepository(ctx)
+    private val productRepository = ProductRepository(ctx)
     lateinit var navigator: Navigator
     private val _receiverProduct = MutableLiveData<Product>()
     val receiverProduct: LiveData<Product>
@@ -34,7 +39,13 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
     val senderUser: LiveData<AppUser>
         get() = _senderUser
 
+
     val productOwnerID = ObservableField<Int>()
+
+
+    private val _progressBareStatus = MutableLiveData<Boolean>()
+    val progressBar: LiveData<Boolean>
+        get() = _progressBareStatus
 
     fun getReceiverItemDetails(productId: Int) {
         viewModelScope.launch {
@@ -46,6 +57,11 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
             }
         }
     }
+
+    init {
+
+    }
+
 
     fun getSenderItemDetails(productId: Int) {
         viewModelScope.launch {
@@ -66,24 +82,27 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
     }
 
     fun addBarteredProducts() {
+        _progressBareStatus.postValue(true)
         val swapOffer = SwapPublicItem(
             productId = receiverProduct.value?.id!!,
-            userId = receiverProduct.value?.userId!!, productOwnerId = productOwnerID.get()!!
+            userId = receiverProduct.value?.userId!!,
+            productOwnerId = productOwnerID.get()!!
         )
 
         val builder = AlertDialog.Builder(ctxReference.get()!!)
         builder.setTitle(ctxReference.get()!!.getString(R.string.confirmation))
 
         builder.setMessage(
-            ctxReference.get()!!
-                .getString(R.string.accept_swap_offer_confirmation)
+            ctxReference.get()!!.getString(R.string.accept_swap_offer_confirmation)
         )
         Log.e("SPublicOffersDetailsVM", senderProduct.value?.isActive.toString())
-        builder.setPositiveButton(ctxReference.get()!!.getString(R.string.ok)) { dialog, which ->
+        builder.setPositiveButton(ctxReference.get()!!.getString(R.string.ok)) { _, _ ->
             viewModelScope.launch {
                 val response = RetrofitBuilder.retrofitService.addPublicBarteredProduct(swapOffer)
                 if (response.isSuccessful) {
+                    _progressBareStatus.postValue(false)
                     Log.e("SPublicOffersDetailsVM", "Success")
+
                     messageLiveData.postValue(ctxReference.get()!!.getString(R.string.swap_done))
 
                     deleteSelectedOffer(
@@ -93,7 +112,7 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
                     )
                     makeProductUnAvailable(receiverProduct.value!!)
                     makeProductUnAvailable(senderProduct.value!!)
-                    navigateToSwapPublicOffers()
+                    navigateToProfileFragment()
                 } else {
                     Log.e("SPublicOffersDetailsVM", "Failed : ${response.message()}")
                     messageLiveData.postValue(
@@ -111,14 +130,12 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
 
     }
 
-    private fun navigateToSwapPublicOffers() {
-        navigator.onNavigateToPublicSwapOffersFragment()
-    }
 
     private suspend fun deleteOffer(offerId: Int) {
-
+        _progressBareStatus.postValue(true)
         val response = RetrofitBuilder.retrofitService.deletePublicOffer(offerId)
         if (response.isSuccessful) {
+            _progressBareStatus.postValue(false)
             Log.e("SPublicOffersDetailsVM", "offerDeletedSuccessfully")
         } else {
             Log.e("SPublicOffersDetailsVM", "failedToDeleteOffer: ${response.message()}")
@@ -128,6 +145,7 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
 
     private suspend fun deleteSelectedOffer(userId: String, productId: Int, productOwnerId: Int) {
         val response = RetrofitBuilder.retrofitService.getSwapPublicOffersBuUserId(userId)
+
         if (response.isSuccessful) {
             Log.e("SPublicOffersDetailsVM", "offers loaded successfully")
             response.body()?.userProdOffersViewModels?.forEach { productOffer ->
@@ -169,32 +187,67 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
 
 
     fun deleteTheOffer() {
-        viewModelScope.launch {
-            val response =
-                RetrofitBuilder.retrofitService.getSwapPublicOffersBuUserId(_receiverProduct.value?.userId)
-            if (response.isSuccessful) {
-                Log.e("SPublicOffersDetailsVM", "offers loaded successfully")
-                response.body()?.userProdOffersViewModels?.forEach { productOffer ->
-                    if (productOffer?.productId == _receiverProduct.value?.id && productOffer?.productOwnerId == productOwnerID.get()) {
-                        Log.e("SPublicOffersDetailsVM", "offer founded successfully")
-                        val result = RetrofitBuilder.retrofitService.deletePublicOffer(productOffer?.id!!)
-                        if (result.isSuccessful) {
-                            Log.e("SPublicOffersDetailsVM", "offerDeletedSuccessfully")
-                            messageLiveData.postValue(ctxReference.get()?.getString(R.string.offer_deleted_successfully))
-                            navigateToSwapPublicOffers()
+        val builder = AlertDialog.Builder(ctxReference.get()!!)
+        builder.setTitle(ctxReference.get()!!.getString(R.string.confirmation))
+
+        builder.setMessage(
+            ctxReference.get()!!.getString(R.string.delete_swap_offer_confirmation)
+        )
+        Log.e("SPublicOffersDetailsVM", senderProduct.value?.isActive.toString())
+        builder.setPositiveButton(ctxReference.get()!!.getString(R.string.ok)) { _, _ ->
+            viewModelScope.launch {
+                val response =
+                    RetrofitBuilder.retrofitService.getSwapPublicOffersBuUserId(_receiverProduct.value?.userId)
+                if (response.isSuccessful) {
+                    Log.e("SPublicOffersDetailsVM", "offers loaded successfully")
+                    response.body()?.userProdOffersViewModels?.forEach { productOffer ->
+                        if (productOffer?.productId == _receiverProduct.value?.id && productOffer?.productOwnerId == productOwnerID.get()) {
+                            Log.e("SPublicOffersDetailsVM", "offer founded successfully")
+                            val result =
+                                RetrofitBuilder.retrofitService.deletePublicOffer(productOffer?.id!!)
+                            if (result.isSuccessful) {
+                                Log.e("SPublicOffersDetailsVM", "offerDeletedSuccessfully")
+                                messageLiveData.postValue(
+                                    ctxReference.get()
+                                        ?.getString(R.string.offer_deleted_successfully)
+                                )
+                                navigateToProfileFragment()
+                            } else {
+                                Log.e(
+                                    "SPublicOffersDetailsVM",
+                                    "failedToDeleteOffer: ${result.message()}"
+                                )
+                                messageLiveData.postValue(
+                                    ctxReference.get()?.getString(R.string.failure_message)
+                                )
+                            }
                         } else {
-                            Log.e("SPublicOffersDetailsVM", "failedToDeleteOffer: ${result.message()}")
-                            messageLiveData.postValue(ctxReference.get()?.getString(R.string.failure_message))
+                            Log.e("SPublicOffersDetailsVM", "cannot found offer")
                         }
-                    } else {
-                        Log.e("SPublicOffersDetailsVM", "cannot found offer")
                     }
+                } else {
+                    Log.e("SPublicOffersDetailsVM", "failedToLoadOffers: ${response.message()}")
                 }
-            } else {
-                Log.e("SPublicOffersDetailsVM", "failedToLoadOffers: ${response.message()}")
             }
         }
+        builder.setNegativeButton(ctxReference.get()!!.getString(R.string.cancel)) { _, _ ->
+            // Cancel button clicked
+        }
+        val dialog = builder.create()
+        dialog.show()
 
+    }
+
+
+
+
+
+    private fun navigateToProfileFragment() {
+        navigator.onNavigateToProfileFragment()
+    }
+
+    fun navigateToChatRequestsFragment() {
+        navigator.onNavigateToChatRequestsFragment()
     }
 }
 

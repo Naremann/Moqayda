@@ -22,7 +22,6 @@ class SwappingItemViewModel:BaseViewModel<Navigator>() {
     var isCheckedPublicBtn=MutableLiveData<Boolean>()
 
     var navigator: Navigator? = null
-    private val firebaseInstance = FirebaseRepo()
     private val currentUser = Firebase.auth.currentUser
     private val database = FirebaseDatabase.getInstance()
     private val usersRef: DatabaseReference = database.getReference("Users")
@@ -47,23 +46,7 @@ class SwappingItemViewModel:BaseViewModel<Navigator>() {
         isCheckedPrivateBtn.value=true
         navigator?.navigateToPrivateProductFragment()
     }
-    fun sendChatRequest() {
-        if (!senderUserName.value.isNullOrBlank()) {
-            Log.e("SwappingItemViewModel", "sender username is ${senderUserName.value}")
-            Log.e("SwappingItemViewModel", "receiver username is ${receiverUserName.value}")
-            viewModelScope.launch {
-                firebaseInstance.setRequests(MessageRequest(
-                    "",
-                    senderId = currentUser?.uid,
-                    senderName = senderUserName.value,
-                    receiverId,
-                    receiverName = receiverUserName.value,
-                    false,
-                    "Hello I want Chat with you"))
-            }
-        }
 
-    }
 
     private fun getSenderName() {
         val userId = currentUser!!.uid
