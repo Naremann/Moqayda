@@ -124,4 +124,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         findNavController().navigate(R.id.swapOffersOfPublicItemsFragment)
     }
 
+    override fun navigateToAppTermsFragment() {
+        findNavController().navigate(R.id.appTermsFragment)
+    }
+
 }
