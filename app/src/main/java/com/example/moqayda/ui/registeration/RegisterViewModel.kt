@@ -6,13 +6,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.addUserToFirestore
+import com.example.moqayda.database.updateFirebaseUserToken
 import com.example.moqayda.models.AppUser
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -55,9 +58,15 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
             auth.createUserWithEmailAndPassword(email.get().toString(), it)
                 .addOnCompleteListener { task ->
                     showLoading.value = false
-                    if (task.isSuccessful) {
-
                         val user = auth.currentUser
+
+                    if (task.isSuccessful) {
+                        FirebaseMessaging.getInstance().token.addOnSuccessListener{token->
+                            updateFirebaseUserToken(user?.uid!!, OnCompleteListener {
+                                Log.e("updateFirebaseUserToken","Success")
+                            },token)
+
+                        }
                         val profileUpdates = UserProfileChangeRequest.Builder()
                             .setDisplayName("${firstName.get()} ${lastName.get()}")
                             .build()

@@ -119,4 +119,6 @@
     <string name="item_not_available">This item is not available</string>
     <string name="request_sent">Request sent</string>
     <string name="failed_to_send_request">Error, you have already sent a request for this item</string>
+    <string name="noti_title">Someone has sent you a swap offer</string>
+    <string name="noti_message">Check your public swap offers, and chat requests</string>
 </resources>

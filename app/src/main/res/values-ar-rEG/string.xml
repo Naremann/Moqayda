@@ -120,5 +120,7 @@
     <string name="item_not_available">هذا العنصر غير متوفر</string>
     <string name="request_sent">تم ارسال الطلب بنجاج</string>
     <string name="failed_to_send_request">عذرا, لقد قمت بإرسال طلب لهذا المنتج من قبل</string>
+    <string name="noti_title">شخص ما أرسل لك عرض مبادلة</string>
+    <string name="noti_message">تحقق من عروض المبادلة العامة و طلبات الدردشة</string>
 
 </resources>
