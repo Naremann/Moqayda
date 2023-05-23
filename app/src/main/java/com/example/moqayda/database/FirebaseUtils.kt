@@ -43,6 +43,12 @@ fun updateFirebaseUser(userId:String, onCompleteListener: OnCompleteListener<Voi
     val doc = getCollectionReference(AppUser.COLLECTION_NAME).document(userId)
     doc.update(mapOf("firstName" to user.firstName,"lastName" to user.lastName,"city" to user.city,
         "phoneNumber" to user.phoneNumber)).addOnCompleteListener(onCompleteListener) }
+
+fun updateFirebaseUserToken(userId:String, onCompleteListener: OnCompleteListener<Void>,token: String){
+    val doc = getCollectionReference(AppUser.COLLECTION_NAME).document(userId)
+    doc.update(mapOf("token" to token)).addOnCompleteListener(onCompleteListener) }
+
+
 fun storeImageInFirebaseStore(filePath:Uri,userId: String,onSuccessListener: OnSuccessListener<UploadTask.TaskSnapshot>,onFailureListener: OnFailureListener) {
     getStorageReference().child(
         "images/$userId").putFile(filePath).addOnSuccessListener(onSuccessListener).addOnFailureListener(onFailureListener)

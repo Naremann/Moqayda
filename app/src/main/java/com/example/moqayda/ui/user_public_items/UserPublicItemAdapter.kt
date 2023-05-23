@@ -80,9 +80,6 @@ RecyclerView.Adapter<UserPublicItemAdapter.UserPublicItemsViewHolder>(){
             Log.e("UserPublicItemAdapter","userPublicItemsFragment not null")
             val viewModelFactory = UserPublicItemViewModelFactory(mContext)
             val userPublicItemViewModel = ViewModelProvider(owner,viewModelFactory)[UserPublicItemViewModel::class.java]
-            holder.itemView.setOnClickListener {
-                onSwapLinearClickListener.onSwapLinearClick(product)
-            }
             holder.isVisibleSwapLinear.isVisible =
                 UserPublicItemsFragmentArgs.fromBundle(userPublicItemsFragment!!.requireArguments())
                     .isVisibleSwapLinear

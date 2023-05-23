@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -78,7 +79,7 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/image_message.xml" value="0.33" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/item_chat_user.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/message.xml" value="0.33" />
-        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/notification.xml" value="0.1" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/notification.xml" value="0.25" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/private_product_item.xml" value="0.22" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/product_item.xml" value="0.3" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/swap_private_offers_item.xml" value="0.1" />
