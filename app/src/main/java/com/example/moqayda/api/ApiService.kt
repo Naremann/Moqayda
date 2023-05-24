@@ -1,6 +1,7 @@
 package com.example.moqayda.api
 
 import com.example.moqayda.models.*
+import com.example.moqayda.ui.swa_public_offers.SwapOffersOfPublicItemsFragment
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -183,4 +184,8 @@ interface ApiService {
 
     @GET("/api/BarteredProduct/all")
     suspend fun getAllBarters() : Response<List<BarteredProduct>>
+
+    @GET("/api/ProdToSwap/all")
+    suspend fun getAllOffers(): Response<List<SwapPublicItem>>
+
 }

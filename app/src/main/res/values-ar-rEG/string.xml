@@ -123,4 +123,7 @@
     <string name="noti_title">شخص ما أرسل لك عرض مبادلة</string>
     <string name="noti_message">تحقق من عروض المبادلة العامة و طلبات الدردشة</string>
     <string name="completed_barters">المقايضات المكتملة</string>
+    <string name="sent_offers">العروض المرسلة</string>
+    <string name="no_sent_offers">لا يوجد عروض مرسلة</string>
+
 </resources>
