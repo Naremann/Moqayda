@@ -1,4 +1,4 @@
-package com.example.moqayda.notification
+package com.example.moqayda.messageNotification
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,15 +9,16 @@ import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.navigation.NavDeepLinkBuilder
 import com.example.moqayda.R
 import com.example.moqayda.ui.chatRequests.RequestsFragment
 import java.util.*
 import javax.inject.Inject
 
-class MyNotificationManager  @Inject constructor(private val mCtx: Application) {
+class NotificationManager  @Inject constructor(private val mCtx: Application) {
 
 
-    fun textNotification(title: String?, message: String?) {
+    fun textMessageNotification(title: String?, message: String?) {
         val rand = Random()
         val idNotification = rand.nextInt(1000000000)
 
@@ -39,6 +40,8 @@ class MyNotificationManager  @Inject constructor(private val mCtx: Application) 
             notificationManager.createNotificationChannel(notificationChannel)
         }
         val notificationBuilder = NotificationCompat.Builder(mCtx, "Channel_id_default")
+        val notificationIntent = Intent(mCtx, RequestsFragment::class.java)
+        val pendingIntent = PendingIntent.getActivity(mCtx, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
 
         notificationBuilder.setAutoCancel(true)
