@@ -12,4 +12,5 @@ interface Navigator {
     fun navigateToSwapPrivateOffersFragment()
     fun navigateToSwapPublicOffersFragment()
 
+    fun onNavigateToCompletedBarterFragment()
 }

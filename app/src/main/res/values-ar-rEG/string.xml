@@ -122,5 +122,5 @@
     <string name="failed_to_send_request">عذرا, لقد قمت بإرسال طلب لهذا المنتج من قبل</string>
     <string name="noti_title">شخص ما أرسل لك عرض مبادلة</string>
     <string name="noti_message">تحقق من عروض المبادلة العامة و طلبات الدردشة</string>
-
+    <string name="completed_barters">المقايضات المكتملة</string>
 </resources>

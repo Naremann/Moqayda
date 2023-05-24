@@ -181,4 +181,6 @@ interface ApiService {
     suspend fun deletePublicOffer(@Path("id") id:Int) : Response<ResponseBody>
 
 
+    @GET("/api/BarteredProduct/all")
+    suspend fun getAllBarters() : Response<List<BarteredProduct>>
 }

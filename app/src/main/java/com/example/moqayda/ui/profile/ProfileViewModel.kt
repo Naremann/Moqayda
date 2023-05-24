@@ -63,6 +63,10 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
         navigator.startFullImageScreen()
     }
 
+    fun navigateToCompletedBarter(){
+        navigator.onNavigateToCompletedBarterFragment()
+    }
+
     private fun getCurrentUser(){
         viewModelScope.launch {
             val response = RetrofitBuilder.retrofitService.getUserById(userId)

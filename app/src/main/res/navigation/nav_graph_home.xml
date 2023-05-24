@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_profileFragment_to_swapOffersOfPublicItemsFragment"
             app:destination="@id/swapOffersOfPublicItemsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_completedBartersFragment"
+            app:destination="@id/completedBartersFragment" />
 
     </fragment>
     <fragment
@@ -351,5 +354,10 @@
         android:name="com.example.moqayda.AppTermsFragment"
         android:label="fragment_app_terms"
         tools:layout="@layout/fragment_app_terms" />
+    <fragment
+        tools:layout="@layout/fragment_completed_barter"
+        android:id="@+id/completedBartersFragment"
+        android:name="com.example.moqayda.ui.completedBarters.CompletedBartersFragment"
+        android:label="CompletedBartersFragment" />
 
 </navigation>
