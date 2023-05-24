@@ -113,5 +113,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         findNavController().navigate(R.id.swapOffersOfPublicItemsFragment)
     }
 
+    override fun onNavigateToCompletedBarterFragment() {
+        this.findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToCompletedBartersFragment())
+    }
+
 
 }
