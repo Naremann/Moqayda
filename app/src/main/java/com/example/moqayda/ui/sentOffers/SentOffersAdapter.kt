@@ -1,4 +1,4 @@
-package com.example.moqayda.ui.completedBarters
+package com.example.moqayda.ui.sentOffers
 
 import android.content.Context
 import android.content.Intent
@@ -13,60 +13,55 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.databinding.BarteredItemBinding
-import com.example.moqayda.models.BarteredProduct
 import com.example.moqayda.models.Product
-import com.example.moqayda.ui.sentOffers.SentOffersViewModel
-import com.example.moqayda.ui.sentOffers.SentOffersVmFactory
+import com.example.moqayda.models.SwapPublicItem
+import com.example.moqayda.ui.completedBarters.CompletedBartersViewModel
+import com.example.moqayda.ui.completedBarters.CompletedBartersViewModelFactory
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
-class CompletedBartersAdapter(
-    private val bartersList: List<BarteredProduct>,
+class SentOffersAdapter(
+    private val offersList: List<SwapPublicItem>,
     private val mContext: Context,
     private val owner: ViewModelStoreOwner,
     private val lifecycleOwner: LifecycleOwner
-) : RecyclerView.Adapter<CompletedBartersAdapter.CompletedBartersViewHolder>() {
+) : RecyclerView.Adapter<SentOffersAdapter.PendingSentOffersViewHolder>() {
     val currentUser = Firebase.auth.currentUser
-    inner class CompletedBartersViewHolder(val binding: BarteredItemBinding) :
+    inner class PendingSentOffersViewHolder(val binding: BarteredItemBinding) :
         RecyclerView.ViewHolder(binding.root){
 
-            fun bind(firstProduct: Product, secondProduct:Product ){
-                binding.firstItem = firstProduct
-                binding.secondItem = secondProduct
-            }
-
+        fun bind(firstProduct: Product, secondProduct:Product ){
+            binding.firstItem = firstProduct
+            binding.secondItem = secondProduct
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompletedBartersViewHolder {
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PendingSentOffersViewHolder {
         val binding: BarteredItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.bartered_item,
             parent,
             false
         )
-        return CompletedBartersViewHolder(binding)
+        return PendingSentOffersViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return bartersList.size
+        return offersList.size
     }
 
-    override fun onBindViewHolder(holder: CompletedBartersViewHolder, position: Int) {
-        val barter = bartersList[position]
-        val vmFactory = SentOffersVmFactory(mContext)
-        val viewModel = ViewModelProvider(owner,vmFactory)[SentOffersViewModel::class.java]
+    override fun onBindViewHolder(holder: PendingSentOffersViewHolder, position: Int) {
+        val offer = offersList[position]
+        val vmFactory = CompletedBartersViewModelFactory(mContext)
+        val viewModel = ViewModelProvider(owner,vmFactory)[CompletedBartersViewModel::class.java]
 
         lifecycleOwner.lifecycleScope.launch{
-            val productOne = viewModel.getProduct(barter.productId)
-            val productTwo = viewModel.getProductUsingProductOwnerId(barter.productOwnerId)
-            if (currentUser?.uid == productOne?.userId){
-                holder.binding.firstItem = productOne
-                holder.binding.secondItem = productTwo
-            }else{
-                holder.binding.firstItem = productTwo
-                holder.binding.secondItem = productOne
-            }
+            val productOne = viewModel.getProduct(offer.productId)
+            val productTwo = viewModel.getProductUsingProductOwnerId(offer.productOwnerId)
+            holder.binding.firstItem = productTwo
+            holder.binding.secondItem = productOne
         }
 
         holder.binding.firstProductImage.setOnClickListener {
@@ -79,7 +74,7 @@ class CompletedBartersAdapter(
     }
 
 
-    private fun startFullImageScreen(holder: CompletedBartersViewHolder , product: Product?) {
+    private fun startFullImageScreen(holder: PendingSentOffersViewHolder, product: Product?) {
         val intent = Intent(holder.itemView.context, ImageViewerActivity::class.java)
         intent.putExtra("image_url", product?.pathImage)
         holder.itemView.context.startActivity(intent)

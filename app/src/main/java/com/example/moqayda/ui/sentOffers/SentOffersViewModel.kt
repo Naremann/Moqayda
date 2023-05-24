@@ -1,4 +1,4 @@
-package com.example.moqayda.ui.completedBarters
+package com.example.moqayda.ui.sentOffers
 
 import android.content.Context
 import android.util.Log
@@ -7,24 +7,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.BarteredProduct
 import com.example.moqayda.models.Product
+import com.example.moqayda.models.SwapPublicItem
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
-class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
+class SentOffersViewModel(ctx: Context):BaseViewModel<Navigator>() {
+
+
     private val ctxReference: WeakReference<Context> = WeakReference(ctx)
 
     private val currentUser = Firebase.auth.currentUser
 
-    private val _barters = MutableLiveData<List<BarteredProduct>>()
-    val barters: LiveData<List<BarteredProduct>>
-        get() = _barters
+    private val _sentOffers = MutableLiveData<List<SwapPublicItem>>()
+    val sentOffers: LiveData<List<SwapPublicItem>>
+        get() = _sentOffers
 
 
-    private val dataList = mutableListOf<BarteredProduct>()
+    private val dataList = mutableListOf<SwapPublicItem>()
 
     private val _progressBarStatus = MutableLiveData<Boolean>()
     val progressBarStatus: LiveData<Boolean>
@@ -34,6 +36,10 @@ class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         getBartersOfUser()
     }
 
+
+    private val _isEmpty = MutableLiveData<Boolean>(false)
+    val isEmpty:LiveData<Boolean>
+        get() = _isEmpty
 
     suspend fun getProduct(productId: Int): Product? {
         val productResponse = RetrofitBuilder.retrofitService.getProductById(productId)
@@ -51,7 +57,7 @@ class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     }
 
 
-    suspend fun getProductUsingProductOwnerId(productOwnerId:Int):Product?{
+    suspend fun getProductUsingProductOwnerId(productOwnerId:Int): Product?{
         val response = RetrofitBuilder.retrofitService.getProductOwnerByProductOwnerId(productOwnerId)
         return try {
             if (response.isSuccessful) {
@@ -73,18 +79,18 @@ class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         dataList.clear()
         viewModelScope.launch {
             _progressBarStatus.postValue(true)
-            val response = RetrofitBuilder.retrofitService.getAllBarters()
+            val response = RetrofitBuilder.retrofitService.getAllOffers()
             if (response.isSuccessful) {
                 Log.e("CompletedBartersVModel", "Barters Loaded Successfully")
-                response.body()?.forEach { barteredProduct ->
+                response.body()?.forEach {swapOffer ->
                     val productOwnerResponse =
                         RetrofitBuilder.retrofitService.getProductOwnerByProductOwnerId(
-                            barteredProduct.productOwnerId
+                            swapOffer.productOwnerId
                         )
                     if (productOwnerResponse.isSuccessful) {
                         Log.e("CompletedBartersVModel", "productOwner Loaded Successfully")
-                        if (barteredProduct.userId == currentUser?.uid || productOwnerResponse.body()?.userId == currentUser?.uid) {
-                            dataList.add(barteredProduct)
+                        if (productOwnerResponse.body()?.userId == currentUser?.uid) {
+                            dataList.add(swapOffer)
                         }
                     } else {
                         Log.e(
@@ -99,8 +105,11 @@ class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                     "Failed to load Barters ${response.message()}"
                 )
             }
-            _barters.postValue(dataList)
+            _sentOffers.postValue(dataList)
             _progressBarStatus.postValue(false)
+            if (dataList.isEmpty()){
+                _isEmpty.postValue(true)
+            }
         }
 
     }

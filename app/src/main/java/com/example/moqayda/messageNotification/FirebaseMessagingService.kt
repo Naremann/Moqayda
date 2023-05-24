@@ -1,0 +1,42 @@
+package com.example.moqayda.messageNotification
+
+import android.util.Log
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class FirebaseMessagingService : FirebaseMessagingService() {
+
+    private val TAG = "FirebaseMessagingServ"
+
+    @Inject
+    lateinit var mNotificationManager: NotificationManager
+
+    override fun onNewToken(s: String) {
+        super.onNewToken(s)
+        //Displaying token on logcat
+
+        Log.d("FirebaseIIDService", "Refreshed token: $s")
+
+    }
+
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+
+        if (remoteMessage.data.isNotEmpty()) {
+            Log.d(TAG, "Data Payload: " + remoteMessage.data)
+            try {
+
+                val title = remoteMessage.data["title"]
+                val message = remoteMessage.data["message"]
+
+                mNotificationManager.textMessageNotification(title, message)
+
+            } catch (e: Exception) {
+                Log.d(TAG, "Exception: " + e.message)
+            }
+        }
+
+    }
+}

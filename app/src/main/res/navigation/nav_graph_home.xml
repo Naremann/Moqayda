@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_profileFragment_to_completedBartersFragment"
             app:destination="@id/completedBartersFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_sentOffersFragment"
+            app:destination="@id/sentOffersFragment" />
 
     </fragment>
     <fragment
@@ -80,6 +83,9 @@
         <action
             android:id="@+id/action_productsListFragment_to_otherUserProfileFragment"
             app:destination="@id/otherUserProfileFragment" />
+        <action
+            android:id="@+id/action_productsListFragment_to_selectCategoryFragment"
+            app:destination="@id/selectCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/addProductFragment"
@@ -359,5 +365,10 @@
         android:id="@+id/completedBartersFragment"
         android:name="com.example.moqayda.ui.completedBarters.CompletedBartersFragment"
         android:label="CompletedBartersFragment" />
+    <fragment
+        tools:layout="@layout/fragment_sent_offers"
+        android:id="@+id/sentOffersFragment"
+        android:name="com.example.moqayda.ui.sentOffers.SentOffersFragment"
+        android:label="SentOffersFragment" />
 
 </navigation>

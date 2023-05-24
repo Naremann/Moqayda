@@ -24,7 +24,7 @@ class CompletedBartersFragment :
             this
         )
 
-        viewModel.barteredProduct.observe(viewLifecycleOwner) {
+        viewModel.barters.observe(viewLifecycleOwner) {
             adapter = CompletedBartersAdapter(it, requireContext(), this, this)
             viewDataBinding.bartersRecycler.adapter = adapter
         }

@@ -117,5 +117,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding,ProfileViewModel>() 
         this.findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToCompletedBartersFragment())
     }
 
+    override fun onNavigateToSentOffersFragment() {
+        this.findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToSentOffersFragment())
+    }
+
 
 }

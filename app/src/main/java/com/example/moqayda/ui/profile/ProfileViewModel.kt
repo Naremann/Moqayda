@@ -67,6 +67,11 @@ class ProfileViewModel: BaseViewModel<Navigator>() {
         navigator.onNavigateToCompletedBarterFragment()
     }
 
+    fun navigateToSentOffersFragment(){
+        navigator.onNavigateToSentOffersFragment()
+    }
+
+
     private fun getCurrentUser(){
         viewModelScope.launch {
             val response = RetrofitBuilder.retrofitService.getUserById(userId)

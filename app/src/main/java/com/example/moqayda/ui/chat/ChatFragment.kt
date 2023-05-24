@@ -73,7 +73,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>(), Navig
 
 
 
-
+        requestViewModel.receiverUser.set(selectedUser)
         requestViewModel.message.observe(viewLifecycleOwner) { messages ->
             adapter = MessageAdapter(messages, getUserName(), selectedUser,viewModel)
             viewDataBinding.progressBar.visibility = ProgressBar.INVISIBLE
