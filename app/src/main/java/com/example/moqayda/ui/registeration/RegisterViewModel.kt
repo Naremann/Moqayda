@@ -61,12 +61,12 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
                         val user = auth.currentUser
 
                     if (task.isSuccessful) {
-                        FirebaseMessaging.getInstance().token.addOnSuccessListener{token->
+                       /* FirebaseMessaging.getInstance().token.addOnSuccessListener{token->
                             updateFirebaseUserToken(user?.uid!!, OnCompleteListener {
                                 Log.e("updateFirebaseUserToken","Success")
                             },token)
 
-                        }
+                        }*/
                         val profileUpdates = UserProfileChangeRequest.Builder()
                             .setDisplayName("${firstName.get()} ${lastName.get()}")
                             .build()
