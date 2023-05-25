@@ -82,6 +82,7 @@ class SwapPublicItemViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     }
 
     private fun pushNotification() {
+        val fragmentId = R.id.swapOffersOfPublicItemsFragment
         val notifications = Notifications()
         getReceiver()
         getUserFromFirestore(receiverProduct.get()?.userId!!, { docSnapshot ->
@@ -93,7 +94,9 @@ class SwapPublicItemViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                             user?.token!!,
                             Data(
                                 ctxReference.get()?.getString(R.string.noti_title)!!,
-                                ctxReference.get()?.getString(R.string.noti_message)!!
+                                ctxReference.get()?.getString(R.string.noti_message)!!,
+                                SwapPublicItemRequestFragment().tag
+
                             )
                         )
                     )

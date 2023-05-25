@@ -5,10 +5,13 @@ import androidx.databinding.ObservableField
 import com.example.moqayda.DataUtils
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.getUserFromFirestore
+import com.example.moqayda.database.updateFirebaseUserToken
 import com.example.moqayda.models.AppUser
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginViewModel : BaseViewModel<Navigator>() {
     private var auth: FirebaseAuth=Firebase.auth
@@ -25,6 +28,12 @@ class LoginViewModel : BaseViewModel<Navigator>() {
                 .addOnCompleteListener { task->
                     if(task.isSuccessful){
                         checkUser(task.result.user!!.uid)
+                        FirebaseMessaging.getInstance().token.addOnSuccessListener{ token->
+                            updateFirebaseUserToken(task.result.user!!.uid, OnCompleteListener {
+                                Log.e("updateFirebaseUserToken","Success")
+                            },token)
+
+                        }
                     }
                     else{
                         showLoading.value=false

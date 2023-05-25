@@ -30,8 +30,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
                 val title = remoteMessage.data["title"]
                 val message = remoteMessage.data["message"]
+                val actionName=remoteMessage.data["actionName"]
 
-                mNotificationManager.textNotification(title, message)
+                mNotificationManager.textNotification(title, message,actionName)
 
             } catch (e: Exception) {
                 Log.d(TAG, "Exception: " + e.message)

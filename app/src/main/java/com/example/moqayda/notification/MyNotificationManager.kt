@@ -2,22 +2,22 @@ package com.example.moqayda.notification
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.navigation.NavDeepLinkBuilder
+import com.example.moqayda.HomeActivity
 import com.example.moqayda.R
-import com.example.moqayda.ui.chatRequests.RequestsFragment
 import java.util.*
 import javax.inject.Inject
 
 class MyNotificationManager  @Inject constructor(private val mCtx: Application) {
 
 
-    fun textNotification(title: String?, message: String?) {
+    fun textNotification(title: String?, message: String?, actionDestinationId: String?) {
         val rand = Random()
         val idNotification = rand.nextInt(1000000000)
 
@@ -38,9 +38,13 @@ class MyNotificationManager  @Inject constructor(private val mCtx: Application) 
             notificationChannel.setSound(soundUri, attributes)
             notificationManager.createNotificationChannel(notificationChannel)
         }
+
         val notificationBuilder = NotificationCompat.Builder(mCtx, "Channel_id_default")
-
-
+        val pendingIntent=NavDeepLinkBuilder(mCtx).
+        setComponentName(HomeActivity::class.java)
+            .setGraph(R.navigation.nav_graph_home)
+            .setDestination(R.id.swapOffersOfPublicItemsFragment)
+            .createPendingIntent()
         notificationBuilder.setAutoCancel(true)
             .setWhen(System.currentTimeMillis())
             .setSmallIcon(R.mipmap.ic_launcher_moqayda)
@@ -49,6 +53,7 @@ class MyNotificationManager  @Inject constructor(private val mCtx: Application) 
             .setSound(soundUri)
             .setContentTitle(title)
             .setContentText(message)
+            .setContentIntent(pendingIntent)
         notificationManager.notify(idNotification, notificationBuilder.build())
     }
 }

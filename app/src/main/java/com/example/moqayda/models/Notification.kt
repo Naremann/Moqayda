@@ -7,4 +7,5 @@ data class Notification (
 data class Data(
     val title: String,
     val message: String,
+    val actionName:String?=null
 )
