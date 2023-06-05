@@ -123,5 +123,6 @@
     <string name="noti_message">Check your public swap offers, and chat requests</string>
     <string name="completed_barters">Completed Barters</string>
     <string name="sent_offers">Sent offers</string>
-    <string name="no_sent_offers">There are no offers sent</string>
+    <string name="no_sent_offers">There are no sent offers</string>
+    <string name="no_offers">There are no offers</string>
 </resources>

@@ -9,15 +9,13 @@ import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.BarteredProduct
 import com.example.moqayda.models.Product
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
 class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     private val ctxReference: WeakReference<Context> = WeakReference(ctx)
 
-    private val currentUser = Firebase.auth.currentUser
+//    private val currentUser = Firebase.auth.currentUser
 
     private val _barters = MutableLiveData<List<BarteredProduct>>()
     val barters: LiveData<List<BarteredProduct>>
@@ -35,37 +33,51 @@ class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     }
 
 
-    suspend fun getProduct(productId: Int): Product? {
-        val productResponse = RetrofitBuilder.retrofitService.getProductById(productId)
-        return try {
-            if (productResponse.isSuccessful) {
-                productResponse.body()
-            } else {
-                Product()
+    suspend fun getProduct(productId: Int?): Product? {
+        if(productId != null) {
+            val productResponse = RetrofitBuilder.retrofitService.getProductById(productId)
+            return try {
+                if (productResponse.isSuccessful) {
+                    productResponse.body()
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                Log.e("CompletedBartersVModel", "Cannot Load product ${productResponse.message()}")
+                e.printStackTrace()
+                null
             }
-        } catch (e: Exception) {
-            Log.e("CompletedBartersVModel", "Cannot Load product ${productResponse.message()}")
-            e.printStackTrace()
-            Product()
+        }else{
+            return null
         }
     }
 
 
-    suspend fun getProductUsingProductOwnerId(productOwnerId:Int):Product?{
-        val response = RetrofitBuilder.retrofitService.getProductOwnerByProductOwnerId(productOwnerId)
-        return try {
-            if (response.isSuccessful) {
-                val product = getProduct(response.body()?.productId!!)
-                product
-            }else{
+    suspend fun getProductUsingProductOwnerId(productOwnerId: Int?):Product?{
+        if (productOwnerId != null) {
+
+            val response =
+                RetrofitBuilder.retrofitService.getProductOwnerByProductOwnerId(productOwnerId)
+            return try {
+                if (response.isSuccessful) {
+                    val product = getProduct(response.body()?.productId!!)
+                    product
+                } else {
+                    Log.e(
+                        "CompletedBartersVModel",
+                        "Cannot Load productOwner ${response.message()}"
+                    )
+                    Product()
+                }
+            } catch (e: Exception) {
                 Log.e("CompletedBartersVModel", "Cannot Load productOwner ${response.message()}")
+                e.printStackTrace()
                 Product()
             }
-        }catch (e:Exception){
-            Log.e("CompletedBartersVModel", "Cannot Load productOwner ${response.message()}")
-            e.printStackTrace()
-            Product()
+        }else{
+            return null
         }
+
     }
 
 
@@ -83,9 +95,9 @@ class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                         )
                     if (productOwnerResponse.isSuccessful) {
                         Log.e("CompletedBartersVModel", "productOwner Loaded Successfully")
-                        if (barteredProduct.userId == currentUser?.uid || productOwnerResponse.body()?.userId == currentUser?.uid) {
-                            dataList.add(barteredProduct)
-                        }
+//                        if (barteredProduct.userId == currentUser?.uid || productOwnerResponse.body()?.userId == currentUser?.uid) {
+//                            dataList.add(barteredProduct)
+//                        }
                     } else {
                         Log.e(
                             "CompletedBartersVModel",

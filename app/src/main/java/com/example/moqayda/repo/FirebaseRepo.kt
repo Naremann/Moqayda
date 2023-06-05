@@ -78,7 +78,6 @@ class FirebaseRepo : FirebaseRepoInterface {
         }
         myRef = firebaseDatabase.getReference("Users//${currentUser!!.uid}//requests//${request.id}")
         request.isApproved = true
-        request.messageBody=""
         myRef.setValue(request).addOnSuccessListener {
             Log.d(tag, "Upload Successfully id -> ${myRef.key}")
             isUploaded = true

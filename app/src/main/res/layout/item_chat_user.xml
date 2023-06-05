@@ -37,17 +37,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:maxLines="1"
             android:text="@{appUser.firstName+` `+appUser.lastName }"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/userImage"
             app:layout_constraintEnd_toStartOf="@+id/accept"
             app:layout_constraintHorizontal_bias="0.018"
             app:layout_constraintStart_toEndOf="@+id/userImage"
             app:layout_constraintTop_toTopOf="@+id/userImage"
             tools:text="Abdelrahman Talaat" />
+
+
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:text="@{req.messageBody}"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/userName"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
+            tools:text="keyboard" />
 
         <ImageView
             android:id="@+id/accept"
