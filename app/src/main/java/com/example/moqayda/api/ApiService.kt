@@ -37,7 +37,7 @@ interface ApiService {
 
 
     @DELETE("api/Wishlist/{id}")
-    suspend fun deleteFavoriteProductById(@Path("id") productId:Int) : Response<Unit>
+    suspend fun deleteFavoriteProductById(@Path("id") favoriteItemId: Int) : Response<Unit>
 
     @GET("/api/User/{id}")
     suspend fun getUserById(@Path("id") userId: String?):Response<AppUser>
@@ -187,5 +187,8 @@ interface ApiService {
 
     @GET("/api/ProdToSwap/all")
     suspend fun getAllOffers(): Response<List<SwapPublicItem>>
+
+    @GET("/api/Wishlist/all")
+    suspend fun getAllFavoriteItems():Response<List<FavoriteItem>>
 
 }

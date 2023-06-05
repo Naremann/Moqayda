@@ -54,8 +54,8 @@ class SentOffersAdapter(
 
     override fun onBindViewHolder(holder: PendingSentOffersViewHolder, position: Int) {
         val offer = offersList[position]
-        val vmFactory = CompletedBartersViewModelFactory(mContext)
-        val viewModel = ViewModelProvider(owner,vmFactory)[CompletedBartersViewModel::class.java]
+        val vmFactory = SentOffersVmFactory(mContext)
+        val viewModel = ViewModelProvider(owner,vmFactory)[SentOffersViewModel::class.java]
 
         lifecycleOwner.lifecycleScope.launch{
             val productOne = viewModel.getProduct(offer.productId)

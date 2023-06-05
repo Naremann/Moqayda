@@ -95,8 +95,7 @@ class SwapPublicItemViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                             Data(
                                 ctxReference.get()?.getString(R.string.noti_title)!!,
                                 ctxReference.get()?.getString(R.string.noti_message)!!,
-                                SwapPublicItemRequestFragment().tag
-
+                                "swapOffer"
                             )
                         )
                     )
@@ -128,7 +127,7 @@ class SwapPublicItemViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                 receiverId = receiverUser.get()?.id,
                 receiverName = "${receiverUser.get()?.firstName} ${receiverUser.get()?.lastName}",
                 false,
-                receiverProduct.get()?.id.toString()
+                receiverProduct.get()?.name.toString()
             )
         )
 

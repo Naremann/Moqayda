@@ -1,16 +1,13 @@
 package com.example.moqayda.ui.chatRequests
 
-import android.database.Observable
 import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moqayda.R
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.getUserFromFirestore
-import com.example.moqayda.messageNotification.MessageNotifications
 import com.example.moqayda.models.AppUser
 import com.example.moqayda.models.Data
 import com.example.moqayda.models.Message
@@ -56,7 +53,7 @@ class RequestViewModel : BaseViewModel<Navigator>() {
         viewModelScope.launch {
             firebaseInstance.setMessage(message, reqID)
         }
-        val notifications = MessageNotifications()
+        val notifications = Notifications()
         getUserFromFirestore(receiverUser.get()?.id!!, { docSnapshot ->
             val user = docSnapshot.toObject(AppUser::class.java)
             viewModelScope.launch {
@@ -66,7 +63,8 @@ class RequestViewModel : BaseViewModel<Navigator>() {
                             user?.token!!,
                             Data(
                                 message.senderName!!,
-                                message.text!!
+                                message.text!!,
+                                "chat"
                             )
                         )
                     )

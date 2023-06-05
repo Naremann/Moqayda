@@ -78,9 +78,9 @@ class FavoriteViewModel : BaseViewModel<Navigator>() {
         }
     }
 
-     fun removeFavoriteProduct(productId:Int){
+     fun removeFavoriteProduct(favoriteItemId:Int){
         viewModelScope.launch {
-            val response = RetrofitBuilder.retrofitService.deleteFavoriteProductById(productId)
+            val response = RetrofitBuilder.retrofitService.deleteFavoriteProductById(favoriteItemId)
             if (response.isSuccessful){
                 Log.e("FavoriteViewModel","deleted successfully")
 

@@ -15,8 +15,6 @@ import com.example.moqayda.R
 import com.example.moqayda.databinding.BarteredItemBinding
 import com.example.moqayda.models.BarteredProduct
 import com.example.moqayda.models.Product
-import com.example.moqayda.ui.sentOffers.SentOffersViewModel
-import com.example.moqayda.ui.sentOffers.SentOffersVmFactory
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
@@ -54,8 +52,8 @@ class CompletedBartersAdapter(
 
     override fun onBindViewHolder(holder: CompletedBartersViewHolder, position: Int) {
         val barter = bartersList[position]
-        val vmFactory = SentOffersVmFactory(mContext)
-        val viewModel = ViewModelProvider(owner,vmFactory)[SentOffersViewModel::class.java]
+        val vmFactory = CompletedBartersViewModelFactory(mContext)
+        val viewModel = ViewModelProvider(owner,vmFactory)[CompletedBartersViewModel::class.java]
 
         lifecycleOwner.lifecycleScope.launch{
             val productOne = viewModel.getProduct(barter.productId)

@@ -2,6 +2,7 @@ package com.example.moqayda.ui.product_details
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -59,19 +60,16 @@ class ProductDetailsFragment :
             it.let {
                 viewDataBinding.appUser = it
             }
-            if (Firebase.auth.currentUser?.uid != it.id) {
+            if (it.id != Firebase.auth.currentUser?.uid) {
                 viewDataBinding.view.visibility = VISIBLE
                 viewDataBinding.userImg.visibility = VISIBLE
                 viewDataBinding.userName.visibility = VISIBLE
                 viewDataBinding.userCity.visibility = VISIBLE
             }
-            if (selectedProduct.isActive != false) {
+            if (selectedProduct.isActive != false && it.id != Firebase.auth.currentUser?.uid) {
                 viewDataBinding.button2.visibility = VISIBLE
                 viewDataBinding.productStatus.visibility = GONE
 
-            } else {
-                viewDataBinding.button2.visibility = GONE
-                viewDataBinding.productStatus.visibility = VISIBLE
             }
         }
 
