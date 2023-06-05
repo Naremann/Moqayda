@@ -1,6 +1,7 @@
 package com.example.moqayda.ui.swa_public_offers
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.moqayda.DataUtils
@@ -17,6 +18,11 @@ class SwapOffersOfPublicItemsViewModel:BaseViewModel<Navigator>() {
     var navigator : Navigator?=null
     var senderProductId:Int=0
     var productId:Int=0
+
+    private val _isEmpty = MutableLiveData(false)
+    val isEmpty: LiveData<Boolean>
+        get() = _isEmpty
+
     init {
         getSwapPublicOfferResponse()
     }
@@ -57,7 +63,15 @@ class SwapOffersOfPublicItemsViewModel:BaseViewModel<Navigator>() {
                         Log.e("privateItemAndOwner","Fail ${ex.localizedMessage}")
                     }
                 }
+
+                if (swapOffersOfPrivateItems.isEmpty()){
+                    _isEmpty.postValue(true)
+                    isVisibleProgressBar.value=false
+                }
+
                 swappublicOffers.value=swapOffersOfPrivateItems
+
+
 
             }
             catch (ex:Exception){
@@ -65,5 +79,6 @@ class SwapOffersOfPublicItemsViewModel:BaseViewModel<Navigator>() {
                 Log.e("getSwapOfferResponse","Fail ${ex.localizedMessage}")
             }
         }
+
     }
 }

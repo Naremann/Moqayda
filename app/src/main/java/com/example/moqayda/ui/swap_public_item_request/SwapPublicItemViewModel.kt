@@ -118,7 +118,8 @@ class SwapPublicItemViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
     private suspend fun sendChatRequest() {
 
-
+        Log.e("SwapPublicItemViewModel",receiverProduct.get()?.name!!)
+        Log.e("SwapPublicItemViewModel",receiverProduct.get()?.id.toString())
         firebaseInstance.setRequests(
             MessageRequest(
                 "",
@@ -127,7 +128,7 @@ class SwapPublicItemViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                 receiverId = receiverUser.get()?.id,
                 receiverName = "${receiverUser.get()?.firstName} ${receiverUser.get()?.lastName}",
                 false,
-                receiverProduct.get()?.name.toString()
+                messageBody = receiverProduct.get()?.name!!
             )
         )
 

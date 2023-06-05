@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentSwapOffersOfPublicItemsBinding
+import com.example.moqayda.initToolbar
 
 class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicItemsBinding,SwapOffersOfPublicItemsViewModel>(),Navigator {
     var adapter = SwapPublicOffersAdapter(swapPublicOffersFragment = this)
@@ -19,6 +20,8 @@ class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicI
         viewModel.navigator=this
         observeToLiveData()
         initRecycler()
+
+        viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.swap_offers),this)
 
     }
     private fun observeToLiveData() {
@@ -34,6 +37,12 @@ class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicI
         viewModel.toastMessage.observe(viewLifecycleOwner){toastMessage->
             showToastMessage(toastMessage)
 
+        }
+
+        viewModel.isEmpty.observe(viewLifecycleOwner){isEmpty ->
+            if (isEmpty){
+                viewDataBinding.noOffers.visibility = View.VISIBLE
+            }
         }
 
 
