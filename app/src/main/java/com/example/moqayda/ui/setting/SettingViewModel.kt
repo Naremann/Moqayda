@@ -23,6 +23,10 @@ class SettingViewModel:BaseViewModel<Navigator>() {
         navigator?.navigateToAppTermsFragment()
     }
 
+    fun navigateToBlockedUsersFragment(){
+        navigator?.onNavigateToBlockedUsersFragment()
+    }
+
     private fun deleteAccount():Boolean{
         var isDeleted = true
         showLoading.value=true

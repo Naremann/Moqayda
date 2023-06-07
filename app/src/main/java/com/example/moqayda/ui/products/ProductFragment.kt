@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.moqayda.DataUtils
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentProductsBinding
@@ -28,6 +29,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
     private lateinit var adapter: ProductAdapter
     private var productList: MutableList<Product> = mutableListOf()
     private var filteredList: MutableList<Product> = mutableListOf()
+    private val filteredProductsML = mutableListOf<Product>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,8 +37,12 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         showFloatingBtn()
         categoryId = ProductFragmentArgs.fromBundle(requireArguments()).categoryId
         viewDataBinding.vm = viewModel
-        viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.Swap_items),this)
-        adapter = ProductAdapter(productList,viewModel)
+        viewDataBinding.toolbar.initToolbar(
+            viewDataBinding.toolbar,
+            getString(R.string.Swap_items),
+            this
+        )
+        adapter = ProductAdapter(productList, viewModel)
         viewModel.navigator = this
         getProductsById()
         observeToLiveData()
@@ -97,18 +103,32 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
 //    }
 
     private fun observeToLiveData() {
+        Log.e("BlockedUsersViewModel", DataUtils.USER?.id.toString())
         lifecycleScope.launch {
             viewModel.categoryItem.observe(viewLifecycleOwner) { categoryItem ->
-                Log.e("ProductsListFragment", categoryItem.toString())
-                adapter.changeData(categoryItem?.categoryProductViewModels)
-                adapter.notifyDataSetChanged()
-                productList =
-                    categoryItem?.categoryProductViewModels as MutableList<Product>
+                viewModel.userBlockageList.observe(viewLifecycleOwner) { userBlockageList ->
+                    val filteredProductsML = mutableListOf<Product>()
+                    categoryItem?.categoryProductViewModels?.forEach { product ->
+                        val isBlocked = userBlockageList.any { userBlockage ->
+                            (product?.userId == userBlockage.blockingUserId && DataUtils.USER?.id == userBlockage.blockedUserId) ||
+                                    (product?.userId == userBlockage.blockedUserId && DataUtils.USER?.id == userBlockage.blockingUserId)
+                        }
+                        if (!isBlocked) {
+                            product?.let {
+                                filteredProductsML.add(it)
+                            }
+                        }
+                    }
+                    Log.e("ProductsListFragment", categoryItem.toString())
+                    adapter.changeData(filteredProductsML)
+                    adapter.notifyDataSetChanged()
+                    productList = filteredProductsML
+                }
             }
             viewModel.isVisibleProgress.observe(viewLifecycleOwner) { isVisibleProgress ->
                 viewDataBinding.progressBar.isVisible = isVisibleProgress
             }
-            
+
         }
     }
 
@@ -126,7 +146,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
         adapter.onActiveLoveImage = object : ProductAdapter.OnActiveLoveImageClickListener {
             override fun onIconClick(
                 activeLoveImage: ImageView, inActiveLoveImage: ImageView,
-                addToFavoriteTv: TextView, product: Product
+                addToFavoriteTv: TextView, product: Product,
             ) {
                 product.id?.let {
                     deleteItemFromFavorite(
@@ -144,7 +164,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
                 activeLoveImage: ImageView,
                 inActiveLoveImage: ImageView,
                 addToFavoriteTv: TextView,
-                product: Product
+                product: Product,
             ) {
                 product.id?.let {
                     addItemToFavorite(
@@ -157,7 +177,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
 
     private fun deleteItemFromFavorite(
         activeLoveImage: ImageView, inActiveLoveImage: ImageView,
-        addToFavoriteTv: TextView, productId: Int
+        addToFavoriteTv: TextView, productId: Int,
     ) {
         activeLoveImage.isVisible = false
         inActiveLoveImage.isVisible = true
@@ -167,7 +187,7 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
 
     private fun addItemToFavorite(
         activeLoveImage: ImageView, inActiveLoveImage: ImageView,
-        addToFavoriteTv: TextView, productId: Int
+        addToFavoriteTv: TextView, productId: Int,
     ) {
         activeLoveImage.isVisible = true
         inActiveLoveImage.isVisible = false
@@ -194,8 +214,11 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
 
     override fun onNavigateToOwnerProfile(user: AppUser) {
         this.findNavController()
-            .navigate(ProductFragmentDirections.actionProductsListFragmentToOtherUserProfileFragment(
-                user))
+            .navigate(
+                ProductFragmentDirections.actionProductsListFragmentToOtherUserProfileFragment(
+                    user
+                )
+            )
     }
 
 }

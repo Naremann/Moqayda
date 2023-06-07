@@ -25,9 +25,8 @@ class FavoriteFragment: BaseFragment<FragmentFavoriteBinding,FavoriteViewModel>(
         initRecyclerView()
         viewModel.navigator = this
         viewModel.favoriteProducts.observe(viewLifecycleOwner){
-
-            adapter = FavoriteAdapter(it, requireContext(),this)
-
+            val list = it.reversed()
+            adapter = FavoriteAdapter(list, requireContext(),this)
             it?.forEach{item ->
                 item.name?.let { it1 -> Log.e("FavoriteFragment", it1) }
             }

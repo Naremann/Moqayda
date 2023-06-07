@@ -191,4 +191,11 @@ interface ApiService {
     @GET("/api/Wishlist/all")
     suspend fun getAllFavoriteItems():Response<List<FavoriteItem>>
 
+    @POST("/api/Block")
+    suspend fun blockUser(@Body userBlockage: UserBlockage) : Response<ResponseBody>
+    @GET("/api/Block")
+    suspend fun getBlockedUsers():Response<List<UserBlockage>>
+    @DELETE("/api/Block/{id}")
+    suspend fun unBlockUser(@Path("id") id:Int):Response<ResponseBody>
+
 }

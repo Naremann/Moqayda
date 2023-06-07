@@ -125,4 +125,12 @@
     <string name="sent_offers">Sent offers</string>
     <string name="no_sent_offers">There are no sent offers</string>
     <string name="no_offers">There are no offers</string>
+    <string name="block">block this user</string>
+    <string name="user_blocked">User blocked successfully</string>
+    <string name="block_confirmation">Are you sure you wan to block this user ?</string>
+    <string name="unblock">unblock</string>
+    <string name="un_block_confirmation">Are you sure you wan to unblock this user ?</string>
+    <string name="user_unblocked">User unblocked successfully.</string>
+    <string name="no_blocked_users">There are no blocked users</string>
+    <string name="blocked_users">Block List</string>
 </resources>

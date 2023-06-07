@@ -69,8 +69,8 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_image"
                     photoUrl="@{appUser.image}"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center_horizontal"
                     android:onClick="@{()->vm.startFullImageScreen()}"
                     android:padding="10dp"
@@ -87,14 +87,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
                     android:text="@{appUser.firstName+` `+appUser.lastName }"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="@id/user_image"
                     app:layout_constraintStart_toStartOf="@id/user_image"
                     app:layout_constraintTop_toBottomOf="@id/user_image"
                     tools:text="Hana Ahmed" />
+
+
+                <TextView
+                    android:id="@+id/blockUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/block"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp"
+                    android:clickable="true"
+                    app:layout_constraintEnd_toEndOf="@id/user_image"
+                    app:layout_constraintStart_toStartOf="@id/user_image"
+                    app:layout_constraintTop_toBottomOf="@id/user_name_tv"
+                    android:focusable="true" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/user_products_recyclerview"
@@ -105,7 +122,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/user_name_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/blockUser"
                     tools:listitem="@layout/user_public__product_item" />
 
 

@@ -25,7 +25,9 @@ class CompletedBartersFragment :
         )
 
         viewModel.barters.observe(viewLifecycleOwner) {
-            adapter = CompletedBartersAdapter(it, requireContext(), this, this)
+            val list = it?.reversed()
+
+            adapter = CompletedBartersAdapter(list!!, requireContext(), this, this)
             viewDataBinding.bartersRecycler.adapter = adapter
         }
 

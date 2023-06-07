@@ -168,5 +168,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding, SettingViewModel>()
         findNavController().navigate(R.id.appTermsFragment)
     }
 
+    override fun onNavigateToBlockedUsersFragment() {
+        findNavController().navigate(SettingFragmentDirections.actionSettingFragmentToBlockedUsersFragment())
+    }
+
 
 }
