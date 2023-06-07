@@ -22,8 +22,6 @@ import kotlinx.coroutines.launch
 class ProductAdapter(var productList: List<Product?>? = mutableListOf(),private val productViewModel: ProductViewModel) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    lateinit var onInActiveLoveImage: OnInActiveLoveImageClickListener
-    lateinit var onActiveLoveImage: OnActiveLoveImageClickListener
     lateinit var onItemClickListener: OnItemClickListener
 
     class ProductViewHolder(val viewBinding: ProductItemBinding) :
@@ -73,20 +71,7 @@ class ProductAdapter(var productList: List<Product?>? = mutableListOf(),private 
         holder.itemView.setOnClickListener {
             onItemClickListener.onItemClick(product)
         }
-        holder.activeLoveImage.setOnClickListener {
-            onActiveLoveImage.onIconClick(
-                holder.activeLoveImage, holder.inActiveLoveImage, holder.addToFavoriteTv,product
-            )
-        }
-        holder.inActiveLoveImage.setOnClickListener {
-                    onInActiveLoveImage.onIconClick(
-                        holder.activeLoveImage,
-                        holder.inActiveLoveImage,
-                        holder.addToFavoriteTv,
-                        product
-                    )
 
-        }
 
         holder.viewBinding.addToFavoriteTv.setOnClickListener {
             Log.e("ProductAdapter","addToFavoriteTv pressed")
@@ -127,14 +112,6 @@ class ProductAdapter(var productList: List<Product?>? = mutableListOf(),private 
         )
     }
 
-    interface OnActiveLoveImageClickListener {
-        fun onIconClick(
-            activeLoveImage: ImageView,
-            inActiveLoveImage: ImageView,
-            addToFavoriteTv: TextView,
-            product: Product
-        )
-    }
 
 
 

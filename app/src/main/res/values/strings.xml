@@ -133,4 +133,8 @@
     <string name="user_unblocked">User unblocked successfully.</string>
     <string name="no_blocked_users">There are no blocked users</string>
     <string name="blocked_users">Block List</string>
+    <string name="login">Login</string>
+    <string name="app_terms">terms</string>
+    <string name="terms_text">terms</string>
+    <string name="no_match">not</string>
 </resources>

@@ -134,5 +134,9 @@
     <string name="user_unblocked">تم الغاء الحظر</string>
     <string name="no_blocked_users">قائمة الحظر فارغة</string>
     <string name="blocked_users">قائمة الحظر</string>
+    <string name="login">Login</string>
+    <string name="app_terms">terms</string>
+    <string name="terms_text">terms</string>
+    <string name="no_match">not</string>
 
 </resources>
