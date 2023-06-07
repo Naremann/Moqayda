@@ -26,7 +26,8 @@ class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicI
     }
     private fun observeToLiveData() {
         viewModel.swappublicOffers.observe(viewLifecycleOwner){ swapPublicOffers->
-            adapter.changeData(swapPublicOffers)
+            val list = swapPublicOffers?.reversed()
+            adapter.changeData(list)
             adapter.notifyDataSetChanged()
         }
 

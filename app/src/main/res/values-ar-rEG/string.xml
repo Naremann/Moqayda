@@ -126,5 +126,13 @@
     <string name="sent_offers">العروض المرسلة</string>
     <string name="no_sent_offers">لا يوجد عروض مرسلة</string>
     <string name="no_offers">لا يوجد عروض</string>
+    <string name="block">حظر هذا المستخدم</string>
+    <string name="user_blocked">تم حظر المستخدم</string>
+    <string name="block_confirmation">هل انت متأكد انك تريد حظر هذا المسنخدم ؟</string>
+    <string name="unblock">إلغاء الحظر</string>
+    <string name="un_block_confirmation">هل انت متأكد انك تريد إلغاء حظر هذا المسنخدم ؟</string>
+    <string name="user_unblocked">تم الغاء الحظر</string>
+    <string name="no_blocked_users">قائمة الحظر فارغة</string>
+    <string name="blocked_users">قائمة الحظر</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.moqayda.DataUtils
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.models.BarteredProduct
@@ -95,9 +96,9 @@ class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                         )
                     if (productOwnerResponse.isSuccessful) {
                         Log.e("CompletedBartersVModel", "productOwner Loaded Successfully")
-//                        if (barteredProduct.userId == currentUser?.uid || productOwnerResponse.body()?.userId == currentUser?.uid) {
-//                            dataList.add(barteredProduct)
-//                        }
+                        if (barteredProduct.userId == DataUtils.USER?.id || productOwnerResponse.body()?.userId == DataUtils.USER?.id) {
+                            dataList.add(barteredProduct)
+                        }
                     } else {
                         Log.e(
                             "CompletedBartersVModel",

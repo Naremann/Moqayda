@@ -196,6 +196,9 @@
         <action
             android:id="@+id/action_profileFragment_to_appTermsFragment"
             app:destination="@id/appTermsFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_blockedUsersFragment"
+            app:destination="@id/blockedUsersFragment" />
     </fragment>
     <fragment
         android:id="@+id/privateProductsFragment"
@@ -370,5 +373,10 @@
         android:id="@+id/sentOffersFragment"
         android:name="com.example.moqayda.ui.sentOffers.SentOffersFragment"
         android:label="SentOffersFragment" />
+    <fragment
+        tools:layout="@layout/fragment_blocked_users"
+        android:id="@+id/blockedUsersFragment"
+        android:name="com.example.moqayda.ui.blockedUsers.BlockedUsersFragment"
+        android:label="BlockedUsersFragment" />
 
 </navigation>

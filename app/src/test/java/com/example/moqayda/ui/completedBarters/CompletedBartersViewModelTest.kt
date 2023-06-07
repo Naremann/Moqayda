@@ -10,7 +10,7 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class CompletedBartersViewModelTest{
-    //      before run this test you need to comment firebase init code
+
     private val appContext: Context = ApplicationProvider.getApplicationContext()
     private val completedBartersViewModel = CompletedBartersViewModel(appContext)
 

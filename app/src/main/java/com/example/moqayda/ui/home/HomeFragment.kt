@@ -1,12 +1,14 @@
 package com.example.moqayda.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moqayda.DataUtils
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentHomeBinding
@@ -28,7 +30,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         initRecyclerView()
         subscribeToLiveData()
         observeToLiveData()
-
     }
 
     private fun initRecyclerView() {

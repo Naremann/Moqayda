@@ -54,8 +54,8 @@ class FavoriteAdapter(
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
 
         val builder = AlertDialog.Builder(mContext)
-        builder.setTitle("Confirmation")
-        builder.setMessage("Are you sure you want to do remove it from favorites ?")
+        builder.setTitle(mContext.getString(R.string.confirmation))
+        builder.setMessage(mContext.getString(R.string.remove_product_from_favorite_confirmation))
         val product = productList?.get(position)
         holder.bind(product!!)
         GlobalScope.launch {
@@ -70,7 +70,7 @@ class FavoriteAdapter(
                     true
                 }
                 R.id.menu_item_remove_from_favorite ->{
-                    builder.setPositiveButton("OK") { dialog, which ->
+                    builder.setPositiveButton(mContext.getString(R.string.ok)) { dialog, which ->
 
                         viewModel.wishlist.value?.forEach{
                             if (product.id == it.productId){
@@ -79,7 +79,7 @@ class FavoriteAdapter(
                         }
                     }
 
-                    builder.setNegativeButton("Cancel") { _, _ ->
+                    builder.setNegativeButton(mContext.getString(R.string.cancel)) { _, _ ->
                         // Cancel button clicked
                         // Do something here
                     }

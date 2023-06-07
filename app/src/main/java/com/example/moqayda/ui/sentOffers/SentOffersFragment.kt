@@ -23,7 +23,9 @@ class SentOffersFragment:BaseFragment<FragmentSentOffersBinding,SentOffersViewMo
         )
 
         viewModel.sentOffers.observe(viewLifecycleOwner) {
-            adapter = SentOffersAdapter(it, requireContext(), this, this)
+            val list = it?.reversed()
+
+            adapter = SentOffersAdapter(list!!, requireContext(), this, this)
             viewDataBinding.offersRecycler.adapter = adapter
         }
 

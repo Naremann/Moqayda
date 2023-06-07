@@ -3,7 +3,11 @@ package com.example.moqayda.ui.otherUserProfile
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
@@ -17,19 +21,25 @@ import com.example.moqayda.ui.user_public_items.UserPublicItemAdapter
 class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,OtherUserProfileViewModel>(),Navigator {
     private lateinit var selectedUser:AppUser
     private lateinit var adapter:UserPublicItemAdapter
+    private lateinit var  builder: AlertDialog.Builder
+    private lateinit var  dialog: AlertDialog
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         hideBottomAppBar()
-
         subscribeToLiveData()
 
+        initBlockDialog()
         viewDataBinding.toolbar.initToolbar(viewDataBinding.toolbar,getString(R.string.user_information),this)
 
         viewDataBinding.vm=viewModel
         viewModel.navigator=this
         selectedUser = OtherUserProfileFragmentArgs.fromBundle(requireArguments()).selectedUser
         viewDataBinding.appUser = selectedUser
+
+
+
+
 
         selectedUser.userProductViewModels.let {
             adapter = UserPublicItemAdapter(productList = selectedUser.userProductViewModels!!,
@@ -40,6 +50,31 @@ class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,Othe
             viewDataBinding.userProductsRecyclerview.adapter = adapter
         }
 
+
+        viewDataBinding.blockUser.setOnClickListener {
+            val animation: Animation = AnimationUtils.loadAnimation(requireContext(), R.anim.click_animation)
+            viewDataBinding.blockUser.startAnimation(animation)
+            dialog.show()
+
+        }
+
+
+    }
+
+    private fun initBlockDialog(){
+        builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.confirmation))
+        builder.setMessage(R.string.block_confirmation)
+
+        builder.setPositiveButton(getString(R.string.ok)) { dialog, which ->
+            viewModel.blockUser(selectedUser.id!!)
+        }
+
+        builder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
+            // Cancel button clicked
+
+        }
+        dialog = builder.create()
     }
 
 
@@ -75,5 +110,9 @@ class OtherUserProfileFragment:BaseFragment<FragmentOtherUserProfileBinding,Othe
         this.findNavController()
             .navigate(OtherUserProfileFragmentDirections.actionOtherUserProfileFragmentToProductDetailsFragment(
                 product))
+    }
+
+    override fun onNavigateToHomeFragment() {
+        this.findNavController().navigate(R.id.homeFragment)
     }
 }
