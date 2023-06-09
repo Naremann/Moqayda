@@ -36,7 +36,7 @@ class FavoriteViewModel : BaseViewModel<Navigator>() {
     }
 
 
-    suspend fun getProductOwner(id: String) : AppUser? {
+    suspend fun getProductOwner(id: String?) : AppUser? {
         return try {
             val result = RetrofitBuilder.retrofitService.getUserById(id)
             if (result.isSuccessful) {
