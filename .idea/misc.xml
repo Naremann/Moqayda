@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -34,6 +35,7 @@
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/activity_home.xml" value="0.18" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/activity_image_viewer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/bartered_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/category_left_item.xml" value="0.1" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/category_list_item.xml" value="0.10572916666666667" />
         <entry key="..\:/Users/user/Downloads/Moqayda/app/src/main/res/layout/category_right_item.xml" value="0.13489583333333333" />

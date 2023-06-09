@@ -47,14 +47,25 @@ class UpdateProductViewModel {
 
     @Test
     fun updateItemWithEmptyFieldsReturnErrorMessage() = runBlocking{
-
-        //content://com.google.android.apps.photos.contentprovider/-1/1/content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F31/ORIGINAL/NONE/1616429549
-
         repo.updateProduct("id","","desc","false","1",
             "0","a", Uri.parse("android.resource://${context.packageName}/" + R.drawable.background))
         val value = viewModel.toastMessage.getOrAwaitValue()
 
         Assert.assertEquals(context.getString(R.string.fill_all_fields),value)
+    }
+
+    @Test
+    fun updateItemWithDescriptionLengthMoreThan100thanCharacterReturnErrorMessage() = runBlocking{
+        repo.updateProduct("id",
+            "portable laptop stand",
+            "Rillatek-ae portable laptop stand, aluminium portable notebook riser, aluminum construction 6-position adjustable " +
+                    "ergonomic design, fits laptops and tablets from 10 to 15.6(silver)"
+
+            ,"false","1",
+            "0","a", Uri.parse("android.resource://${context.packageName}/" + R.drawable.background))
+        val value = viewModel.descriptionHelperText.getOrAwaitValue()
+
+        Assert.assertEquals(context.getString(R.string.maximum_100_characters),value)
     }
 
 }
