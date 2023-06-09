@@ -28,18 +28,5 @@
         android:name="com.example.moqayda.ui.registeration.RegistrationFragment"
         android:label="fragment_registeration"
         tools:layout="@layout/fragment_registeration" />
-    <fragment
-        android:id="@+id/passwordVerificationFragment"
-        android:name="com.example.moqayda.ui.password_verification.PasswordVerificationFragment"
-        android:label="fragment_password_verification"
-        tools:layout="@layout/fragment_password_verification" >
-        <action
-            android:id="@+id/action_passwordVerificationFragment_to_passwordChangeFragment"
-            app:destination="@id/passwordChangeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/passwordChangeFragment"
-        android:name="com.example.moqayda.ui.password_change.PasswordChangeFragment"
-        android:label="fragment_password_change"
-        tools:layout="@layout/fragment_password_change" />
+
 </navigation>

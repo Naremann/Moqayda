@@ -134,9 +134,17 @@
     <string name="user_unblocked">تم الغاء الحظر</string>
     <string name="no_blocked_users">قائمة الحظر فارغة</string>
     <string name="blocked_users">قائمة الحظر</string>
-    <string name="login">Login</string>
-    <string name="app_terms">terms</string>
-    <string name="terms_text">terms</string>
-    <string name="no_match">not</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="app_terms">  المقايضة هو تطبيق مباشر وعملي يمنح المستخدمين الفرصة للتداول مقابل ما يحتاجون إليه أكثر من دون مال ، وكل ذلك من أجهزتهم المحمولة.
+
+\nإذا كنت تريد مبادلة عناصرك ، فكل ما عليك فعله هو إدخال تفاصيل العنصر حول العنصر الخاص بك لتمكين المستخدمين الآخرين من إرسال طلب التبادل إليك.\n
+
+يمكنك إرسال طلب مبادلة مع شخص آخر يعجبك منتجه عن طريق تحديد عرض من عناصرك العامة وإرسال العرض.\n
+
+لا يتم تنشيط المحادثة بينك وبين شخص آخر إلا عندما يرسل/ترسل لك عرض المبادلة ، وأنت تقبل العرض.
+</string>
+    <string name="terms_text">الشروط</string>
+    <string name="no_match">لا توجد بيانات مطابقة</string>
+    <string name="rejected_swap">عرض مقايضة مرفوض</string>
 
 </resources>

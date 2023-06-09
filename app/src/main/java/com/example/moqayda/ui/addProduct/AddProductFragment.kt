@@ -110,8 +110,10 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
 
     private fun observeToLiveData() {
         viewModel.response.observe(viewLifecycleOwner, Observer { response ->
+            hideProgressDialog()
             if (response.isNotEmpty()) {
                 if (response == resources.getString(R.string.product_uploaded)) {
+
                     Toast.makeText(requireContext(), R.string.product_uploaded, Toast.LENGTH_LONG)
                         .show()
                     File(requireContext().cacheDir, viewModel.fileName.value.toString()).delete()
@@ -191,6 +193,7 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
     }
 
     private fun upload() {
+        showProgressDialog()
         if (selectedFile != null) {
             if (getFileSize(requireContext(), selectedFile!!) < getAvailableInternalMemorySize()) {
 

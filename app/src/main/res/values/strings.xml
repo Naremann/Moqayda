@@ -134,7 +134,13 @@
     <string name="no_blocked_users">There are no blocked users</string>
     <string name="blocked_users">Block List</string>
     <string name="login">Login</string>
-    <string name="app_terms">terms</string>
-    <string name="terms_text">terms</string>
-    <string name="no_match">not</string>
+    <string name="app_terms">Moqayda is a straightforward and practical application that gives users the opportunity to trade for what they need most WITH NO MONEY, all from their mobile device.\n
+        \nIf you want to swap your items, all you must do is enter the item details about your item to enable other users to send you the exchange request.\n
+        \nYou can send a swap request with another person whose product you like by selecting an offer from your public items and send the offer.\n
+        \nTHE CHAT between you and another person IS ACTIVATED ONLY when he/she sends you a swap offer, and you accept the request offer.
+</string>
+    <string name="terms_text">Terms</string>
+    <string name="no_match">No data match</string>
+    <string name="rejected_swap">Rejected swap offer</string>
+
 </resources>

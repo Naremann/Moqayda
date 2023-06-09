@@ -11,15 +11,11 @@ import com.example.moqayda.DataUtils
 import com.example.moqayda.R
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
-import com.example.moqayda.models.AppUser
-import com.example.moqayda.models.MessageRequest
-import com.example.moqayda.models.Product
-import com.example.moqayda.models.SwapPublicItem
-import com.example.moqayda.repo.FirebaseRepo
+import com.example.moqayda.database.getUserFromFirestore
+import com.example.moqayda.models.*
+import com.example.moqayda.notification.Notifications
 import com.example.moqayda.repo.product.ProductRepository
 import com.example.moqayda.repo.product.Resource
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
@@ -38,6 +34,8 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
     private val _senderUser = MutableLiveData<AppUser>()
     val senderUser: LiveData<AppUser>
         get() = _senderUser
+
+    var user : AppUser?=null
 
 
     val productOwnerID = ObservableField<Int>()
@@ -59,7 +57,7 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
     }
 
     init {
-
+        getUserById(DataUtils.USER?.id!!)
     }
 
 
@@ -206,6 +204,10 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
                             val result =
                                 RetrofitBuilder.retrofitService.deletePublicOffer(productOffer?.id!!)
                             if (result.isSuccessful) {
+                                pushNotification(senderProduct.value?.userId,"${user?.firstName}"+" "+
+                                    "${user?.lastName}"+"is rejected ${senderProduct.value?.name} offer")
+                                Log.e("Noti", "${receiverProduct.value?.userId}")
+                                Log.e("Notifi", "${_receiverProduct.value?.userId}")
                                 Log.e("SPublicOffersDetailsVM", "offerDeletedSuccessfully")
                                 messageLiveData.postValue(
                                     ctxReference.get()
@@ -237,6 +239,55 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
         dialog.show()
 
     }
+
+    private fun pushNotification(senderUserId:String?, notiMessage:String) {
+        val notifications = Notifications()
+        if (senderUserId != null) {
+            getUserById(senderUserId)
+        }
+        if (senderUserId != null) {
+            getUserFromFirestore(senderUserId, { docSnapshot ->
+                val user = docSnapshot.toObject(AppUser::class.java)
+                viewModelScope.launch {
+                    val result = notifications
+                        .sendNotification(
+                            Notification(
+                                user?.token!!,
+                                Data(
+                                    ctxReference.get()?.getString(R.string.rejected_swap)!!,
+                                    notiMessage,
+                                    "swapOffer"
+                                )
+                            )
+                        )
+                    when (result) {
+                        is Resource.Success<*> -> {
+                            Log.e("TAG", "sendNotification: notification")
+                        }
+                        is Resource.Error<*> -> {
+                            Log.e("TAG", "sendNotification: ${result.message}")
+                        }
+                    }
+                }
+
+            }, {
+                Log.e("SwapPublicItemViewModel", "Fail ${it.localizedMessage}")
+            })
+        }
+
+    }
+    private fun getUserById(userId:String) {
+        viewModelScope.launch {
+            val userResponse = RetrofitBuilder.retrofitService.getUserById(userId)
+            if (userResponse.isSuccessful) {
+                user=userResponse.body()
+                Log.e("SwapPublicItemViewModel", "User loaded successfully")
+            } else {
+                Log.e("SwapPublicItemViewModel", "cannot load user")
+            }
+        }
+    }
+
 
 
 
