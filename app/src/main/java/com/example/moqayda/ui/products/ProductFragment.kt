@@ -79,7 +79,9 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
             }
         }
         if (filteredList.isEmpty() && newText?.isNotBlank() == true) {
-            showToastMessage("No Data Match..", Toast.LENGTH_SHORT)
+            showToastMessage(getString(R.string.no_match), Toast.LENGTH_SHORT)
+            adapter.changeData(productList)
+            adapter.notifyDataSetChanged()
         } else {
             adapter.changeData(filteredList)
             adapter.notifyDataSetChanged()
@@ -143,61 +145,9 @@ class ProductFragment : BaseFragment<FragmentProductsBinding, ProductViewModel>(
                 )
             }
         }
-        adapter.onActiveLoveImage = object : ProductAdapter.OnActiveLoveImageClickListener {
-            override fun onIconClick(
-                activeLoveImage: ImageView, inActiveLoveImage: ImageView,
-                addToFavoriteTv: TextView, product: Product,
-            ) {
-                product.id?.let {
-                    deleteItemFromFavorite(
-                        activeLoveImage,
-                        inActiveLoveImage,
-                        addToFavoriteTv,
-                        product.id
-                    )
-                }
-            }
 
-        }
-        adapter.onInActiveLoveImage = object : ProductAdapter.OnInActiveLoveImageClickListener {
-            override fun onIconClick(
-                activeLoveImage: ImageView,
-                inActiveLoveImage: ImageView,
-                addToFavoriteTv: TextView,
-                product: Product,
-            ) {
-                product.id?.let {
-                    addItemToFavorite(
-                        activeLoveImage, inActiveLoveImage, addToFavoriteTv, it
-                    )
-                }
-            }
-        }
     }
 
-    private fun deleteItemFromFavorite(
-        activeLoveImage: ImageView, inActiveLoveImage: ImageView,
-        addToFavoriteTv: TextView, productId: Int,
-    ) {
-        activeLoveImage.isVisible = false
-        inActiveLoveImage.isVisible = true
-        addToFavoriteTv.isVisible = true
-        //delete item from database
-    }
-
-    private fun addItemToFavorite(
-        activeLoveImage: ImageView, inActiveLoveImage: ImageView,
-        addToFavoriteTv: TextView, productId: Int,
-    ) {
-        activeLoveImage.isVisible = true
-        inActiveLoveImage.isVisible = false
-        addToFavoriteTv.isVisible = false
-        CoroutineScope(Dispatchers.IO).launch {
-            Log.e("on image click", "isActive$productId")
-            //viewModel.addItemToFavorite(productId,"")
-
-        }
-    }
 
     override fun getViews(): View {
         return viewDataBinding.root

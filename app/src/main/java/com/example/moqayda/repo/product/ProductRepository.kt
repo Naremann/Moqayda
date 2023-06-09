@@ -87,7 +87,7 @@ class ProductRepository constructor(private val ctx: Context) {
 
     suspend fun updateProduct(
         id: String,
-        productName: String,
+        productName: String?,
         productDescription: String,
         IsActive:String? = "true",
         categoryId: String,
@@ -100,7 +100,7 @@ class ProductRepository constructor(private val ctx: Context) {
         val response = RetrofitBuilder.retrofitService.updateProduct(
             id,
             id.toRequestBody("text/plain".toMediaTypeOrNull()),
-            productName.toRequestBody("text/plain".toMediaTypeOrNull()),
+            productName?.toRequestBody("text/plain".toMediaTypeOrNull()),
             productDescription.toRequestBody("text/plain".toMediaTypeOrNull()),
             IsActive?.toRequestBody("text/plain".toMediaTypeOrNull()),
             categoryId.toRequestBody("text/plain".toMediaTypeOrNull()),

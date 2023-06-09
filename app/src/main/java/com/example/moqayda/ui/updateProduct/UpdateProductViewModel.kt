@@ -23,6 +23,9 @@ class UpdateProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     private val ctxReference: WeakReference<Context> = WeakReference(ctx)
     private val productRepository = ProductRepository(ctx)
     lateinit var navigator: Navigator
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage: LiveData<String>
+        get() = _toastMessage
 
     //    private val addProductRepository = AddProductRepository(ctx)
     private val _category = MutableLiveData<CategoryItem>()
@@ -78,6 +81,7 @@ class UpdateProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         if (productName.get().isNullOrBlank() || productDescription.get()
                 .isNullOrBlank() || productToSwap.get().isNullOrBlank()
         ) {
+            _toastMessage.postValue(ctxReference.get()?.getString(R.string.fill_all_fields))
             messageLiveData.postValue(ctxReference.get()?.getString(R.string.fill_all_fields))
         } else {
             if (productDescription.get()?.length!! > 100) {

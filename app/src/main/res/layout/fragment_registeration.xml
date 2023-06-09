@@ -61,14 +61,16 @@
                     android:orientation="horizontal"
                     android:weightSum="2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/firsNameContainer"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         layout_error="@{vm.firstNameError}"
-                        android:layout_width="175dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:enabled="true"
                         android:textColorHint="@color/black_overlay"
                         app:boxStrokeWidth="1dp"
@@ -93,8 +95,9 @@
                         android:id="@+id/lastNameContainer"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         layout_error="@{vm.lastNameError}"
-                        android:layout_width="175dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginStart="20dp"
                         android:enabled="true"
                         app:boxStrokeWidth="1dp"
@@ -149,8 +152,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/countryContainer"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="175dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginTop="20dp"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeColor="@color/black_overlay"
@@ -177,8 +181,9 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/city_card_view"
-                        android:layout_width="170dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="25dp"
                         app:strokeWidth="1dp"
@@ -266,6 +271,7 @@
                         android:layout_height="wrap_content"
                         android:text="@={vm.password}"
                         android:textColor="@color/black"
+                        android:inputType="textPassword"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
