@@ -37,11 +37,11 @@ class CategoryDaoTest {
     }
 
     @Test
-    fun updateCategoryItem() = runBlockingTest {
+    fun updateCategoryList() = runBlockingTest {
         val bookCategory = CategoryItem(0, null, 1,
-            false, "books","")
+            false, "books","text")
         val electronicsCategory = CategoryItem(0, null, 2,
-            false, "electronics","")
+            false, "electronics","text")
         val categoryItems : MutableList<CategoryItem> = mutableListOf()
         categoryItems.add(bookCategory)
         categoryItems.add(electronicsCategory)

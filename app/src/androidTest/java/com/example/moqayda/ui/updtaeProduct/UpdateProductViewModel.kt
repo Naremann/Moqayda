@@ -14,12 +14,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import com.example.moqayda.repo.product.ProductRepository
-import com.example.moqayda.repo.product.Resource
 import com.example.moqayda.ui.updateProduct.UpdateProductViewModel
-import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
@@ -32,9 +29,7 @@ class UpdateProductViewModel {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-
     private lateinit var repo: ProductRepository
-
     private val context : Context = ApplicationProvider.getApplicationContext()
     lateinit var viewModel : UpdateProductViewModel
 
@@ -44,11 +39,10 @@ class UpdateProductViewModel {
         viewModel= UpdateProductViewModel(context)
     }
 
-
     @Test
     fun updateItemWithEmptyFieldsReturnErrorMessage() = runBlocking{
-        repo.updateProduct("id","","desc","false","1",
-            "0","a", Uri.parse("android.resource://${context.packageName}/" + R.drawable.background))
+        repo.updateProduct("id",null,"desc","false","1",
+            "0","phone", Uri.parse("android.resource://${context.packageName}/" + R.drawable.background))
         val value = viewModel.toastMessage.getOrAwaitValue()
 
         Assert.assertEquals(context.getString(R.string.fill_all_fields),value)
@@ -62,7 +56,7 @@ class UpdateProductViewModel {
                     "ergonomic design, fits laptops and tablets from 10 to 15.6(silver)"
 
             ,"false","1",
-            "0","a", Uri.parse("android.resource://${context.packageName}/" + R.drawable.background))
+            "0","laptop stand", Uri.parse("android.resource://${context.packageName}/" + R.drawable.background))
         val value = viewModel.descriptionHelperText.getOrAwaitValue()
 
         Assert.assertEquals(context.getString(R.string.maximum_100_characters),value)
