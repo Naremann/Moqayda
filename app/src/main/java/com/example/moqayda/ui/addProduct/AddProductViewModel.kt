@@ -29,7 +29,7 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         get() = _fileName
 
 
-    private val _descriptionHelperText = MutableLiveData<String>()
+    val _descriptionHelperText = MutableLiveData<String>()
     val descriptionHelperText: LiveData<String>
         get() = _descriptionHelperText
 
@@ -38,7 +38,7 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     val categoryList: LiveData<List<CategoryItem>>
         get() = _categoryList
 
-    private val _toastMessage = MutableLiveData<String>()
+    val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String>
         get() = _toastMessage
 
@@ -73,7 +73,7 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
         navigator.onNavigateToSelectCategoryFragment()
     }
 
-    fun upload(
+    fun uploadProduct(
         selectedCategory: String,
         imageUri: Uri,
         fileRealPath: String,
@@ -101,10 +101,8 @@ class AddProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                         userId
                     )
                 }
-
             }
         }
     }
-
 
 }

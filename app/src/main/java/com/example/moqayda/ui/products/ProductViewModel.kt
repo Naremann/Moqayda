@@ -26,10 +26,7 @@ class ProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
     private val categoryId = MutableLiveData<Int>()
     val userBlockageList = MutableLiveData<List<UserBlockage>>()
 
-    private val filteredProductsML = mutableListOf<Product>()
-    private val _filteredProducts = MutableLiveData<List<Product>>()
-    val filteredProducts: LiveData<List<Product>>
-        get() = _filteredProducts
+
 
     fun getProductsById(id: Int) {
         Log.e("ProductViewModelLog", "getProductsById: $id")
@@ -69,7 +66,6 @@ class ProductViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                 messageLiveData.postValue(
                     ctxReference.get()?.getString(R.string.product_already_in_your_favorites)
                 )
-
             }
             Log.e("OtherUserProfileVM", "failed to add product: ${response.code()}")
         }

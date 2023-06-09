@@ -61,14 +61,16 @@
                     android:orientation="horizontal"
                     android:weightSum="2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/firsNameContainer"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         layout_error="@{vm.firstNameError}"
-                        android:layout_width="175dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:enabled="true"
                         android:textColorHint="@color/black_overlay"
                         app:boxStrokeWidth="1dp"
@@ -93,8 +95,9 @@
                         android:id="@+id/lastNameContainer"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         layout_error="@{vm.lastNameError}"
-                        android:layout_width="175dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginStart="20dp"
                         android:enabled="true"
                         app:boxStrokeWidth="1dp"
@@ -149,8 +152,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/countryContainer"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:layout_width="175dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginTop="20dp"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeColor="@color/black_overlay"
@@ -177,8 +181,9 @@
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/city_card_view"
-                        android:layout_width="170dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="25dp"
                         app:strokeWidth="1dp"
@@ -266,6 +271,7 @@
                         android:layout_height="wrap_content"
                         android:text="@={vm.password}"
                         android:textColor="@color/black"
+                        android:inputType="textPassword"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -292,7 +298,7 @@
                     android:layout_marginTop="13dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                     />
+                    />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/login_google_btn"
@@ -306,46 +312,46 @@
                     style="@style/Widget.AppCompat.Button.Colored"
                     />
 
-               <androidx.appcompat.widget.LinearLayoutCompat
-                   android:id="@+id/sign_in_linear"
-                   android:layout_height="wrap_content"
-                   android:layout_width="wrap_content"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintStart_toStartOf="parent"
-                   android:gravity="center"
-                   android:layout_gravity="center"
-                   android:layout_marginTop="8dp"
-                   android:orientation="horizontal"
-                   >
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/have_account_text"
-                       android:textSize="16sp"
-                       android:textColor="@color/black"
-                       android:textStyle="bold"
-                       />
-                   <androidx.appcompat.widget.LinearLayoutCompat
-                       android:layout_height="wrap_content"
-                       android:layout_width="wrap_content"
-                       android:orientation="vertical"
-                       android:layout_marginStart="6dp"
-                       android:onClick="@{()->vm.navigateToLogin()}"
-                       >
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="@string/sign_in_text"
-                           android:textColor="@color/blue"
-                           android:textSize="16sp"
-                           />
-                       <View
-                           android:layout_width="match_parent"
-                           android:layout_height="1dp"
-                           android:background="@color/blue"
-                           />
-                   </androidx.appcompat.widget.LinearLayoutCompat>
-               </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/sign_in_linear"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/have_account_text"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="6dp"
+                        android:onClick="@{()->vm.navigateToLogin()}"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sign_in_text"
+                            android:textColor="@color/blue"
+                            android:textSize="16sp"
+                            />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/blue"
+                            />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </LinearLayout>
         </ScrollView>
 

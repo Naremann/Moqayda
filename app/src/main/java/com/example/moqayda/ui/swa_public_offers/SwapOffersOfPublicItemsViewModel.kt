@@ -32,53 +32,33 @@ class SwapOffersOfPublicItemsViewModel:BaseViewModel<Navigator>() {
         isVisibleProgressBar.value=true
         viewModelScope.launch {
             val response = retrofitService.getSwapPublicOffersBuUserId(userId).body()?.userProdOffersViewModels
-            try {
-                val swapOffersOfPrivateItems:MutableList<Product> = mutableListOf()
+            try { val swapOffersOfPrivateItems:MutableList<Product> = mutableListOf()
                 Log.e("getSwapOfferResponse","Success $response")
-
                 response?.forEach {userProdOffersViewModels->
                     productId=userProdOffersViewModels?.productId!!
                     val userPublicOffersResponse =
                         retrofitService.getProductOwnerByProductOwnerId(userProdOffersViewModels.productOwnerId)
                     val senderItemId = userPublicOffersResponse.body()?.productId
                     senderProductId=senderItemId!!
-
-
-                    try {
-                        val swapOffers= retrofitService.getProductById(senderItemId).body()
+                    try { val swapOffers= retrofitService.getProductById(senderItemId).body()
                         isVisibleProgressBar.value=false
-                        try {
-                            Log.e("privateItemAndOwner","Success")
-                            swapOffersOfPrivateItems.add(swapOffers!!)
-                        }
+                        try { Log.e("privateItemAndOwner","Success")
+                            swapOffersOfPrivateItems.add(swapOffers!!) }
                         catch (ex:Exception){
                             toastMessage.value="Fail ${ex.localizedMessage}"
-                            Log.e("swapOffers","Fail ${ex.localizedMessage}")
-                        }
-
-
-                    }
+                            Log.e("swapOffers","Fail ${ex.localizedMessage}") } }
                     catch (ex:Exception){
                         toastMessage.value="something went wrong,Try again"
                         Log.e("privateItemAndOwner","Fail ${ex.localizedMessage}")
                     }
                 }
-
                 if (swapOffersOfPrivateItems.isEmpty()){
                     _isEmpty.postValue(true)
-                    isVisibleProgressBar.value=false
-                }
-
+                    isVisibleProgressBar.value=false }
                 swappublicOffers.value=swapOffersOfPrivateItems
-
-
-
             }
             catch (ex:Exception){
                 toastMessage.value="something went wrong,Try again"
-                Log.e("getSwapOfferResponse","Fail ${ex.localizedMessage}")
-            }
-        }
-
+                Log.e("getSwapOfferResponse","Fail ${ex.localizedMessage}") } }
     }
 }

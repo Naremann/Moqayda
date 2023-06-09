@@ -213,7 +213,7 @@ class AddProductFragment : BaseFragment<FragmentAddProductBinding, AddProductVie
                 cursor?.close()
 
                 if (selectedImageName != null) {
-                    viewModel.upload(
+                    viewModel.uploadProduct(
                         selectedCategory.id.toString(),
                         selectedFile!!,
                         getFilePathFromUri(

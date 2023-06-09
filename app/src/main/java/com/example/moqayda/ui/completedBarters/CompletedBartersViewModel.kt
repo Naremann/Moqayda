@@ -18,12 +18,21 @@ class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
 
 //    private val currentUser = Firebase.auth.currentUser
 
-    private val _barters = MutableLiveData<List<BarteredProduct>>()
+    private var _barters = MutableLiveData<List<BarteredProduct>>()
     val barters: LiveData<List<BarteredProduct>>
         get() = _barters
 
 
-    private val dataList = mutableListOf<BarteredProduct>()
+    fun postBarters(data: List<BarteredProduct>){
+        _barters.postValue(data)
+    }
+
+
+    fun initBarters(mLD: MutableLiveData<List<BarteredProduct>>){
+        _barters = mLD
+    }
+
+    var dataList = mutableListOf<BarteredProduct>()
 
     private val _progressBarStatus = MutableLiveData<Boolean>()
     val progressBarStatus: LiveData<Boolean>
@@ -92,29 +101,24 @@ class CompletedBartersViewModel(ctx: Context) : BaseViewModel<Navigator>() {
                 response.body()?.forEach { barteredProduct ->
                     val productOwnerResponse =
                         RetrofitBuilder.retrofitService.getProductOwnerByProductOwnerId(
-                            barteredProduct.productOwnerId
-                        )
+                            barteredProduct.productOwnerId)
                     if (productOwnerResponse.isSuccessful) {
                         Log.e("CompletedBartersVModel", "productOwner Loaded Successfully")
-                        if (barteredProduct.userId == DataUtils.USER?.id || productOwnerResponse.body()?.userId == DataUtils.USER?.id) {
-                            dataList.add(barteredProduct)
-                        }
+                        if (barteredProduct.userId == DataUtils.USER?.id
+                            || productOwnerResponse.body()?.userId == DataUtils.USER?.id) {
+                            dataList.add(barteredProduct) }
                     } else {
-                        Log.e(
-                            "CompletedBartersVModel",
-                            "Failed to load product owner ${productOwnerResponse.message()}"
-                        )
-                    }
+                        Log.e("CompletedBartersVModel",
+                            "Failed to load product owner ${productOwnerResponse.message()}") }
                 }
             } else {
-                Log.e(
-                    "CompletedBartersVModel",
-                    "Failed to load Barters ${response.message()}"
-                )
+                Log.e("CompletedBartersVModel",
+                    "Failed to load Barters ${response.message()}")
             }
             _barters.postValue(dataList)
             _progressBarStatus.postValue(false)
         }
-
     }
+
+
 }
