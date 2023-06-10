@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moqayda.ImageViewerActivity
 import com.example.moqayda.R
 import com.example.moqayda.databinding.BarteredItemBinding
+import com.example.moqayda.databinding.SentSwapOfferBinding
 import com.example.moqayda.models.Product
 import com.example.moqayda.models.SwapPublicItem
 import com.example.moqayda.ui.completedBarters.CompletedBartersViewModel
@@ -28,7 +32,9 @@ class SentOffersAdapter(
     private val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<SentOffersAdapter.PendingSentOffersViewHolder>() {
     val currentUser = Firebase.auth.currentUser
-    inner class PendingSentOffersViewHolder(val binding: BarteredItemBinding) :
+    private lateinit var  builder: AlertDialog.Builder
+    private lateinit var  dialog: AlertDialog
+    inner class PendingSentOffersViewHolder(val binding: SentSwapOfferBinding) :
         RecyclerView.ViewHolder(binding.root){
 
         fun bind(firstProduct: Product, secondProduct:Product ){
@@ -39,9 +45,9 @@ class SentOffersAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PendingSentOffersViewHolder {
-        val binding: BarteredItemBinding = DataBindingUtil.inflate(
+        val binding: SentSwapOfferBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.bartered_item,
+            R.layout.sent_swap_offer,
             parent,
             false
         )
@@ -69,6 +75,24 @@ class SentOffersAdapter(
         }
         holder.binding.productImage.setOnClickListener {
             startFullImageScreen(holder,holder.binding.secondItem)
+        }
+        holder.binding.cancelRequest.setOnClickListener {
+            val animation: Animation = AnimationUtils.loadAnimation(mContext, R.anim.click_animation)
+            it.startAnimation(animation)
+
+            builder = AlertDialog.Builder(mContext)
+            builder.setTitle(mContext.getString(R.string.confirmation))
+            builder.setMessage(R.string.un_block_confirmation)
+
+            builder.setPositiveButton(mContext.getString(R.string.ok)) { dialog, which ->
+                viewModel.deleteOffer(offer.id!!)
+            }
+
+            builder.setNegativeButton(mContext.getString(R.string.cancel)) { _, _ ->
+                // Cancel button clicked
+            }
+            dialog = builder.create()
+            dialog.show()
         }
 
     }

@@ -21,7 +21,7 @@ class SentOffersFragment:BaseFragment<FragmentSentOffersBinding,SentOffersViewMo
             requireActivity().getString(R.string.sent_offers),
             this
         )
-
+        subscribeToLiveData()
         viewModel.sentOffers.observe(viewLifecycleOwner) {
             val list = it?.reversed()
 

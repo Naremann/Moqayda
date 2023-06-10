@@ -15,6 +15,7 @@ import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.api.RetrofitBuilder.retrofitService
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentUserPublicProductsBinding
+import com.example.moqayda.initToolbar
 import com.example.moqayda.models.PrivateItem
 import com.example.moqayda.models.PrivateProduct
 import com.example.moqayda.models.Product
@@ -22,24 +23,34 @@ import com.example.moqayda.models.ProductOwnerItem
 import kotlinx.coroutines.launch
 
 
-class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,UserPublicItemViewModel>(),Navigator{
+class UserPublicItemsFragment :
+    BaseFragment<FragmentUserPublicProductsBinding, UserPublicItemViewModel>(), Navigator {
     private lateinit var adapter: UserPublicItemAdapter
     private var productList: MutableList<PrivateProduct> = mutableListOf()
     private var filteredList: MutableList<PrivateItem> = mutableListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewDataBinding.vm=viewModel
+        viewDataBinding.vm = viewModel
         viewModel.navigator = this
-        adapter= UserPublicItemAdapter(userPublicItemsFragment = this,
-            mContext = this.requireContext(), owner = this)
+        adapter = UserPublicItemAdapter(
+            userPublicItemsFragment = this,
+            mContext = this.requireContext(), owner = this
+        )
+
+        viewDataBinding.toolbar.initToolbar(
+            viewDataBinding.toolbar,
+            getString(R.string.items_in_public),
+            this
+        )
 
         subscribeToLiveData()
         observeToLiveData()
         initRecycler()
     }
+
     @SuppressLint("NotifyDataSetChanged")
     private fun observeToLiveData() {
-        viewModel.product.observe(viewLifecycleOwner){ ProductsList->
+        viewModel.product.observe(viewLifecycleOwner) { ProductsList ->
             adapter.changeData(ProductsList)
             adapter.notifyDataSetChanged()
 
@@ -50,48 +61,52 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
 
 
     }
+
     private fun initRecycler() {
 
         viewDataBinding.recyclerView.adapter = adapter
-        adapter.onSwapLinearClickListener=object:UserPublicItemAdapter.OnSwapLinearClickListener{
-            override fun onSwapLinearClick(ProductItem: Product?) {
-                viewModel.senderProduct=ProductItem
-                addProductOwner(ProductItem?.id!!)
-                navigateToSwapPublicItemRequestFragment(ProductItem)
+        adapter.onSwapLinearClickListener =
+            object : UserPublicItemAdapter.OnSwapLinearClickListener {
+                override fun onSwapLinearClick(ProductItem: Product?) {
+                    viewModel.senderProduct = ProductItem
+                    addProductOwner(ProductItem?.id!!)
+                    navigateToSwapPublicItemRequestFragment(ProductItem)
+                }
+
             }
 
-        }
-
     }
-    fun addProductOwner(ProductId:Int){
+
+    fun addProductOwner(ProductId: Int) {
         val userId = DataUtils.USER?.id
         showProgressDialog()
 
-        val productOwnerItem= ProductOwnerItem(0,ProductId,userId!!)
+        val productOwnerItem = ProductOwnerItem(0, ProductId, userId!!)
         lifecycleScope.launch {
             val response = retrofitService.addProductOwner(productOwnerItem)
             hideProgressDialog()
             try {
-                if(response.isSuccessful){
-                    Log.e("addProductOwner","Success ${response.body()}")
-                }
-                else
-                    Log.e("addPrivateItemOwner","Fail :Unknown")
+                if (response.isSuccessful) {
+                    Log.e("addProductOwner", "Success ${response.body()}")
+                } else
+                    Log.e("addPrivateItemOwner", "Fail :Unknown")
 
-            }catch (ex:Exception){
-                Log.e("addProductOwner","Fail ${ex.localizedMessage}")
+            } catch (ex: Exception) {
+                Log.e("addProductOwner", "Fail ${ex.localizedMessage}")
             }
         }
     }
 
 
-
-
-
     private fun navigateToSwapPublicItemRequestFragment(senderRequestProduct: Product) {
         val product = UserPublicItemsFragmentArgs.fromBundle(requireArguments()).product
-            findNavController().navigate(UserPublicItemsFragmentDirections
-                .actionUserPublicItemsFragmentToSwapPublicItemRequestFragment(senderRequestProduct,product))
+        findNavController().navigate(
+            UserPublicItemsFragmentDirections
+                .actionUserPublicItemsFragmentToSwapPublicItemRequestFragment(
+                    senderRequestProduct,
+                    product
+                )
+        )
 
     }
 
@@ -101,7 +116,7 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
 
     override fun initViewModeL(): UserPublicItemViewModel {
         val viewModelFactory = UserPublicItemViewModelFactory(requireContext())
-        return ViewModelProvider(this,viewModelFactory)[UserPublicItemViewModel::class.java]
+        return ViewModelProvider(this, viewModelFactory)[UserPublicItemViewModel::class.java]
     }
 
     override fun getLayoutId(): Int {
@@ -109,14 +124,20 @@ class UserPublicItemsFragment : BaseFragment<FragmentUserPublicProductsBinding,U
     }
 
     override fun onNavigateToProductDetails(product: Product) {
-        findNavController().navigate(UserPublicItemsFragmentDirections.actionUserPublicItemsFragmentToProductDetailsFragment(
-            product))
+        findNavController().navigate(
+            UserPublicItemsFragmentDirections.actionUserPublicItemsFragmentToProductDetailsFragment(
+                product
+            )
+        )
     }
 
     override fun onNavigateTOUpdateProductFragment(product: Product, categoryId: Int) {
-        findNavController().navigate(UserPublicItemsFragmentDirections.actionUserPublicItemsFragmentToUpdateProductFragment(
-            product,
-            categoryId))
+        findNavController().navigate(
+            UserPublicItemsFragmentDirections.actionUserPublicItemsFragmentToUpdateProductFragment(
+                product,
+                categoryId
+            )
+        )
     }
 
 }

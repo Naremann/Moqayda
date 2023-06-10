@@ -298,7 +298,7 @@
                     android:layout_marginTop="13dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                     />
+                    />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/login_google_btn"
@@ -312,46 +312,46 @@
                     style="@style/Widget.AppCompat.Button.Colored"
                     />
 
-               <androidx.appcompat.widget.LinearLayoutCompat
-                   android:id="@+id/sign_in_linear"
-                   android:layout_height="wrap_content"
-                   android:layout_width="wrap_content"
-                   app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintStart_toStartOf="parent"
-                   android:gravity="center"
-                   android:layout_gravity="center"
-                   android:layout_marginTop="8dp"
-                   android:orientation="horizontal"
-                   >
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/have_account_text"
-                       android:textSize="16sp"
-                       android:textColor="@color/black"
-                       android:textStyle="bold"
-                       />
-                   <androidx.appcompat.widget.LinearLayoutCompat
-                       android:layout_height="wrap_content"
-                       android:layout_width="wrap_content"
-                       android:orientation="vertical"
-                       android:layout_marginStart="6dp"
-                       android:onClick="@{()->vm.navigateToLogin()}"
-                       >
-                       <TextView
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="@string/sign_in_text"
-                           android:textColor="@color/blue"
-                           android:textSize="16sp"
-                           />
-                       <View
-                           android:layout_width="match_parent"
-                           android:layout_height="1dp"
-                           android:background="@color/blue"
-                           />
-                   </androidx.appcompat.widget.LinearLayoutCompat>
-               </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/sign_in_linear"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/have_account_text"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="6dp"
+                        android:onClick="@{()->vm.navigateToLogin()}"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sign_in_text"
+                            android:textColor="@color/blue"
+                            android:textSize="16sp"
+                            />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/blue"
+                            />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </LinearLayout>
         </ScrollView>
 

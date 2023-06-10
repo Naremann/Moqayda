@@ -80,52 +80,39 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
     }
 
     fun addBarteredProducts() {
-        _progressBareStatus.postValue(true)
+
         val swapOffer = SwapPublicItem(
             productId = receiverProduct.value?.id!!,
             userId = receiverProduct.value?.userId!!,
-            productOwnerId = productOwnerID.get()!!
-        )
-
+            productOwnerId = productOwnerID.get()!!)
         val builder = AlertDialog.Builder(ctxReference.get()!!)
         builder.setTitle(ctxReference.get()!!.getString(R.string.confirmation))
-
-        builder.setMessage(
-            ctxReference.get()!!.getString(R.string.accept_swap_offer_confirmation)
-        )
+        builder.setMessage(ctxReference.get()!!.getString(R.string.accept_swap_offer_confirmation))
         Log.e("SPublicOffersDetailsVM", senderProduct.value?.isActive.toString())
         builder.setPositiveButton(ctxReference.get()!!.getString(R.string.ok)) { _, _ ->
+            _progressBareStatus.postValue(true)
             viewModelScope.launch {
                 val response = RetrofitBuilder.retrofitService.addPublicBarteredProduct(swapOffer)
                 if (response.isSuccessful) {
                     _progressBareStatus.postValue(false)
                     Log.e("SPublicOffersDetailsVM", "Success")
-
                     messageLiveData.postValue(ctxReference.get()!!.getString(R.string.swap_done))
-
                     deleteSelectedOffer(
                         receiverProduct.value?.userId!!,
                         receiverProduct.value!!.id!!,
-                        productOwnerID.get()!!
-                    )
+                        productOwnerID.get()!!)
                     makeProductUnAvailable(receiverProduct.value!!)
                     makeProductUnAvailable(senderProduct.value!!)
                     navigateToProfileFragment()
-                } else {
-                    Log.e("SPublicOffersDetailsVM", "Failed : ${response.message()}")
-                    messageLiveData.postValue(
-                        ctxReference.get()!!.getString(R.string.failure_message)
-                    )
-                }
+                } else { messageLiveData.postValue(ctxReference.get()!!.getString(R.string.failure_message)) }
             }
         }
-
         builder.setNegativeButton(ctxReference.get()!!.getString(R.string.cancel)) { _, _ ->
             // Cancel button clicked
         }
+        _progressBareStatus.postValue(false)
         val dialog = builder.create()
         dialog.show()
-
     }
 
 
@@ -138,7 +125,7 @@ class SwapPublicOffersDetailsViewModel(ctx: Context) : BaseViewModel<Navigator>(
         } else {
             Log.e("SPublicOffersDetailsVM", "failedToDeleteOffer: ${response.message()}")
         }
-
+        _progressBareStatus.postValue(false)
     }
 
     private suspend fun deleteSelectedOffer(userId: String, productId: Int, productOwnerId: Int) {

@@ -17,7 +17,7 @@ import java.lang.ref.WeakReference
 class BlockedUsersViewModel(mContext: Context):BaseViewModel<Navigator>(){
 
     private val ctxReference: WeakReference<Context> = WeakReference(mContext)
-    private val userBlockage = MutableLiveData<List<UserBlockage>>()
+    val userBlockage = MutableLiveData<List<UserBlockage>>()
     private val blockedUsersList = mutableListOf<AppUser>()
 
     private val _blockedUsers = MutableLiveData<List<AppUser>>()
@@ -37,7 +37,7 @@ class BlockedUsersViewModel(mContext: Context):BaseViewModel<Navigator>(){
     }
 
 
-    private fun getBlockedUsers(){
+    fun getBlockedUsers(){
         blockedUsersList.clear()
         _progressBarStatus.postValue(true)
         viewModelScope.launch {

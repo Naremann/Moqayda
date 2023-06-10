@@ -143,5 +143,8 @@
     <string name="no_match">No data match</string>
     <string name="rejected_swap">Rejected swap offer</string>
     <string name="no_internet">Not internet connection</string>
+    <string name="cancel_request">Cancel request</string>
+    <string name="request_canceled">Request canceled successfully</string>
+    <string name="request_swap">Request Swap</string>
 
 </resources>

@@ -49,9 +49,6 @@ class SwapOffersOfPublicItemsFragment : BaseFragment<FragmentSwapOffersOfPublicI
 
     }
     private fun initRecycler() {
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireContext(),
-            RecyclerView.VERTICAL,true)
-        viewDataBinding.recyclerView.layoutManager=layoutManager
         viewDataBinding.recyclerView.adapter = adapter
         adapter.onDetailsClickListener=object:SwapPublicOffersAdapter.OnDetailsClickListener{
             override fun onItemClick(senderProductId: Int, receiverProductId: Int) {
