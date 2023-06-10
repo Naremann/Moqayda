@@ -142,5 +142,6 @@
     <string name="terms_text">Terms</string>
     <string name="no_match">No data match</string>
     <string name="rejected_swap">Rejected swap offer</string>
+    <string name="no_internet">Not internet connection</string>
 
 </resources>
