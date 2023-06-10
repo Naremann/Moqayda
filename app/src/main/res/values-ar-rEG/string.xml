@@ -148,4 +148,7 @@
     <string name="rejected_swap">عرض مقايضة مرفوض</string>
     <string name="no_internet">لا يوجد اتصال بالإنترنت</string>
 
+    <string name="cancel_request">إلغاء الطلب</string>
+    <string name="request_canceled">تم إلغاء الطلب</string>
+    <string name="request_swap">طلب مفايضة</string>
 </resources>
