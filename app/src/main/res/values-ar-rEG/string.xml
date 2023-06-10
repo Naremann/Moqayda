@@ -146,5 +146,6 @@
     <string name="terms_text">الشروط</string>
     <string name="no_match">لا توجد بيانات مطابقة</string>
     <string name="rejected_swap">عرض مقايضة مرفوض</string>
+    <string name="no_internet">لا يوجد اتصال بالإنترنت</string>
 
 </resources>

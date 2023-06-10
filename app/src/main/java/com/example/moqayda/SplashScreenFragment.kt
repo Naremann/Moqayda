@@ -1,5 +1,7 @@
 package com.example.moqayda
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -10,7 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.moqayda.database.getUserFromFirestore
 import com.example.moqayda.database.local.LanguagesSettingsHelper
 import com.example.moqayda.database.local.LocaleHelper
@@ -19,10 +24,17 @@ import com.example.moqayda.databinding.FragmentSplashScreenBinding
 import com.example.moqayda.models.AppUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
-class SplashScreenFragment : androidx.fragment.app.Fragment() {
+@AndroidEntryPoint
+class SplashScreenFragment() : androidx.fragment.app.Fragment() {
     private var binding : FragmentSplashScreenBinding?=null
+
+    @Inject
+    lateinit var networkHandler:NetworkHandler
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +65,29 @@ class SplashScreenFragment : androidx.fragment.app.Fragment() {
 
         }
     }
+    private fun showAlertDialog(
+        message:String, posActionName:String?=null,
+        posActionListener: DialogInterface.OnClickListener?=null,
+        cancellable: Boolean = true
+    ){
+        val builder = AlertDialog.Builder(requireContext())
+            .setMessage(message)
+        if(posActionName != null){
+            builder.setPositiveButton(posActionName, posActionListener)
+        }
+
+        builder.setCancelable(cancellable)
+        builder.show()
+    }
+    private fun checkNetworkStatus() {
+        if (!networkHandler.isOnline()) {
+            showAlertDialog(requireContext().getString(R.string.no_internet), requireContext().getString(R.string.ok))
+            NavHostFragment.findNavController(this).popBackStack()
+        }
+        if(networkHandler.isOnline()){
+            startHomeActivity()
+        }
+    }
     private fun checkLoggedInUser(view: View){
         val firebase = Firebase.auth.currentUser
         if(firebase==null){
@@ -62,7 +97,8 @@ class SplashScreenFragment : androidx.fragment.app.Fragment() {
         }
         else{
             getUserFromFirestore(firebase.uid, { docSnapshot->
-                startHomeActivity()
+                checkNetworkStatus()
+               //startHomeActivity()
                 val user = docSnapshot.toObject(AppUser::class.java)
                 DataUtils.USER=user
             }) {
