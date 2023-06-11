@@ -5,6 +5,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.moqayda.DataUtils
 import com.example.moqayda.api.RetrofitBuilder
 import com.example.moqayda.base.BaseViewModel
 import com.example.moqayda.database.getUserFromFirestore
@@ -13,6 +14,7 @@ import com.example.moqayda.models.Data
 import com.example.moqayda.models.Message
 import com.example.moqayda.models.MessageRequest
 import com.example.moqayda.models.Notification
+import com.example.moqayda.models.UserBlockage
 import com.example.moqayda.notification.Notifications
 import com.example.moqayda.repo.FirebaseRepo
 import com.example.moqayda.repo.product.Resource
@@ -32,6 +34,12 @@ class RequestViewModel : BaseViewModel<Navigator>() {
 
     val receiverUser = ObservableField<AppUser>()
 
+
+    val userBlockageList = MutableLiveData<List<UserBlockage>>()
+
+    private val _progressBarStatus = MutableLiveData<Boolean>()
+    val progressBarStatus: LiveData<Boolean>
+        get() = _progressBarStatus
 
     fun selectedChat(chat: String) {
         _navigateToSelectedChat.value = chat
@@ -125,12 +133,27 @@ class RequestViewModel : BaseViewModel<Navigator>() {
         getUsersList()
         getReq()
         Log.e("SwappingItemViewModel", "viewModelInit")
+        getBlockedUsers()
     }
 
 
 
 
-
+    private fun getBlockedUsers() {
+        _progressBarStatus.postValue(true)
+        viewModelScope.launch {
+            val blockedUsersResponse = RetrofitBuilder.retrofitService.getBlockedUsers()
+            if (blockedUsersResponse.isSuccessful) {
+                userBlockageList.postValue(blockedUsersResponse.body())
+            } else {
+                Log.e(
+                    "BlockedUsersViewModel",
+                    "Failed to load blockList ${blockedUsersResponse.message()}"
+                )
+            }
+        _progressBarStatus.postValue(false)
+        }
+    }
 
 
 

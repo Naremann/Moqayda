@@ -5,11 +5,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.VISIBLE
 import android.widget.ProgressBar
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moqayda.DataUtils
 import com.example.moqayda.R
 import com.example.moqayda.base.BaseFragment
 import com.example.moqayda.databinding.FragmentChatBinding
@@ -30,7 +32,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 
 
-class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>(), Navigator {
+class ChatFragment : BaseFragment<FragmentChatBinding, RequestViewModel>(), Navigator {
 
 
     private lateinit var manager: LinearLayoutManager
@@ -53,6 +55,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>(), Navig
 
 
         hideBottomAppBar()
+
+
+        selectedReq = ChatFragmentArgs.fromBundle(requireArguments()).selectedRequest
+        selectedUser = ChatFragmentArgs.fromBundle(requireArguments()).selectedUser
+
         viewModel.navigator = this
         viewDataBinding.toolbar.initToolbar(
             viewDataBinding.toolbar,
@@ -75,7 +82,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>(), Navig
 
         requestViewModel.receiverUser.set(selectedUser)
         requestViewModel.message.observe(viewLifecycleOwner) { messages ->
-            adapter = MessageAdapter(messages, getUserName(), selectedUser,viewModel)
+            adapter = MessageAdapter(messages, getUserName(), selectedUser, viewModel)
             viewDataBinding.progressBar.visibility = ProgressBar.INVISIBLE
             manager = LinearLayoutManager(requireContext())
             manager.stackFromEnd = true
@@ -100,7 +107,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>(), Navig
         // When the send button is clicked, send a text message
         viewDataBinding.sendButton.setOnClickListener {
             //TODO call viewModel
-            val message = Message("",
+            val message = Message(
+                "",
                 viewDataBinding.messageEditText.text.toString(),
                 getUserName(),
                 getPhotoUrl(),
@@ -117,15 +125,30 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>(), Navig
             openDocument.launch(arrayOf("image/*"))
         }
 
+        viewModel.userBlockageList.observe(viewLifecycleOwner) {
+            val isBlocked = it.any { userBlockage ->
+                (selectedReq.senderId == userBlockage.blockingUserId && selectedReq.receiverId == userBlockage.blockedUserId) ||
+                        (selectedReq.senderId == userBlockage.blockedUserId && selectedReq.receiverId == userBlockage.blockingUserId)
+            }
+            if (isBlocked){
+                viewDataBinding.restrictedChat.visibility = VISIBLE
+            }else{
+                viewDataBinding.messageEditText.visibility = VISIBLE
+                viewDataBinding.sendButton.visibility = VISIBLE
+                viewDataBinding.addMessageImageView.visibility = VISIBLE
+            }
+
+        }
+
 
     }
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        selectedReq = ChatFragmentArgs.fromBundle(requireArguments()).selectedRequest
-        selectedUser = ChatFragmentArgs.fromBundle(requireArguments()).selectedUser
-        Log.e("ChatFragment", selectedReq.receiverName!!)
-        Log.e("ChatFragment", selectedUser.image!!)
-    }
+
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//
+//        Log.e("ChatFragment", selectedReq.receiverName!!)
+//        Log.e("ChatFragment", selectedUser.image!!)
+//    }
 
     companion object {
         private const val TAG = "MainActivity"
@@ -204,7 +227,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding,RequestViewModel>(), Navig
     }
 
     override fun onNavigateToUserProfile(user: AppUser) {
-        this.findNavController().navigate(ChatFragmentDirections.actionChatFragmentToOtherUserProfileFragment(user))
+        this.findNavController()
+            .navigate(ChatFragmentDirections.actionChatFragmentToOtherUserProfileFragment(user))
     }
 
 

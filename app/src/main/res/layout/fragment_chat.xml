@@ -55,6 +55,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/light_gray"
             android:orientation="horizontal"
+            android:visibility="visible"
             android:paddingHorizontal="10dp"
             ads:layout_constraintBottom_toBottomOf="parent"
             ads:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +65,7 @@
                 android:id="@+id/addMessageImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:layout_gravity="center"
                 ads:srcCompat="@drawable/outline_add_photo_alternate_24" />
 
@@ -73,9 +75,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:visibility="gone"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_edit_text"
-                android:hint="Say something..."
+                android:hint="@string/say_something"
                 android:inputType="text"
                 android:padding="10dp" />
 
@@ -84,8 +87,22 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 android:enabled="false"
                 android:src="@drawable/outline_send_gray_24" />
+
+
+            <TextView
+                android:id="@+id/restricted_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restricted_chat"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_margin="@dimen/_8sdp"
+                android:visibility="gone"
+                />
 
         </LinearLayout>
 
@@ -103,6 +120,16 @@
             ads:layout_constraintTop_toBottomOf="@+id/app_bar"
 
             ads:layout_constraintVertical_bias="0.5" />
+
+
+
+
+
+
+
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

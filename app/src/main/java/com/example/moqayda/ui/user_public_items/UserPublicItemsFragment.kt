@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.VISIBLE
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -27,7 +28,6 @@ class UserPublicItemsFragment :
     BaseFragment<FragmentUserPublicProductsBinding, UserPublicItemViewModel>(), Navigator {
     private lateinit var adapter: UserPublicItemAdapter
     private var productList: MutableList<PrivateProduct> = mutableListOf()
-    private var filteredList: MutableList<PrivateItem> = mutableListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.vm = viewModel
@@ -51,6 +51,11 @@ class UserPublicItemsFragment :
     @SuppressLint("NotifyDataSetChanged")
     private fun observeToLiveData() {
         viewModel.product.observe(viewLifecycleOwner) { ProductsList ->
+
+            if (ProductsList!!.isEmpty()){
+                viewDataBinding.noProducts.visibility = VISIBLE
+            }
+
             adapter.changeData(ProductsList)
             adapter.notifyDataSetChanged()
 

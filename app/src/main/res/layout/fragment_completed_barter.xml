@@ -44,6 +44,19 @@
             app:layout_constraintTop_toBottomOf="@+id/app_bar"
             tools:listitem="@layout/bartered_item" />
 
+        <TextView
+            android:id="@+id/no_barters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:text="@string/no_barters"
+            app:layout_constraintBottom_toBottomOf="@+id/barters_recycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/barters_recycler"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            />
+
 
         <ProgressBar
             android:id="@+id/progress_bar"
