@@ -101,7 +101,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
                     android:text="@{appUser.firstName+` `+appUser.lastName }"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSecondary"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@id/user_image"
                     app:layout_constraintStart_toStartOf="@id/user_image"
@@ -196,7 +196,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="10dp"
                                 android:text="@string/items_in_public"
-                                android:textColor="@color/black"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
 
@@ -329,7 +329,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="10dp"
                                 android:text="@string/swap_offers"
-                                android:textColor="@color/black"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
 
@@ -374,7 +374,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="10dp"
                                 android:text="@string/sent_offers"
-                                android:textColor="@color/black"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
 
@@ -420,7 +420,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="10dp"
                                 android:text="@string/completed_barters"
-                                android:textColor="@color/black"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
 
@@ -462,7 +462,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="10dp"
                                 android:text="@string/setting"
-                                android:textColor="@color/black"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
 
@@ -504,7 +504,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginStart="10dp"
                                 android:text="@string/log_out"
-                                android:textColor="@color/black"
+                                android:textColor="?attr/colorOnSecondary"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
 
