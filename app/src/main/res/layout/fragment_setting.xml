@@ -103,7 +103,7 @@
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:text="@string/dark_mode"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSecondary"
                     android:textStyle="bold"
                     android:gravity="center_vertical"
                     android:padding="10dp"
@@ -136,7 +136,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:text="@string/change_pass"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSecondary"
                 android:textSize="20sp"
                 android:textStyle="bold"
 
@@ -179,7 +179,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:text="@string/blocked_users"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSecondary"
                     android:textSize="20sp"
                     android:textStyle="bold"
 
@@ -225,7 +225,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:text="@string/delete_account"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSecondary"
                 android:textSize="20sp"
                 android:textStyle="bold"
 
@@ -267,7 +267,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:text="@string/terms_text"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSecondary"
                     android:textSize="20sp"
                     android:textStyle="bold"
 
