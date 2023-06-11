@@ -151,40 +151,16 @@
                         app:layout_constraintEnd_toEndOf="@+id/forget_pass_tv"
                         app:layout_constraintStart_toStartOf="@id/forget_pass_tv"
                         app:layout_constraintTop_toBottomOf="@+id/forget_pass_tv" />
-                    <TextView
-                        android:id="@+id/or_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/line_view"
-                        app:layout_constraintStart_toStartOf="@id/forget_pass_tv"
-                        app:layout_constraintEnd_toEndOf="@id/forget_pass_tv"
-                        android:text="@string/or_text"
-                        android:layout_marginTop="13dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        />
 
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/login_google_btn"
-                            android:layout_height="60dp"
-                            android:layout_width="60dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/or_tv"
-                            android:layout_marginTop="15dp"
-                           android:src="@drawable/google"
-                            style="@style/Widget.AppCompat.Button.Colored"
-                            android:theme="@style/GoogleBtnStyle"
-                            android:scaleType="fitXY"
-                           />
+
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/have_not_account_linear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="13dp"
+                        android:layout_marginTop="30dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/login_google_btn"
+                        app:layout_constraintTop_toBottomOf="@+id/line_view"
                         android:orientation="horizontal"
                         >
                         <TextView
