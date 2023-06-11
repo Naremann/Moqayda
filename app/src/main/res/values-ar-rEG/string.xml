@@ -151,4 +151,10 @@
     <string name="cancel_request">إلغاء الطلب</string>
     <string name="request_canceled">تم إلغاء الطلب</string>
     <string name="request_swap">طلب مفايضة</string>
+
+    <string name="no_barters">انت لم تقم بأي مقايضات حتي الان</string>
+    <string name="no_products">ليس لديك اي منتجات للمقايضة</string>
+    <string name="say_something">اكتب شيئا…</string>
+    <string name="restricted_chat">وفقًا لسياسة الخصوصية ، تم تقييد التفاعل مع هذا المستخدم.</string>
+
 </resources>

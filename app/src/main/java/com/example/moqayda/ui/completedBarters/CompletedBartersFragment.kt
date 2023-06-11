@@ -2,6 +2,7 @@ package com.example.moqayda.ui.completedBarters
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.VISIBLE
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.moqayda.R
@@ -27,7 +28,11 @@ class CompletedBartersFragment :
         viewModel.barters.observe(viewLifecycleOwner) {
             val list = it?.reversed()
 
-            adapter = CompletedBartersAdapter(list!!, requireContext(), this, this)
+            if (list!!.isEmpty()){
+                viewDataBinding.noBarters.visibility = VISIBLE
+            }
+
+            adapter = CompletedBartersAdapter(list, requireContext(), this, this)
             viewDataBinding.bartersRecycler.adapter = adapter
         }
 
