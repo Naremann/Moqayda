@@ -127,9 +127,9 @@
     <string name="no_offers">There are no offers</string>
     <string name="block">block this user</string>
     <string name="user_blocked">User blocked successfully</string>
-    <string name="block_confirmation">Are you sure you wan to block this user ?</string>
+    <string name="block_confirmation">Are you sure you want to block this user ?</string>
     <string name="unblock">unblock</string>
-    <string name="un_block_confirmation">Are you sure you wan to unblock this user ?</string>
+    <string name="un_block_confirmation">Are you sure you want to unblock this user ?</string>
     <string name="user_unblocked">User unblocked successfully.</string>
     <string name="no_blocked_users">There are no blocked users</string>
     <string name="blocked_users">Block List</string>
@@ -150,5 +150,5 @@
     <string name="no_products">"You do not have any posted products "</string>
     <string name="say_something">Say something…</string>
     <string name="restricted_chat">In accordance with the privacy policy, interaction with this user is restricted.</string>
-
+    <string name="cancel_offer_confirmation">Are you sure you want to cancel your offer request?</string>
 </resources>

@@ -82,7 +82,7 @@ class SentOffersAdapter(
 
             builder = AlertDialog.Builder(mContext)
             builder.setTitle(mContext.getString(R.string.confirmation))
-            builder.setMessage(R.string.un_block_confirmation)
+            builder.setMessage(R.string.cancel_offer_confirmation)
 
             builder.setPositiveButton(mContext.getString(R.string.ok)) { dialog, which ->
                 viewModel.deleteOffer(offer.id!!)

@@ -156,5 +156,6 @@
     <string name="no_products">ليس لديك اي منتجات للمقايضة</string>
     <string name="say_something">اكتب شيئا…</string>
     <string name="restricted_chat">وفقًا لسياسة الخصوصية ، تم تقييد التفاعل مع هذا المستخدم.</string>
+    <string name="cancel_offer_confirmation">هل أنت متأكد أنك تريد إلغاء طلب العرض الخاص بك؟</string>
 
 </resources>
